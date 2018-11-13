@@ -1,0 +1,207 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[bookmarks=true]{hyperref}
+
+\author{Gentile Pierre, Didier-Roche François}
+\date{\today}
+\title{Document de spécification des exigences}
+
+
+\begin{document}
+
+\maketitle
+
+\newpage
+\tableofcontents
+
+
+\section{Introduction}
+\subsection{Objet}
+Appointime cherche à faciliter la prise de rendez vous et l’acces aux disponnibilités des artisants/entreprises de services,
+Elle permet de mettre en relation des particuliers et des  artisants/entreprises de services intuitivement et rapidement.
+\subsection{Portée du projet}
+Appointime permettra la mise en relation et la prise de rendez vous rapide pour des taches simples/de routine entre une entreprise et un client,
+L’application sera donc divisée en deux: partie particulier et partie professionelle, Le professionnel pourra indiquer ses disponnibilités et precisera son domaine de competance ainsi que les taches de base qu’il peut effectuer,
+Le client quant a lui pourra faire des recherches selon ses besoins et trouver rapidement et intuitvement des professionnels disponibles aux alentours
+\subsection{Définitions, acronymes, abréviations}
+
+\subsection{Références}
+
+\subsection{Vue d ensemble}
+
+
+\section{Description générale}
+\subsection{Environnement}
+\begin{itemize}
+\item L'application décrite est une application mobile sur IOS et
+Android.
+\item L'application est dépendante des systémes d'exploitation que
+nous utiliserons pour la gestion des notifications.
+\item L'application est adaptée pour n'importe quel smartphone ayant IOS ou Android comme
+systeme d'exploitation.
+\item Les actions de l'utilisateur s'éffectue via l'écran
+  tactile du smartphone.
+\item L'application communique avec une base de donnée distante
+  via une connexion 4G ou Wifi.
+\end{itemize}
+\subsection{Fonctions}
+\begin{itemize}
+\item L'application permet à n'importe quel professionnel de créer un
+calendrier de rendez-vous personnalisé.
+\item L'application permet à n'importe quelle personne de rechercher un
+  professionnel près de cher lui.
+\item L'application permet à n'importe quelle personne de prendre un
+  rendez-vous cher un professionnel selon de calendrier paramétré par
+  ce dernier.
+\end{itemize}
+\subsection{Caractéristiques des utilisateurs}
+\begin{itemize}
+\item L'utilisateur peut étre soit un professionnel de n'importe soit
+  un client.
+\item L'utilisateur doit savoir utiliser un smartphone convenablement.
+\item Le client n'a besoin d'aucune connaissance technique.
+\item Le professionnel doit avoir des connaissance dans son domaine
+  d'activité.
+\end{itemize}
+\subsection{Contraintes}
+\begin{itemize}
+\item La prise et l'annulation de rendez-vous doit ce plier à la
+  politique de chaque professionnel.
+\item Les informations des utilisateurs devront uniquement être
+  utilisé dans le cadre de l'application.
+\end{itemize}
+\subsection{Hypothèses et dépendances}
+
+
+\section{Exigences spécifiques}
+\subsection{Exigences des interfaces externes}
+\subsubsection{Interfaces avec les utilisateur}
+\paragraph{Les information des utilisateurs}
+\begin{itemize}
+ \item Un formulaire d'inscription doit permettre à l'utilisateur de
+   s'inscrire en entrant différents champs textuels (email, mot de
+   passe, nom, numéro de téléphone, adresse) nécéssaires au
+   système et en appuyant sur
+   un bouton \og S'inscrire \fg{}.
+\item Un formulaire doit permettre à un utilisateur de modifier les
+  informations mentionnée durant son inscription.
+\item Un formulaire de connexion doit permetre à un utilisateur de
+  s'identifier pour avoir accès aux services du système en entrant
+  différents champs textuels (email, mot de passe) et en appuyant sur
+  un bouton \og Se connecter \fg{}.
+\item Une reconnaissace par empreinte digitale devrait permette à un
+  utilisateur de pouvoir s'identifier rapidement dans le cas ou cette
+  fonctionnalitée est diponible sur le téléphone.
+\item Une reconnaissance faciale devrait permette à un
+  utilisateur de pouvoir s'identifier rapidement dans le cas ou cette
+  fonctionnalitée est diponible sur le téléphone.
+\end{itemize}
+\paragraph{Préférences des utilisateurs}
+\begin{itemize}
+\item Le client doit pouvoir acceder au menu \og Paramètres \fg{}. de l'application en
+  appuyant sur un bouton à l'écran.
+\item Le client doit pouvoir activer ou désactiver les notifications
+  de l'application dans le menu paramètre.
+\item Le client devrait pouvoir modifier le son des notification
+  (volume et tonalitée).
+\item Le client doit pouvoir activer ou désactiver la localisation
+  dans le menu paramètres.
+\item Le client devrait pouvoir activer le thème qui modifirais les
+  couleurs de l'application. 
+\end{itemize}
+\paragraph{Recherche et prise de rendez-vous cher un professionnel}
+\begin{itemize}
+\item Un champs textuel doit permetre à l'utilisateur d'éfectuer une
+  recherche par profession ou directement par nom
+  d'entreprise.
+\item Après avoir fais une recherche, le client doit pouvoir selectionner un
+  professionnel dans la liste affichée. 
+\item La selection d'un
+  professionnel de la liste doit permetre d'afficher le
+  calendrier du professionnel en question.
+\item Le client doit pouvoir selectionner une prestation parmis une liste
+  proposée par le professionnel puis il peut reserver un crénaux
+  horaire pour cette prestation en appuyant sur les crénaux
+  disponibles affichés sur le calendrier.
+\item Le client doit pouvoir ajouter un professionnel en favoris gràce
+  a un bouton présent sur le calendrier d'un professionnel et sur la
+  liste déroulante de recherche.
+\end{itemize}
+
+
+\paragraph{Paramétrage du calendrier côté profesionnel}
+\begin{itemize}
+\item Un menu doit permettre au professionnel d'ajouter une nouvelle
+  prestation en appuyant sur un bouton \og Ajouter une prestation \fg{}, de
+  supprimer une prestation en appuyant sur un bouton \og Supprimer une
+  prestation \fg{} dans la liste de ses prestation déjà existantes, de modifier une prestation en appuyant sur un
+  bouton \og Modifier une prestation \fg{} dans la liste de ses
+  prestations déjà existantes
+  ou de modifier son calendrier. 
+\item Un formulaire doit permettre de créer une prestation. Ce
+  formulaire doit contenir les champs textuels suivant \og Nom \fg{},
+  \og Durée \fg{} et \og Prix \fg{}.  
+\item Un formulaire doit permettre d'éffectuer des modifications sur
+  une prestation. Ce formulaire doit contenir un champ nom, un champ
+  durée et un champ prix.  
+\item Un calendrier modifiable doit permetre à l'utilisateur de
+  modifier ses diponibilitées en modifiant les jours et les horaires
+  auquelles il peux effectuer ses prestations.
+\item Le calendrier modifiable doit pemettre à l'utilisateur de
+  visualiser et de gérer les rendez vous déjà pris. Sur un crénaux
+  pris, il doit afficher les informations de l'utilisateur qui a pris
+  le rendez-vous. Il doit aussi permettre au professionnel de valider
+  ou non les rendez vous. 
+\end{itemize}
+
+\subsection{Exigences fonctionnelles}
+\paragraph{Pour la connexion le systeme doit : }
+
+\begin{itemize}
+\item Verifier si l'email saisi existe dans la base de données
+\begin{itemize}
+\item Si il existe le systeme doit verifier si le mot de passe saisi
+   correspond à l'email saisi.
+\begin{itemize}
+     \item Si il correspond, le systeme doit autoriser la connexion et
+     rediriger l'utilisateur a l'acceuil. Ce dernier aura accès à son
+     profile ainsi qu'au pages de reservations/gestion de calendrier
+     si c'est un particulier/professionnel.
+    \item Si il ne correspond pas, le systeme doit afficher une erreur
+      et renvoyer sur la page de connexion
+\end{itemize}
+  \item Si il n'existe pas le systeme doit renvoyer une erreur.
+\end{itemize}
+\end{itemize}
+
+\paragraph{Pour l'inscription le systeme doit : }
+\begin{itemize}
+\item Verifier si les données saisies sont valides
+\begin{itemize}
+\item Si les données sont valides, le systeme doit verifier si le mail
+  est deja existant.
+\begin{itemize}
+     \item Si les données n'existent pas encore dans la bdd le systeme
+       doit les enregister et rediriger vers la page de connexion
+       ainsi qu'indiquer le bon deroulement de l'opération via un message.
+    \item Si les données existent deja le systeme doit rediriger vers
+      la page de connexion et indiquer que le mail est deja utilisé
+      via un message.
+\end{itemize}
+  \item Si les données ne sont pas valides le systeme doit l'indiquer
+    via un message detaillant les erreurs.
+\end{itemize}
+\end{itemize}
+
+
+
+
+\section{Annexes}
+
+
+\section{Index}
+
+
+\end{document}

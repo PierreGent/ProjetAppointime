@@ -1,0 +1,100 @@
+\documentclass[a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{fancyhdr}
+
+\fancyhead[L]{Entreprise : Pingouin}
+\fancyhead[R]{Projet : Appointime}
+
+\title{Compte-rendu de réunion du 12/10/2018}
+\author{Gentile Pierre}
+\date{\today}
+
+\begin{document}
+\renewcommand{\contentsname}{Ordre du jour}
+\maketitle
+\thispagestyle{fancy} 
+
+
+\begin{itemize}
+\item Lieu : Saint étienne
+\item Heure de début : 13h00
+\item Heure de fin : 13h30
+\item Parcicipants : Gentile Pierre, Didier-Roche François
+\end{itemize}
+
+\bigbreak
+\bigbreak
+\bigbreak
+
+\tableofcontents
+
+
+\newpage
+
+\section{Description générale de l'application}
+Nous nous sommes entendu sur la description générale de l'application
+pour partir sur une bonne base commune. Nous avons convenu que
+l'application sera découpée en deux grande parties :
+\begin{itemize}
+\item La partie client : 
+  \begin{itemize}
+    \item L'utilisateur peut rechercher des professionnels (Coiffeur,
+      Mécanicien, plombier ...)
+    \item Il peux ensuite prendre des rendez vous directement sur
+        l'application selon le calandrier (disponibilité) du professionnel.
+  \end{itemize}
+\item La partie professionnel :
+  \begin{itemize}
+    \item Chaque professionnel a un calandrier sur lequel il a ajouté
+      ses disponibilitées.
+    \item Il voit en temps réel les rendez-vous pris par les client
+        sur ce calendrier.
+  \end{itemize}
+\end{itemize}
+
+\section{Propositions de fonctionalités}
+\begin{itemize}
+  \item Définition des types de rendez-vous par le professionnel :
+
+    Exemple : Un coiffeur propose deux services, soit une coupe homme
+    soit une coupe femme. Ces deux services prennent un temps
+    différent et ne valent pas le même prix. Le professionnel va donc
+    pouvoir paramétrer plusieurs types de rendez-vous (temps, prix
+    ...).
+  \item Gestion de proximité pour le client, l'application lui
+    propose les professionnels du plus proche au moins proche.
+  \item Système de paiement via l'application.
+  \item Alerte au client pour lui rappeler son rendez-vous.
+  \item Système de flash code qui permet de récuperer les informations
+    d'un professionnel directement dans la rue.
+   \item Système de navigation pour mener le client à son rendez-vous
+     grâce au GPS.
+   \item Système de confirmation de compte via numéro de téléphone.
+   \item Si un client ne viens pas à un rendez-vous, le professionnel
+     peut le signaler et faire perdre une étoile au client. Le client
+     ayant trois étoile à son inscription, il sera banni si sont compte
+     atteint zéro étoiles. Le client récupere 1 étoile tout les X
+     rendez-vous.
+   \item Notification quand un nouveau professionnel commence à
+     utiliser l'application proche d'un client. 
+\end{itemize}
+
+\section{Choix du jour de réunion}
+N'ayant aucun cours les jeudi apres midi nous avons décidé de faire
+nos réunions hebdomadaires tout les jeudis à 13h à partir de la
+semaine prochaine.
+
+\section{Modification sur le compte rendu de réunion}
+Nous avons décidé d'ajouter un ordre du jour à notre compte rendu de
+réunion pour pouvoir se retrouver rapidement dans le document.
+
+
+ 
+ 
+\end{document}
