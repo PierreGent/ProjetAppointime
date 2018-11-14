@@ -1,14 +1,17 @@
+
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[french]{babel}
+\usepackage[frenchb]{babel}
 \usepackage[bookmarks=true]{hyperref}
+\usepackage{lmodern} 
+
 
 \author{Gentile Pierre, Didier-Roche François}
 \date{\today}
 \title{Document de spécification des exigences}
 
-
+\frenchbsetup{StandardLists=true}
 \begin{document}
 
 \maketitle
@@ -157,46 +160,113 @@ calendrier de rendez-vous personnalisé.
 \end{itemize}
 
 \subsection{Exigences fonctionnelles}
-\paragraph{Pour la connexion le systeme doit : }
+\paragraph{Pour la connexion: }
+
 
 \begin{itemize}
-\item Verifier si l'email saisi existe dans la base de données
-\begin{itemize}
-\item Si il existe le systeme doit verifier si le mot de passe saisi
-   correspond à l'email saisi.
-\begin{itemize}
-     \item Si il correspond, le systeme doit autoriser la connexion et
-     rediriger l'utilisateur a l'acceuil. Ce dernier aura accès à son
-     profile ainsi qu'au pages de reservations/gestion de calendrier
-     si c'est un particulier/professionnel.
-    \item Si il ne correspond pas, le systeme doit afficher une erreur
-      et renvoyer sur la page de connexion
-\end{itemize}
-  \item Si il n'existe pas le systeme doit renvoyer une erreur.
-\end{itemize}
-\end{itemize}
-
-\paragraph{Pour l'inscription le systeme doit : }
-\begin{itemize}
-\item Verifier si les données saisies sont valides
-\begin{itemize}
-\item Si les données sont valides, le systeme doit verifier si le mail
-  est deja existant.
-\begin{itemize}
-     \item Si les données n'existent pas encore dans la bdd le systeme
-       doit les enregister et rediriger vers la page de connexion
-       ainsi qu'indiquer le bon deroulement de l'opération via un message.
-    \item Si les données existent deja le systeme doit rediriger vers
-      la page de connexion et indiquer que le mail est deja utilisé
-      via un message.
-\end{itemize}
-  \item Si les données ne sont pas valides le systeme doit l'indiquer
-    via un message detaillant les erreurs.
-\end{itemize}
+\item Si l'email existe dans la base de données : 
+	le systeme doit verifier si le mot de passe saisi
+	correspond à l'email saisi.
+		\begin{itemize}
+		\item Si il correspond, le systeme doit autoriser la connexion et
+			rediriger l'utilisateur a l'acceuil. Ce dernier aura accès à son
+			profile ainsi qu'au pages de reservations/gestion de calendrier
+			si c'est un particulier/professionnel.
+		\item Si il ne correspond pas, le systeme doit afficher une erreur
+			et renvoyer sur la page de connexion
+		\end{itemize}
+\item Si il n'existe pas le systeme doit renvoyer une erreur.
+	et renvoyer sur la page de connexion
 \end{itemize}
 
 
+\paragraph{Pour l'inscription: }
+\begin{itemize}
+\item Le systeme doit verifier si les données saisies sont valides
+	\begin{itemize}
+	\item Si les données sont valides, le systeme doit verifier si le mail
+		est deja existant.
+		\begin{itemize}
+		\item Si les données n'existent pas encore dans la bdd le systeme
+			doit les enregister et rediriger vers la page de connexion
+			ainsi qu'indiquer le bon deroulement de l'opération via un message.
+		\item Si les données existent deja le systeme doit rediriger vers
+			la page de connexion et indiquer que le mail est deja utilisé
+			via un message.
+		\end{itemize}
+	\end{itemize}
+\item Si les données ne sont pas valides le systeme doit l'indiquer
+	via un message detaillant les erreurs.
+\end{itemize}
 
+\paragraph{Pour la gestion de compte: }
+\begin{itemize}
+\item Le systeme doit verifier si les données saisies sont valides
+	\begin{itemize}
+	\item Si les données sont valides:
+		\begin{itemize}
+		\item Le systeme remplace les données obsoletes par les nouvelles données.
+		\end{itemize}
+		\item Si les données ne sont pas valides:
+		\begin{itemize}
+		\item Le systeme renvoie un message d'erreur decrivant les erreurs.
+		\end{itemize}
+	\end{itemize}
+
+\end{itemize}
+
+
+\paragraph{Pour la reservation (coté particulier)}
+Avant la confirmation:
+	\begin{itemize}
+	\item Si la plage horaire est disponnible le systeme doit :
+		\begin{itemize}
+		\item Passer la plage horaire en "en cours de confirmation" 
+			(la plage horaire ne doit plus être reservable jusqu'a nouvel ordre).
+		\item Ajouter la réservation (date, heure,lieu, type de reservation, durée, prix éstimé) dans la section "en cours de confirmation"
+		\end{itemize}
+	\item Si la plage horaire est indisponnible:
+		\begin{itemize}
+		\item Le systeme doit notifier l'utilisateur que la plage est indisponible via un message.
+		\end{itemize}
+	\item Apres la confirmation le systeme doit :
+		\begin{itemize}
+		\item enregistrer les eventuels changements faits par le professionnel.
+		\item déplacé la reservation de "en cours de confirmation" vers "rendez vous a venir"
+
+
+		\end{itemize}
+	\end{itemize}
+
+
+\paragraph{Pour la reservation (coté professionnel) }
+\begin{itemize}
+\item Avant la confirmation le systeme doit :
+	\begin{itemize}
+	
+	\item Ajouter la réservation dans la section "réservations à confirmer" du  proféssionnel.
+    \item Notifier le professionnel d'une demande de réservation via mail, notification sur l'application et eventuellement sms (si le proféssionnel à confirmé l'option prévue à cet effet).
+		La notification doit comprendre les informations sur cette reservation (date, heure,lieu, type de reservation, durée, prix éstimé)
+		ainsi que des informations sur le particulier (profil, note, numero de téléphone)
+	\end{itemize}
+\item Pour la confirmation:
+	\begin{itemize}
+	\item Si le professionnel adapte la réservation au besoin du client:
+		\begin{itemize}
+		\item Le systeme doit enregistrer les données dans la base de données (modifications éventuelles du prix,durée).
+		\end{itemize}
+	\end{itemize}
+	\begin{itemize}
+    \item Le systeme doit placer la réservation dans la section "rendez vous a venir" et la supprimer de "réservations à confirmer"
+	\end{itemize}
+\end{itemize}
+
+
+
+\paragraph{Pour la Gestion du calendrier du professionnel }
+\begin{itemize}
+\item Le systeme doit enregistrer les horaires du professionnel ainsi que ses taches prédéfinies.
+\end{itemize}
 
 \section{Annexes}
 
