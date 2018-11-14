@@ -21,7 +21,9 @@
 \contentsline {subsection}{\numberline {3.2}Exigences fonctionnelles}{5}{subsection.3.2}
 \contentsline {paragraph}{Pour la connexion: }{5}{section*.6}
 \contentsline {paragraph}{Pour l'inscription: }{6}{section*.7}
-\contentsline {paragraph}{Pour la reservation (cot\IeC {\'e} particulier)}{6}{section*.8}
-\contentsline {paragraph}{Pour la reservation (cot\IeC {\'e} professionnel) }{7}{section*.9}
+\contentsline {paragraph}{Pour la gestion de compte: }{6}{section*.8}
+\contentsline {paragraph}{Pour la reservation (cot\IeC {\'e} particulier)}{6}{section*.9}
+\contentsline {paragraph}{Pour la reservation (cot\IeC {\'e} professionnel) }{7}{section*.10}
+\contentsline {paragraph}{Pour la Gestion du calendrier du professionnel }{7}{section*.11}
 \contentsline {section}{\numberline {4}Annexes}{7}{section.4}
 \contentsline {section}{\numberline {5}Index}{7}{section.5}
