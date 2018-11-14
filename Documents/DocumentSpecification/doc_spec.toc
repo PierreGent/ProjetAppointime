@@ -19,7 +19,7 @@
 \contentsline {paragraph}{Recherche et prise de rendez-vous cher un professionnel}{4}{section*.4}
 \contentsline {paragraph}{Param\IeC {\'e}trage du calendrier c\IeC {\^o}t\IeC {\'e} profesionnel}{5}{section*.5}
 \contentsline {subsection}{\numberline {3.2}Exigences fonctionnelles}{5}{subsection.3.2}
-\contentsline {paragraph}{Pour la connexion le systeme doit }{5}{section*.6}
-\contentsline {paragraph}{Pour l'inscription le systeme doit }{5}{section*.7}
+\contentsline {paragraph}{Pour la connexion le systeme doit : }{5}{section*.6}
+\contentsline {paragraph}{Pour l'inscription le systeme doit : }{5}{section*.7}
 \contentsline {section}{\numberline {4}Annexes}{6}{section.4}
 \contentsline {section}{\numberline {5}Index}{6}{section.5}
