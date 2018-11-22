@@ -5,6 +5,7 @@
 \usepackage[frenchb]{babel}
 \usepackage[bookmarks=true]{hyperref}
 \usepackage{lmodern} 
+\usepackage{graphicx}
 
 
 \author{Gentile Pierre, Didier-Roche François}
@@ -18,21 +19,38 @@
 
 \newpage
 \tableofcontents
+\newpage
 
 
 \section{Introduction}
 \subsection{Objet}
-Appointime cherche à faciliter la prise de rendez vous et l’acces aux disponnibilités des artisants/entreprises de services,
-Elle permet de mettre en relation des particuliers et des  artisants/entreprises de services intuitivement et rapidement.
+Appointime cherche à faciliter la prise de rendez vous et l’acces aux disponnibilités des artisants/entreprises de services.
+Elle permet de mettre en relation des particuliers et des artisants/entreprises de services intuitivement et rapidement.
 \subsection{Portée du projet}
-Appointime permettra la mise en relation et la prise de rendez vous rapide pour des taches simples/de routine entre une entreprise et un client,
-L’application sera donc divisée en deux: partie particulier et partie professionelle, Le professionnel pourra indiquer ses disponnibilités et precisera son domaine de competance ainsi que les taches de base qu’il peut effectuer,
-Le client quant a lui pourra faire des recherches selon ses besoins et trouver rapidement et intuitvement des professionnels disponibles aux alentours
+Appointime permet la mise en relation et la prise de rendez vous rapide pour des taches simples/de routine entre une entreprise et un client.
+L’application sera donc divisée en deux: partie particulier et partie professionelle.
+\begin{itemize}
+\item Le professionnel pourra indiquer ses disponibilités et precisera son domaine de competances ainsi que les taches de base qu’il peut effectuer.
+\item Le client quant à lui pourra faire des recherches selon ses
+  besoins et trouver rapidement et intuitvement des professionnels
+  disponibles aux alentours.
+\end{itemize}
 \subsection{Définitions, acronymes, abréviations}
+\begin{itemize}
+\item \textbf{Professionnel} : Ce terme décrit toutes les personnes ayant une entreprise proposant des
+  services sur prise de rendez-vous.
+\item \textbf{Pariculier} : Ce terme décrit toutes les personnes
+  voulant prendre rendez-vous auprès d'un professionnel.
+\item \textbf{Flashcode} : Un flashcode est un identifiant sous forme
+  d'image en 2 dimension pouvant être lu par un appareil photo et
+  interpreté par un programme.
+
+\end{itemize}
+
 
 \subsection{Références}
 
-\subsection{Vue d ensemble}
+\subsection{Vue d'ensemble}
 
 
 \section{Description générale}
@@ -40,33 +58,33 @@ Le client quant a lui pourra faire des recherches selon ses besoins et trouver r
 \begin{itemize}
 \item L'application décrite est une application mobile sur IOS et
 Android.
-\item L'application est dépendante des systémes d'exploitation que
-nous utiliserons pour la gestion des notifications.
 \item L'application est adaptée pour n'importe quel smartphone ayant IOS ou Android comme
 systeme d'exploitation.
 \item Les actions de l'utilisateur s'éffectue via l'écran
-  tactile du smartphone.
+  tactile, le capteur d'empreintes digitales ou l'appareil photo du smartphone.
 \item L'application communique avec une base de donnée distante
-  via une connexion 4G ou Wifi.
+  via une connexion \og réseau mobile\fg{} ou Wifi.
+
+
+\includegraphics[scale=0.5]{ShematDiagrammes/ShematGeneral.png}
 \end{itemize}
 \subsection{Fonctions}
 \begin{itemize}
 \item L'application permet à n'importe quel professionnel de créer un
 calendrier de rendez-vous personnalisé.
-\item L'application permet à n'importe quelle personne de rechercher un
-  professionnel près de cher lui.
-\item L'application permet à n'importe quelle personne de prendre un
-  rendez-vous cher un professionnel selon de calendrier paramétré par
+\item L'application permet à n'importe quel particulier de rechercher
+  un professionnel.
+\item L'application permet à n'importe quel particulier de prendre un
+  rendez-vous cher un professionnel selon le calendrier paramétré par
   ce dernier.
 \end{itemize}
 \subsection{Caractéristiques des utilisateurs}
 \begin{itemize}
-\item L'utilisateur peut étre soit un professionnel de n'importe soit
-  un client.
-\item L'utilisateur doit savoir utiliser un smartphone convenablement.
-\item Le client n'a besoin d'aucune connaissance technique.
-\item Le professionnel doit avoir des connaissance dans son domaine
-  d'activité.
+\item L'utilisateur peut étre soit un professionnel proposant des
+  service sur prise de rendez-vous soit
+  un client souhaitant rechercher un professionnel et prendre un
+  rendez-vous avec ce dernier.
+\item Les utilisateurs n'ont besoin d'aucune connaissances techniques.
 \end{itemize}
 \subsection{Contraintes}
 \begin{itemize}
@@ -81,19 +99,26 @@ calendrier de rendez-vous personnalisé.
 \section{Exigences spécifiques}
 \subsection{Exigences des interfaces externes}
 \subsubsection{Interfaces avec les utilisateur}
-\paragraph{Les information des utilisateurs}
+\paragraph{Les information des utilisateurs :}
 \begin{itemize}
  \item Un formulaire d'inscription doit permettre à l'utilisateur de
-   s'inscrire en entrant différents champs textuels (email, mot de
-   passe, nom, numéro de téléphone, adresse) nécéssaires au
+   s'inscrire en entrant différents champs textuels (email,
+   confirmation de l'email, mot de
+   passe, confirmation du mot de passe, nom d'utilisateur, numéro de téléphone, adresse) nécéssaires au
    système et en appuyant sur
    un bouton \og S'inscrire \fg{}.
+
+\includegraphics[scale=0.5]{ShematDiagrammes/useCaseInscription.jpg}
+
 \item Un formulaire doit permettre à un utilisateur de modifier les
   informations mentionnée durant son inscription.
 \item Un formulaire de connexion doit permetre à un utilisateur de
   s'identifier pour avoir accès aux services du système en entrant
   différents champs textuels (email, mot de passe) et en appuyant sur
   un bouton \og Se connecter \fg{}.
+
+\includegraphics[scale=0.5]{ShematDiagrammes/useCaseConnexion.jpg}
+
 \item Une reconnaissace par empreinte digitale devrait permette à un
   utilisateur de pouvoir s'identifier rapidement dans le cas ou cette
   fonctionnalitée est diponible sur le téléphone.
@@ -101,42 +126,66 @@ calendrier de rendez-vous personnalisé.
   utilisateur de pouvoir s'identifier rapidement dans le cas ou cette
   fonctionnalitée est diponible sur le téléphone.
 \end{itemize}
-\paragraph{Préférences des utilisateurs}
+\paragraph{Préférences des utilisateurs :}
 \begin{itemize}
-\item Le client doit pouvoir acceder au menu \og Paramètres \fg{}. de l'application en
-  appuyant sur un bouton à l'écran.
+\item Le client doit pouvoir acceder à la page \og Paramètres \fg{}. de l'application en
+  appuyant sur un bouton \og menu \fg{} puis \og préférences \fg{}
+  dans la liste déroulante qui viens de s'afficher à l'écran.
 \item Le client doit pouvoir activer ou désactiver les notifications
   de l'application dans le menu paramètre.
 \item Le client devrait pouvoir modifier le son des notification
-  (volume et tonalitée).
-\item Le client doit pouvoir activer ou désactiver la localisation
-  dans le menu paramètres.
-\item Le client devrait pouvoir activer le thème qui modifirais les
-  couleurs de l'application. 
+  (volume et tonalitée) dans la page paramètres.
+\item Le client devrait pouvoir activer le thème nuit qui modifirais les
+  couleurs de l'application dans la page paramètre. 
 \end{itemize}
-\paragraph{Recherche et prise de rendez-vous cher un professionnel}
+\paragraph{Recherche d'un professionnel :}
 \begin{itemize}
-\item Un champs textuel doit permetre à l'utilisateur d'éfectuer une
-  recherche par profession ou directement par nom
-  d'entreprise.
+\item Un champs textuel doit permetre à l'utilisateur d'éffectuer une
+  recherche par profession, par nom
+  d'entreprise ou via un flashcode fournit par le professionnel. Dans
+  les deux premiers cas, l'utilisateur devrait pouvoir selectionner
+  une distance maximale si il le souhaite.
 \item Après avoir fais une recherche, le client doit pouvoir selectionner un
-  professionnel dans la liste affichée. 
+  professionnel dans la liste affichée.
+\item Le particulier doit pouvoir ajouter un professionnel en favoris gràce
+  a un bouton présent sur le calendrier d'un professionnel et sur la
+  liste déroulante de recherche. 
+
+\includegraphics[scale=0.3]{ShematDiagrammes/useCaseRecherchePro.jpg}
+
+\end{itemize}
+
+\paragraph{Prise de rendez-vous cher un professionnel :}
+\begin{itemize}
+
 \item La selection d'un
   professionnel de la liste doit permetre d'afficher le
   calendrier du professionnel en question.
 \item Le client doit pouvoir selectionner une prestation parmis une liste
-  proposée par le professionnel puis il peut reserver un crénaux
-  horaire pour cette prestation en appuyant sur les crénaux
-  disponibles affichés sur le calendrier.
-\item Le client doit pouvoir ajouter un professionnel en favoris gràce
-  a un bouton présent sur le calendrier d'un professionnel et sur la
-  liste déroulante de recherche.
+  proposée par le professionnel.
+\item Après avoir selectionner une prestation, le système affiche le
+  calendrier du professionnel avec les crénaux diponnibles et le
+  client peut selectionner un crénaux.
+\item Une fois le crénaux sélectionné, le client est redirigé vers
+    une page recapitulative de sa prise de rendez-vous. Avec un bouton
+    confirmer ou annuler.
+\item Lors de sa reservation, le client devrait pouvoir proceder au
+  payment directement sur l'application.
+\item Lors de sa réservation, le client devrait pouvoir ajouter des
+  rappels de rendez-vous. Pour ajouter un rappel de rendez-vous, le
+  client appuie sur \og ajouter un rappel \fg{} puis choisis quand le
+  rappel va être fait (en nombre d'heure ou de jours avant le
+  rendez-vous).
+
+\includegraphics[scale=0.3]{ShematDiagrammes/useCasePriseRdv.jpg}
+
+
 \end{itemize}
 
 
-\paragraph{Paramétrage du calendrier côté profesionnel}
+\paragraph{Paramétrage du calendrier côté profesionnel :}
 \begin{itemize}
-\item Un menu doit permettre au professionnel d'ajouter une nouvelle
+\item Un menu doit permettre au professionnel de créer une nouvelle
   prestation en appuyant sur un bouton \og Ajouter une prestation \fg{}, de
   supprimer une prestation en appuyant sur un bouton \og Supprimer une
   prestation \fg{} dans la liste de ses prestation déjà existantes, de modifier une prestation en appuyant sur un
@@ -144,8 +193,11 @@ calendrier de rendez-vous personnalisé.
   prestations déjà existantes
   ou de modifier son calendrier. 
 \item Un formulaire doit permettre de créer une prestation. Ce
-  formulaire doit contenir les champs textuels suivant \og Nom \fg{},
-  \og Durée \fg{} et \og Prix \fg{}.  
+  formulaire doit contenir les champs textuels suivant \og Nom \fg{}, \og Description
+ \fg{},  \og Durée \fg{} et \og Prix \fg{}.  
+
+\includegraphics[scale=0.5]{ShematDiagrammes/useCaseCreerPrestation.jpg}
+
 \item Un formulaire doit permettre d'éffectuer des modifications sur
   une prestation. Ce formulaire doit contenir un champ nom, un champ
   durée et un champ prix.  
@@ -159,9 +211,50 @@ calendrier de rendez-vous personnalisé.
   ou non les rendez vous. 
 \end{itemize}
 
-\subsection{Exigences fonctionnelles}
-\paragraph{Pour la connexion: }
+\paragraph{Gestion des clients coté professionnel :}
+\begin{itemize}
+\item Lorsqu'un rendez vous est pris par un particulier, le
+  professionnel doit pouvoir visualiser le profil de ce particulier.
+ \item Lorsqu'un rendez vous est pris pris par un particulier, le
+  professionnel doit pouvoir accepter ou refuser le rendez-vous.
+\item Si un rendez-vous à été pris par un particulier mais ce dernier
+  n'est pas venu a ce rendez-vous, le professionnel doit pouvoir
+  signaler le particulier via un bouton \og signaler \fg{}.
+\end{itemize}
 
+\subsubsection{Interfaces avec les logiciels}
+\paragraph{Gestion des notification :}
+L'application doit communiquer avec le système d'exploitation du
+smarphone afin d'afficher lorsque ceci est necessaire des
+notifications dans la barre de notifications du smartphone.
+
+\subsubsection{Interface avec le materiel}
+\paragraph{Identification par empreinte :}
+L'application devrait communiquer avec le materiel si celui ci dispose
+d'un capteur d'empreinte digitale afin de pouvoir se connecter rapidement à
+l'application grâce à ce mode d'identification.
+\paragraph{Identification par reconaissance faciale :}
+L'application devrait communiquer avec le matereil si celui ci dispose
+d'un technologie de reconnaissance faciale afin de pouvoir se
+connecter rapidement à l'application grâce à ce mode
+d'indentification.
+\paragraph{Recherche par flashcode}
+\begin{itemize}
+\item Pour pouvoir être recherché rapidement, chaques professionnel
+  devrait posseder un flashcode unique.
+\item Le particulier devrait pouvoir rechercher un professionnel par le
+  biais de son appareil photo via un flashcode founis par le
+  professionnel.
+\end{itemize}
+
+\subsubsection{Interfaces de comunication :}
+L'application doit communiquer avec un serveur distant via internet
+(Wifi ou réseau mobile) contenant base de donnée de l'application et
+les photos de profil des utilisateurs.
+
+
+\subsection{Exigences fonctionnelles}
+\paragraph{Pour la connexion : }
 
 \begin{itemize}
 \item Si l'email existe dans la base de données : 
@@ -179,19 +272,20 @@ calendrier de rendez-vous personnalisé.
 	et renvoyer sur la page de connexion
 \end{itemize}
 
+\includegraphics[scale=0.6]{ShematDiagrammes/activiteConnexion.jpg}
 
-\paragraph{Pour l'inscription: }
+\paragraph{Pour l'inscription : }
 \begin{itemize}
 \item Le systeme doit verifier si les données saisies sont valides
 	\begin{itemize}
 	\item Si les données sont valides, le systeme doit verifier si le mail
 		est deja existant.
 		\begin{itemize}
-		\item Si les données n'existent pas encore dans la bdd le systeme
+		\item Si l'email n'existent pas encore dans la bdd le systeme
 			doit les enregister et rediriger vers la page de connexion
 			ainsi qu'indiquer le bon deroulement de l'opération via un message.
-		\item Si les données existent deja le systeme doit rediriger vers
-			la page de connexion et indiquer que le mail est deja utilisé
+		\item Si l'email existent deja le systeme doit rediriger vers
+			la page d'inscription et indiquer que le mail est deja utilisé
 			via un message.
 		\end{itemize}
 	\end{itemize}
@@ -199,7 +293,10 @@ calendrier de rendez-vous personnalisé.
 	via un message detaillant les erreurs.
 \end{itemize}
 
-\paragraph{Pour la gestion de compte: }
+\includegraphics[scale=0.5]{ShematDiagrammes/activiteInscription.jpg}
+
+
+\paragraph{Pour la gestion de compte : }
 \begin{itemize}
 \item Le systeme doit verifier si les données saisies sont valides
 	\begin{itemize}
@@ -212,38 +309,51 @@ calendrier de rendez-vous personnalisé.
 		\item Le systeme renvoie un message d'erreur decrivant les erreurs.
 		\end{itemize}
 	\end{itemize}
+\end{itemize}
 
+\paragraph{Format / validitée des données saisies}
+\begin{itemize}
+\item L'email  et la confirmation d'email sont valides si elles ce plie a l'expression régulière
+  suivante : 
+
+[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z]
+
+\item Le mot de passe et la confirmation de mot de passe sont valides si ils contienent entre 8 et 25
+  caractères et si il contient au moins une majuscule et une minuscule.
+
+\item Le nom d'utilisateur est valide si il contient entre 3 et 10
+  caractères.
+
+\item Le numéro de téléphone est valide si il est composé d'exactement
+  10 chiffres.
+
+\item L'adresse est valide si elle est composée uniquement de lettres,
+  de chiffres et de ponctuation. 
 \end{itemize}
 
 
-\paragraph{Pour la reservation (coté particulier)}
+
+\paragraph{Pour la reservation (coté particulier) :}
 Avant la confirmation:
 	\begin{itemize}
-	\item Si la plage horaire est disponnible le systeme doit :
+	\item Si le particulier confirme sa réservation:
 		\begin{itemize}
 		\item Passer la plage horaire en "en cours de confirmation" 
 			(la plage horaire ne doit plus être reservable jusqu'a nouvel ordre).
 		\item Ajouter la réservation (date, heure,lieu, type de reservation, durée, prix éstimé) dans la section "en cours de confirmation"
 		\end{itemize}
-	\item Si la plage horaire est indisponnible:
-		\begin{itemize}
-		\item Le systeme doit notifier l'utilisateur que la plage est indisponible via un message.
-		\end{itemize}
-	\item Apres la confirmation le systeme doit :
+	\end{itemize}
+Apres la confirmation le systeme doit :
 		\begin{itemize}
 		\item enregistrer les eventuels changements faits par le professionnel.
 		\item déplacé la reservation de "en cours de confirmation" vers "rendez vous a venir"
-
-
 		\end{itemize}
-	\end{itemize}
 
 
-\paragraph{Pour la reservation (coté professionnel) }
+\paragraph{Pour la reservation (coté professionnel) :}
 \begin{itemize}
 \item Avant la confirmation le systeme doit :
 	\begin{itemize}
-	
 	\item Ajouter la réservation dans la section "réservations à confirmer" du  proféssionnel.
     \item Notifier le professionnel d'une demande de réservation via mail, notification sur l'application et eventuellement sms (si le proféssionnel à confirmé l'option prévue à cet effet).
 		La notification doit comprendre les informations sur cette reservation (date, heure,lieu, type de reservation, durée, prix éstimé)
@@ -261,12 +371,80 @@ Avant la confirmation:
 	\end{itemize}
 \end{itemize}
 
+\includegraphics[scale=0.5]{ShematDiagrammes/sequenceReservation.jpg}
 
 
-\paragraph{Pour la Gestion du calendrier du professionnel }
+
+
+
+\paragraph{Pour la Gestion du calendrier du professionnel :}
 \begin{itemize}
-\item Le systeme doit enregistrer les horaires du professionnel ainsi que ses taches prédéfinies.
+\item Le systeme doit enregistrer les horaires du professionnel dans
+  la base de données le planning du professionnel.
+\item Le systeme doit enregistrer dans la base de données les taches
+  prédefinie (prestations) que le professionnel souhaite ajouter.
 \end{itemize}
+
+\paragraph{Rappel de rendez-vous}
+\begin{itemize}
+\item Le systeme devrait enregistrer dans une base de données locale les
+  rappels de rendez-vous définit par les utilisateurs.
+\item Le systeme devrait efficher une notification et emmetre un son
+  et/ou une vibration lorsque le l'heure du rappel de rendez vous est
+  égale à l'heure du terminal.
+\item Le system devrait ajouter une notification spéciale définit
+  comme suit :
+  \begin{itemize}
+    \item Le systeme calcule le temps de voyage approximatif en minute
+      noté X que le
+      client mettra pour ce rendre à son rendez-vous en voiture.
+     \item Le systeme envoie alors un notification X+10 minutes avant
+       le rendez-vous.
+     \item Cette notification contient le nom du rendez-vous ainsi
+       qu'un proposition d'itineraire GPS.
+  \end{itemize}
+
+\end{itemize}
+
+\subsection{Exigences de performance}
+\subsubsection{Exigences statiques}
+\paragraph{Nombre d'utilisateurs simultané :}
+L'application doit pouvoir supporter 50 utilisateurs/terminaux
+simultanément.
+\paragraph{Volume de données :}
+Le système doit pouvoir dédier 20Mo par utilisateurs soit un total de
+1000Mo.
+\paragraph{Type des données :}
+Les système doit pouvoir stocker des données de type entier, chaine de
+caractères, booléen et une images 100x100 pixel par utilisateurs
+(photo de profil).  
+
+
+\subsubsection{Exigences dymamiques}
+\paragraph{Acces au serveur :}
+Le système doit permetre un minimum de 50 requetes/reponse au serveur
+par secondes. 
+\paragraph{Temps de latence :}
+\begin{itemize}
+\item En condition favorables (50 requetes/reponse par seconde) le
+  système doit avoir un temps de latence maximal de 2 secondes dans
+  90\% des cas.
+\item En condition de surcharge du serveur (150 requete/reponse par
+  seconde) le systèmes doit avoir un temps de latence maximal de 4
+  secondes dans 75\% des cas.
+\end{itemize}
+
+\paragraph{Temps d'execution des taches hors ligne :}
+Le temps de calcul d'une tache simple sans acces au serveur (exemple : passage d'une vue a
+une autre) doit êtres executé en 500 milisecondes maximum sur 65\% des
+smartphones.
+
+\paragraph{Temps pour une prise de rendez vous :} 
+Étant donné un utilisateur ayant utilisé l'application pendant 1
+semaine, le temps moyen pour une prise de rendez-vous doit être dans
+60\% des cas inférieur à 5 minutes.
+
+  
 
 \section{Annexes}
 

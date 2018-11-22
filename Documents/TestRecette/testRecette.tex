@@ -1,0 +1,327 @@
+\documentclass{article}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel} 
+\usepackage[bookmarks=true]{hyperref}
+
+\author{Gentile Pierre}
+\date{\today} 
+\title{Cahier de test de recette}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+ Ce documents recense les test unitaires qui doivents être mené lors de la phase de test de l'application Appointime. Les grandes parties de l'application seront représentées dans ce document a l'aide d'un tableau avec : le nom de la partie, les tests a effectuer, les résultats attendus et les résultats observés.
+\end{abstract}
+
+\newpage
+\begin{center}
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+  \hline
+  \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Inscription)}} \\
+  \hline
+  \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+  \hline
+
+  J'entre des informations valides, l'email n'est pas déja présent dans la base de données et j'appuie sur le bouton \og s'inscrire \fg{} & 
+\begin{itemize}
+\item Le système me redirique vers la page de connexion en m'indiquant que j'ai bien été enregistré.
+\item Les informations ont bien été inseré dans la base de données 
+\end{itemize}& 
+... \\
+
+\hline
+\hline
+J'entre des informations valides et l'email est déja présent dans la base de données et j'appuie sur le bouton \og s'inscrire \fg{} & 
+Le système me redirique vers la page d'inscription en m'indiquant que l'email est déjà utilisé &
+ ... \\
+
+
+\hline
+\hline
+J'entre une ou plusieurs informations invalides et j'appuie sur le bouton \og s'inscrire \fg{} & 
+Le système me redirique vers la page d'inscription en m'indiquant les données invalides&
+ ... \\
+\hline
+
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+  \hline
+  \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Connexion)}} \\
+  \hline
+  \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+  \hline
+
+  J'entre des informations valides, la combinaison email+mot de passe est présente dans la base de données et j'appuie sur le bouton\og se connecter \fg{}.& 
+Le système me redirige vers la page d'acceuil.& 
+... \\
+
+\hline
+\hline
+J'entre des informations invalides et/ou la combinaison email+mot de passe n'est pas présente dans la base de données et j'appuie sur le bouton \og se connecter \fg{}. & 
+Le système me redirique vers la page de connexion en m'indiquant une erreur.&
+ ... \\
+
+\hline
+\hline
+Pour les smartphones equipés, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte est enregistrée sur le smartphone& 
+Le système me redirique vers la page de d'acceuil.&
+ ... \\
+
+\hline
+\hline
+Pour les smartphones equipés, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte n'est pas enregistrée sur le smartphone& 
+Le système me redirique vers la page de connexion en m'indiquant une erreur.&
+ ... \\
+
+\hline
+\hline
+Pour les smartphones equipés, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage est enregistré sur le smartphone& 
+Le système me redirique vers la page d'acceuil&
+ ... \\
+
+\hline
+\hline
+Pour les smartphones equipés, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage n'est pas enregistré sur le smartphone& 
+Le système me redirique vers la page de connexion en m'indiquant une erreur.&
+ ... \\
+
+
+\hline
+
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+  \hline
+  \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Modification des informations)}} \\
+  \hline
+  \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+  \hline
+
+  Je modifie une ou plusieurs informations en entrant des information valides. Si je modifie l'email, le nouvel email n'est pas déjà etre présent dans la base de données et j'appuie sur le bouton \og modifier \fg{}.& 
+  Le systeme me redirige vers la page d'acceuil en m'indiquant que mes information ont bien été modifiées. & 
+... \\
+
+\hline
+\hline
+J'entre des information valides dont l'email mais le nouvel email est déjà present dans la base de données et j'appuie sur le bouton \og modifier \fg{} & 
+Le système de redirige vers la page de modification des informations en m'indiquant que l'email existe déjà &
+ ... \\
+
+\hline
+\hline
+J'entre des information invalides.& 
+Le système de redirige vers la page de modification des informations en m'indiquant les champs invalides.&
+ ... \\
+
+\hline
+
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+  \hline
+  \multicolumn{3}{|c|}{\textbf{Préférences des utilisateurs}} \\
+  \hline
+  \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+  \hline
+
+  En réglages basiques (notification activée), je recoit une notification& 
+  Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son& 
+  ... \\
+
+\hline
+\hline
+Je désactive le notification en appuyant sur le bouton et je recoit une notification&  
+Le smartphone n'affiche aucune notification et n'émet aucun son& 
+... \\
+
+\hline
+\hline
+Je réactive les notifications et je recoit une notification&  
+Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son& 
+... \\
+
+\hline
+\hline
+Les notifications étant activées, je regle le son des notification et je recoit une notification&  
+Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son qui sera plus ou moins fort selon la modification que j'ai éffectué& 
+... \\
+
+\hline
+\hline
+Les notifications étant activées, je modifie la choisis une nouvelle tonalité de notifications et je recoit une notification&  
+Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son qui sera plus ou moins fort selon la modification que j'ai éffectué& 
+... \\
+
+\hline
+\hline
+Etant dans le thème de base, j'active de thème nuit en appuyant sur le bouton prévu a cet effet.&  
+Les couleurs de l'application changent quelque soit la page.& 
+... \\
+
+
+
+\hline
+
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+  \hline
+  \multicolumn{3}{|c|}{\textbf{Recherche d'un professionnel}} \\
+  \hline
+  \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+  \hline
+
+ J'entre un nom d'entreprise et ce dernier est présent dans la base de données& 
+ Le système m'affiche le lien menant vers le calendrier de cette entreprise& 
+... \\
+
+\hline
+\hline
+J'entre un domaine d'activité présent dans la base de données& 
+le système m'affiche une liste de liens vers le calendrier des professionnel dans ce domaine d'activitée&
+ ... \\
+
+\hline
+\hline
+J'utilise mon appareil photo pour annalyser un flash code qui est présent dans la base de données& 
+Le système affiche le lien du professionnel correspondant au flashcode&
+ ... \\
+
+\hline
+\hline
+J'entre un nom d'entreprise ou un domaine d'activitées qui n'est pas présent dans la base de données& 
+Le système m'indique qu'aucun résultat n'a été trouvé&
+ ... \\
+
+\hline
+\hline
+J'utilise mon appareil photo pour annalyser un flash code qui n'est pas présent dans la base de données& 
+Le système m'indique qu'aucun résultat n'à été trouvé &
+ ... \\
+
+\hline
+\hline
+
+Si une recherche c'est bien déroulée, j'appuie le bouton \og Ajouter aux favoris \fg{} dans la liste des professionnels& 
+Le système ajoute l'information dans la base de donnée et sur la page favori, on peut voir le professionnel ajouté&
+ ... \\
+
+\hline
+\hline
+
+Si une recherche c'est bien déroulée, j'appuie n'importe quel lien de professionnel dans la liste& 
+Le système me redirige vers la page de calendrier du professionnel correspondant au lien sur lequel j'ai cliqué &
+ ... \\
+
+
+
+\hline
+
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+  \hline
+  \multicolumn{3}{|c|}{\textbf{Prise de rendez-vous cher un professionnel}} \\
+  \hline
+  \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+  \hline
+
+  Je séléctionne une prestation dans le menu déroulant de la page du camendrier d'un professionnel& 
+  Le système m'affiche le calendrier du professionnel avec les crénaux disponibles.& 
+  ... \\
+
+\hline
+\hline
+
+ Une fois le calendrier affiché, j'appuie sur un crénaux disponible& 
+ Le système me redirige vers la page de confirmation& 
+  ... \\
+
+\hline
+\hline
+
+Etant sur la page de confirmation, je confirme ma reservation& 
+Une notification est envoyée au professionnel concerné, dans la section \og Reservation à confirmer\fg{} on peut voir la demande. Le crénaux n'est plus disponible pour les autres particuliers& 
+ ... \\
+
+\hline
+\hline
+Etant sur la page de confirmation,j'annule ma reservation& 
+Le système me redirige vers la page précédente& 
+ ... \\
+
+\hline
+\hline
+Etant un professionnel, en recevant la demande de réservation je l'accepte& 
+Une notification est envoyée au particulier qui a fais sa demande en lui indiquant que le rendez-vous a été accepté& 
+ ... \\
+
+\hline
+\hline
+Etant un professionnel, en recevant la demande de réservation je la refuse& 
+Une notification est envoyée au particulier qui a fais sa demande que le rendez-vous à été refusé. Le crénaux est de nouveaux disponible pour les autres particuliers& 
+ ... \\
+
+\hline
+
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+  \hline
+  \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Modification des informations)}} \\
+  \hline
+  \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+  \hline
+
+  Je modifie une ou plusieurs informations en entrant des information valides. Si je modifie l'email, le nouvel email n'est pas déjà etre présent dans la base de données et j'appuie sur le bouton \og modifier \fg{}.& 
+  Le systeme me redirige vers la page d'acceuil en m'indiquant que mes information ont bien été modifiées. & 
+... \\
+
+\hline
+\hline
+J'entre des information valides dont l'email mais le nouvel email est déjà present dans la base de données et j'appuie sur le bouton \og modifier \fg{} & 
+Le système de redirige vers la page de modification des informations en m'indiquant que l'email existe déjà &
+ ... \\
+
+\hline
+\hline
+J'entre des information invalides.& 
+Le système de redirige vers la page de modification des informations en m'indiquant les champs invalides.&
+ ... \\
+
+\hline
+
+\end{tabular}
+\end{center}
+
+
+
+
+
+
+
+
+
+\end{document}
