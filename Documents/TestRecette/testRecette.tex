@@ -1,11 +1,12 @@
 \documentclass{article}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[french]{babel} 
+\usepackage[frenchb]{babel}
 \usepackage[bookmarks=true]{hyperref}
+\usepackage{lmodern}
 
 \author{Gentile Pierre}
-\date{\today} 
+\date{\today}
 \title{Cahier de test de recette}
 
 
@@ -14,314 +15,486 @@
 \maketitle
 
 \begin{abstract}
- Ce documents recense les test unitaires qui doivents Ítre menÈ lors de la phase de test de l'application Appointime. Les grandes parties de l'application seront reprÈsentÈes dans ce document a l'aide d'un tableau avec : le nom de la partie, les tests a effectuer, les rÈsultats attendus et les rÈsultats observÈs.
+  Ce documents recense les test unitaires qui doivents √™tre men√© lors de la phase de test de l'application Appointime. Les grandes parties de l'application seront repr√©sent√©es dans ce document a l'aide d'un tableau avec : le nom de la partie, les tests a effectuer, les r√©sultats attendus et les r√©sultats observ√©s.
 \end{abstract}
 
 \newpage
 \begin{center}
-\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-  \hline
-  \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Inscription)}} \\
-  \hline
-  \textbf{Test ÈffectuÈ} & \textbf{RÈsultat attendu} & \textbf{RÈsultat observÈ} \\
-  \hline
-
-  J'entre des informations valides, l'email n'est pas dÈja prÈsent dans la base de donnÈes et j'appuie sur le bouton \og s'inscrire \fg{} & 
-\begin{itemize}
-\item Le systËme me redirique vers la page de connexion en m'indiquant que j'ai bien ÈtÈ enregistrÈ.
-\item Les informations ont bien ÈtÈ inserÈ dans la base de donnÈes 
-\end{itemize}& 
-... \\
-
-\hline
-\hline
-J'entre des informations valides et l'email est dÈja prÈsent dans la base de donnÈes et j'appuie sur le bouton \og s'inscrire \fg{} & 
-Le systËme me redirique vers la page d'inscription en m'indiquant que l'email est dÈj‡ utilisÈ &
- ... \\
-
-
-\hline
-\hline
-J'entre une ou plusieurs informations invalides et j'appuie sur le bouton \og s'inscrire \fg{} & 
-Le systËme me redirique vers la page d'inscription en m'indiquant les donnÈes invalides&
- ... \\
-\hline
-
-\end{tabular}
-\end{center}
-
-
-\begin{center}
-\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-  \hline
-  \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Connexion)}} \\
-  \hline
-  \textbf{Test ÈffectuÈ} & \textbf{RÈsultat attendu} & \textbf{RÈsultat observÈ} \\
-  \hline
-
-  J'entre des informations valides, la combinaison email+mot de passe est prÈsente dans la base de donnÈes et j'appuie sur le bouton\og se connecter \fg{}.& 
-Le systËme me redirige vers la page d'acceuil.& 
-... \\
-
-\hline
-\hline
-J'entre des informations invalides et/ou la combinaison email+mot de passe n'est pas prÈsente dans la base de donnÈes et j'appuie sur le bouton \og se connecter \fg{}. & 
-Le systËme me redirique vers la page de connexion en m'indiquant une erreur.&
- ... \\
-
-\hline
-\hline
-Pour les smartphones equipÈs, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte est enregistrÈe sur le smartphone& 
-Le systËme me redirique vers la page de d'acceuil.&
- ... \\
-
-\hline
-\hline
-Pour les smartphones equipÈs, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte n'est pas enregistrÈe sur le smartphone& 
-Le systËme me redirique vers la page de connexion en m'indiquant une erreur.&
- ... \\
-
-\hline
-\hline
-Pour les smartphones equipÈs, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage est enregistrÈ sur le smartphone& 
-Le systËme me redirique vers la page d'acceuil&
- ... \\
-
-\hline
-\hline
-Pour les smartphones equipÈs, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage n'est pas enregistrÈ sur le smartphone& 
-Le systËme me redirique vers la page de connexion en m'indiquant une erreur.&
- ... \\
-
-
-\hline
-
-\end{tabular}
-\end{center}
-
-
-\begin{center}
-\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-  \hline
-  \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Modification des informations)}} \\
-  \hline
-  \textbf{Test ÈffectuÈ} & \textbf{RÈsultat attendu} & \textbf{RÈsultat observÈ} \\
-  \hline
-
-  Je modifie une ou plusieurs informations en entrant des information valides. Si je modifie l'email, le nouvel email n'est pas dÈj‡ etre prÈsent dans la base de donnÈes et j'appuie sur le bouton \og modifier \fg{}.& 
-  Le systeme me redirige vers la page d'acceuil en m'indiquant que mes information ont bien ÈtÈ modifiÈes. & 
-... \\
-
-\hline
-\hline
-J'entre des information valides dont l'email mais le nouvel email est dÈj‡ present dans la base de donnÈes et j'appuie sur le bouton \og modifier \fg{} & 
-Le systËme de redirige vers la page de modification des informations en m'indiquant que l'email existe dÈj‡ &
- ... \\
-
-\hline
-\hline
-J'entre des information invalides.& 
-Le systËme de redirige vers la page de modification des informations en m'indiquant les champs invalides.&
- ... \\
-
-\hline
-
-\end{tabular}
-\end{center}
-
-
-\begin{center}
-\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-  \hline
-  \multicolumn{3}{|c|}{\textbf{PrÈfÈrences des utilisateurs}} \\
-  \hline
-  \textbf{Test ÈffectuÈ} & \textbf{RÈsultat attendu} & \textbf{RÈsultat observÈ} \\
-  \hline
+  \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \hline
+    \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Inscription)}} \\
+    \hline
+    \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+    \hline
+
+    J'entre des informations valides, l'email n'est pas d√©ja pr√©sent dans la base de donn√©es et j'appuie sur le bouton \og s'inscrire \fg{} &
+    \begin{itemize}
+      \item Le syst√®me me redirique vers la page de connexion en m'indiquant que j'ai bien √©t√© enregistr√©.
+      \item Les informations ont bien √©t√© inser√© dans la base de donn√©es
+      \end{itemize}&
+      ... \\
+
+      \hline
+      \hline
+      J'entre des informations valides et l'email est d√©ja pr√©sent dans la base de donn√©es et j'appuie sur le bouton \og s'inscrire \fg{} &
+      Le syst√®me me redirique vers la page d'inscription en m'indiquant que l'email est d√©j√† utilis√© &
+      ... \\
+
+
+      \hline
+      \hline
+      J'entre une ou plusieurs informations invalides et j'appuie sur le bouton \og s'inscrire \fg{} &
+      Le syst√®me me redirique vers la page d'inscription en m'indiquant les donn√©es invalides&
+      ... \\
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Connexion)}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      J'entre des informations valides, la combinaison email+mot de passe est pr√©sente dans la base de donn√©es et j'appuie sur le bouton\og se connecter \fg{}.&
+      Le syst√®me me redirige vers la page d'acceuil.&
+      ... \\
+
+      \hline
+      \hline
+      J'entre des informations invalides et/ou la combinaison email+mot de passe n'est pas pr√©sente dans la base de donn√©es et j'appuie sur le bouton \og se connecter \fg{}. &
+      Le syst√®me me redirique vers la page de connexion en m'indiquant une erreur.&
+      ... \\
+
+      \hline
+      \hline
+      Pour les smartphones equip√©s, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte est enregistr√©e sur le smartphone&
+      Le syst√®me me redirique vers la page de d'acceuil.&
+      ... \\
+
+      \hline
+      \hline
+      Pour les smartphones equip√©s, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte n'est pas enregistr√©e sur le smartphone&
+      Le syst√®me me redirique vers la page de connexion en m'indiquant une erreur.&
+      ... \\
+
+      \hline
+      \hline
+      Pour les smartphones equip√©s, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage est enregistr√© sur le smartphone&
+      Le syst√®me me redirique vers la page d'acceuil&
+      ... \\
+
+      \hline
+      \hline
+      Pour les smartphones equip√©s, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage n'est pas enregistr√© sur le smartphone&
+      Le syst√®me me redirique vers la page de connexion en m'indiquant une erreur.&
+      ... \\
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Modification des informations)}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      Je modifie une ou plusieurs informations en entrant des information valides. Si je modifie l'email, le nouvel email n'est pas d√©j√† etre pr√©sent dans la base de donn√©es et j'appuie sur le bouton \og modifier \fg{}.&
+      Le systeme me redirige vers la page d'acceuil en m'indiquant que mes information ont bien √©t√© modifi√©es. &
+      ... \\
+
+      \hline
+      \hline
+      J'entre des information valides dont l'email mais le nouvel email est d√©j√† present dans la base de donn√©es et j'appuie sur le bouton \og modifier \fg{} &
+      Le syst√®me de redirige vers la page de modification des informations en m'indiquant que l'email existe d√©j√† &
+      ... \\
+
+      \hline
+      \hline
+      J'entre des information invalides.&
+      Le syst√®me de redirige vers la page de modification des informations en m'indiquant les champs invalides.&
+      ... \\
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Pr√©f√©rences des utilisateurs}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
 
-  En rÈglages basiques (notification activÈe), je recoit une notification& 
-  Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son& 
-  ... \\
-
-\hline
-\hline
-Je dÈsactive le notification en appuyant sur le bouton et je recoit une notification&  
-Le smartphone n'affiche aucune notification et n'Èmet aucun son& 
-... \\
-
-\hline
-\hline
-Je rÈactive les notifications et je recoit une notification&  
-Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son& 
-... \\
-
-\hline
-\hline
-Les notifications Ètant activÈes, je regle le son des notification et je recoit une notification&  
-Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son qui sera plus ou moins fort selon la modification que j'ai ÈffectuÈ& 
-... \\
+      En r√©glages basiques (notification activ√©e), je recoit une notification&
+      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son&
+      ... \\
+
+      \hline
+      \hline
+      Je d√©sactive le notification en appuyant sur le bouton et je recoit une notification&
+      Le smartphone n'affiche aucune notification et n'√©met aucun son&
+      ... \\
+
+      \hline
+      \hline
+      Je r√©active les notifications et je recoit une notification&
+      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son&
+      ... \\
+
+      \hline
+      \hline
+      Les notifications √©tant activ√©es, je regle le son des notification et je recoit une notification&
+      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son qui sera plus ou moins fort selon la modification que j'ai √©ffectu√©&
+      ... \\
 
-\hline
-\hline
-Les notifications Ètant activÈes, je modifie la choisis une nouvelle tonalitÈ de notifications et je recoit une notification&  
-Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son qui sera plus ou moins fort selon la modification que j'ai ÈffectuÈ& 
-... \\
-
-\hline
-\hline
-Etant dans le thËme de base, j'active de thËme nuit en appuyant sur le bouton prÈvu a cet effet.&  
-Les couleurs de l'application changent quelque soit la page.& 
-... \\
-
-
-
-\hline
-
-\end{tabular}
-\end{center}
-
-\begin{center}
-\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-  \hline
-  \multicolumn{3}{|c|}{\textbf{Recherche d'un professionnel}} \\
-  \hline
-  \textbf{Test ÈffectuÈ} & \textbf{RÈsultat attendu} & \textbf{RÈsultat observÈ} \\
-  \hline
-
- J'entre un nom d'entreprise et ce dernier est prÈsent dans la base de donnÈes& 
- Le systËme m'affiche le lien menant vers le calendrier de cette entreprise& 
-... \\
-
-\hline
-\hline
-J'entre un domaine d'activitÈ prÈsent dans la base de donnÈes& 
-le systËme m'affiche une liste de liens vers le calendrier des professionnel dans ce domaine d'activitÈe&
- ... \\
-
-\hline
-\hline
-J'utilise mon appareil photo pour annalyser un flash code qui est prÈsent dans la base de donnÈes& 
-Le systËme affiche le lien du professionnel correspondant au flashcode&
- ... \\
-
-\hline
-\hline
-J'entre un nom d'entreprise ou un domaine d'activitÈes qui n'est pas prÈsent dans la base de donnÈes& 
-Le systËme m'indique qu'aucun rÈsultat n'a ÈtÈ trouvÈ&
- ... \\
-
-\hline
-\hline
-J'utilise mon appareil photo pour annalyser un flash code qui n'est pas prÈsent dans la base de donnÈes& 
-Le systËme m'indique qu'aucun rÈsultat n'‡ ÈtÈ trouvÈ &
- ... \\
-
-\hline
-\hline
-
-Si une recherche c'est bien dÈroulÈe, j'appuie le bouton \og Ajouter aux favoris \fg{} dans la liste des professionnels& 
-Le systËme ajoute l'information dans la base de donnÈe et sur la page favori, on peut voir le professionnel ajoutÈ&
- ... \\
-
-\hline
-\hline
-
-Si une recherche c'est bien dÈroulÈe, j'appuie n'importe quel lien de professionnel dans la liste& 
-Le systËme me redirige vers la page de calendrier du professionnel correspondant au lien sur lequel j'ai cliquÈ &
- ... \\
-
-
-
-\hline
-
-\end{tabular}
-\end{center}
-
-
-\begin{center}
-\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-  \hline
-  \multicolumn{3}{|c|}{\textbf{Prise de rendez-vous cher un professionnel}} \\
-  \hline
-  \textbf{Test ÈffectuÈ} & \textbf{RÈsultat attendu} & \textbf{RÈsultat observÈ} \\
-  \hline
-
-  Je sÈlÈctionne une prestation dans le menu dÈroulant de la page du camendrier d'un professionnel& 
-  Le systËme m'affiche le calendrier du professionnel avec les crÈnaux disponibles.& 
-  ... \\
-
-\hline
-\hline
-
- Une fois le calendrier affichÈ, j'appuie sur un crÈnaux disponible& 
- Le systËme me redirige vers la page de confirmation& 
-  ... \\
-
-\hline
-\hline
-
-Etant sur la page de confirmation, je confirme ma reservation& 
-Une notification est envoyÈe au professionnel concernÈ, dans la section \og Reservation ‡ confirmer\fg{} on peut voir la demande. Le crÈnaux n'est plus disponible pour les autres particuliers& 
- ... \\
-
-\hline
-\hline
-Etant sur la page de confirmation,j'annule ma reservation& 
-Le systËme me redirige vers la page prÈcÈdente& 
- ... \\
-
-\hline
-\hline
-Etant un professionnel, en recevant la demande de rÈservation je l'accepte& 
-Une notification est envoyÈe au particulier qui a fais sa demande en lui indiquant que le rendez-vous a ÈtÈ acceptÈ& 
- ... \\
-
-\hline
-\hline
-Etant un professionnel, en recevant la demande de rÈservation je la refuse& 
-Une notification est envoyÈe au particulier qui a fais sa demande que le rendez-vous ‡ ÈtÈ refusÈ. Le crÈnaux est de nouveaux disponible pour les autres particuliers& 
- ... \\
-
-\hline
-
-\end{tabular}
-\end{center}
-
-
-\begin{center}
-\begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-  \hline
-  \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Modification des informations)}} \\
-  \hline
-  \textbf{Test ÈffectuÈ} & \textbf{RÈsultat attendu} & \textbf{RÈsultat observÈ} \\
-  \hline
-
-  Je modifie une ou plusieurs informations en entrant des information valides. Si je modifie l'email, le nouvel email n'est pas dÈj‡ etre prÈsent dans la base de donnÈes et j'appuie sur le bouton \og modifier \fg{}.& 
-  Le systeme me redirige vers la page d'acceuil en m'indiquant que mes information ont bien ÈtÈ modifiÈes. & 
-... \\
-
-\hline
-\hline
-J'entre des information valides dont l'email mais le nouvel email est dÈj‡ present dans la base de donnÈes et j'appuie sur le bouton \og modifier \fg{} & 
-Le systËme de redirige vers la page de modification des informations en m'indiquant que l'email existe dÈj‡ &
- ... \\
-
-\hline
-\hline
-J'entre des information invalides.& 
-Le systËme de redirige vers la page de modification des informations en m'indiquant les champs invalides.&
- ... \\
-
-\hline
-
-\end{tabular}
-\end{center}
-
-
-
-
-
-
-
-
-
-\end{document}
+      \hline
+      \hline
+      Les notifications √©tant activ√©es, je modifie la choisis une nouvelle tonalit√© de notifications et je recoit une notification&
+      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son qui sera plus ou moins fort selon la modification que j'ai √©ffectu√©&
+      ... \\
+
+      \hline
+      \hline
+      Etant dans le th√®me de base, j'active de th√®me nuit en appuyant sur le bouton pr√©vu a cet effet.&
+      Les couleurs de l'application changent quelque soit la page.&
+      ... \\
+
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Recherche d'un professionnel}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      J'entre un nom d'entreprise et ce dernier est pr√©sent dans la base de donn√©es&
+      Le syst√®me m'affiche le lien menant vers le calendrier de cette entreprise&
+      ... \\
+
+      \hline
+      \hline
+      J'entre un domaine d'activit√© pr√©sent dans la base de donn√©es&
+      le syst√®me m'affiche une liste de liens vers le calendrier des professionnel dans ce domaine d'activit√©e&
+      ... \\
+
+      \hline
+      \hline
+      J'utilise mon appareil photo pour annalyser un flash code qui est pr√©sent dans la base de donn√©es&
+      Le syst√®me affiche le lien du professionnel correspondant au flashcode&
+      ... \\
+
+      \hline
+      \hline
+      J'entre un nom d'entreprise ou un domaine d'activit√©es qui n'est pas pr√©sent dans la base de donn√©es&
+      Le syst√®me m'indique qu'aucun r√©sultat n'a √©t√© trouv√©&
+      ... \\
+
+      \hline
+      \hline
+      J'utilise mon appareil photo pour annalyser un flash code qui n'est pas pr√©sent dans la base de donn√©es&
+      Le syst√®me m'indique qu'aucun r√©sultat n'√† √©t√© trouv√© &
+      ... \\
+
+      \hline
+      \hline
+
+      Si une recherche c'est bien d√©roul√©e, j'appuie le bouton \og Ajouter aux favoris \fg{} dans la liste des professionnels&
+      Le syst√®me ajoute l'information dans la base de donn√©e et sur la page favori, on peut voir le professionnel ajout√©&
+      ... \\
+
+      \hline
+      \hline
+
+      Si une recherche c'est bien d√©roul√©e, j'appuie n'importe quel lien de professionnel dans la liste&
+      Le syst√®me me redirige vers la page de calendrier du professionnel correspondant au lien sur lequel j'ai cliqu√© &
+      ... \\
+
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Prise de rendez-vous cher un professionnel}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      Je s√©l√©ctionne une prestation dans le menu d√©roulant de la page du calendrier d'un professionnel&
+      Le syst√®me m'affiche le calendrier du professionnel avec les cr√©naux disponibles.&
+      ... \\
+
+      \hline
+      \hline
+
+      Une fois le calendrier affich√©, j'appuie sur un cr√©naux disponible&
+      Le syst√®me me redirige vers la page de confirmation&
+      ... \\
+
+      \hline
+      \hline
+
+      Etant sur la page de confirmation, je confirme ma reservation&
+      Une notification est envoy√©e au professionnel concern√©, dans la section \og Reservation √† confirmer\fg{} on peut voir la demande. Le cr√©naux n'est plus disponible pour les autres particuliers&
+      ... \\
+
+      \hline
+      \hline
+      Etant sur la page de confirmation,j'annule ma reservation&
+      Le syst√®me me redirige vers la page pr√©c√©dente&
+      ... \\
+
+      \hline
+      \hline
+      Etant un professionnel, en recevant la demande de r√©servation je l'accepte&
+      Une notification est envoy√©e au particulier qui a fais sa demande en lui indiquant que le rendez-vous a √©t√© accept√©&
+      ... \\
+
+      \hline
+      \hline
+      Etant un professionnel, en recevant la demande de r√©servation je la refuse&
+      Une notification est envoy√©e au particulier qui a fais sa demande que le rendez-vous √† √©t√© refus√©. Le cr√©naux est de nouveaux disponible pour les autres particuliers&
+      ... \\
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Parametrage du calendrier d'un professionnel}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      Dans le menu de param√©trage du calendrier j'appuie sur le bouton \og ajouter une prestation \fg{}&
+      Le syst√®me me redirige vers le formulaire d'ajout de prestation&
+      ... \\
+
+      \hline
+      \hline
+
+      Dans le formulaire d'ajout de prestation, j'entre des informations
+      valides et j'appuie sur le boutton \og Valider \fg{}&
+      Le syst√®me ajoute les information en base de donn√©es et me redirige
+      vers le menu
+      de parametrage
+      du calendrier&
+      ... \\
+
+      \hline
+      \hline
+
+      Dans le formulaire d'ajout de prestation j'entre des informations
+      invalides et j'appuie sur \og Valider \fg{} &
+      Le syst√®me m'indique les erreurs que j'ai fait et me renvoie sur le
+      formulaire d'ajout de prestation &
+      ... \\
+
+      \hline
+      \hline
+      Dans le menu de parametrage du calendrier j'appuie sur le bouton \og
+      Modifier \fg{} de n'importe quelle prestation&
+      Le syst√®me me redirige vers le formulaire de modification de prestation&
+      ... \\
+
+      \hline
+      \hline
+      Dans le formulaire de modification de prestation, j'entre des
+      informations valides et j'appuie sur le boutton \og Modifier \fg{}&
+      Le syst√®me modifie les information en base de donn√©e et me redirique
+      vers
+      le
+      menu de
+      parametrage
+      du
+      calendrier.&
+      ... \\
+
+      \hline
+      \hline
+      Dans le formulaire d'ajout de prestation, j'entre des informations
+      valides et j'appuie sur le boutton \og Valider \fg{}&
+      Le syst√®me m'indique les erreurs que j'ai fait et me renvoie sur le
+      formulaire de modification de prestation&
+      ... \\
+
+      \hline
+      \hline
+      Dans le menu de parametrage du calendrier j'appuie sur le bouton \og
+      Supprimer \fg{} de n'importe quelle prestation&
+      Le syst√®me suprime la prestion en base de donn√©e et je ne la vois plus
+      apparaitre dans
+      la liste. &
+      ... \\
+
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Signalement d'un particulier}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      √âtant un particulier, je param√®tre un ou plusieurs rappel de rendez-vous&
+      Je recoit une notification √† l'heure que j'ai param√©tr√© selon l'heure de mon telephone
+      et le rappel est bien enregistr√© dans la base de donn√©e locale&
+      ... \\
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Nombre d'utilisateurs simultan√©s}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      On ce connecte √† l'application avec 50 terminaux √† la fois ou on simule ces 50 connexion&
+      L'application reste stable et utilisable pour les 50 terminaux connect√©s&
+      ... \\
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Volume de donn√©es}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      On cr√©e 50 utilisateurs et on remplis pour chaqu utilisateurs le volume de donn√©es maximal (20Mo)&
+      Le syst√®me reste stable et chaques utilisateurs peut effectivement utiliser 20Mo de donn√©es&
+      ... \\
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Acc√®s au serveur}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      On fait 50 requ√®tes en une seconde&
+      Le syst√®me reste stable pour tout les utilisateurs connect√©s&
+      ... \\
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Temps de latence}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      On fais 50 requ√®te par secondes en continu et on mesure le temps entre la la requ√®te et la r√©ponse. On r√©p√®te cette op√©ration 1000 fois&
+      On recoit la r√©ponse en moins de 2 secondes dans au moins 900 cas&
+      ... \\
+
+      \hline
+      \hline
+      On fais 150 requ√®te par secondes en continu et on mesure le temps entre la requ√®te et la r√©ponse. On r√©p√®te cette op√©ration 1000 fois&
+      On recoit la r√©ponse en moins de 4 secondes dans au moins 750 cas&
+      ... \\
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Temps d‚Äôexecution des taches hors ligne}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      √âtant dans l'accueil, on va vers la page param√®tres et on mesure le temps entre l'appuie sur le bouton et l'affichage de la page. On r√©p√®te cette op√©ration 1000 fois sur des smartphones diff√©rents&
+      Le syst√®me affiche la page en 500 milisecondes dans au 650 cas&
+      ... \\
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+  \begin{center}
+    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+      \hline
+      \multicolumn{3}{|c|}{\textbf{Temps pour une prise de rendez-vous}} \\
+      \hline
+      \textbf{Test √©ffectu√©} & \textbf{R√©sultat attendu} & \textbf{R√©sultat observ√©} \\
+      \hline
+
+      On demande √† 100 personnes de prendre un rendez-vous avec l'application (ces personnes connaissent d√©ja l'application)&
+      Au moins 60 personnes sur 100 prendrons le rendez-vous en moins de 5 minutes&
+      ... \\
+
+
+      \hline
+
+    \end{tabular}
+  \end{center}
+
+
+
+  \end{document}

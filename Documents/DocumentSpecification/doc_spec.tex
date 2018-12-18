@@ -4,7 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[frenchb]{babel}
 \usepackage[bookmarks=true]{hyperref}
-\usepackage{lmodern} 
+\usepackage{lmodern}
 \usepackage{graphicx}
 
 
@@ -24,13 +24,13 @@
 
 \section{Introduction}
 \subsection{Objet}
-Appointime cherche à faciliter la prise de rendez vous et l’acces aux disponnibilités des artisants/entreprises de services.
+Appointime cherche à faciliter la prise de rendez-vous et l’accès aux disponnibilités des artisants/entreprises de services.
 Elle permet de mettre en relation des particuliers et des artisants/entreprises de services intuitivement et rapidement.
 \subsection{Portée du projet}
 Appointime permet la mise en relation et la prise de rendez vous rapide pour des taches simples/de routine entre une entreprise et un client.
-L’application sera donc divisée en deux: partie particulier et partie professionelle.
+L’application sera donc divisée en deux: la partie particulier et la partie professionelle.
 \begin{itemize}
-\item Le professionnel pourra indiquer ses disponibilités et precisera son domaine de competances ainsi que les taches de base qu’il peut effectuer.
+\item Le professionnel pourra indiquer ses disponibilités et précisera son domaine de compétances ainsi que les taches de base qu’il peut effectuer.
 \item Le client quant à lui pourra faire des recherches selon ses
   besoins et trouver rapidement et intuitvement des professionnels
   disponibles aux alentours.
@@ -56,10 +56,10 @@ L’application sera donc divisée en deux: partie particulier et partie profess
 \section{Description générale}
 \subsection{Environnement}
 \begin{itemize}
-\item L'application décrite est une application mobile sur IOS et
+\item Le système décrit est une application mobile sur IOS et
 Android.
-\item L'application est adaptée pour n'importe quel smartphone ayant IOS ou Android comme
-systeme d'exploitation.
+\item Le système est adapté pour n'importe quel smartphone ayant IOS ou Android comme
+système d'exploitation.
 \item Les actions de l'utilisateur s'éffectue via l'écran
   tactile, le capteur d'empreintes digitales ou l'appareil photo du smartphone.
 \item L'application communique avec une base de donnée distante
@@ -80,8 +80,8 @@ calendrier de rendez-vous personnalisé.
 \end{itemize}
 \subsection{Caractéristiques des utilisateurs}
 \begin{itemize}
-\item L'utilisateur peut étre soit un professionnel proposant des
-  service sur prise de rendez-vous soit
+\item L'utilisateur peut être soit un professionnel proposant des
+  services sur prise de rendez-vous soit
   un client souhaitant rechercher un professionnel et prendre un
   rendez-vous avec ce dernier.
 \item Les utilisateurs n'ont besoin d'aucune connaissances techniques.
@@ -91,7 +91,7 @@ calendrier de rendez-vous personnalisé.
 \item La prise et l'annulation de rendez-vous doit ce plier à la
   politique de chaque professionnel.
 \item Les informations des utilisateurs devront uniquement être
-  utilisé dans le cadre de l'application.
+  utilisées dans le cadre de l'application.
 \end{itemize}
 \subsection{Hypothèses et dépendances}
 
@@ -111,7 +111,7 @@ calendrier de rendez-vous personnalisé.
 \includegraphics[scale=0.5]{ShematDiagrammes/useCaseInscription.jpg}
 
 \item Un formulaire doit permettre à un utilisateur de modifier les
-  informations mentionnée durant son inscription.
+  informations mentionnées durant son inscription.
 \item Un formulaire de connexion doit permetre à un utilisateur de
   s'identifier pour avoir accès aux services du système en entrant
   différents champs textuels (email, mot de passe) et en appuyant sur
@@ -128,28 +128,28 @@ calendrier de rendez-vous personnalisé.
 \end{itemize}
 \paragraph{Préférences des utilisateurs :}
 \begin{itemize}
-\item Le client doit pouvoir acceder à la page \og Paramètres \fg{}. de l'application en
-  appuyant sur un bouton \og menu \fg{} puis \og préférences \fg{}
+\item Le client doit pouvoir acceder à la page \og Paramètres \fg{} de l'application en
+  appuyant sur un bouton \og Menu \fg{} puis \og Préférences \fg{}
   dans la liste déroulante qui viens de s'afficher à l'écran.
 \item Le client doit pouvoir activer ou désactiver les notifications
   de l'application dans le menu paramètre.
 \item Le client devrait pouvoir modifier le son des notification
   (volume et tonalitée) dans la page paramètres.
 \item Le client devrait pouvoir activer le thème nuit qui modifirais les
-  couleurs de l'application dans la page paramètre. 
+  couleurs de l'application dans la page paramètres.
 \end{itemize}
 \paragraph{Recherche d'un professionnel :}
 \begin{itemize}
-\item Un champs textuel doit permetre à l'utilisateur d'éffectuer une
+\item Un champs textuel doit permettre à l'utilisateur d'éffectuer une
   recherche par profession, par nom
   d'entreprise ou via un flashcode fournit par le professionnel. Dans
   les deux premiers cas, l'utilisateur devrait pouvoir selectionner
   une distance maximale si il le souhaite.
-\item Après avoir fais une recherche, le client doit pouvoir selectionner un
+\item Après avoir fais une recherche, le client doit pouvoir sélectionner un
   professionnel dans la liste affichée.
-\item Le particulier doit pouvoir ajouter un professionnel en favoris gràce
-  a un bouton présent sur le calendrier d'un professionnel et sur la
-  liste déroulante de recherche. 
+\item Le particulier doit pouvoir ajouter un professionnel en favoris grâce
+  à un bouton présent sur le calendrier d'un professionnel et sur la
+  liste déroulante de recherche.
 
 \includegraphics[scale=0.3]{ShematDiagrammes/useCaseRecherchePro.jpg}
 
@@ -186,21 +186,22 @@ calendrier de rendez-vous personnalisé.
 \paragraph{Paramétrage du calendrier côté profesionnel :}
 \begin{itemize}
 \item Un menu doit permettre au professionnel de créer une nouvelle
-  prestation en appuyant sur un bouton \og Ajouter une prestation \fg{}, de
-  supprimer une prestation en appuyant sur un bouton \og Supprimer une
-  prestation \fg{} dans la liste de ses prestation déjà existantes, de modifier une prestation en appuyant sur un
-  bouton \og Modifier une prestation \fg{} dans la liste de ses
-  prestations déjà existantes
-  ou de modifier son calendrier. 
+  prestation en appuyant sur un bouton \og Ajouter une prestation
+  \fg{}.
+\item Une liste d'éroulante doit permettre à l'utilisateur d'afficher
+  les prestations déjà existantes. Chaque elements de la liste est
+  accompagné des boutons \og selectionner \fg{}, \og modifier \fg{} et
+  \og supprimer \fg{}.
+
 \item Un formulaire doit permettre de créer une prestation. Ce
   formulaire doit contenir les champs textuels suivant \og Nom \fg{}, \og Description
- \fg{},  \og Durée \fg{} et \og Prix \fg{}.  
+ \fg{},  \og Durée \fg{} et \og Prix \fg{}.
 
 \includegraphics[scale=0.5]{ShematDiagrammes/useCaseCreerPrestation.jpg}
 
 \item Un formulaire doit permettre d'éffectuer des modifications sur
   une prestation. Ce formulaire doit contenir un champ nom, un champ
-  durée et un champ prix.  
+  durée et un champ prix.
 \item Un calendrier modifiable doit permetre à l'utilisateur de
   modifier ses diponibilitées en modifiant les jours et les horaires
   auquelles il peux effectuer ses prestations.
@@ -208,18 +209,27 @@ calendrier de rendez-vous personnalisé.
   visualiser et de gérer les rendez vous déjà pris. Sur un crénaux
   pris, il doit afficher les informations de l'utilisateur qui a pris
   le rendez-vous. Il doit aussi permettre au professionnel de valider
-  ou non les rendez vous. 
+  ou non les rendez vous.
 \end{itemize}
 
-\paragraph{Gestion des clients coté professionnel :}
+\paragraph{Acceptation de prise de rendez-vous}
 \begin{itemize}
 \item Lorsqu'un rendez vous est pris par un particulier, le
-  professionnel doit pouvoir visualiser le profil de ce particulier.
- \item Lorsqu'un rendez vous est pris pris par un particulier, le
-  professionnel doit pouvoir accepter ou refuser le rendez-vous.
+  professionnel recoit une notification. Lorsque le professionnel
+  appuie sur cette dernière, l'application souvre sur une page ou il
+  est indiqué les informations de l'utilisateur ainsi qu'un bouton \og
+  Accepter le rendez vous \fg{} et un bouton \og
+  Refuser le rendez vous \fg{}
+\end{itemize}
+\paragraph{Signalement des particulier}
+\begin{itemize}
 \item Si un rendez-vous à été pris par un particulier mais ce dernier
   n'est pas venu a ce rendez-vous, le professionnel doit pouvoir
-  signaler le particulier via un bouton \og signaler \fg{}.
+  signaler le particulier via un bouton \og signaler \fg{} situé sur
+  à coté de chaque nom d'utilisateur son calendrier. Cette action retire une \og vie \fg{} à l'utilisateur qui possède
+  3 \og vie \fg{}. Si l'utilisateur arrive à 0 vie son compte est
+  bloqué definitivement. L'utilisateur peut récuperer 1 vie en étant
+  allé à 10 rendez-vous d'affilé.
 \end{itemize}
 
 \subsubsection{Interfaces avec les logiciels}
@@ -257,7 +267,7 @@ les photos de profil des utilisateurs.
 \paragraph{Pour la connexion : }
 
 \begin{itemize}
-\item Si l'email existe dans la base de données : 
+\item Si l'email existe dans la base de données :
 	le systeme doit verifier si le mot de passe saisi
 	correspond à l'email saisi.
 		\begin{itemize}
@@ -302,11 +312,16 @@ les photos de profil des utilisateurs.
 	\begin{itemize}
 	\item Si les données sont valides:
 		\begin{itemize}
-		\item Le systeme remplace les données obsoletes par les nouvelles données.
+		\item Le systeme remplace les données obsoletes par
+                  les nouvelles données.
+                \item Le système renvoie l'utilisateur vers la page d'acceuil.
 		\end{itemize}
 		\item Si les données ne sont pas valides:
 		\begin{itemize}
-		\item Le systeme renvoie un message d'erreur decrivant les erreurs.
+		\item Le systeme renvoie un message d'erreur decrivant
+                  les erreurs.
+                \item Le systeme renvoie l'utilisateur sur la page de
+                  gestion de compte.
 		\end{itemize}
 	\end{itemize}
 \end{itemize}
@@ -314,7 +329,7 @@ les photos de profil des utilisateurs.
 \paragraph{Format / validitée des données saisies}
 \begin{itemize}
 \item L'email  et la confirmation d'email sont valides si elles ce plie a l'expression régulière
-  suivante : 
+  suivante :
 
 [a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z]
 
@@ -328,9 +343,30 @@ les photos de profil des utilisateurs.
   10 chiffres.
 
 \item L'adresse est valide si elle est composée uniquement de lettres,
-  de chiffres et de ponctuation. 
+  de chiffres et de ponctuation.
 \end{itemize}
 
+
+\paragraph{Pour l'ajout de prestation}
+\begin{itemize}
+\item Le systeme doit verifier si les données saisies sont valides
+	\begin{itemize}
+	\item Si les données sont valides:
+		\begin{itemize}
+		\item le système doit insèrer les nouvelles données en base
+                  de données.
+                  \item le système doit rediriger l'utilisateur vers
+                    la page de parametrage du calendrier.
+		\end{itemize}
+		\item Si les données ne sont pas valides:
+		\begin{itemize}
+		\item Le systeme renvoie un message d'erreur decrivant
+                  les erreurs.
+                \item Le système doit renvoyer l'utilisateur vers le
+                  formulaire d'ajout de prestation.
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
 
 
 \paragraph{Pour la reservation (coté particulier) :}
@@ -338,7 +374,7 @@ Avant la confirmation:
 	\begin{itemize}
 	\item Si le particulier confirme sa réservation:
 		\begin{itemize}
-		\item Passer la plage horaire en "en cours de confirmation" 
+		\item Passer la plage horaire en "en cours de confirmation"
 			(la plage horaire ne doit plus être reservable jusqu'a nouvel ordre).
 		\item Ajouter la réservation (date, heure,lieu, type de reservation, durée, prix éstimé) dans la section "en cours de confirmation"
 		\end{itemize}
@@ -413,17 +449,17 @@ L'application doit pouvoir supporter 50 utilisateurs/terminaux
 simultanément.
 \paragraph{Volume de données :}
 Le système doit pouvoir dédier 20Mo par utilisateurs soit un total de
-1000Mo.
+1000Mo pour au moins 50 utilisateurs.
 \paragraph{Type des données :}
 Les système doit pouvoir stocker des données de type entier, chaine de
 caractères, booléen et une images 100x100 pixel par utilisateurs
-(photo de profil).  
+(photo de profil).
 
 
 \subsubsection{Exigences dymamiques}
 \paragraph{Acces au serveur :}
 Le système doit permetre un minimum de 50 requetes/reponse au serveur
-par secondes. 
+par secondes.
 \paragraph{Temps de latence :}
 \begin{itemize}
 \item En condition favorables (50 requetes/reponse par seconde) le
@@ -439,16 +475,15 @@ Le temps de calcul d'une tache simple sans acces au serveur (exemple : passage d
 une autre) doit êtres executé en 500 milisecondes maximum sur 65\% des
 smartphones.
 
-\paragraph{Temps pour une prise de rendez vous :} 
+\paragraph{Temps pour une prise de rendez vous :}
 Étant donné un utilisateur ayant utilisé l'application pendant 1
 semaine, le temps moyen pour une prise de rendez-vous doit être dans
 60\% des cas inférieur à 5 minutes.
 
-  
+
 
 \section{Annexes}
-
-
+poulet
 \section{Index}
 
 
