@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.11.14)  17 DEC 2018 12:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.11.14)  13 DEC 2018 17:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**doc_spec.tex
-(./doc_spec.tex
+**testRecette.tex
+(./testRecette.tex
 LaTeX2e <2017/01/01> patch level 3
 Babel <3.9r> and hyphenation patterns for 5 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -540,54 +540,33 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-)
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+) (./testRecette.aux)
+\openout1 = `testRecette.aux'.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2016/10/09 v1.0u Standard LaTeX Graphics (DPC,SPQR)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 13.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-)
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
-File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
-)
-Package graphics Info: Driver file: pdftex.def on input line 99.
-
-(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
-\Gread@gobject=\count105
-))
-\Gin@req@height=\dimen110
-\Gin@req@width=\dimen111
-)
-(./doc_spec.aux)
-\openout1 = `doc_spec.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 16.
- (/usr/share/texmf/tex/latex/lm/t1lmr.fd
+(/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \degres on input line 16.
-LaTeX Info: Redefining \dots on input line 16.
-LaTeX Info: Redefining \up on input line 16.
+LaTeX Info: Redefining \degres on input line 13.
+LaTeX Info: Redefining \dots on input line 13.
+LaTeX Info: Redefining \up on input line 13.
 \AtBeginShipoutBox=\box26
-Package hyperref Info: Link coloring OFF on input line 16.
+Package hyperref Info: Link coloring OFF on input line 13.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -595,137 +574,321 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count106
+\c@section@level=\count105
 )
-LaTeX Info: Redefining \ref on input line 16.
-LaTeX Info: Redefining \pageref on input line 16.
-LaTeX Info: Redefining \nameref on input line 16.
+LaTeX Info: Redefining \ref on input line 13.
+LaTeX Info: Redefining \pageref on input line 13.
+LaTeX Info: Redefining \nameref on input line 13.
 
-(./doc_spec.out) (./doc_spec.out)
+(./testRecette.out) (./testRecette.out)
 \@outlinefile=\write3
-\openout3 = `doc_spec.out'.
+\openout3 = `testRecette.out'.
 
-
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count107
-\scratchdimen=\dimen112
-\scratchbox=\box27
-\nofMPsegments=\count108
-\nofMParguments=\count109
-\everyMPshowfont=\toks18
-\MPscratchCnt=\count110
-\MPscratchDim=\dimen113
-\MPnumerator=\count111
-\makeMPintoPDFobject=\count112
-\everyMPtoPDFconversion=\toks19
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
-)
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-38.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 456.
-
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 19.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 16.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 19.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 16.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 19.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 16.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 19.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 16.
 
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 19.
+(Font)              <12> on input line 16.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 19.
+(Font)              <8> on input line 16.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 19.
+(Font)              <6> on input line 16.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./doc_spec.toc
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 3.
+(Font)              <10> on input line 23.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 3.
+(Font)              <7> on input line 23.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 3.
-)
-\tf@toc=\write4
-\openout4 = `doc_spec.toc'.
+(Font)              <5> on input line 23.
 
- [2]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 33.
-
-(/usr/share/texmf/tex/latex/lm/omslmr.fd
-File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 33.
-
-Overfull \hbox (15.24997pt too wide) in paragraph at lines 65--67
-[]\T1/lmr/m/n/10 L'application com-mu-nique avec une base de don-née dis-tante 
-via une connexion
+Underfull \hbox (badness 1231) in paragraph at lines 30--30
+\T1/lmr/m/n/10 l'email n'est pas déja pré-sent
  []
 
-[3] [4] [5] [6] [7] [8] [9] [10] [11]
-Overfull \hbox (26.5156pt too wide) in paragraph at lines 514--516
- []\T1/lmr/bx/n/10 Acces au ser-veur :[] \T1/lmr/m/n/10 Le sys-tème doit per-me
-ttre un mi-ni-mum de 50 re-quetes/reponses
+
+Underfull \hbox (badness 1270) in paragraph at lines 32--33
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
  []
 
-[12] [13]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 601.
- [14]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 601.
- (./doc_spec.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 601.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 601.
-Package rerunfilecheck Info: File `doc_spec.out' has not changed.
-(rerunfilecheck)             Checksum: 944713A7A9FA414A842E519379A20A03;2046.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 601.
+
+Underfull \hbox (badness 3138) in paragraph at lines 40--40
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige vers
+ []
+
+
+Underfull \hbox (badness 3138) in paragraph at lines 47--47
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige vers
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 23--52
+ [] 
+ []
+
+
+Underfull \hbox (badness 1552) in paragraph at lines 63--63
+\T1/lmr/m/n/10 la com-bi-nai-son email+mot de
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 69--69
+[]\T1/lmr/m/n/10 J'entre des in-for-ma-tions in-
+ []
+
+
+Underfull \hbox (badness 4429) in paragraph at lines 69--69
+\T1/lmr/m/n/10 va-lides et/ou la com-bi-nai-son
+ []
+
+
+Underfull \hbox (badness 1490) in paragraph at lines 75--75
+\T1/lmr/m/n/10 sur la page de connexion, je
+ []
+
+
+Underfull \hbox (badness 1635) in paragraph at lines 75--75
+\T1/lmr/m/n/10 d'em-preinte di-gi-tale alors que
+ []
+
+
+Underfull \hbox (badness 1490) in paragraph at lines 87--87
+\T1/lmr/m/n/10 la re-con-nais-sance fa-ciale alors
+ []
+
+
+Underfull \hbox (badness 1490) in paragraph at lines 93--93
+\T1/lmr/m/n/10 la re-con-nais-sance fa-ciale alors
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 56--101
+ [] 
+ []
+
+[2]
+Underfull \hbox (badness 1281) in paragraph at lines 113--113
+\T1/lmr/m/n/10 page d'ac-ceuil en m'in-di-quant
+ []
+
+
+Underfull \hbox (badness 2368) in paragraph at lines 119--119
+\T1/lmr/m/n/10 page de mo-di-fi-ca-tion des in-
+ []
+
+
+Underfull \hbox (badness 2368) in paragraph at lines 125--125
+\T1/lmr/m/n/10 page de mo-di-fi-ca-tion des in-
+ []
+
+
+Underfull \hbox (badness 1325) in paragraph at lines 125--125
+\T1/lmr/m/n/10 for-ma-tions en m'in-di-quant les
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 105--131
+ [] 
+ []
+
+[3]
+Underfull \hbox (badness 4726) in paragraph at lines 173--173
+[]\T1/lmr/m/n/10 Les cou-leurs de l'ap-pli-ca-tion
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 135--181
+ [] 
+ []
+
+[4]
+Underfull \hbox (badness 2080) in paragraph at lines 197--197
+[]\T1/lmr/m/n/10 J'entre un do-maine d'ac-ti-vité
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 184--238
+ [] 
+ []
+
+[5]
+Underfull \hbox (badness 3189) in paragraph at lines 249--249
+[]\T1/lmr/m/n/10 Je sé-léc-tionne une pres-ta-tion
+ []
+
+
+Underfull \hbox (badness 1466) in paragraph at lines 256--256
+[]\T1/lmr/m/n/10 Une fois le ca-len-drier af-fi-ché,
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 242--288
+ [] 
+ []
+
+[6]
+Underfull \hbox (badness 2005) in paragraph at lines 326--326
+\T1/lmr/m/n/10 for-mu-laire de mo-di-fi-ca-tion de
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 291--360
+ [] 
+ []
+
+[7]
+Underfull \hbox (badness 1019) in paragraph at lines 382--383
+[]\T1/lmr/m/n/10 Dans le for-mu-laire de ges-tion
+ []
+
+
+Underfull \hbox (badness 1019) in paragraph at lines 391--392
+[]\T1/lmr/m/n/10 Dans le for-mu-laire de ges-tion
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 368--403
+ [] 
+ []
+
+[8]
+Underfull \hbox (badness 1377) in paragraph at lines 420--420
+\T1/lmr/m/n/10 for-mu-laire de ges-tion des ho-
+ []
+
+
+Underfull \hbox (badness 1019) in paragraph at lines 460--461
+[]\T1/lmr/m/n/10 Dans le for-mu-laire de ges-tion
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 412--472
+ [] 
+ []
+
+
+Underfull \hbox (badness 1097) in paragraph at lines 494--494
+[]\T1/lmr/m/n/10 Étant un par-ti-cu-lier, je pa-ra-
+ []
+
+
+Underfull \hbox (badness 5189) in paragraph at lines 495--496
+[]\T1/lmr/m/n/10 Je re-coit une no-ti-fi-ca-tion à
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 487--503
+ [] 
+ []
+
+[9]
+Underfull \hbox (badness 1237) in paragraph at lines 514--514
+\T1/lmr/m/n/10 li-sable pour les 50 ter-mi-naux
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 506--521
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 532--532
+[]\T1/lmr/m/n/10 Le sys-tème reste stable et
+ []
+
+
+Underfull \hbox (badness 5726) in paragraph at lines 532--532
+\T1/lmr/m/n/10 chaques uti-li-sa-teurs peut ef-
+ []
+
+
+Underfull \hbox (badness 4660) in paragraph at lines 532--532
+\T1/lmr/m/n/10 fec-ti-ve-ment uti-li-ser 20Mo de
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 524--539
+ [] 
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 542--557
+ [] 
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 560--580
+ [] 
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 583--598
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 608--608
+\T1/lmr/m/n/10 l'ap-pli-ca-tion (ces per-sonnes
+ []
+
+
+Underfull \hbox (badness 4940) in paragraph at lines 609--609
+[]\T1/lmr/m/n/10 Au moins 60 per-sonnes sur
+ []
+
+
+Overfull \hbox (117.79134pt too wide) in paragraph at lines 601--616
+ [] 
+ []
+
+[10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 620.
+ [11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 620.
+ (./testRecette.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 620.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 620.
+Package rerunfilecheck Info: File `testRecette.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 620.
  ) 
 Here is how much of TeX's memory you used:
- 6877 strings out of 494916
- 98801 string characters out of 6179762
- 183030 words of memory out of 5000000
- 10019 multiletter control sequences out of 15000+600000
- 47208 words of font info for 41 fonts, out of 8000000 for 9000
+ 5935 strings out of 494916
+ 85669 string characters out of 6179762
+ 174709 words of memory out of 5000000
+ 9182 multiletter control sequences out of 15000+600000
+ 44206 words of font info for 40 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 28i,6n,30p,253b,552s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/en
-c/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/s
-hare/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/publi
-c/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/te
-xmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lms
-y10.pfb>
-Output written on doc_spec.pdf (14 pages, 172855 bytes).
+ 28i,9n,30p,359b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
+public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/sh
+are/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/
+lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texm
+f/fonts/type1/public/lm/lmr9.pfb>
+Output written on testRecette.pdf (11 pages, 172249 bytes).
 PDF statistics:
- 292 PDF objects out of 1000 (max. 8388607)
- 267 compressed objects within 3 object streams
- 81 named destinations out of 1000 (max. 500000)
- 225 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 82 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
+ 12 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
