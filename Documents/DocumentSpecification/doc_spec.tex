@@ -48,7 +48,8 @@ L’application sera donc divisée en deux: la partie particulier et la partie p
 \item \textbf{Flashcode} : Un flashcode est un identifiant sous forme
   d'image en 2 dimension pouvant être lue par l'appareil photo d'un smartphone et
   interpreté par un programme.
-
+\item \textbf{Numero de siret} : Le Numéro SIRET (système d'identification du répertoire des établissements) est une série de 14 chiffres.
+Cette serie de chiffre identifie l'entreprise ainsi que l'établissement.
 \end{itemize}
 
 
@@ -68,7 +69,9 @@ système d'exploitation.
   tactile, le capteur d'empreintes digitales ou l'appareil photo du smartphone.
 \item L'application communique avec une base de donnée distante
   via une connexion \og réseau mobile\fg{} ou Wifi.
-
+\subsection{Obtention de l'application}
+L'application pourra être obtenue via les marchés d'applications propres aux systèmes d'exploitation cités précedement.
+(AppStore et Google Play Store)
 
 %\includegraphics[scale=0.5]{ShematDiagrammes/ShematGeneral.png}
 \end{itemize}
@@ -94,7 +97,7 @@ système d'exploitation.
 \end{itemize}
 \subsection{Caractéristiques des utilisateurs}
 \begin{itemize}
-\item L'utilisateur aura précisé, lors de son inscription, un email, mot
+\item L'utilisateur aura précisé, lors de son inscription un email, mot
 de passe, nom,prenom, numéro de téléphone, adresse.
 \item Les utilisateurs n'ont besoin d'aucune connaissances techniques.
 \item L'utilisateur peut être soit un professionnel soit un particulier.
@@ -127,19 +130,19 @@ Nous supposons que les appareils utilisant l'application seront reliés à inter
    confirmation de l'email, mot de
    passe, confirmation du mot de passe, nom, prenom, numéro de téléphone, adresse) nécéssaires au
    système , et en appuyant sur
-   un bouton \og S'inscrire en tant que professionnel\fg{} ou \og S'inscrire en tant que paarticulier\fg{} selon le besoin de l'utilisateur.
+   un bouton \og S'inscrire en tant que professionnel\fg{} ou \og S'inscrire en tant que particulier\fg{} selon le besoin de l'utilisateur.
 
 %\includegraphics[scale=0.5]{ShematDiagrammes/useCaseInscription.jpg}
 \item Si l'utilisateur a choisit l'inscription en tant que professionnel, un formulaire (disponnible par redirection 
 directement apres l'inscription et/ou via le menu de navigation) doit lui permettre de renseigner les informations relatives 
 à son entreprise (nom,description du type de services, description générale, numéro de siret,politique d'annulation)
 
-\item Si l'utilisateur est un professionnel: un formulaire,accessible via le menu de navigation,  doit lui permettre de renseigner les informations relatives aux 
-horaires d'ouverture de son entreprise (heure d'ouverture et fermeture pour chaque demie journée de la semaine).
+\item Si l'utilisateur est un professionnel: un formulaire, accessible via le menu de navigation,  doit lui permettre de renseigner les informations relatives aux 
+horaires d'ouverture de son entreprise (heure d'ouverture et fermeture pour chaque demie journée(matin/après midi) de la semaine).
 
 \item Un formulaire, accessible via le menu de navigation, doit permettre à un utilisateur de modifier les
   informations mentionnées durant son inscription.
-\item Un formulaire de connexion doit permetre à un utilisateur de
+\item Un formulaire de connexion doit permettre à un utilisateur de
   s'identifier pour avoir accès aux services du système en entrant
   différents champs textuels (email, mot de passe) et en appuyant sur
   un bouton \og Se connecter \fg{}.
@@ -410,7 +413,7 @@ les photos de profil des utilisateurs.
 
 \paragraph{Format / validitée des données saisies}
 \begin{itemize}
-\item L'email  et la confirmation d'email sont valides si elles ce plient à l'expression régulière
+\item (A enlever penisiline) L'email  et la confirmation d'email sont valides si elles ce plient à l'expression régulière
   suivante :
 
 [a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z]
