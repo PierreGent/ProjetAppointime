@@ -3,18 +3,19 @@
 \contentsline {subsection}{\numberline {1.1}Objet}{3}{subsection.1.1}
 \contentsline {subsection}{\numberline {1.2}Port\IeC {\'e}e du projet}{3}{subsection.1.2}
 \contentsline {subsection}{\numberline {1.3}D\IeC {\'e}finitions, acronymes, abr\IeC {\'e}viations}{3}{subsection.1.3}
-\contentsline {subsection}{\numberline {1.4}R\IeC {\'e}f\IeC {\'e}rences}{3}{subsection.1.4}
-\contentsline {subsection}{\numberline {1.5}Vue d'ensemble}{3}{subsection.1.5}
-\contentsline {section}{\numberline {2}Description g\IeC {\'e}n\IeC {\'e}rale}{3}{section.2}
-\contentsline {subsection}{\numberline {2.1}Environnement}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}Fonctions}{4}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}Caract\IeC {\'e}ristiques des utilisateurs}{4}{subsection.2.3}
-\contentsline {subsection}{\numberline {2.4}Contraintes}{5}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Hypoth\IeC {\`e}ses et d\IeC {\'e}pendances}{5}{subsection.2.5}
-\contentsline {subsubsection}{\numberline {2.5.1}Systeme d'exploitation}{5}{subsubsection.2.5.1}
+\contentsline {subsection}{\numberline {1.4}R\IeC {\'e}f\IeC {\'e}rences}{4}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}Vue d'ensemble}{4}{subsection.1.5}
+\contentsline {section}{\numberline {2}Description g\IeC {\'e}n\IeC {\'e}rale}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}Environnement}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Obtention de l'application}{4}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Fonctions}{4}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Caract\IeC {\'e}ristiques des utilisateurs}{5}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Contraintes}{5}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Hypoth\IeC {\`e}ses et d\IeC {\'e}pendances}{5}{subsection.2.6}
+\contentsline {subsubsection}{\numberline {2.6.1}Systeme d'exploitation}{5}{subsubsection.2.6.1}
 \contentsline {paragraph}{Systeme d'exploitation Apple}{5}{section*.2}
 \contentsline {paragraph}{Systeme d'exploitation Android}{5}{section*.3}
-\contentsline {subsubsection}{\numberline {2.5.2}Acces au r\IeC {\'e}seau}{5}{subsubsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.6.2}Acces au r\IeC {\'e}seau}{5}{subsubsection.2.6.2}
 \contentsline {section}{\numberline {3}Exigences sp\IeC {\'e}cifiques}{5}{section.3}
 \contentsline {subsection}{\numberline {3.1}Exigences des interfaces externes}{5}{subsection.3.1}
 \contentsline {subsubsection}{\numberline {3.1.1}Interfaces avec les utilisateur}{5}{subsubsection.3.1.1}
@@ -25,7 +26,7 @@
 \contentsline {paragraph}{Les informations li\IeC {\'e}s aux rendez vous :}{7}{section*.8}
 \contentsline {paragraph}{Param\IeC {\'e}trage du calendrier c\IeC {\^o}t\IeC {\'e} profesionnel :}{8}{section*.9}
 \contentsline {paragraph}{Acceptation de prise de rendez-vous}{8}{section*.10}
-\contentsline {paragraph}{Signalement des particulier}{8}{section*.11}
+\contentsline {paragraph}{Signalement des particulier}{9}{section*.11}
 \contentsline {subsubsection}{\numberline {3.1.2}Interfaces avec les logiciels}{9}{subsubsection.3.1.2}
 \contentsline {paragraph}{Gestion des notifications :}{9}{section*.12}
 \contentsline {subsubsection}{\numberline {3.1.3}Interface avec le materiel}{9}{subsubsection.3.1.3}

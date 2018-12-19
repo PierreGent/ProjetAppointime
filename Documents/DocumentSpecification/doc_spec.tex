@@ -1,4 +1,6 @@
 
+
+
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -39,7 +41,7 @@ L’application sera donc divisée en deux: la partie particulier et la partie p
 \subsection{Définitions, acronymes, abréviations}
 \begin{itemize}
 
-\item \textbf{Service prédéfini} : Ce sont les taches de base 
+\item \textbf{Service prédéfini} : Ce sont les taches de base
 (qui ont un coût et un temps de travail peu variable) que le professionnel pourra proposer afin de faciliter la réservation.
 \item \textbf{Professionnel} : Ce terme décrit toutes les personnes ayant une entreprise proposant des
   services sur prise de rendez-vous sur l'application.
@@ -77,7 +79,7 @@ L'application pourra être obtenue via les marchés d'applications propres aux s
 \end{itemize}
 \subsection{Fonctions}
 \begin{itemize}
-\item L'application permet à n'importe quel professionnel de 
+\item L'application permet à n'importe quel professionnel de
 
 	\begin{itemize}
 	\item renseigner les details de son entreprise(nom,description du
@@ -133,11 +135,11 @@ Nous supposons que les appareils utilisant l'application seront reliés à inter
    un bouton \og S'inscrire en tant que professionnel\fg{} ou \og S'inscrire en tant que particulier\fg{} selon le besoin de l'utilisateur.
 
 %\includegraphics[scale=0.5]{ShematDiagrammes/useCaseInscription.jpg}
-\item Si l'utilisateur a choisit l'inscription en tant que professionnel, un formulaire (disponnible par redirection 
-directement apres l'inscription et/ou via le menu de navigation) doit lui permettre de renseigner les informations relatives 
+\item Si l'utilisateur a choisit l'inscription en tant que professionnel, un formulaire (disponnible par redirection
+directement apres l'inscription et/ou via le menu de navigation) doit lui permettre de renseigner les informations relatives
 à son entreprise (nom,description du type de services, description générale, numéro de siret,politique d'annulation)
 
-\item Si l'utilisateur est un professionnel: un formulaire, accessible via le menu de navigation,  doit lui permettre de renseigner les informations relatives aux 
+\item Si l'utilisateur est un professionnel: un formulaire, accessible via le menu de navigation,  doit lui permettre de renseigner les informations relatives aux
 horaires d'ouverture de son entreprise (heure d'ouverture et fermeture pour chaque demie journée(matin/après midi) de la semaine).
 
 \item Un formulaire, accessible via le menu de navigation, doit permettre à un utilisateur de modifier les
@@ -197,7 +199,7 @@ horaires d'ouverture de son entreprise (heure d'ouverture et fermeture pour chaq
 \item Une fois le crénau sélectionné, le client est redirigé vers
     une page récapitulative de sa prise de rendez-vous(date, heure, details du service, lieu). Avec un bouton
     confirmer ou annuler.
-\item Si le particulier confirme son choix, les details de ce rendez vous s'ajouteront à la liste des rendez 
+\item Si le particulier confirme son choix, les details de ce rendez vous s'ajouteront à la liste des rendez
 vous en attente de confirmation dans la page "en attente de confirmation"
 si la tâche n'est pas en confirmation automatique (sinon, ils seront placés dans la section "rendez vous à venir").
 \item Les rendez vous confirmés par les deux parties (particulier et professionnel) seront listés dans la section "rendez vous à venir"
@@ -207,7 +209,7 @@ si la tâche n'est pas en confirmation automatique (sinon, ils seront placés da
   rappels de rendez-vous. Pour ajouter un rappel de rendez-vous, le
   client appuie sur \og ajouter un rappel \fg{} puis choisis quand le
   rappel va être fait (en nombre d'heure ou de jours avant le
-  rendez-vous).Cette fonctionnalité est accessible via un bouton 
+  rendez-vous).Cette fonctionnalité est accessible via un bouton
   prévu a cet effet sur chaque rendez vous a venir dans la section "rendez vous à venir").
 
 %\includegraphics[scale=0.3]{ShematDiagrammes/useCasePriseRdv.jpg}
@@ -360,7 +362,7 @@ les photos de profil des utilisateurs.
 \paragraph{Pour l'inscription d'une entreprise: }
 \begin{itemize}
 \item Le systeme doit verifier si les données saisies sont valides
-	
+
 		\begin{itemize}
 		\item Si le numero de siret n'est pas encore utilisé, le système
 			doit enregister les données,indiquer le bon deroulement de l'opération via un message temporaire et rediriger vers la page de gestion d'horaires d'ouverture.
@@ -376,7 +378,7 @@ les photos de profil des utilisateurs.
 \paragraph{Pour la gestion d'horaires d'ouverture d'une entreprise: }
 \begin{itemize}
 \item Le systeme doit verifier si les données saisies sont valides
-	
+
 		\begin{itemize}
 		\item Si les données sont valides (heure d'ouverture superieure a l'heure de fermeture, l'heure ne correspond pas a la demie journée(matin/apres midi))le système
 			doit enregister les données,indiquer le bon deroulement de l'opération via un message temporaire et rediriger vers la page de gestion d'horaires d'ouverture.
@@ -586,7 +588,7 @@ Pour les utilisateurs, nous devrons stocker
 Pour les entreprises, nous devrons stocker:
 \begin{itemize}
 \item Un identifiant (entier)
-\item Une référence vers un utilisateur professionnel (id du professionnel(entier)) 
+\item Une référence vers un utilisateur professionnel (id du professionnel(entier))
 \item Une description du domaine d'activité (Chaine de caractères (maximum 100 caractères))
 \item Une adresse (Chaine de caractères (maximum 100 caractères))
 \item Une description générale(Chaine de caractères (maximum 100 caractères))
