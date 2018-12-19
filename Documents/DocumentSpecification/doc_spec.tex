@@ -27,7 +27,7 @@
 Appointime cherche à faciliter la prise de rendez-vous et l’accès aux disponnibilités des artisants/entreprises de services.
 Elle permet de mettre en relation des particuliers et des artisants/entreprises de services intuitivement et rapidement.
 \subsection{Portée du projet}
-Appointime permet la mise en relation et la prise de rendez vous rapide pour des taches simples/de routine entre une entreprise et un client.
+Appointime permet la mise en relation et la prise de rendez vous rapide pour des tâches simples/de routine entre une entreprise et un client.
 L’application sera donc divisée en deux: la partie particulier et la partie professionnelle.
 \begin{itemize}
 \item Le professionnel pourra indiquer son domaine de compétances, les details de son entreprise ainsi que ses disponibilités
@@ -38,11 +38,12 @@ L’application sera donc divisée en deux: la partie particulier et la partie p
 \end{itemize}
 \subsection{Définitions, acronymes, abréviations}
 \begin{itemize}
+\item \textbf{Domaine d'activité} :Ici, les domaines d'activité qu'un professionnel pourra spécifier seront prédéfinis par une liste (mecanicien,coiffeur...)
 
-\item \textbf{Service prédéfini} : Ce sont les taches de base 
+\item \textbf{Prestations} : Ici, ce sont les tâches de base 
 (qui ont un coût et un temps de travail peu variable) que le professionnel pourra proposer afin de faciliter la réservation.
 \item \textbf{Professionnel} : Ce terme décrit toutes les personnes ayant une entreprise proposant des
-  services sur prise de rendez-vous sur l'application.
+  prestations sur prise de rendez-vous sur l'application.
 \item \textbf{Pariculier} : Ce terme décrit toutes les personnes
   voulant prendre rendez-vous auprès d'un professionnel qui offre un service et des disponibilités correspondant à ses besoins.
 \item \textbf{Flashcode} : Un flashcode est un identifiant sous forme
@@ -81,10 +82,10 @@ L'application pourra être obtenue via les marchés d'applications propres aux s
 
 	\begin{itemize}
 	\item renseigner les details de son entreprise(nom,description du
-	type de services, description générale, numéro de siret).
+	domaine d'activité, description générale, numéro de siret).
 	\item renseigner sa politique d'annulation, par un particulier, de rendez vous (durée minimale d'annulation nécéssaire pour un remboursement)
 	\item Renseigner/modifier ses horaires de travail.
-	\item Créer/modifier/supprimer des services prédéfinis qu'il proposera aux particuliers.
+	\item Créer/modifier/supprimer des prestations qu'il proposera aux particuliers.
 	\item Inspecter et confirmer/refuser des demandes de rendez vous formulés par des particuliers.
 	\end{itemize}
 \item L'application permet à n'importe quel utilisateur de
@@ -102,7 +103,7 @@ de passe, nom,prenom, numéro de téléphone, adresse.
 \item Les utilisateurs n'ont besoin d'aucune connaissances techniques.
 \item L'utilisateur peut être soit un professionnel soit un particulier.
 \item Un professionnel devra préciser les details de son entreprise (nom,description du
-	type de services, description générale, numéro de siret, horaires d'ouverture,services prédéfinis,politique d'annulation de rendez vous).
+	domaine d'activité, description générale, numéro de siret, horaires d'ouverture, prestations, politique d'annulation de rendez vous).
 \end{itemize}
 \subsection{Contraintes}
 \begin{itemize}
@@ -123,6 +124,33 @@ Nous supposons que les appareils utilisant l'application seront reliés à inter
 \section{Exigences spécifiques}
 \subsection{Exigences des interfaces externes}
 \subsubsection{Interfaces avec les utilisateur}
+\paragraph{Le menu deroulant:}
+Un menu déroulant sera présent en haut à droite de l'interface afin de faciliter la navigation.
+Ainsi un utilisateur pourra accéder 
+\begin{itemize}
+\item à ses préférences via le bouton \og Préférences \fg{}
+\item à ses informations personnelles via un bouton\og Gerer mon compte \fg{}
+\item aux détails de ses rendez vous via un bouton \og Mes rendez-vous \fg{}. Appuyer sur ce bouton fera apparaitre:
+	\begin{itemize}
+	\item La liste de ses rendez vous à venir via un bouton \og Mes rendez vous à venir \fg{}
+	\item La liste de ses rendez vous en attente de confirmation via un bouton \og En attente de confirmation \fg{}
+	\end{itemize}
+\item à l'accueil via un bouton \og Accueil \fg{}
+\end{itemize}
+Un professionnel pourra accéder aux fonctionnalités cités ci dessus ainsi qu'
+\begin{itemize}
+\item aux details de son entreprise via un bouton \og Mon entreprise \fg{}. Appuyer sur ce bouton fera apparaitre:
+\begin{itemize}
+\item La page visible par les particuliers via un bouton \og Ma fiche de professionnel \fg{}
+\item La page de gestion des horaires via le bouton \og Gérer les horaires d'ouverture \fg{}
+\item La page de gestion des prestations via le bouton \og Mes prestations \fg{}
+\end{itemize}
+\item aux détails des demandes de rendez vous reçues  via un bouton \og Rendez-vous reçus \fg{}. Appuyer sur ce bouton fera apparaitre: 
+\begin{itemize}
+\item La page de gestion des rendez vous reçus non traités via un bouton \og Gestion des nouvelles demandes \fg{}
+\item La page d'affichage du calendrier de rendez vous via un bouton \og Mon calendrier de rendez vous \fg{}
+\end{itemize}
+\end{itemize}
 \paragraph{Les informations des utilisateurs :}
 \begin{itemize}
  \item Un formulaire d'inscription doit permettre à l'utilisateur de
@@ -135,7 +163,7 @@ Nous supposons que les appareils utilisant l'application seront reliés à inter
 %\includegraphics[scale=0.5]{ShematDiagrammes/useCaseInscription.jpg}
 \item Si l'utilisateur a choisit l'inscription en tant que professionnel, un formulaire (disponnible par redirection 
 directement apres l'inscription et/ou via le menu de navigation) doit lui permettre de renseigner les informations relatives 
-à son entreprise (nom,description du type de services, description générale, numéro de siret,politique d'annulation)
+à son entreprise (nom,description du domaine d'activité, description générale, numéro de siret,politique d'annulation)
 
 \item Si l'utilisateur est un professionnel: un formulaire, accessible via le menu de navigation,  doit lui permettre de renseigner les informations relatives aux 
 horaires d'ouverture de son entreprise (heure d'ouverture et fermeture pour chaque demie journée(matin/après midi) de la semaine).
@@ -166,11 +194,12 @@ horaires d'ouverture de son entreprise (heure d'ouverture et fermeture pour chaq
   (volume et tonalitée) dans la page paramètres.
 \item L'utilisateur devrait pouvoir activer le thème nuit, qui modifierait les
   couleurs de l'application, dans la page paramètres.
+\item L'utilisateur, si il est professionnel, devrait pouvoir activer la notification par sms.
 \end{itemize}
 \paragraph{Recherche d'un professionnel :}
 \begin{itemize}
 \item Un champs textuel doit permettre à l'utilisateur d'éffectuer une
-  recherche par mot clef (nom d'entreprise, secteur d'activité, type de service, numero de siret) ou via un flashcode fournit par le professionnel. Dans
+  recherche par mot clef (nom d'entreprise, secteur d'activité, domaine d'activité, numero de siret) ou via un flashcode fournit par le professionnel. Dans
   le premier cas, l'utilisateur devrait pouvoir selectionner
   un périmetre maximal de recherche si il le souhaite.
 \item Après avoir fais une recherche, le client doit pouvoir sélectionner un
@@ -187,14 +216,14 @@ horaires d'ouverture de son entreprise (heure d'ouverture et fermeture pour chaq
 \begin{itemize}
 
 \item La séléction d'un
-  professionnel de la liste doit permettre d'afficher la
+  professionnel de la liste affichée apres une recherche doit permettre d'afficher la
   page dédiée au professionnel en question.
 \item Le client doit pouvoir selectionner une prestation parmis une liste
   proposée par le professionnel.
-\item Après avoir selectionné une prestation, le système affiche le
-  calendrier du professionnel avec les crénaux diponnibles et le
-  client peut selectionner un crénau.
-\item Une fois le crénau sélectionné, le client est redirigé vers
+\item Après avoir selectionné une prestations, le système affiche le
+  calendrier du professionnel avec les créneaux diponnibles que le
+  client peut selectionner.
+\item Une fois le créneau sélectionné, le client est redirigé vers
     une page récapitulative de sa prise de rendez-vous(date, heure, details du service, lieu). Avec un bouton
     confirmer ou annuler.
 \item Si le particulier confirme son choix, les details de ce rendez vous s'ajouteront à la liste des rendez 
@@ -208,7 +237,7 @@ si la tâche n'est pas en confirmation automatique (sinon, ils seront placés da
   client appuie sur \og ajouter un rappel \fg{} puis choisis quand le
   rappel va être fait (en nombre d'heure ou de jours avant le
   rendez-vous).Cette fonctionnalité est accessible via un bouton 
-  prévu a cet effet sur chaque rendez vous a venir dans la section "rendez vous à venir").
+  prévu à cet effet sur chaque rendez vous à venir dans la section "rendez vous à venir").
 
 %\includegraphics[scale=0.3]{ShematDiagrammes/useCasePriseRdv.jpg}
 
@@ -218,7 +247,7 @@ si la tâche n'est pas en confirmation automatique (sinon, ils seront placés da
 \paragraph{Les informations liés aux rendez vous :}
 Tous les utilisateurs:
 \begin{itemize}
-\item L'utilisateur aura acces à la liste de leurs rendez-vous à venir via le menu en selectionnant \og rendez vous à venir \fg{}.
+\item L'utilisateur aura acces à la liste de ses rendez-vous à venir via le menu en selectionnant \og rendez-vous à venir \fg{}.
 Il pourra y voir les rendez-vous confirmés par le professionnel qui ne sont pas encore passés.
 
 \item L'utilisateur aura acces à la liste de ses rendez vous en attente de confirmation via le menu en selectionnant \og en attente de confirmation \fg{}.
@@ -229,19 +258,21 @@ Il pourra y voir les rendez-vous en attente de confirmation par le professionnel
 Uniquement les professionnels:
 \begin{itemize}
 \item L'utilisateur aura acces à la liste de leurs rendez-vous à confirmer via le menu en selectionnant \og rendez vous à confirmer \fg{}.
-Il pourra y voir les rendez-vous demandés par les particuliers qui ne sont pas encore confirmés.
+Il pourra y voir les rendez-vous demandés par les particuliers qui ne sont pas encore confirmées.
 
 \end{itemize}
-%IIIIIIICCCCCCCCCCCCIIIIIIIII
-\paragraph{Paramétrage du calendrier côté profesionnel :}
+
+\paragraph{Paramétrage des prestations côté profesionnel :}
+Pour l'accès à cette section, voir les details du menu plus haut.
 \begin{itemize}
-\item Un menu doit permettre au professionnel de créer une nouvelle
-  prestation en appuyant sur un bouton \og Ajouter une prestation
-  \fg{}.
 \item Une liste déroulante doit permettre à l'utilisateur d'afficher
-  les prestations déjà existantes. Chaque elements de la liste est
+  les prestations déjà existantes. Chaque elément de la liste est
   accompagné des boutons \og selectionner \fg{}, \og modifier \fg{} et
   \og supprimer \fg{}.
+
+\item Un bouton doit permettre au professionnel de créer une nouvelle
+  prestation en appuyant sur un bouton \og Ajouter une prestation
+  \fg{}.
 
 \item Un formulaire doit permettre de créer une prestation. Ce
   formulaire doit contenir les champs textuels suivant \og Nom \fg{}, \og Description
@@ -253,16 +284,18 @@ Il pourra y voir les rendez-vous demandés par les particuliers qui ne sont pas 
   une prestation. Ce formulaire doit contenir un champ nom, un champ description, un champ
   durée, un champ prix et un champ validation automatique.
 \item L'utilisateur doit pouvoir choisir si il souhaite une validation automatique ou manuelle des rendez-vous.
+\end{itemize}
+\paragraph{Gestion du calendrier de disponnibilités}
+\begin{itemize}
 \item Un calendrier modifiable doit permettre à l'utilisateur de
   modifier ses diponibilitées en modifiant les jours et les horaires
   auquelles il peux effectuer ses prestations.
 \item Le calendrier modifiable doit pemettre à l'utilisateur de
   visualiser et de gérer les rendez vous déjà pris. Sur un crénaux
-  pris, il doit afficher les informations de l'utilisateur qui a pris
+  pris ainsi que la prestation qu'il demande, il doit afficher les informations de l'utilisateur qui a pris
   le rendez-vous. Il doit aussi permettre au professionnel de valider
   ou non les rendez vous.
 \end{itemize}
-
 \paragraph{Acceptation de prise de rendez-vous}
 
 
@@ -270,15 +303,16 @@ Lorsqu'un rendez vous est pris par un particulier, le
   professionnel recoit une notification. Lorsque le professionnel
   appuie sur cette dernière, l'application souvre sur une page ou il
   est indiqué les informations de l'utilisateur et de la tâche a éffectuer.
+  Le professionnel pourra acceder a cette demande via le menu (voir le paragraphe dédié au menu plus haut).
 \begin{itemize}
-\item  Si la tache à effectuer est en validation manuelle: un bouton \og
+\item  Si la prestation est en validation manuelle: un bouton \og
   Accepter le rendez vous \fg{} et un bouton \og
   Refuser le rendez vous \fg{} seront présents dans la page décrite précedement.
 \end{itemize}
 \paragraph{Signalement des particulier}
 \begin{itemize}
-\item Si un rendez-vous à été pris par un particulier mais ce dernier
-  n'y s'est pas rendu, le professionnel doit pouvoir
+\item Si un rendez-vous à été pris par un particulier mais que ce dernier
+  n'y est pas rendu, le professionnel doit pouvoir
   signaler le particulier via un bouton \og signaler \fg{} situé
   à coté de chaque nom d'utilisateur son calendrier. Cette action retire un \og point de crédibilité \fg{} à l'utilisateur qui possède
   3 \og points de crédibilité \fg{}. Si l'utilisateur arrive à 0 point de crédibilité son compte est
@@ -346,7 +380,8 @@ les photos de profil des utilisateurs.
 		est deja existant.
 		\begin{itemize}
 		\item Si l'email n'existe pas encore dans la base de données le systeme
-			doit les enregister,indiquer le bon deroulement de l'opération via un message temporaire et rediriger vers la page de connexion.
+			doit les enregister,indiquer le bon deroulement de l'opération via un message temporaire et rediriger
+			 vers la page de connexion.
 		\item Si l'email existe déja le systeme doit rediriger vers
 			la page d'inscription et indiquer que le mail est déja utilisé
 			via un message.
@@ -413,10 +448,7 @@ les photos de profil des utilisateurs.
 
 \paragraph{Format / validitée des données saisies}
 \begin{itemize}
-\item (A enlever penisiline) L'email  et la confirmation d'email sont valides si elles ce plient à l'expression régulière
-  suivante :
-
-[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z]
+\item L'email et la confirmation d'email sont valides si ils sont jugés comme des emails.
 
 \item Le mot de passe et la confirmation de mot de passe sont valides si ils contiennent entre 8 et 25
   caractères et si ils contiennent au moins une majuscule et une minuscule.
@@ -485,13 +517,7 @@ Apres la confirmation le systeme doit :
 	\end{itemize}
 \item Pour la confirmation (si elle n'est pas automatique):
 	\begin{itemize}
-	\item Si le professionnel adapte la réservation au besoin du client:
-		\begin{itemize}
-		\item Le systeme doit enregistrer les données dans la base de données (modifications éventuelles du prix,durée).
-		\end{itemize}
-	\end{itemize}
-	\begin{itemize}
-    \item Le systeme doit placer la réservation dans la section "rendez vous a venir" et la supprimer de "réservations à confirmer"
+	\item Le systeme doit placer la réservation dans la section "rendez vous a venir" et la supprimer de "réservations à confirmer"
 	\end{itemize}
 \end{itemize}
 
@@ -503,20 +529,20 @@ Apres la confirmation le systeme doit :
 
 \paragraph{Pour la gestion du calendrier du professionnel :}
 \begin{itemize}
+\item Le systeme doit verifier la validité des horaires rentrés par l'utilisateur.
 \item Le systeme doit enregistrer les horaires du professionnel dans
   la base de données .
-\item Le systeme doit enregistrer dans la base de données les taches
-  prédefinie (prestations) que le professionnel souhaite ajouter.
+\item Le systeme doit enregistrer dans la base de données les prestations que le professionnel souhaite ajouter.
 \end{itemize}
 
 \paragraph{Rappel de rendez-vous}
 \begin{itemize}
-\item Le systeme devrait enregistrer dans une base de données locale les
+\item Le systeme doit enregistrer dans une base de données locale les
   rappels de rendez-vous définis par les utilisateurs.
-\item Le systeme devrait afficher une notification et emmetre un son
+\item Le systeme doit afficher une notification et emmetre un son
   et/ou une vibration lorsque le l'heure du rappel de rendez vous est
   égale à l'heure du terminal.
-\item Le system devrait ajouter une notification spéciale définit
+\item Le system doit ajouter une notification spéciale définit
   comme suit :
   \begin{itemize}
     \item Le systeme calcule le temps de voyage approximatif en minute
@@ -532,6 +558,8 @@ Apres la confirmation le systeme doit :
 
 \subsection{Exigences de performance}
 \subsubsection{Exigences statiques}
+\paragraph{Taille de l'application}
+L'application ne doit pas exceder 100Mo.
 \paragraph{Nombre d'utilisateurs simultané :}
 L'application doit pouvoir supporter 50 utilisateurs/terminaux
 simultanément.
@@ -575,11 +603,13 @@ Pour les utilisateurs, nous devrons stocker
 \begin{itemize}
 \item Un identifiant (entier)
 \item L'email (Chaine de caractères (entre 5 à 30 caractères))
-\item Le nom d'utilisateur (Chaine de caractères (entre 3 et 10 caracteres))
+\item Le nom de l'utilisateur (Chaine de caractères (entre 3 et 20 caracteres))
+\item le prénom de l'utilisateur (Chaine de caractères (entre 3 et 20 caracteres))
 \item Le mot de passe (Chaine de caractères (entre 8 et 25 caractères))
 \item Le numero de téléphone (Chaine de caractères (exactement 10 caracteres)
 \item L'adresse (Chaine de caractères (maximum 100 caractères))
 \item Le fait que l'utilisateur soit professionnel ou non (booléen)
+\item Ses points de crédibilité (entier, 3 maximum)
 \end{itemize}
 
 \paragraph{Entreprise}
@@ -590,11 +620,12 @@ Pour les entreprises, nous devrons stocker:
 \item Une description du domaine d'activité (Chaine de caractères (maximum 100 caractères))
 \item Une adresse (Chaine de caractères (maximum 100 caractères))
 \item Une description générale(Chaine de caractères (maximum 100 caractères))
+\item Une description de la politique d'annulation de rendez vous(Chaine de caractères (maximum 100 caractères))
 \item Un numero de siret(Chaine de caractères (14 caracteres))
 \end{itemize}
 
-\paragraph{Tâche}
-Pour les tâches, nous devrons stocker
+\paragraph{Prestations}
+Pour les prestations, nous devrons stocker
 \begin{itemize}
 \item Un identifiant (entier)
 \item Une référence vers une entreprise (id de l'entreprise (entier))
@@ -620,7 +651,7 @@ Pour les rendez-vous, nous devrons stocker
 \begin{itemize}
 \item Un identifiant (entier)
 \item Une référence vers un utilisateur particulier (id du particulier (entier))
-\item Une référence vers une tâche (id de la tache (entier))
+\item Une référence vers une prestation (id de la prestation (entier))
 \item L'heure de début (date)
 \item L'heure de fin (date)
 \end{itemize}
