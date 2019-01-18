@@ -4,8 +4,9 @@
 \usepackage[frenchb]{babel}
 \usepackage[bookmarks=true]{hyperref}
 \usepackage{lmodern}
+\usepackage{fullpage}
 
-\author{Gentile Pierre}
+\author{Gentile Pierre, Didier-Roche François}
 \date{\today}
 \title{Cahier de test de recette}
 
@@ -15,53 +16,47 @@
 \maketitle
 
 \begin{abstract}
-<<<<<<< HEAD
-  Ce documents recense les test unitaires qui doivents être mené lors de la phase de test de l'application Appointime. Les grandes parties de l'application seront représentées dans ce document a l'aide d'un tableau avec : le nom de la partie, les tests a effectuer, les résultats attendus et les résultats observés.
-=======
-  Ce document recense les test unitaires qui doivents être menés lors de la phase de test de l'application Appointime. Les grandes parties de l'application seront représentées dans ce document à l'aide d'un tableau avec : le nom de la partie, les tests à effectuer, les résultats attendus et les résultats observés.
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+
+  Ce document recense les tests unitaires qui doivent être menés lors de la phase de test de l'application Appointime. 
+  Les grandes parties de l'application seront représentées dans ce document à l'aide de tableaux avec :
+   le nom de la partie, les tests à effectuer, les résultats attendus et les résultats observés.
+
 \end{abstract}
 
 \newpage
 \begin{center}
-  \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+  \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
     \hline
-    \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Inscription)}} \\
+    \multicolumn{4}{|c|}{\textbf{Informations des utilisateurs (Inscription)}} \\
     \hline
-    \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+    \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée}\\
     \hline
 
-    J'entre des informations valides, l'email n'est pas déja présent dans la base de données et j'appuie sur le bouton \og s'inscrire \fg{} &
+    J'entre des informations valides, l'email n'est pas déjà présent dans la base de données et j'appuie sur le bouton \og s'inscrire \fg{} &
     \begin{itemize}
-<<<<<<< HEAD
-      \item Le système me redirique vers la page de connexion en m'indiquant que j'ai bien été enregistré.
-      \item Les informations ont bien été inseré dans la base de données
-=======
-      \item Le système me redirige vers la page de connexion en m'indiquant que j'ai bien été enregistré.
+
+      \item Le système me redirige vers la page de connexion en m'indiquant que mes informations ont bien été enregistrées.
       \item Les informations ont bien été inserées dans la base de données
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+
       \end{itemize}&
+      ...&
       ... \\
 
       \hline
       \hline
-      J'entre des informations valides et l'email est déja présent dans la base de données et j'appuie sur le bouton \og s'inscrire \fg{} &
-<<<<<<< HEAD
-      Le système me redirique vers la page d'inscription en m'indiquant que l'email est déjà utilisé &
-=======
+      J'entre des informations valides et l'email est déja présent dans la base de données puis j'appuie sur le bouton \og s'inscrire \fg{} &
+
       Le système me redirige vers la page d'inscription en m'indiquant que l'email est déjà utilisé &
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      ...&
       ... \\
 
 
       \hline
       \hline
       J'entre une ou plusieurs informations invalides et j'appuie sur le bouton \og s'inscrire \fg{} &
-<<<<<<< HEAD
-      Le système me redirique vers la page d'inscription en m'indiquant les données invalides&
-=======
+
       Le système me redirige vers la page d'inscription en m'indiquant les données invalides&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      ...&
       ... \\
       \hline
 
@@ -70,73 +65,56 @@
 
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-      \hline
-<<<<<<< HEAD
-      \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Connexion)}} \\
-=======
-      \multicolumn{3}{|c|}{\textbf{Informations des utilisateurs (Connexion)}} \\
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
 
-      J'entre des informations valides, la combinaison email+mot de passe est présente dans la base de données et j'appuie sur le bouton\og se connecter \fg{}.&
-<<<<<<< HEAD
-      Le système me redirige vers la page d'acceuil.&
-=======
+      \multicolumn{4}{|c|}{\textbf{Informations des utilisateurs (Connexion)}} \\
+      \hline
+      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
+      \hline
+
+      J'entre des informations valides, la combinaison email+mot de passe est présente dans la base de données et j'appuie sur le bouton\og Se connecter \fg{}.&
       Le système me redirige vers la page d'accueil.&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      ...&
       ... \\
 
       \hline
       \hline
-      J'entre des informations invalides et/ou la combinaison email+mot de passe n'est pas présente dans la base de données et j'appuie sur le bouton \og se connecter \fg{}. &
-<<<<<<< HEAD
-      Le système me redirique vers la page de connexion en m'indiquant une erreur.&
-=======
-      Le système me redirige vers la page de connexion en m'indiquant une erreur.&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      J'entre des informations invalides et/ou la combinaison email+mot de passe n'est pas présente dans la base de données et j'appuie sur le bouton \og Se connecter \fg{}. &
+      Le système me redirige vers la page de connexion en m'indiquant le(s) erreur(s).&
+      ...&
       ... \\
 
       \hline
       \hline
-      Pour les smartphones equipés, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte est enregistrée sur le smartphone&
-<<<<<<< HEAD
-      Le système me redirique vers la page de d'acceuil.&
-=======
+      Pour les smartphones équipés, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte est enregistrée&
+
       Le système me redirige vers la page de d'accueil.&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      ...&
       ... \\
 
       \hline
       \hline
-      Pour les smartphones equipés, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte n'est pas enregistrée sur le smartphone&
-<<<<<<< HEAD
-      Le système me redirique vers la page de connexion en m'indiquant une erreur.&
-=======
-      Le système me redirige vers la page de connexion en m'indiquant une erreur.&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      Pour les smartphones équipés, sur la page de connexion, je pose mon doigt sur le lecteur d'empreinte digitale alors que l'empreinte n'est pas enregistrée&
+	  Le système me redirige vers la page de connexion en m'indiquant une erreur.&
+
+      ...&
       ... \\
 
       \hline
       \hline
-      Pour les smartphones equipés, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage est enregistré sur le smartphone&
-<<<<<<< HEAD
-      Le système me redirique vers la page d'acceuil&
-=======
+      Pour les smartphones équipés, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage est enregistré&
+
       Le système me redirige vers la page d'accueil&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      ...&
       ... \\
 
       \hline
       \hline
-      Pour les smartphones equipés, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage n'est pas enregistré sur le smartphone&
-<<<<<<< HEAD
-      Le système me redirique vers la page de connexion en m'indiquant une erreur.&
-=======
+      Pour les smartphones équipés, sur la page de connexion, j'utilise la reconnaissance faciale alors que mon visage n'est pas enregistré&
+
       Le système me redirige vers la page de connexion en m'indiquant une erreur.&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      ...&
       ... \\
 
 
@@ -147,43 +125,35 @@
 
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-      \hline
-<<<<<<< HEAD
-      \multicolumn{3}{|c|}{\textbf{Informations des utilisateur (Modification des informations)}} \\
-=======
-      \multicolumn{3}{|c|}{\textbf{Informations des utilisateurs (Modification des informations)}} \\
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
 
-<<<<<<< HEAD
-      Je modifie une ou plusieurs informations en entrant des information valides. Si je modifie l'email, le nouvel email n'est pas déjà etre présent dans la base de données et j'appuie sur le bouton \og modifier \fg{}.&
-=======
-      Je modifie une ou plusieurs informations en entrant des information valides. Si je modifie l'email et que le nouvel email n'est pas déjà présent dans la base de données et j'appuie sur le bouton \og modifier \fg{}.&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      Le systeme me redirige vers la page d'acceuil en m'indiquant que mes information ont bien été modifiées. &
+      \multicolumn{4}{|c|}{\textbf{Informations des utilisateurs (Modification des informations)}} \\
+      \hline
+      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
+      \hline
+
+
+      Je modifie une ou plusieurs informations en entrant des informations valides. Si je modifie l'email et que le nouvel email n'est pas déjà présent dans la base de données et j'appuie sur le bouton \og modifier \fg{}.&
+
+      Le système me redirige vers la page de gestion de compte en m'indiquant que mes informations ont bien été modifiées. &
+      ...&
       ... \\
 
       \hline
       \hline
-      J'entre des information valides dont l'email mais le nouvel email est déjà present dans la base de données et j'appuie sur le bouton \og modifier \fg{} &
-<<<<<<< HEAD
-      Le système de redirige vers la page de modification des informations en m'indiquant que l'email existe déjà &
-=======
+      J'entre des informations valides mais le nouvel email est déjà présent dans la base de données et j'appuie sur le bouton \og modifier \fg{} &
+
       Le système me redirige vers la page de modification des informations en m'indiquant que l'email existe déjà &
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      ...&
       ... \\
 
       \hline
       \hline
-      J'entre des information invalides.&
-<<<<<<< HEAD
-      Le système de redirige vers la page de modification des informations en m'indiquant les champs invalides.&
-=======
+      J'entre des informations invalides.&
+
       Le système me redirige vers la page de modification des informations en m'indiquant les champs invalides.&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      ...&
       ... \\
 
       \hline
@@ -193,59 +163,47 @@
 
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-      \multicolumn{3}{|c|}{\textbf{Préférences des utilisateurs}} \\
+      \multicolumn{4}{|c|}{\textbf{Préférences des utilisateurs}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
       \hline
 
-<<<<<<< HEAD
-      En réglages basiques (notification activée), je recoit une notification&
-      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son&
-=======
       En réglages basiques (notification activée), je recois une notification&
-      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son et/ou une vibration&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      Le smartphone m'affiche la notification dans le menu du smartphone et émet un son et/ou une vibration&
+      ...&
       ... \\
 
       \hline
       \hline
-      Je désactive le notification en appuyant sur le bouton et je recoit une notification&
+      Je désactive les notifications en appuyant sur le bouton et je recois une notification&
       Le smartphone n'affiche aucune notification et n'émet aucun son&
+      ...&
+      ... \\
+
+
+      \hline
+      \hline
+      Les notifications étant activées, je règle le son des notifications et je recois une notification&
+      Le smartphone m'affiche la notification dans le menu du smartphone et émet un son qui sera plus ou moins fort selon la modification que j'ai éffectué&
+      ...&
       ... \\
 
       \hline
       \hline
-      Je réactive les notifications et je recoit une notification&
-<<<<<<< HEAD
-      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son&
-=======
-      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son et/ou une vibration&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      Les notifications étant activées, je choisis une nouvelle tonalité de notifications et je recois une notification&
+      Le smartphone m'affiche la notification dans le menu du smartphone et émet un son différent selon la modification que j'ai éffectué&
+
+      ...&
       ... \\
+ 
 
       \hline
       \hline
-      Les notifications étant activées, je regle le son des notification et je recoit une notification&
-      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son qui sera plus ou moins fort selon la modification que j'ai éffectué&
-      ... \\
-
-      \hline
-      \hline
-<<<<<<< HEAD
-      Les notifications étant activées, je modifie la choisis une nouvelle tonalité de notifications et je recoit une notification&
-      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son qui sera plus ou moins fort selon la modification que j'ai éffectué&
-=======
-      Les notifications étant activées, je choisis une nouvelle tonalité de notifications et je recoit une notification&
-      Le smartphone m'affiche la notification dans le menu du smartphone et emmet un son différent selon la modification que j'ai éffectué&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      ... \\
-
-      \hline
-      \hline
-      Etant dans le thème de base, j'active de thème nuit en appuyant sur le bouton prévu a cet effet.&
+      Etant dans le thème de base, j'active de thème nuit en appuyant sur le bouton prévu à cet effet.&
       Les couleurs de l'application changent quelque soit la page.&
+      ...&
       ... \\
 
 
@@ -256,62 +214,42 @@
   \end{center}
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-      \multicolumn{3}{|c|}{\textbf{Recherche d'un professionnel}} \\
+      \multicolumn{4}{|c|}{\textbf{Recherche d'un professionnel}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
-      \hline
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
 
-      J'entre un nom d'entreprise et ce dernier est présent dans la base de données&
-      Le système m'affiche le lien menant vers le calendrier de cette entreprise&
+      \hline
+      J'entre des mots clefs correspondant à une ou plusieurs entreprises&
+      le système m'affiche une liste de liens vers les pages dédiées aux entreprises inscrites dans la base de données et correspondant à la recherche&
+      ...&
       ... \\
 
       \hline
       \hline
-      J'entre un domaine d'activité présent dans la base de données&
-      le système m'affiche une liste de liens vers le calendrier des professionnel dans ce domaine d'activitée&
+      J'utilise mon appareil photo pour analyser un flash code correspondant à une entreprise&
+     Le système affiche le lien de la page dédiée à l'entreprise correspondant au flashcode&
+      ...&
       ... \\
 
       \hline
       \hline
-      J'utilise mon appareil photo pour annalyser un flash code qui est présent dans la base de données&
-      Le système affiche le lien du professionnel correspondant au flashcode&
-      ... \\
-
-      \hline
-      \hline
-      J'entre un nom d'entreprise ou un domaine d'activitées qui n'est pas présent dans la base de données&
+      J'entre des mots clefs ne correspondant à aucune entreprise&
       Le système m'indique qu'aucun résultat n'a été trouvé&
+      ...&
       ... \\
 
       \hline
       \hline
       J'utilise mon appareil photo pour annalyser un flash code qui n'est pas présent dans la base de données&
       Le système m'indique qu'aucun résultat n'à été trouvé &
+      ...&
       ... \\
 
-      \hline
-      \hline
+     
 
-<<<<<<< HEAD
-      Si une recherche c'est bien déroulée, j'appuie le bouton \og Ajouter aux favoris \fg{} dans la liste des professionnels&
-=======
-      Si une recherche s'est bien déroulée, j'appuie le bouton \og Ajouter aux favoris \fg{} dans la liste des professionnels&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      Le système ajoute l'information dans la base de donnée et sur la page favori, on peut voir le professionnel ajouté&
-      ... \\
-
-      \hline
-      \hline
-
-<<<<<<< HEAD
-      Si une recherche c'est bien déroulée, j'appuie n'importe quel lien de professionnel dans la liste&
-=======
-      Si une recherche s'est bien déroulée, j'appuie n'importe quel lien de professionnel dans la liste&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      Le système me redirige vers la page de calendrier du professionnel correspondant au lien sur lequel j'ai cliqué &
-      ... \\
+      
 
 
 
@@ -322,68 +260,54 @@
 
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-      \hline
-<<<<<<< HEAD
-      \multicolumn{3}{|c|}{\textbf{Prise de rendez-vous cher un professionnel}} \\
-=======
-      \multicolumn{3}{|c|}{\textbf{Prise de rendez-vous chez un professionnel}} \\
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
 
-      Je séléctionne une prestation dans le menu déroulant de la page du calendrier d'un professionnel&
-      Le système m'affiche le calendrier du professionnel avec les crénaux disponibles.&
+      \multicolumn{4}{|c|}{\textbf{Prise de rendez-vous chez un professionnel}} \\
+      \hline
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé}  & \textbf{Correction apportée}\\
+      \hline
+
+      Je séléctionne une prestation dans le menu déroulant de la page prévue à cet effet&
+      Le système m'affiche le calendrier du professionnel avec les créneaux disponibles supérieurs ou égaux à la durée de la prestation.&
+      ...&
       ... \\
 
       \hline
       \hline
 
-<<<<<<< HEAD
-      Une fois le calendrier affiché, j'appuie sur un crénaux disponible&
-=======
-      Une fois le calendrier affiché, j'appuie sur un crénau disponible&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      Une fois le calendrier affiché, j'appuie sur un créneau disponible&
+      Le créneau change de couleur afin d'indiquer qu'il est sélectionné&
+      ...&
+      ... \\
+	\hline
+      \hline
+
+
+      Tant qu'aucun créneau n'est séléctionné&
+      le bouton valider n'est pas utilisable&
+      ...&
+      ... \\
+      
+       \hline
+      \hline
+      Une fois le créneau sélectionné, j'appuie sur le bouton réserver&
       Le système me redirige vers la page de confirmation&
+      ...&
       ... \\
-
+     
       \hline
       \hline
-
-<<<<<<< HEAD
-      Etant sur la page de confirmation, je confirme ma reservation&
-=======
-      Etant sur la page de confirmation, je confirme ma réservation&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      Une notification est envoyée au professionnel concerné, dans la section \og Reservation à confirmer\fg{} on peut voir la demande. Le crénaux n'est plus disponible pour les autres particuliers&
-      ... \\
-
-      \hline
-      \hline
-      Etant sur la page de confirmation,j'annule ma reservation&
+      Etant sur la page de confirmation,j'annule ma réservation&
       Le système me redirige vers la page précédente&
+      ...&
       ... \\
 
+		\hline
       \hline
-      \hline
-<<<<<<< HEAD
-      Etant un professionnel, en recevant la demande de réservation je l'accepte&
-      Une notification est envoyée au particulier qui a fais sa demande en lui indiquant que le rendez-vous a été accepté&
-=======
-      Etant un professionnel, en recevant la demande de réservation je l'accepte/elle est accéptée automatiquement&
-      Une notification est envoyée au particulier qui a fait sa demande en lui indiquant que le rendez-vous a été accepté&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      ... \\
-
-      \hline
-      \hline
-      Etant un professionnel, en recevant la demande de réservation je la refuse&
-<<<<<<< HEAD
-      Une notification est envoyée au particulier qui a fais sa demande que le rendez-vous à été refusé. Le crénaux est de nouveaux disponible pour les autres particuliers&
-=======
-      Une notification est envoyée au particulier qui a fait sa demande que le rendez-vous à été refusé. Le crénaux est de nouveaux disponible pour les autres particuliers&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      Etant un particulier ayant une réservation active, je programme un rappel&
+      Le rappel a bien lieu au jour/à l'heure prévu(e)
+      ...&
       ... \\
 
       \hline
@@ -392,34 +316,29 @@
   \end{center}
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-<<<<<<< HEAD
-      \multicolumn{3}{|c|}{\textbf{Parametrage du calendrier d'un professionnel}} \\
-=======
-      \multicolumn{3}{|c|}{\textbf{Parametrage des prestations d'un professionnel}} \\
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      \multicolumn{4}{|c|}{\textbf{Parametrage des prestations d'un professionnel}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé}  & \textbf{Correction apportée}\\
       \hline
 
-      Dans le menu de paramétrage du calendrier j'appuie sur le bouton \og ajouter une prestation \fg{}&
+      Dans le menu de paramétrage des prestations j'appuie sur le bouton \og ajouter une prestation \fg{}&
       Le système me redirige vers le formulaire d'ajout de prestation&
+      ...&
       ... \\
 
       \hline
       \hline
 
       Dans le formulaire d'ajout de prestation, j'entre des informations
-      valides et j'appuie sur le boutton \og Valider \fg{}&
-      Le système ajoute les information en base de données et me redirige
+      valides et j'appuie sur le bouton \og Valider \fg{}&
+      Le système ajoute les informations en base de données et me redirige
       vers le menu
-      de parametrage
-<<<<<<< HEAD
-      du calendrier&
-=======
-      du prestations&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      de paramétrage
+
+      des prestations&
+      ...&
       ... \\
 
       \hline
@@ -429,57 +348,44 @@
       invalides et j'appuie sur \og Valider \fg{} &
       Le système m'indique les erreurs que j'ai fait et me renvoie sur le
       formulaire d'ajout de prestation &
+      ...&
       ... \\
 
       \hline
       \hline
-      Dans le menu de parametrage du calendrier j'appuie sur le bouton \og
+      Dans le menu de parametrage des prestations j'appuie sur le bouton \og
       Modifier \fg{} de n'importe quelle prestation&
       Le système me redirige vers le formulaire de modification de prestation&
+      ...&
       ... \\
 
       \hline
       \hline
       Dans le formulaire de modification de prestation, j'entre des
       informations valides et j'appuie sur le boutton \og Modifier \fg{}&
-<<<<<<< HEAD
-      Le système modifie les information en base de donnée et me redirique
-      vers
-      le
-      menu de
-      parametrage
-      du
-      calendrier.&
-=======
-      Le système modifie les information en base de donnée et me redirige
-      vers
-      le formulaire de modification de prestation.&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      Le système modifie les informations en base de données et me redirige
+      vers la section de gestion des prestations.&
+      ...&
       ... \\
 
       \hline
       \hline
       Dans le formulaire d'ajout de prestation, j'entre des informations
-<<<<<<< HEAD
-      valides et j'appuie sur le boutton \og Valider \fg{}&
-=======
-      invalides et j'appuie sur le boutton \og Valider \fg{}&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+
+      invalides et j'appuie sur le bouton \og Valider \fg{}&
       Le système m'indique les erreurs que j'ai fait et me renvoie sur le
       formulaire de modification de prestation&
+      ...&
       ... \\
 
       \hline
       \hline
-      Dans le menu de parametrage du calendrier j'appuie sur le bouton \og
+      Dans la section de gestion des prestations j'appuie sur le bouton \og
       Supprimer \fg{} de n'importe quelle prestation&
-<<<<<<< HEAD
-      Le système suprime la prestion en base de donnée et je ne la vois plus
-=======
-      Le système supprime la prestation en base de donnée et je ne la vois plus
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      apparaitre dans
+      Le système supprime la prestation en base de données et je ne la vois plus
+      apparaître dans
       la liste. &
+      ...&
       ... \\
 
 
@@ -489,27 +395,21 @@
     \end{tabular}
   \end{center}
 
-<<<<<<< HEAD
-  \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-      \hline
-      \multicolumn{3}{|c|}{\textbf{Signalement d'un particulier}} \\
-=======
-
 
 
 
 
 \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-      \multicolumn{3}{|c|}{\textbf{Parametrage de l'entreprise d'un professionnel}} \\
+      \multicolumn{4}{|c|}{\textbf{Paramétrage de l'entreprise d'un professionnel}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
       \hline
 
       Dans le menu de paramétrage d'une entreprise j'appuie sur le bouton \og modifier les informations \fg{}&
-      Le système me redirige vers le formulaire de gestion des informations sur l'entreprise&
+      Le système me redirige vers le formulaire de modification des informations de l'entreprise&
+      ...&
       ... \\
 
       \hline
@@ -517,8 +417,9 @@
 
       Dans le formulaire de gestion des informations sur l'entreprise, j'entre des informations
       valides et j'appuie sur le boutton \og Valider \fg{}&
-      Le système ajoute les information en base de données et me redirige
+      Le système ajoute les informations en base de données et me redirige
       vers le menu d'affichage des informations sur l'entreprise&
+      ...&
       ... \\
 
       \hline
@@ -528,6 +429,7 @@
       invalides et j'appuie sur \og Valider \fg{} &
       Le système m'indique les erreurs que j'ai fait et me renvoie sur le
       formulaire  de gestion des informations sur l'entreprise&
+      ...&
       ... \\
 
    
@@ -545,15 +447,16 @@
 
 
 \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+   \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-      \multicolumn{3}{|c|}{\textbf{Parametrage du calendrier d'un professionnel}} \\
+      \multicolumn{4}{|c|}{\textbf{Paramétrage du calendrier d'un professionnel}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
       \hline
 
-      Dans le menu de paramétrage du calendrier j'appuie sur le bouton \og parametrer les horaires d'ouverture \fg{}&
+      Dans le menu de paramétrage du calendrier j'appuie sur le bouton \og paramétrer les horaires d'ouverture \fg{}&
       Le système me redirige vers le formulaire de gestion des horaires d'ouverture&
+      ...&
       ... \\
 
       \hline
@@ -561,8 +464,9 @@
 
       Dans le formulaire de gestion des horaires d'ouverture, j'entre des informations
       valides et j'appuie sur le boutton \og Valider \fg{}&
-      Le système ajoute les information en base de données et me redirige
+      Le système ajoute les informations en base de données et me redirige
       vers le menu de gestion des horaires d'ouverture&
+      ...&
       ... \\
 
       \hline
@@ -572,23 +476,26 @@
       invalides et j'appuie sur \og Valider \fg{} &
       Le système m'indique les erreurs que j'ai fait et me renvoie sur le
       formulaire de gestion des horaires d'ouverture,&
+      ...&
       ... \\
 
       \hline
       \hline
-      Dans le menu de parametrage du calendrier j'appuie sur le bouton \og
+      Dans le menu de paramétrage du calendrier j'appuie sur le bouton \og
       Modifier \fg{} de n'importe quel jour&
       Le système me redirige vers le formulaire de modification des horaires pour ce jour&
+      ...&
       ... \\
 
       \hline
       \hline
       Dans le formulaire de modification d'horaires d'ouverture du jour, j'entre des
       informations valides et j'appuie sur le boutton \og Modifier \fg{}&
-      Le système modifie les information en base de donnée et me redirige
+      Le système modifie les informations en base de données et me redirige
       vers
       le
       menu de gestion des horaires d'ouverture.&
+      ...&
       ... \\
 
       \hline
@@ -597,6 +504,7 @@
       invalides et j'appuie sur le boutton \og Valider \fg{}&
       Le système m'indique les erreurs que j'ai fait et me renvoie sur le
       formulaire de modifications d'horaires du jour &
+      ...&
       ... \\
 
     
@@ -619,36 +527,18 @@
 
 
 
-  \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
-      \hline
-      \multicolumn{3}{|c|}{\textbf{Rappels de rendez-vous}} \\
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
-      \hline
-
-      Étant un particulier, je paramètre un ou plusieurs rappel de rendez-vous&
-      Je recoit une notification à l'heure que j'ai paramétré selon l'heure de mon telephone
-      et le rappel est bien enregistré dans la base de donnée locale&
-      ... \\
-
-
-      \hline
-
-    \end{tabular}
-  \end{center}
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-      \multicolumn{3}{|c|}{\textbf{Nombre d'utilisateurs simultanés}} \\
+      \multicolumn{4}{|c|}{\textbf{Nombre d'utilisateurs simultanés}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
       \hline
 
-      On ce connecte à l'application avec 50 terminaux à la fois ou on simule ces 50 connexion&
+      On se connecte à l'application avec 50 terminaux à la fois ou on simule ces 50 connexion&
       L'application reste stable et utilisable pour les 50 terminaux connectés&
+      ...&
       ... \\
 
 
@@ -658,19 +548,16 @@
   \end{center}
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-      \multicolumn{3}{|c|}{\textbf{Volume de données}} \\
+      \multicolumn{4}{|c|}{\textbf{Volume de données}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
       \hline
 
-<<<<<<< HEAD
-      On crée 50 utilisateurs et on remplis pour chaqu utilisateurs le volume de données maximal (20Mo)&
-=======
-      On crée 50 utilisateurs et on rempli pour chaqu utilisateurs le volume de données maximal (20Mo)&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
-      Le système reste stable et chaques utilisateurs peut effectivement utiliser 20Mo de données&
+      On crée 50 utilisateurs et on atteind pour chaque utilisateur le volume de données maximal (20Mo)&
+      Le système reste stable et chaque utilisateur peut effectivement utiliser 20Mo de données&
+      ...&
       ... \\
 
 
@@ -680,15 +567,16 @@
   \end{center}
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-      \multicolumn{3}{|c|}{\textbf{Accès au serveur}} \\
+      \multicolumn{4}{|c|}{\textbf{Accès au serveur}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
       \hline
 
-      On fait 50 requètes en une seconde&
-      Le système reste stable pour tout les utilisateurs connectés&
+      On fait 50 requêtes en une seconde&
+      Le système reste stable pour tous les utilisateurs connectés&
+      ...&
       ... \\
 
 
@@ -698,26 +586,23 @@
   \end{center}
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-      \multicolumn{3}{|c|}{\textbf{Temps de latence}} \\
+      \multicolumn{4}{|c|}{\textbf{Temps de latence}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
       \hline
 
-<<<<<<< HEAD
-      On fais 50 requète par secondes en continu et on mesure le temps entre la la requète et la réponse. On répète cette opération 1000 fois&
-      On recoit la réponse en moins de 2 secondes dans au moins 900 cas&
-=======
-      On fais 50 requète par secondes en continu et on mesure le temps entre la requète et la réponse. On répète cette opération 1000 fois&
+      On fait 50 requêtes par seconde en continu et on mesure le temps entre la requête et la réponse. On répète cette opération 1000 fois&
       On reçoit la réponse en moins de 2 secondes dans au moins 900 cas&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      ...&
       ... \\
 
       \hline
       \hline
-      On fais 150 requète par secondes en continu et on mesure le temps entre la requète et la réponse. On répète cette opération 1000 fois&
+      On fait 150 requêtes par seconde en continu et on mesure le temps entre la requête et la réponse. On répète cette opération 1000 fois&
       On recoit la réponse en moins de 4 secondes dans au moins 750 cas&
+      ...&
       ... \\
 
       \hline
@@ -726,24 +611,17 @@
   \end{center}
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-<<<<<<< HEAD
-      \multicolumn{3}{|c|}{\textbf{Temps d’execution des taches hors ligne}} \\
-=======
-      \multicolumn{3}{|c|}{\textbf{Temps d’execution des tâches hors ligne}} \\
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+      \multicolumn{4}{|c|}{\textbf{Temps d’execution des tâches hors ligne}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée} \\
       \hline
 
-<<<<<<< HEAD
-      Étant dans l'accueil, on va vers la page paramètres et on mesure le temps entre l'appuie sur le bouton et l'affichage de la page. On répète cette opération 1000 fois sur des smartphones différents&
-      Le système affiche la page en 500 milisecondes dans au 650 cas&
-=======
-      Étant dans l'accueil, on va vers la page paramètres et on mesure le temps entre l'appui sur le bouton et l'affichage de la page. On répète cette opération 1000 fois sur des smartphones différents&
-      Le système affiche la page en 500 milisecondes dans au moins 650 cas&
->>>>>>> 63e10de7ad9a5ea5d900f0df9458a8cdeca5ef6d
+
+      Étant sur la page d'accueil, on va vers la page paramètres et on mesure le temps entre l'appui sur le bouton et l'affichage de la page. On répète cette opération 1000 fois sur des smartphones différents&
+      Le système affiche la page en 500 millisecondes dans au moins 650 cas&
+      ...&
       ... \\
 
 
@@ -753,15 +631,16 @@
   \end{center}
 
   \begin{center}
-    \begin{tabular}{|p{5cm}|p{5cm}|p{5cm}|}
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
       \hline
-      \multicolumn{3}{|c|}{\textbf{Temps pour une prise de rendez-vous}} \\
+      \multicolumn{4}{|c|}{\textbf{Temps pour une prise de rendez-vous}} \\
       \hline
-      \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} \\
+      \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé}  & \textbf{Correction apportée}\\
       \hline
 
-      On demande à 100 personnes de prendre un rendez-vous avec l'application (ces personnes connaissent déja l'application)&
-      Au moins 60 personnes sur 100 prendrons le rendez-vous en moins de 5 minutes&
+      On demande à 100 personnes de prendre un rendez-vous avec l'application (ces personnes connaissent déjà l'application)&
+      Au moins 60 personnes sur 100 prendront le rendez-vous en moins de 5 minutes&
+      ...&
       ... \\
 
 

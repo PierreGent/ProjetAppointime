@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+\usepackage[bookmarks=true]{hyperref}
+\usepackage{lmodern}
+\usepackage{fullpage}
+
+\author{Gentile Pierre, Didier--Roche François}
+\date{\today}
+\title{Cahier de test d'intégration}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+  Ce document recense les tests d'intégration qui doivent être menés lors de la phase de test de l'application Appointime. 
+ Ce document est représenté à l'aide de tableaux avec :
+   le nom de la partie, les tests à effectuer, les résultats attendus et les résultats observés.
+
+\end{abstract}
+
+\newpage
+\begin{center}
+  \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
+    \hline
+    \multicolumn{4}{|c|}{\textbf{Tests d'intégration}} \\
+    \hline
+    \textbf{Test effectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée}\\
+    \hline
+    
+  
+
+     Si des résultats sont présents après une recherche, j'appuie sur n'importe quel lien dans la liste&
+      Le système me redirige vers la page dédiée à l'entreprise correspondant au lien sur lequel j'ai cliqué &
+      ...&
+      ... \\
+       \hline
+      \hline
+
+
+      Si des résultats sont présent après une recherche, j'appuie sur le bouton \og Ajouter aux favoris \fg{} dans la liste des professionnels&
+      Le système ajoute l'information dans la base de données et sur la page d'affichage des favoris et le bouton \og Ajouter aux favoris \fg{} deviendra \og Supprimer des favoris \fg{}&
+      ...&
+      ... \\
+      
+      
+      \hline
+      \hline
+
+
+     Je me connecte avec succès et suis redirigé sur la page d'accueil&
+      Mes favoris sont présents dans la page d'accueil&
+      ...&
+      ... \\
+      
+      \hline
+      \hline
+
+
+     Je suis connecté&
+      Les liens du menu me redirigent tous sur les sections correspondantes et les informations indiquées me concernent bien  &
+      ...&
+      ... \\
+      
+       \hline
+      \hline
+
+      Etant sur la page de confirmation, je confirme ma réservation&
+      Une notification est envoyée au professionnel concerné, dans la section \og Réservations à confirmer\fg{} il peut voir la demande. Le particulier
+      verra cette demande dans la section \og En attente de confirmation\fg{} Le créneaux n'est plus disponible pour les autres particuliers&
+      ...&
+      ... \\
+  \hline
+      \hline
+      Etant un professionnel, en recevant la demande de réservation je l'accepte/elle est accéptée automatiquement&
+      Une notification est envoyée au particulier qui a fait sa demande en lui indiquant que le rendez-vous a été accepté
+      les détails de cette réservation sont disponibles dans la section \og Mes rendez-vous à venir\fg{} du particulier, ne le sont plus dans la section 
+      \og En attente de confirmation\fg{} et ne le sont plus dans la section \og Rendez-vous à confirmer\fg{} du professionnel&
+      ...&
+      ... \\
+        \hline
+       
+
+    \end{tabular}
+  \end{center}
+      \newpage
+\begin{center}
+  \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|p{4cm}|}
+    \hline
+    \multicolumn{4}{|c|}{\textbf{Tests d'integration}} \\
+    \hline
+    \textbf{Test éffectué} & \textbf{Résultat attendu} & \textbf{Résultat observé} & \textbf{Correction apportée}\\
+    \hline
+      Etant un professionnel, en recevant la demande de réservation je la refuse&
+      Une notification est envoyée au particulier qui a fait sa demande que le rendez-vous à été refusé. Le créneau est de nouveau disponible pour les autres particuliers&
+
+      ...&
+      ... \\
+      
+       \hline
+      \hline
+       Etant un professionnel, je signale un particulier&
+      Le particulier perds un point de crédibilité&
+
+      ...&
+      ... \\
+       \hline
+      
+      \hline
+      \hline
+      La notification par sms est activée et je recois une notification de prise de rendez-vous&
+      Le smartphone reçoit un sms&
+
+      ...&
+      ... \\
+       \hline
+       
+
+    \end{tabular}
+  \end{center}
+    \end{document}

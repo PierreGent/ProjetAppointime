@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.11.14)  13 DEC 2018 17:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2018.11.14)  21 DEC 2018 02:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -540,33 +540,37 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-) (./testRecette.aux)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/preprint/fullpage.sty
+Package: fullpage 1999/02/23 1.1 (PWD)
+\FP@margin=\skip52
+)
+No file testRecette.aux.
 \openout1 = `testRecette.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 13.
-
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 14.
+LaTeX Font Info:    ... okay on input line 14.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 14.
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \degres on input line 13.
-LaTeX Info: Redefining \dots on input line 13.
-LaTeX Info: Redefining \up on input line 13.
+LaTeX Info: Redefining \degres on input line 14.
+LaTeX Info: Redefining \dots on input line 14.
+LaTeX Info: Redefining \up on input line 14.
 \AtBeginShipoutBox=\box26
-Package hyperref Info: Link coloring OFF on input line 13.
+Package hyperref Info: Link coloring OFF on input line 14.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -576,319 +580,643 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count105
 )
-LaTeX Info: Redefining \ref on input line 13.
-LaTeX Info: Redefining \pageref on input line 13.
-LaTeX Info: Redefining \nameref on input line 13.
-
-(./testRecette.out) (./testRecette.out)
+LaTeX Info: Redefining \ref on input line 14.
+LaTeX Info: Redefining \pageref on input line 14.
+LaTeX Info: Redefining \nameref on input line 14.
 \@outlinefile=\write3
 \openout3 = `testRecette.out'.
 
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 16.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 17.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 16.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 17.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 16.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 17.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 16.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 17.
 
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 16.
+(Font)              <12> on input line 17.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 16.
+(Font)              <8> on input line 17.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 16.
+(Font)              <6> on input line 17.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 23.
+(Font)              <10> on input line 28.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 23.
+(Font)              <7> on input line 28.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 23.
+(Font)              <5> on input line 28.
 
-Underfull \hbox (badness 1231) in paragraph at lines 30--30
-\T1/lmr/m/n/10 l'email n'est pas déja pré-sent
+Underfull \hbox (badness 1655) in paragraph at lines 35--35
+[]\T1/lmr/m/n/10 J'entre des in-for-ma-tions
  []
 
 
-Underfull \hbox (badness 1270) in paragraph at lines 32--33
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+[]\T1/lmr/m/n/10 Le sys-tème me
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+\T1/lmr/m/n/10 re-di-rige vers la
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+\T1/lmr/m/n/10 en m'in-di-quant
+ []
+
+
+Underfull \hbox (badness 1472) in paragraph at lines 38--39
+\T1/lmr/m/n/10 que mes in-for-ma-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
+[]\T1/lmr/m/n/10 Les in-for-ma-tions
+ []
+
+
+Underfull \hbox (badness 1655) in paragraph at lines 47--47
+[]\T1/lmr/m/n/10 J'entre des in-for-ma-tions
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 49--49
 []\T1/lmr/m/n/10 Le sys-tème me re-di-rige
  []
 
 
-Underfull \hbox (badness 3138) in paragraph at lines 40--40
-[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige vers
+Underfull \hbox (badness 4366) in paragraph at lines 56--56
+\T1/lmr/m/n/10 j'ap-puie sur le bou-ton
  []
 
 
-Underfull \hbox (badness 3138) in paragraph at lines 47--47
-[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige vers
+Underfull \hbox (badness 1845) in paragraph at lines 58--58
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
  []
 
 
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 23--52
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 28--64
  [] 
  []
 
 
-Underfull \hbox (badness 1552) in paragraph at lines 63--63
-\T1/lmr/m/n/10 la com-bi-nai-son email+mot de
+Underfull \hbox (badness 1655) in paragraph at lines 76--76
+[]\T1/lmr/m/n/10 J'entre des in-for-ma-tions
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 69--69
-[]\T1/lmr/m/n/10 J'entre des in-for-ma-tions in-
+Underfull \hbox (badness 6927) in paragraph at lines 76--76
+\T1/lmr/m/n/10 va-lides, la com-bi-nai-son
  []
 
 
-Underfull \hbox (badness 4429) in paragraph at lines 69--69
-\T1/lmr/m/n/10 va-lides et/ou la com-bi-nai-son
+Underfull \hbox (badness 1845) in paragraph at lines 77--77
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
  []
 
 
-Underfull \hbox (badness 1490) in paragraph at lines 75--75
-\T1/lmr/m/n/10 sur la page de connexion, je
+Underfull \hbox (badness 1655) in paragraph at lines 83--83
+[]\T1/lmr/m/n/10 J'entre des in-for-ma-tions
  []
 
 
-Underfull \hbox (badness 1635) in paragraph at lines 75--75
-\T1/lmr/m/n/10 d'em-preinte di-gi-tale alors que
+Underfull \hbox (badness 2080) in paragraph at lines 83--83
+\T1/lmr/m/n/10 in-va-lides et/ou la com-
  []
 
 
-Underfull \hbox (badness 1490) in paragraph at lines 87--87
-\T1/lmr/m/n/10 la re-con-nais-sance fa-ciale alors
+Underfull \hbox (badness 5446) in paragraph at lines 83--83
+\T1/lmr/m/n/10 bi-nai-son email+mot de
  []
 
 
-Underfull \hbox (badness 1490) in paragraph at lines 93--93
-\T1/lmr/m/n/10 la re-con-nais-sance fa-ciale alors
+Underfull \hbox (badness 1845) in paragraph at lines 84--84
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
  []
 
 
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 56--101
+Underfull \hbox (badness 10000) in paragraph at lines 90--90
+[]\T1/lmr/m/n/10 Pour les smart-phones
+ []
+
+
+Underfull \hbox (badness 1314) in paragraph at lines 90--90
+\T1/lmr/m/n/10 connexion, je pose mon
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 92--92
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--98
+[]\T1/lmr/m/n/10 Pour les smart-phones
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--98
+\T1/lmr/m/n/10 équi-pés, sur la page
+ []
+
+
+Underfull \hbox (badness 7081) in paragraph at lines 98--98
+\T1/lmr/m/n/10 de connexion, je pose
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 99--99
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 2088) in paragraph at lines 99--99
+\T1/lmr/m/n/10 en m'in-di-quant une er-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
+[]\T1/lmr/m/n/10 Pour les smart-phones
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
+\T1/lmr/m/n/10 connexion, j'uti-lise la
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--106
+\T1/lmr/m/n/10 re-con-nais-sance fa-ciale
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 108--108
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--114
+[]\T1/lmr/m/n/10 Pour les smart-phones
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--114
+\T1/lmr/m/n/10 connexion, j'uti-lise la
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 114--114
+\T1/lmr/m/n/10 re-con-nais-sance fa-ciale
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 116--116
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 2088) in paragraph at lines 116--116
+\T1/lmr/m/n/10 en m'in-di-quant une er-
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 68--124
  [] 
  []
 
 [2]
-Underfull \hbox (badness 1281) in paragraph at lines 113--113
-\T1/lmr/m/n/10 page d'ac-ceuil en m'in-di-quant
+Underfull \hbox (badness 1281) in paragraph at lines 137--137
+[]\T1/lmr/m/n/10 Je mo-di-fie une ou plu-
  []
 
 
-Underfull \hbox (badness 2368) in paragraph at lines 119--119
-\T1/lmr/m/n/10 page de mo-di-fi-ca-tion des in-
+Underfull \hbox (badness 1953) in paragraph at lines 137--137
+\T1/lmr/m/n/10 et que le nou-vel email
  []
 
 
-Underfull \hbox (badness 2368) in paragraph at lines 125--125
-\T1/lmr/m/n/10 page de mo-di-fi-ca-tion des in-
+Underfull \hbox (badness 1845) in paragraph at lines 139--139
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
  []
 
 
-Underfull \hbox (badness 1325) in paragraph at lines 125--125
-\T1/lmr/m/n/10 for-ma-tions en m'in-di-quant les
+Underfull \hbox (badness 1087) in paragraph at lines 139--139
+\T1/lmr/m/n/10 vers la page de ges-tion
  []
 
 
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 105--131
+Underfull \hbox (badness 1655) in paragraph at lines 145--145
+[]\T1/lmr/m/n/10 J'entre des in-for-ma-tions
+ []
+
+
+Underfull \hbox (badness 5460) in paragraph at lines 145--145
+\T1/lmr/m/n/10 va-lides mais le nou-vel
+ []
+
+
+Underfull \hbox (badness 5203) in paragraph at lines 145--145
+\T1/lmr/m/n/10 email est déjà pré-sent
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 147--147
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 2744) in paragraph at lines 147--147
+\T1/lmr/m/n/10 vers la page de mo-di-
+ []
+
+
+Underfull \hbox (badness 1655) in paragraph at lines 153--153
+[]\T1/lmr/m/n/10 J'entre des in-for-ma-tions
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 155--155
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 2744) in paragraph at lines 155--155
+\T1/lmr/m/n/10 vers la page de mo-di-
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 128--162
  [] 
  []
 
 [3]
-Underfull \hbox (badness 4726) in paragraph at lines 173--173
-[]\T1/lmr/m/n/10 Les cou-leurs de l'ap-pli-ca-tion
+Underfull \hbox (badness 5756) in paragraph at lines 174--174
+\T1/lmr/m/n/10 la no-ti-fi-ca-tion dans le
  []
 
 
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 135--181
+Underfull \hbox (badness 2253) in paragraph at lines 181--181
+[]\T1/lmr/m/n/10 Le smart-phone n'af-fiche
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+\T1/lmr/m/n/10 au-cune no-ti-fi-ca-tion et
+ []
+
+
+Underfull \hbox (badness 5756) in paragraph at lines 189--189
+\T1/lmr/m/n/10 la no-ti-fi-ca-tion dans le
+ []
+
+
+Underfull \hbox (badness 5756) in paragraph at lines 196--196
+\T1/lmr/m/n/10 la no-ti-fi-ca-tion dans le
+ []
+
+
+Underfull \hbox (badness 2205) in paragraph at lines 204--204
+\T1/lmr/m/n/10 base, j'ac-tive de thème
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 166--214
+ [] 
+ []
+
+
+Underfull \hbox (badness 5064) in paragraph at lines 225--225
+\T1/lmr/m/n/10 liste de liens vers les
+ []
+
+
+Underfull \hbox (badness 3088) in paragraph at lines 225--225
+\T1/lmr/m/n/10 prises ins-crites dans la
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 231--231
+[]\T1/lmr/m/n/10 J'utilise mon ap-pa-reil
+ []
+
+
+Underfull \hbox (badness 1205) in paragraph at lines 231--231
+\T1/lmr/m/n/10 photo pour ana-ly-ser un
+ []
+
+
+Underfull \hbox (badness 2547) in paragraph at lines 238--238
+\T1/lmr/m/n/10 cor-res-pon-dant à au-cune
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 239--239
+[]\T1/lmr/m/n/10 Le sys-tème m'in-dique
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 245--245
+[]\T1/lmr/m/n/10 J'utilise mon ap-pa-reil
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 246--246
+[]\T1/lmr/m/n/10 Le sys-tème m'in-dique
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 217--259
  [] 
  []
 
 [4]
-Underfull \hbox (badness 2080) in paragraph at lines 197--197
-[]\T1/lmr/m/n/10 J'entre un do-maine d'ac-ti-vité
+Underfull \hbox (badness 6641) in paragraph at lines 287--287
+[]\T1/lmr/m/n/10 Tant qu'au-cun cré-neau
  []
 
 
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 184--238
+Underfull \hbox (badness 1354) in paragraph at lines 294--294
+[]\T1/lmr/m/n/10 Une fois le cré-neau sé-
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 295--295
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 4913) in paragraph at lines 301--301
+[]\T1/lmr/m/n/10 Etant sur la page de
+ []
+
+
+Underfull \hbox (badness 2529) in paragraph at lines 301--301
+\T1/lmr/m/n/10 confir-ma-tion,j'annule ma
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 302--302
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 263--316
+ [] 
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 327--327
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--335
+\T1/lmr/m/n/10 in-for-ma-tions va-lides et
+ []
+
+
+Underfull \hbox (badness 4366) in paragraph at lines 334--335
+\T1/lmr/m/n/10 j'ap-puie sur le bou-ton
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 358--358
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 2564) in paragraph at lines 364--365
+\T1/lmr/m/n/10 di-fi-ca-tion de pres-ta-tion,
+ []
+
+
+Underfull \hbox (badness 3199) in paragraph at lines 364--365
+\T1/lmr/m/n/10 j'entre des in-for-ma-tions
+ []
+
+
+Underfull \hbox (badness 3168) in paragraph at lines 383--384
+\T1/lmr/m/n/10 des pres-ta-tions j'ap-puie
+ []
+
+
+Underfull \hbox (badness 1057) in paragraph at lines 385--387
+[]\T1/lmr/m/n/10 Le sys-tème sup-prime la
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 319--396
  [] 
  []
 
 [5]
-Underfull \hbox (badness 3189) in paragraph at lines 249--249
-[]\T1/lmr/m/n/10 Je sé-léc-tionne une pres-ta-tion
+Underfull \hbox (badness 1067) in paragraph at lines 410--410
+[]\T1/lmr/m/n/10 Dans le menu de pa-ra-
  []
 
 
-Underfull \hbox (badness 1466) in paragraph at lines 256--256
-[]\T1/lmr/m/n/10 Une fois le ca-len-drier af-fi-ché,
+Underfull \hbox (badness 4366) in paragraph at lines 410--410
+\T1/lmr/m/n/10 j'ap-puie sur le bou-ton
  []
 
 
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 242--288
+Underfull \hbox (badness 5893) in paragraph at lines 410--410
+\T1/lmr/m/n/10 ^^S mo-di-fier les in-for-ma-
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 411--411
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 6348) in paragraph at lines 428--429
+[]\T1/lmr/m/n/10 Dans le for-mu-laire de
+ []
+
+
+Underfull \hbox (badness 1270) in paragraph at lines 428--429
+\T1/lmr/m/n/10 ges-tion des in-for-ma-tions
+ []
+
+
+Underfull \hbox (badness 1478) in paragraph at lines 430--431
+\T1/lmr/m/n/10 de ges-tion des in-for-ma-
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 403--441
  [] 
  []
 
 [6]
-Underfull \hbox (badness 2005) in paragraph at lines 326--326
-\T1/lmr/m/n/10 for-mu-laire de mo-di-fi-ca-tion de
+Underfull \hbox (badness 1845) in paragraph at lines 458--458
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
  []
 
 
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 291--360
+Underfull \hbox (badness 2096) in paragraph at lines 477--478
+\T1/lmr/m/n/10 er-reurs que j'ai fait et
+ []
+
+
+Underfull \hbox (badness 1845) in paragraph at lines 486--486
+[]\T1/lmr/m/n/10 Le sys-tème me re-di-rige
+ []
+
+
+Underfull \hbox (badness 1931) in paragraph at lines 492--493
+\T1/lmr/m/n/10 ver-ture du jour, j'entre
+ []
+
+
+Underfull \hbox (badness 2065) in paragraph at lines 492--493
+\T1/lmr/m/n/10 j'ap-puie sur le bout-ton
+ []
+
+
+Underfull \hbox (badness 2065) in paragraph at lines 503--504
+\T1/lmr/m/n/10 j'ap-puie sur le bout-ton
+ []
+
+
+Underfull \hbox (badness 2096) in paragraph at lines 505--506
+\T1/lmr/m/n/10 er-reurs que j'ai fait et
+ []
+
+
+Underfull \hbox (badness 3068) in paragraph at lines 505--506
+\T1/lmr/m/n/10 me ren-voie sur le for-
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 450--516
  [] 
  []
 
 [7]
-Underfull \hbox (badness 1019) in paragraph at lines 382--383
-[]\T1/lmr/m/n/10 Dans le for-mu-laire de ges-tion
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 532--548
+ [] 
  []
 
 
-Underfull \hbox (badness 1019) in paragraph at lines 391--392
-[]\T1/lmr/m/n/10 Dans le for-mu-laire de ges-tion
+Underfull \hbox (badness 1325) in paragraph at lines 558--558
+\T1/lmr/m/n/10 on at-teind pour chaque
  []
 
 
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 368--403
+Underfull \hbox (badness 1048) in paragraph at lines 558--558
+\T1/lmr/m/n/10 uti-li-sa-teur le vo-lume de
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 551--567
+ [] 
+ []
+
+
+Underfull \hbox (badness 1590) in paragraph at lines 578--578
+[]\T1/lmr/m/n/10 Le sys-tème reste stable
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 570--586
  [] 
  []
 
 [8]
-Underfull \hbox (badness 1377) in paragraph at lines 420--420
-\T1/lmr/m/n/10 for-mu-laire de ges-tion des ho-
+Underfull \hbox (badness 4505) in paragraph at lines 603--603
+\T1/lmr/m/n/10 me-sure le temps entre
  []
 
 
-Underfull \hbox (badness 1019) in paragraph at lines 460--461
-[]\T1/lmr/m/n/10 Dans le for-mu-laire de ges-tion
- []
-
-
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 412--472
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 589--611
  [] 
  []
 
 
-Underfull \hbox (badness 1097) in paragraph at lines 494--494
-[]\T1/lmr/m/n/10 Étant un par-ti-cu-lier, je pa-ra-
- []
-
-
-Underfull \hbox (badness 5189) in paragraph at lines 495--496
-[]\T1/lmr/m/n/10 Je re-coit une no-ti-fi-ca-tion à
- []
-
-
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 487--503
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 614--631
  [] 
  []
 
+
+Underfull \hbox (badness 7256) in paragraph at lines 641--641
+\T1/lmr/m/n/10 sonnes de prendre un
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 641--641
+\T1/lmr/m/n/10 rendez-vous avec l'ap-
+ []
+
+
+Underfull \hbox (badness 2698) in paragraph at lines 641--641
+\T1/lmr/m/n/10 pli-ca-tion (ces per-sonnes
+ []
+
+
+Underfull \hbox (badness 1776) in paragraph at lines 641--641
+\T1/lmr/m/n/10 connaissent déjà l'ap-pli-
+ []
+
+
+Overfull \hbox (33.48906pt too wide) in paragraph at lines 634--650
+ [] 
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 654.
 [9]
-Underfull \hbox (badness 1237) in paragraph at lines 514--514
-\T1/lmr/m/n/10 li-sable pour les 50 ter-mi-naux
- []
-
-
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 506--521
- [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 532--532
-[]\T1/lmr/m/n/10 Le sys-tème reste stable et
- []
-
-
-Underfull \hbox (badness 5726) in paragraph at lines 532--532
-\T1/lmr/m/n/10 chaques uti-li-sa-teurs peut ef-
- []
-
-
-Underfull \hbox (badness 4660) in paragraph at lines 532--532
-\T1/lmr/m/n/10 fec-ti-ve-ment uti-li-ser 20Mo de
- []
-
-
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 524--539
- [] 
- []
-
-
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 542--557
- [] 
- []
-
-
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 560--580
- [] 
- []
-
-
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 583--598
- [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 608--608
-\T1/lmr/m/n/10 l'ap-pli-ca-tion (ces per-sonnes
- []
-
-
-Underfull \hbox (badness 4940) in paragraph at lines 609--609
-[]\T1/lmr/m/n/10 Au moins 60 per-sonnes sur
- []
-
-
-Overfull \hbox (117.79134pt too wide) in paragraph at lines 601--616
- [] 
- []
-
-[10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 620.
- [11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 620.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 654.
  (./testRecette.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 620.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 620.
-Package rerunfilecheck Info: File `testRecette.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 620.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 654.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 654.
+
+
+Package rerunfilecheck Warning: File `testRecette.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `testRecette.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 654.
  ) 
 Here is how much of TeX's memory you used:
- 5935 strings out of 494916
- 85669 string characters out of 6179762
- 174709 words of memory out of 5000000
- 9182 multiletter control sequences out of 15000+600000
+ 5947 strings out of 494916
+ 85916 string characters out of 6179762
+ 180709 words of memory out of 5000000
+ 9198 multiletter control sequences out of 15000+600000
  44206 words of font info for 40 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 28i,9n,30p,359b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 28i,9n,30p,262b,439s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/
 public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/sh
 are/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texm
 f/fonts/type1/public/lm/lmr9.pfb>
-Output written on testRecette.pdf (11 pages, 172249 bytes).
+Output written on testRecette.pdf (9 pages, 173724 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
- 12 named destinations out of 1000 (max. 500000)
+ 74 PDF objects out of 1000 (max. 8388607)
+ 56 compressed objects within 1 object stream
+ 10 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

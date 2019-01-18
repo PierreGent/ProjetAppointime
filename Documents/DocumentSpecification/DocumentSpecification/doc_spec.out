@@ -1,0 +1,26 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Objet}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Port\351e du projet}{section.1}% 3
+\BOOKMARK [2][-]{subsection.1.3}{D\351finitions, acronymes, abr\351viations}{section.1}% 4
+\BOOKMARK [2][-]{subsection.1.4}{Vue d'ensemble}{section.1}% 5
+\BOOKMARK [1][-]{section.2}{Description g\351n\351rale}{}% 6
+\BOOKMARK [2][-]{subsection.2.1}{Environnement}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.2}{Obtention de l'application}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.3}{Fonctions}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.4}{Caract\351ristiques des utilisateurs}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.5}{Contraintes}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.6}{Hypoth\350ses et d\351pendances}{section.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.6.1}{Syst\350me d'exploitation}{subsection.2.6}% 13
+\BOOKMARK [3][-]{subsubsection.2.6.2}{Acc\350s au r\351seau}{subsection.2.6}% 14
+\BOOKMARK [1][-]{section.3}{Exigences sp\351cifiques}{}% 15
+\BOOKMARK [2][-]{subsection.3.1}{Exigences des interfaces externes}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Interfaces avec les utilisateurs}{subsection.3.1}% 17
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Interfaces avec les logiciels}{subsection.3.1}% 18
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Interface avec le materiel}{subsection.3.1}% 19
+\BOOKMARK [3][-]{subsubsection.3.1.4}{Interface de comunication :}{subsection.3.1}% 20
+\BOOKMARK [2][-]{subsection.3.2}{Exigences fonctionnelles}{section.3}% 21
+\BOOKMARK [2][-]{subsection.3.3}{Exigences de performance :}{section.3}% 22
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Exigences statiques :}{subsection.3.3}% 23
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Exigences dymamiques :}{subsection.3.3}% 24
+\BOOKMARK [2][-]{subsection.3.4}{Exigences logiques relatives aux bases de donn\351es}{section.3}% 25
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Types d'informations utilis\351es}{subsection.3.4}% 26
