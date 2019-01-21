@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dwa.Ecovoit.Controller.User;
+package com.GL.Appointime.Controller.User;
 
-import com.dwa.Ecovoit.Model.User.Service.SecurityService;
-import com.dwa.Ecovoit.Model.User.Service.UserService;
-import com.dwa.Ecovoit.Model.User.User;
+
+import com.GL.Appointime.Model.User.Service.SecurityService;
+import com.GL.Appointime.Model.User.Service.UserService;
+import com.GL.Appointime.Model.User.User;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

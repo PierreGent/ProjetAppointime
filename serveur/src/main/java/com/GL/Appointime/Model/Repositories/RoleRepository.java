@@ -1,6 +1,6 @@
-package com.dwa.Ecovoit.Model.Repositories;
+package com.GL.Appointime.Model.Repositories;
 
-import com.dwa.Ecovoit.Model.User.Role;
+import com.GL.Appointime.Model.User.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {

@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.dwa.Ecovoit.Model.User;
+package com.GL.Appointime.Model.User;
 
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.Data;
 
 /**
@@ -22,6 +25,7 @@ public class Business {
      @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
       private Long id;
+     @OneToOne 
      private User boss;
        private String name;
        private String address;
@@ -29,5 +33,6 @@ public class Business {
        private String description;
        private String siret;
        private int cancelAppointment;
+       @OneToMany
        private List<MyCalendar> calendar;
 }

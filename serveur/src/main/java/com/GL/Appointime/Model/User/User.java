@@ -1,4 +1,4 @@
-package com.dwa.Ecovoit.Model.User;
+package com.GL.Appointime.Model.User;
 
 import java.util.Objects;
 import java.util.Set;
@@ -15,7 +15,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-      private Long id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String adress;

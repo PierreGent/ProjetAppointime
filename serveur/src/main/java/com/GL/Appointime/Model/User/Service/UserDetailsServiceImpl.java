@@ -1,8 +1,10 @@
-package com.dwa.Ecovoit.Model.User.Service;
+package com.GL.Appointime.Model.User.Service;
 
-import com.dwa.Ecovoit.Model.User.Role;
-import com.dwa.Ecovoit.Model.User.User;
-import com.dwa.Ecovoit.Model.Repositories.UserRepository;
+
+import com.GL.Appointime.Model.Repositories.UserRepository;
+import com.GL.Appointime.Model.User.User;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,19 +14,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+
 /*
 inspiré de https://github.com/hellokoding/registration-login-spring-hsql
 Voir details dans le readme
 */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService  {
 
     @Autowired
     private UserRepository userRepository;
 
-    @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 

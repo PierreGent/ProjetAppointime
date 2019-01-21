@@ -1,9 +1,10 @@
-package com.dwa.Ecovoit.Model.User.Service;
+package com.GL.Appointime.Model.User.Service;
 
-import com.dwa.Ecovoit.Model.User.Role;
-import com.dwa.Ecovoit.Model.Repositories.RoleRepository;
-import com.dwa.Ecovoit.Model.User.User;
-import com.dwa.Ecovoit.Model.Repositories.UserRepository;
+
+import com.GL.Appointime.Model.Repositories.RoleRepository;
+import com.GL.Appointime.Model.Repositories.UserRepository;
+import com.GL.Appointime.Model.User.Role;
+import com.GL.Appointime.Model.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         if (!roleRepository.existsByName("ROLE_USER")) {

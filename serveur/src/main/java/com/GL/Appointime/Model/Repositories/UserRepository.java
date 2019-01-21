@@ -1,6 +1,7 @@
-package com.dwa.Ecovoit.Model.Repositories;
+package com.GL.Appointime.Model.Repositories;
 
-import com.dwa.Ecovoit.Model.User.User;
+
+import com.GL.Appointime.Model.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

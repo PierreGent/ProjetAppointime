@@ -1,4 +1,4 @@
-package com.dwa.Ecovoit.Model.User;
+package com.GL.Appointime.Model.User;
 
 import javax.persistence.*;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.dwa.Appointime;
+package com.GL.Appointime;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,6 +1,7 @@
-package com.dwa.Ecovoit.Model.User.Service;
+package com.GL.Appointime.Model.User.Service;
 
-import com.dwa.Ecovoit.Model.User.User;
+
+import com.GL.Appointime.Model.User.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
