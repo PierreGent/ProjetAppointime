@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:client_appointime/services/authentication.dart';
+import 'package:client_appointime/pages/root_page.dart';
 
-//pages
-import 'pages/userPages/homePage.dart';
-import 'pages/userPages/loginPage.dart';
-import 'pages/userPages/signUpPage.dart';
-
-void main() => runApp(new MyApp());
+void main() {
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      home: LoginPage(),
-      routes: <String, WidgetBuilder> {
-        '/landingpage': (BuildContext context)=> new MyApp(),
-        '/signup': (BuildContext context) => new SignupPage(),
-        '/homepage': (BuildContext context) => new HomePage()
-      },
-    );
+        title: 'Flutter login demo',
+        debugShowCheckedModeBanner: false,
+        theme: new ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: new RootPage(auth: new Auth()));
   }
 }
