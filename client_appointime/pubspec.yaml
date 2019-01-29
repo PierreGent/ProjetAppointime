@@ -1,25 +1,15 @@
-name: client_appointime
-description: A new Flutter application.
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
-# Read more about versioning at semver.org.
-version: 1.0.0+1
-
-environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+name: flutter_login_demo
+description: A new Flutter project.
 
 dependencies:
   flutter:
     sdk: flutter
-  dots_indicator: ^0.0.4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  firebase_auth: ^0.6.6
+  firebase_database: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +26,9 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  assets:
+    - assets/flutter-icon.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

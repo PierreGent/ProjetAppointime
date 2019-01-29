@@ -6,11 +6,18 @@
 package pingouin.appointime.Controller.User;
 
 
+import javax.servlet.http.HttpServletRequest;
 import pingouin.appointime.Model.User.Service.SecurityService;
 import pingouin.appointime.Model.User.Service.UserService;
 import pingouin.appointime.Model.User.User;
 import javax.validation.Valid;
+import static org.hibernate.annotations.common.util.impl.LoggerFactory.logger;
+import static org.hibernate.internal.CoreLogging.logger;
+import static org.hibernate.internal.HEMLogging.logger;
+import static org.hibernate.internal.HEMLogging.logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +26,15 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author gentile
  */
-@Controller
+@RestController
 public class UserController {
 
     @Autowired
@@ -33,11 +43,7 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
-    @RequestMapping(value = "/login")
-    String loginForm(Model mod) {
-        mod.addAttribute("user", new User());
-        return "connect";
-    }
+   
 
     /**
      * loginCheck called with /loginCheck request Used to check connexion
@@ -45,39 +51,28 @@ public class UserController {
      * @param user : user to log
      * @return Home page if success, login if not
      */
-    @PostMapping("/loginCheck")
-    String loginCheck(@Valid User user, BindingResult bindingResult) {
+    @PostMapping("/login")
+    ResponseEntity<User> loginCheck(@RequestParam("email") String email,
+     @RequestParam("password") String password) {
+        System.out.println("tyuezrhh");
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        User userToLog = userService.findByEmail(user.getEmail());
-        if (user == null) {
-            return "connect";
-        }
+        User userToLog = userService.findByEmail(email);
+        String error="";
         if (userToLog == null) {
-            bindingResult.addError(new ObjectError("userRefu", "Pseudo incorrect"));
-        } else if (!passwordEncoder.matches(user.getPassword(), userToLog.getPassword())) {
-            bindingResult.addError(new ObjectError("conRefuse", "mot de passe incorrect"));
+           error=error+"Email incorrect";
+        } else if (!passwordEncoder.matches(password, userToLog.getPassword())) {
+            error=error+"password incorrect";
 
         }
 
-        if (bindingResult.hasErrors()) {
+        if (!error.equals("")) {
 
-            return "connect";
+           return new ResponseEntity<User>(userToLog, HttpStatus.CONFLICT);
         }
-        securityService.autologin(user.getEmail(), user.getPassword());
-        return "redirect:/home";
+        securityService.autologin(userToLog.getEmail(), userToLog.getPassword());
+       return new ResponseEntity<User>(userToLog, HttpStatus.OK);
     }
 
-    /**
-     * registration called with /registration request Used to show register form
-     *
-     * @return register template with empty user as attribute
-     */
-    @RequestMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("user", new User());
-
-        return "register";
-    }
 
     /**
      * logout called with /logout request Used to logout
@@ -96,31 +91,34 @@ public class UserController {
      * @param user: user to register
      * @return home page if success, registration if not
      */
-    @PostMapping("/registration")
-    String SubmitRegistration(@Valid User user, BindingResult bindingResult, Model mod) {
+    @RequestMapping(value = "/registration", method = RequestMethod.PUT)
+    ResponseEntity<User> SubmitRegistration(@Valid User user,  Model mod) {
+        System.out.println("snfkkzenfkkzlen");
+        String error="";
         if (userService.findByEmail(user.getEmail()) != null) {
 
-            bindingResult.addError(new ObjectError("emailExist", "Email déjà utilisé"));
+            error=error+"Email déjà utilisé";
 
         }
         if (userService.findByEmail(user.getEmail()) != null) {
 
-            bindingResult.addError(new ObjectError("userExist", "Pseudo déjà utilisé"));
+            error=error+"Pseudo déjà utilisé";
 
         }
 
         if (!user.getPassword().equals(user.getPasswordConfirm())) {
-            bindingResult.addError(new ObjectError("passDif", "Les mot de passe sont différents"));
+            error=error+"Les mot de passe sont différents";
         }
 
-        if (!bindingResult.hasErrors()) {
+        if (error.equals("")) {
             userService.save(user);
 
             securityService.autologin(user.getEmail(), user.getPasswordConfirm());
-            return "redirect:/home";
+            return new ResponseEntity<User>(user, HttpStatus.OK);
         }
 
-        return "register";
+        return new ResponseEntity<User>(user, HttpStatus.CONFLICT);
     }
 
+   
 }
