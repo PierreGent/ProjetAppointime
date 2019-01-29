@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "240046804256",
+    "firebase_url": "https://appointime-a8c5f.firebaseio.com",
+    "project_id": "appointime-a8c5f",
+    "storage_bucket": "appointime-a8c5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240046804256:android:6899900f71f99c26",
+        "android_client_info": {
+          "package_name": "com.gl.clientappointime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "240046804256-6rdebc71n5t29t84hadi9p4k9cjfs2hm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJsPCj7Vhlgs6zyp5LjL2RIHxG75mPtnA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
