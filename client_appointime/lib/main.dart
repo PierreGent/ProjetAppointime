@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:client_appointime/services/authentication.dart';
-import 'package:client_appointime/pages/root_page.dart';
+import 'globalVar.dart' as globalVar;
+import 'login.dart';
+import 'register.dart';
 
-void main() {
-  runApp(new MyApp());
+
+void main() => runApp(App());
+
+class App extends StatelessWidget {
+  Widget build(BuildContext context) {
+    final title = 'Appointime';
+    return MaterialApp(
+      title: title,
+      home: MyApp(),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
-  @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-        title: 'Flutter login demo',
-        debugShowCheckedModeBanner: false,
-        theme: new ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: new RootPage(auth: new Auth()));
+    final double width = MediaQuery.of(context).size.width;
+
+    return Scaffold(
+        backgroundColor: globalVar.couleurPrimaire,
+        body: PageView(
+          controller: globalVar.pageController,
+          children: <Widget>[
+            ConnectPage(),
+            InscPage(),
+          ],
+        ));
   }
 }
+
+
+
+
+
+
