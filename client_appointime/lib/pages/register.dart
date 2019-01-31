@@ -40,9 +40,12 @@ class InscPageState extends State<InscPage>
   String lastName;
   String phone;
   String address;
+  bool _isLoading;
 
   void initState() {
     super.initState();
+    _isLoading = false;
+    errorMessage="";
     animationController = AnimationController(
         duration: Duration(milliseconds: 1000), vsync: this);
 
@@ -71,11 +74,23 @@ class InscPageState extends State<InscPage>
           return Form(
             key: formKey,
             autovalidate: autoValidate,
-            child: FormUI(),
+            child: Stack(
+                children: <Widget>[
+            FormUI(),
+            _showCircularProgress(),
+
+            ],
+            )
+
           );
         });
   }
+  Widget _showCircularProgress(){
+    if (_isLoading) {
+      return Center(child: CircularProgressIndicator());
+    } return Container(height: 0.0, width: 0.0,);
 
+  }
   Widget FormUI() {
     final width = MediaQuery.of(context).size.width.toDouble();
     return ListView(
@@ -366,15 +381,33 @@ class InscPageState extends State<InscPage>
             ),
           ),
         ),
+
+        _showErrorMessage(),
       ],
     );
   }
-
+  Widget _showErrorMessage() {
+    if (errorMessage.length > 0 && errorMessage != null) {
+      return new Text(
+        errorMessage,
+        style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.red,
+            height: 1.0,
+            fontWeight: FontWeight.w300),
+      );
+    } else {
+      return new Container(
+        height: 0.0,
+      );
+    }
+  }
   submit() async {
     final userDetails = FirebaseDatabase.instance.reference().child('users');
     final form = formKey.currentState;
     setState(() {
       errorMessage = "";
+      _isLoading = true;
     });
 
     String userId = "";
@@ -388,6 +421,8 @@ class InscPageState extends State<InscPage>
       } catch (e) {
         print('Error: $e');
         setState(() {
+          _isLoading = false;
+
           errorMessage = "Nom de compte ou mot de passe incorrect";
         });
       }
@@ -397,5 +432,9 @@ class InscPageState extends State<InscPage>
     if (userId.length > 0 && userId != null) {
       widget.onSignedIn();
     }
+    setState(() {
+      _isLoading = false;
+    });
+
   }
 }

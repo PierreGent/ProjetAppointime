@@ -80,6 +80,7 @@ class _HomePageState extends State<HomePage> {
         body: Center(
           child:
             new StreamBuilder<Event>(
+
               stream: FirebaseDatabase.instance
                   .reference()
                   .child('users')

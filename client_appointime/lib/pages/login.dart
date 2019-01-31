@@ -34,9 +34,11 @@ class ConnectPageState extends State<ConnectPage>
   String pass;
   String errorMessage;
 
+  bool _isLoading;
   void initState() {
     super.initState();
-
+    _isLoading = false;
+    errorMessage="";
     animationController = AnimationController(
         duration: Duration(milliseconds: 1000), vsync: this);
 
@@ -66,10 +68,24 @@ class ConnectPageState extends State<ConnectPage>
           return Form(
             key: formKey,
             autovalidate: autoValidate,
-            child: FormUI(),
+              child: Stack(
+                children: <Widget>[
+                  FormUI(),
+                  _showCircularProgress(),
+
+                ],
+              )
+
           );
         });
   }
+  Widget _showCircularProgress(){
+    if (_isLoading) {
+      return Center(child: CircularProgressIndicator());
+    } return Container(height: 0.0, width: 0.0,);
+
+  }
+
 
   Widget FormUI() {
     final width = MediaQuery.of(context).size.width.toDouble();
@@ -188,10 +204,25 @@ class ConnectPageState extends State<ConnectPage>
             ),
           ),
         ),
-
-
+        _showErrorMessage(),
       ],
     );
+  }
+  Widget _showErrorMessage() {
+    if (errorMessage.length > 0 && errorMessage != null) {
+      return new Text(
+        errorMessage,
+        style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.red,
+            height: 1.0,
+            fontWeight: FontWeight.w300),
+      );
+    } else {
+      return new Container(
+        height: 0.0,
+      );
+    }
   }
 
 
@@ -199,6 +230,7 @@ class ConnectPageState extends State<ConnectPage>
     final form = formKey.currentState;
     setState(() {
       errorMessage = "";
+      _isLoading = true;
     });
     if (form.validate()) {
       form.save();
@@ -211,13 +243,17 @@ class ConnectPageState extends State<ConnectPage>
         print('Error: $e');
         setState(() {
           errorMessage = "Nom de compte ou mot de passe incorrect";
+          _isLoading = false;
         });
       }
       if (userId.length > 0 && userId != null) {
         widget.onSignedIn();
       }
     } else {
-      setState(() => autoValidate = true);
+      setState(() {
+        _isLoading = false;
+        autoValidate = true;
+      });
     }
   }
 
