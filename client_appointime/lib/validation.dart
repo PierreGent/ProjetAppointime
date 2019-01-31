@@ -23,7 +23,39 @@ String validatePass(String value){
   }
   return null;
 }
+//VALIDATION DU PRENOM (INSCRIPTION)
+String validateFirstName(String value){
+  if(value.isEmpty || value == null){
+    return 'Le prénom ne peut pas être vide';
+  }
 
+  return null;
+}
+//VALIDATION DU NOM (INSCRIPTION)
+String validateLastName(String value){
+  if(value.isEmpty || value == null){
+    return 'Le Nom ne peut pas être vide';
+  }
+
+  return null;
+}
+//VALIDATION DUE LADRESSE (INSCRIPTION)
+String validateAddress(String value){
+  if(value.isEmpty || value == null){
+    return 'Le Nom ne peut pas être vide';
+  }
+
+  return null;
+}
+
+//VALIDATION DU numero (INSCRIPTION)
+String validatePhone(String value){
+  if(value.length!=10 && !(value is int)){
+    return 'Telephone invalide';
+  }
+
+  return null;
+}
 //VALIDATION DU MOT DE PASSE DE CONFIRMATION (INSCRIPTION)
 
 String validatePassConfirm(String value1,String value2){

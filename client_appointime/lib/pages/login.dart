@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
-import 'globalVar.dart' as globalVar;
-import 'validation.dart';
+import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:client_appointime/validation.dart';
+import 'package:client_appointime/services/authentication.dart';
 
-/* ************* INSCRIPTION ************** */
+/* ************* CONNEXION ************** */
 
-class InscPage extends StatefulWidget {
-  InscPageState createState() => InscPageState();
+class ConnectPage extends StatefulWidget {
+ConnectPage({this.auth, this.onSignedIn});
+final BaseAuth auth;
+final VoidCallback onSignedIn;
+@override
+ConnectPageState createState() => ConnectPageState();
+
 }
 
-class InscPageState extends State<InscPage>
+class ConnectPageState extends State<ConnectPage>
     with SingleTickerProviderStateMixin {
   // ANIMATION
 
@@ -23,26 +29,25 @@ class InscPageState extends State<InscPage>
   // FORM VALIDATION
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  var passKey = GlobalKey<FormFieldState>();
   bool autoValidate = false;
   String email;
   String pass;
-  String passConf;
   String errorMessage;
 
   void initState() {
     super.initState();
+
     animationController = AnimationController(
         duration: Duration(milliseconds: 1000), vsync: this);
 
-    animation = Tween(begin: 1, end: 0.0).animate(CurvedAnimation(
+    animation = Tween(begin: -1, end: 0.0).animate(CurvedAnimation(
         parent: animationController, curve: Curves.fastOutSlowIn));
 
-    delayedAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+    delayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: Interval(0.3, 1.0, curve: Curves.fastOutSlowIn)));
 
-    muchDelayedAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
+    muchDelayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
         curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn)));
 
@@ -52,6 +57,7 @@ class InscPageState extends State<InscPage>
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
   }
 
+  @override
   Widget build(BuildContext context) {
     animationController.forward();
     return AnimatedBuilder(
@@ -80,7 +86,7 @@ class InscPageState extends State<InscPage>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Inscription",
+                    "Connexion",
                     style: TextStyle(
                         color: globalVar.couleurSecondaire,
                         fontWeight: FontWeight.bold,
@@ -127,7 +133,6 @@ class InscPageState extends State<InscPage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new TextFormField(
-                    key: passKey,
                     autovalidate: autoValidate,
                     maxLines: 1,
                     obscureText: true,
@@ -139,40 +144,8 @@ class InscPageState extends State<InscPage>
                         color: globalVar.couleurSecondaire,
                       ),
                     ),
-                    validator: validatePass,
+                    validator: (value) => value.isEmpty ? 'Le mot de passe ne peut pas être vide' : null,
                     onSaved: (value) => pass = value,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-              muchMuchDelayedAnimation.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    obscureText: true,
-                    autofocus: false,
-                    decoration: new InputDecoration(
-                      hintText: 'Confirmation',
-                      icon: new Icon(
-                        Icons.beenhere,
-                        color: globalVar.couleurSecondaire,
-                      ),
-                    ),
-                    validator: (confirm) {
-                      print("ddskffskj");
-                      return validatePassConfirm(
-                          confirm, passKey.currentState.value);
-                    },
                   ),
                 ],
               ),
@@ -189,15 +162,15 @@ class InscPageState extends State<InscPage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   RaisedButton(
-                    child: Text("   S'inscrire    "),
+                    child: Text(" Se connecter"),
                     onPressed: submit,
                     color: globalVar.couleurSecondaire,
                     textColor: globalVar.couleurPrimaire,
                   ),
                   OutlineButton(
-                    child: Text("Se connecter"),
+                    child: Text("   S'inscrire    "),
                     onPressed: () {
-                      globalVar.pageController.previousPage(
+                      globalVar.pageController.nextPage(
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeIn);
                     },
@@ -215,9 +188,12 @@ class InscPageState extends State<InscPage>
             ),
           ),
         ),
+
+
       ],
     );
   }
+
 
   submit() async {
     final form = formKey.currentState;
@@ -226,18 +202,24 @@ class InscPageState extends State<InscPage>
     });
     if (form.validate()) {
       form.save();
+      String userId = "";
       try {
-        FirebaseUser user = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: pass);
-        print('Signed in: ${user.uid}');
+        userId = await widget.auth.signIn(email, pass);
+
+        print('Signed in: ${userId}');
       } catch (e) {
         print('Error: $e');
         setState(() {
           errorMessage = "Nom de compte ou mot de passe incorrect";
         });
       }
+      if (userId.length > 0 && userId != null) {
+        widget.onSignedIn();
+      }
     } else {
       setState(() => autoValidate = true);
     }
   }
+
+  // RESTE À AFFICHER LES MESSAGE DERREUR QUAND UN USER NE DONNE PAS LES BONS IDENTIFIANTS
 }
