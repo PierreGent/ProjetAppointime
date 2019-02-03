@@ -196,7 +196,8 @@ class InscPageState extends State<InscPage>
                     ),
                     validator: (confirm) {
                       print("ddskffskj");
-                      return validatePassConfirm(
+                      if(passKey.currentState!=null)
+                        return validatePassConfirm(
                           confirm, passKey.currentState.value);
                     },
                   ),
