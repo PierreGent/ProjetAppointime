@@ -1,3 +1,4 @@
+import 'package:client_appointime/services/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -45,15 +46,6 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  _signOut() async {
-    try {
-      await widget.auth.signOut();
-      widget.onSignedOut();
-    } catch (e) {
-      print(e);
-    }
-  }
-
 
 
 
@@ -68,15 +60,7 @@ class _HomePageState extends State<HomePage> {
        });
      });
     return new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Flutter login demo'),
-          actions: <Widget>[
-            new FlatButton(
-                child: new Text('Logout',
-                    style: new TextStyle(fontSize: 17.0, color: Colors.white)),
-                onPressed: _signOut)
-          ],
-        ),
+        appBar:  new MenuBarState(widget.auth,widget.onSignedOut,widget.userId).getAppBar('Page d\'accueil'),
         body: Center(
           child:
             new StreamBuilder<Event>(
