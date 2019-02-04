@@ -50,7 +50,7 @@ if (choice==choices[5])
 
   getAppBar(String title) {
     return AppBar(
-      title: const Text('Basic AppBar'),
+      title:  Text(title),
       actions: <Widget>[
         // action button
         IconButton(
