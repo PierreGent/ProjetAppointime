@@ -23,7 +23,11 @@ class InscPageState extends State<InscPage>
       delayedAnimation,
       muchDelayedAnimation,
       muchMuchDelayedAnimation,
-      muchMuchMuchDelayedAnimation;
+      muchMuchMuchDelayedAnimation,
+      muchMuchMuchDelayedAnimation1,
+      muchMuchMuchDelayedAnimation2,
+      muchMuchMuchDelayedAnimation3,
+      muchMuchMuchDelayedAnimation4;
   AnimationController animationController;
 
   // FORM VALIDATION
@@ -45,7 +49,7 @@ class InscPageState extends State<InscPage>
   void initState() {
     super.initState();
     _isLoading = false;
-    errorMessage="";
+    errorMessage = "";
     animationController = AnimationController(
         duration: Duration(milliseconds: 1000), vsync: this);
 
@@ -54,13 +58,34 @@ class InscPageState extends State<InscPage>
 
     delayedAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
-        curve: Interval(0.3, 1.0, curve: Curves.fastOutSlowIn)));
+        curve: Interval(0.1, 1.0, curve: Curves.fastOutSlowIn)));
 
     muchDelayedAnimation = Tween(begin: 1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
-        curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn)));
+        curve: Interval(0.2, 1.0, curve: Curves.fastOutSlowIn)));
 
     muchMuchDelayedAnimation = Tween(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(
+            parent: animationController,
+            curve: Interval(0.3, 1.0, curve: Curves.fastOutSlowIn)));
+
+    muchMuchMuchDelayedAnimation = Tween(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(
+            parent: animationController,
+            curve: Interval(0.4, 1.0, curve: Curves.fastOutSlowIn)));
+    muchMuchMuchDelayedAnimation1 = Tween(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(
+            parent: animationController,
+            curve: Interval(0.5, 1.0, curve: Curves.fastOutSlowIn)));
+    muchMuchMuchDelayedAnimation2 = Tween(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(
+            parent: animationController,
+            curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn)));
+    muchMuchMuchDelayedAnimation3 = Tween(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(
+            parent: animationController,
+            curve: Interval(0.7, 1.0, curve: Curves.fastOutSlowIn)));
+    muchMuchMuchDelayedAnimation4 = Tween(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(
             parent: animationController,
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
@@ -72,28 +97,32 @@ class InscPageState extends State<InscPage>
         animation: animationController,
         builder: (BuildContext context, Widget child) {
           return Form(
-            key: formKey,
-            autovalidate: autoValidate,
-            child: Stack(
+              key: formKey,
+              autovalidate: autoValidate,
+              child: Stack(
                 children: <Widget>[
-            FormUI(),
-            _showCircularProgress(),
-
-            ],
-            )
-
-          );
+                  FormUI(),
+                  _showCircularProgress(),
+                ],
+              ));
         });
   }
-  Widget _showCircularProgress(){
+
+  Widget _showCircularProgress() {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
-    } return Container(height: 0.0, width: 0.0,);
-
+    }
+    return Container(
+      height: 0.0,
+      width: 0.0,
+    );
   }
+
   Widget FormUI() {
     final width = MediaQuery.of(context).size.width.toDouble();
-    return ListView(
+    return SingleChildScrollView(
+      child:Column(
+
       children: <Widget>[
         Transform(
           transform:
@@ -196,9 +225,9 @@ class InscPageState extends State<InscPage>
                     ),
                     validator: (confirm) {
                       print("ddskffskj");
-                      if(passKey.currentState!=null)
+                      if (passKey.currentState != null)
                         return validatePassConfirm(
-                          confirm, passKey.currentState.value);
+                            confirm, passKey.currentState.value);
                     },
                   ),
                 ],
@@ -208,7 +237,7 @@ class InscPageState extends State<InscPage>
         ),
         Transform(
           transform: Matrix4.translationValues(
-              muchDelayedAnimation.value * width, 0.0, 0.0),
+              muchMuchMuchDelayedAnimation.value * width, 0.0, 0.0),
           child: new Center(
             child: Container(
               padding: EdgeInsets.all(25),
@@ -237,7 +266,7 @@ class InscPageState extends State<InscPage>
         ),
         Transform(
           transform: Matrix4.translationValues(
-              muchDelayedAnimation.value * width, 0.0, 0.0),
+              muchMuchMuchDelayedAnimation1.value * width, 0.0, 0.0),
           child: new Center(
             child: Container(
               padding: EdgeInsets.all(25),
@@ -266,7 +295,7 @@ class InscPageState extends State<InscPage>
         ),
         Transform(
           transform: Matrix4.translationValues(
-              muchDelayedAnimation.value * width, 0.0, 0.0),
+              muchMuchMuchDelayedAnimation2.value * width, 0.0, 0.0),
           child: new Center(
             child: Container(
               padding: EdgeInsets.all(25),
@@ -295,7 +324,7 @@ class InscPageState extends State<InscPage>
         ),
         Transform(
           transform: Matrix4.translationValues(
-              muchDelayedAnimation.value * width, 0.0, 0.0),
+              muchMuchMuchDelayedAnimation3.value * width, 0.0, 0.0),
           child: new Center(
             child: Container(
               padding: EdgeInsets.all(25),
@@ -325,7 +354,7 @@ class InscPageState extends State<InscPage>
         ),
         Transform(
           transform: Matrix4.translationValues(
-              muchDelayedAnimation.value * width, 0.0, 0.0),
+              muchMuchMuchDelayedAnimation4.value * width, 0.0, 0.0),
           child: new Center(
             child: Container(
               padding: EdgeInsets.all(25),
@@ -348,7 +377,7 @@ class InscPageState extends State<InscPage>
         ),
         Transform(
           transform: Matrix4.translationValues(
-              0.0, muchMuchDelayedAnimation.value * width, 0.0),
+              0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
           child: new Center(
             child: Container(
               padding: EdgeInsets.all(25),
@@ -382,11 +411,12 @@ class InscPageState extends State<InscPage>
             ),
           ),
         ),
-
         _showErrorMessage(),
       ],
+      ),
     );
   }
+
   Widget _showErrorMessage() {
     if (errorMessage.length > 0 && errorMessage != null) {
       return new Text(
@@ -403,6 +433,7 @@ class InscPageState extends State<InscPage>
       );
     }
   }
+
   submit() async {
     final userDetails = FirebaseDatabase.instance.reference().child('users');
     final form = formKey.currentState;
@@ -415,8 +446,9 @@ class InscPageState extends State<InscPage>
     if (form.validate()) {
       form.save();
       try {
-        userId = await widget.auth.signUp( email, pass);
-        widget.auth.signUpFull(userId, firstName, lastName, address, phone, isPro);
+        userId = await widget.auth.signUp(email, pass);
+        widget.auth
+            .signUpFull(userId, firstName, lastName, address, phone, isPro);
 
         print('Signed in: ${userId}');
       } catch (e) {
@@ -436,6 +468,5 @@ class InscPageState extends State<InscPage>
     setState(() {
       _isLoading = false;
     });
-
   }
 }

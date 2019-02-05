@@ -47,16 +47,16 @@ class ConnectPageState extends State<ConnectPage>
 
     delayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
-        curve: Interval(0.3, 1.0, curve: Curves.fastOutSlowIn)));
+        curve: Interval(0.2, 1.0, curve: Curves.fastOutSlowIn)));
 
     muchDelayedAnimation = Tween(begin: -1.0, end: 0.0).animate(CurvedAnimation(
         parent: animationController,
-        curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn)));
+        curve: Interval(0.4, 1.0, curve: Curves.fastOutSlowIn)));
 
     muchMuchDelayedAnimation = Tween(begin: 1.0, end: 0.0).animate(
         CurvedAnimation(
             parent: animationController,
-            curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
+            curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn)));
   }
 
   @override
@@ -89,7 +89,10 @@ class ConnectPageState extends State<ConnectPage>
 
   Widget FormUI() {
     final width = MediaQuery.of(context).size.width.toDouble();
-    return ListView(
+    return SingleChildScrollView(
+      child: Column(
+
+
       children: <Widget>[
         Transform(
           transform:
@@ -206,6 +209,7 @@ class ConnectPageState extends State<ConnectPage>
         ),
         _showErrorMessage(),
       ],
+      ),
     );
   }
   Widget _showErrorMessage() {
