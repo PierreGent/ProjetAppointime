@@ -1,6 +1,7 @@
+import 'package:client_appointime/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/services/authentication.dart';
-import 'package:client_appointime/pages/home_page.dart';
+import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:client_appointime/pages/login.dart';
 import 'package:client_appointime/pages/register.dart';
@@ -39,14 +40,13 @@ class _RootPageState extends State<RootPage> {
   }
 
   void _onLoggedIn() {
-    widget.auth.getCurrentUser().then((user){
+    widget.auth.getCurrentUser().then((user) {
       setState(() {
         _userId = user.uid.toString();
       });
     });
     setState(() {
       authStatus = AuthStatus.LOGGED_IN;
-
     });
   }
 
@@ -78,21 +78,25 @@ class _RootPageState extends State<RootPage> {
             body: PageView(
               controller: globalVar.pageController,
               children: <Widget>[
-                ConnectPage( auth: widget.auth,
-                  onSignedIn: _onLoggedIn),
-                InscPage( auth: widget.auth,
-                  onSignedIn: _onLoggedIn),
+                ConnectPage(auth: widget.auth, onSignedIn: _onLoggedIn),
+                InscPage(auth: widget.auth, onSignedIn: _onLoggedIn),
               ],
             ));
         break;
       case AuthStatus.LOGGED_IN:
         if (_userId.length > 0 && _userId != null) {
-          return new HomePage(
-            userId: _userId,
-            auth: widget.auth,
-            onSignedOut: _onSignedOut,
+          return new PageView(
+            children: <Widget>[
+              Home(
+                userId: _userId,
+                auth: widget.auth,
+                onSignedOut: _onSignedOut,
+              ),
+              MyAppointment(),
+            ],
           );
-        } else return _buildWaitingScreen();
+        } else
+          return _buildWaitingScreen();
         break;
       default:
         return _buildWaitingScreen();

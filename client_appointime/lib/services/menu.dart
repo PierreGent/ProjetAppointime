@@ -2,7 +2,6 @@ import 'package:client_appointime/pages/create_business.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:client_appointime/pages/home_page.dart';
 
 import 'dart:async';
 
@@ -62,24 +61,6 @@ if (choice==choices[4]) {
     return AppBar(
       title:  Text(title),
       actions: <Widget>[
-        // action button
-        IconButton(
-          icon: Icon(choices[0].icon),
-          onPressed: () {
-            return new HomePage(
-              userId: userId,
-              auth: auth,
-              onSignedOut: onSignedOut,
-            );;
-          },
-        ),
-        // action button
-        IconButton(
-          icon: Icon(choices[5].icon),
-          onPressed: () {
-            _signOut();
-          },
-        ),
         // overflow menu
         PopupMenuButton<Choice>(
           onSelected: _select,
