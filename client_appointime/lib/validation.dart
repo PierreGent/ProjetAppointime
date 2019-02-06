@@ -52,15 +52,7 @@ String validateCancelAppointment(String value){
 }
 
 //Validation du numéro siret
-String validateSiret(String value) {
 
-  if(value.length != 14)
-    return 'Le numéro siret n\'est pas valide';
-
-
-
-  return null;
-}
 
 Future<bool> isSiretUsed(String value) async {
   final businessDetails = FirebaseDatabase.instance.reference().child('business');
@@ -70,12 +62,23 @@ Future<bool> isSiretUsed(String value) async {
     return true;
   return false;
 }
+Future<bool> isPhoneUsed(String value) async {
+  final businessDetails = FirebaseDatabase.instance.reference().child('users');
+  DataSnapshot datas = await businessDetails.orderByChild("phoneNumber").equalTo(value).once();
+  print(datas.value);
+  if(datas.value!=null)
+    return true;
+  return false;
+}
+
+
+
 Future<String> validateBusiness(String userId) async{
   final businessDetails = FirebaseDatabase.instance.reference().child('business');
   DataSnapshot datas = await businessDetails.orderByChild("boss").equalTo(userId).once();
   if(datas.value!=null)
     return "Vous avez déjâ une entreprise";
-  return "";
+  return null;
 }
 String validateDesc(String value){
   if(value.isEmpty || value == null){
@@ -92,15 +95,6 @@ String validateDesc(String value){
 String validateAddress(String value){
   if(value.isEmpty || value == null){
     return 'Le Nom ne peut pas être vide';
-  }
-
-  return null;
-}
-
-//VALIDATION DU numero (INSCRIPTION)
-String validatePhone(String value){
-  if(value.length!=10 && !(value is int)){
-    return 'Telephone invalide';
   }
 
   return null;

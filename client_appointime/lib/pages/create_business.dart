@@ -2,7 +2,7 @@ import 'package:client_appointime/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:client_appointime/validation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -35,6 +35,8 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   var passKey = GlobalKey<FormFieldState>();
   bool autoValidate = false;
+  bool _isInAsyncCall = false;
+  bool _isSiretUsed = false;
   String name;
   String description;
   String errorMessage;
@@ -47,6 +49,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   void initState() {
     super.initState();
     _isLoading = false;
+
     errorMessage = "";
     animationController = AnimationController(
         duration: Duration(milliseconds: 1000), vsync: this);
@@ -89,16 +92,34 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
   }
 
+
+  String validateSiret(String value) {
+
+    if(value.length != 14)
+      return 'Le numéro siret n\'est pas valide';
+
+    if (_isSiretUsed) {
+      // disable message until after next async call
+      _isSiretUsed = false;
+      return 'Siret déjâ utilisé';
+    }
+
+    return null;
+  }
+
+
   Widget build(BuildContext context) {
     animationController.forward();
     return Scaffold(
         backgroundColor: globalVar.couleurPrimaire,
-     body: AnimatedBuilder(
+     body: ModalProgressHUD(
+        child :AnimatedBuilder(
 
         animation: animationController,
         builder: (BuildContext context, Widget child) {
+          formKey.currentState?.validate();
           return Form(
-              key: formKey,
+              key:this.formKey,
               autovalidate: autoValidate,
               child: Stack(
                 children: <Widget>[
@@ -107,6 +128,11 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                 ],
               ));
         }),
+       inAsyncCall: _isInAsyncCall,
+       // demo of some additional parameters
+       opacity: 0.5,
+       progressIndicator: CircularProgressIndicator(),
+     ),
     );
   }
 
@@ -369,51 +395,63 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   submit() async {
     final BusinessDetails = FirebaseDatabase.instance.reference().child('business');
     final form = formKey.currentState;
-    setState(() {
-      errorMessage = "";
-      _isLoading = true;
-    });
+
 
     String userId = "";
-    bool issiretused=await isSiretUsed(siret);
-    if (form.validate() &&  !issiretused) {
+
+    var user = await widget.auth.getCurrentUser();
+    userId = user.uid;
+    if (form.validate()&& await validateBusiness(userId)==null) {
         form.save();
-        try {
-          var user = await widget.auth.getCurrentUser();
-          userId = user.uid;
-          BusinessDetails.push().set({
-            'name': name,
-            'boss': userId,
-            'address': address,
-            'siret': siret,
-            'description': description,
-            'fieldOfActivity': activity,
-            'cancelAppointment': cancelAppointment
-          });
-        } catch (e) {
-          print('Error: $e');
-          setState(() {
-            _isLoading = false;
 
-            errorMessage = "erreur";
-          });
+        FocusScope.of(context).requestFocus(new FocusNode());
+        setState(() {
+          errorMessage = "";
+          _isLoading = true;
+          _isInAsyncCall = true;
+        });
+        Future.delayed(Duration(seconds: 1), () async {
+        _isSiretUsed=await isSiretUsed(siret);
+
+        setState(() {
+          _isInAsyncCall = false;
+        });
+
+
+        if(!_isSiretUsed ) {
+          try {
+
+            BusinessDetails.push().set({
+              'name': name,
+              'boss': userId,
+              'address': address,
+              'siret': siret,
+              'description': description,
+              'fieldOfActivity': activity,
+              'cancelAppointment': cancelAppointment
+            });
+          } catch (e) {
+            print('Error: $e');
+            setState(() {
+              _isLoading = false;
+              errorMessage = "erreur";
+            });
+          }
+          _isLoading = false;
+
+          Navigator.pop(context);
         }
-
+        });
     } else {
-      errorMessage="";
-      if(form.validate())
-        errorMessage="erreur inconnue";
-      if(issiretused)
-        errorMessage ="Siret déja utilisé";
-      errorMessage=errorMessage+await validateBusiness(userId);
+      errorMessage=""+await validateBusiness(userId);
       setState(() => autoValidate = true);
     }
     setState(() {
       _isLoading = false;
     });
-    if (userId.length > 0 && userId != null) {
-      Navigator.pop(context);
-    }
+
+
+
 
   }
 }

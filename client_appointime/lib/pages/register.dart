@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:client_appointime/validation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -37,6 +37,8 @@ class InscPageState extends State<InscPage>
   bool autoValidate = false;
   bool isPro = false;
   String email;
+  bool _isPhoneUsed=false;
+  bool _isInAsyncCall=false;
   String pass;
   String passConf;
   String errorMessage;
@@ -93,11 +95,15 @@ class InscPageState extends State<InscPage>
 
   Widget build(BuildContext context) {
     animationController.forward();
-    return AnimatedBuilder(
+    return Scaffold(
+        backgroundColor: globalVar.couleurPrimaire,
+        body: ModalProgressHUD(
+        child :AnimatedBuilder(
         animation: animationController,
         builder: (BuildContext context, Widget child) {
+          formKey.currentState?.validate();
           return Form(
-              key: formKey,
+              key: this.formKey,
               autovalidate: autoValidate,
               child: Stack(
                 children: <Widget>[
@@ -105,7 +111,27 @@ class InscPageState extends State<InscPage>
                   _showCircularProgress(),
                 ],
               ));
-        });
+        }),
+    inAsyncCall: _isInAsyncCall,
+    // demo of some additional parameters
+    opacity: 0.5,
+    progressIndicator: CircularProgressIndicator(),
+    ),
+    );
+  }
+
+
+  String validatePhone(String value) {
+    if(value.length!=10 && !(value is int)){
+      return 'Telephone invalide';
+    }
+
+    if (_isPhoneUsed) {
+      // disable message until after next async call
+      _isPhoneUsed = false;
+      return 'Numéro déjâ utilisé';
+    }
+      return null;
   }
 
   Widget _showCircularProgress() {
@@ -437,34 +463,48 @@ class InscPageState extends State<InscPage>
   submit() async {
     final userDetails = FirebaseDatabase.instance.reference().child('users');
     final form = formKey.currentState;
-    setState(() {
-      errorMessage = "";
-      _isLoading = true;
-    });
+
 
     String userId = "";
     if (form.validate()) {
       form.save();
-      try {
-        userId = await widget.auth.signUp(email, pass);
-        widget.auth
-            .signUpFull(userId, firstName, lastName, address, phone, isPro);
+      FocusScope.of(context).requestFocus(new FocusNode());
+      setState(() {
+        errorMessage = "";
+        _isLoading = true;
+        _isInAsyncCall = true;
+      });
+      Future.delayed(Duration(seconds: 1), () async {
+        _isPhoneUsed=await isPhoneUsed(phone);
 
-        print('Signed in: ${userId}');
-      } catch (e) {
-        print('Error: $e');
         setState(() {
-          _isLoading = false;
-
-          errorMessage = "Nom de compte ou mot de passe incorrect";
+          _isInAsyncCall = false;
         });
-      }
+        if(!_isPhoneUsed ) {
+          try {
+            userId = await widget.auth.signUp(email, pass);
+            widget.auth
+                .signUpFull(userId, firstName, lastName, address, phone, isPro);
+
+            print('Signed in: ${userId}');
+          } catch (e) {
+            print('Error: $e');
+            setState(() {
+              _isLoading = false;
+
+              errorMessage = "Nom de compte ou mot de passe incorrect";
+            });
+          }
+          _isLoading = false;
+          if (userId.length > 0 && userId != null) {
+            widget.onSignedIn();
+          }
+        }
+      });
     } else {
       setState(() => autoValidate = true);
     }
-    if (userId.length > 0 && userId != null) {
-      widget.onSignedIn();
-    }
+
     setState(() {
       _isLoading = false;
     });
