@@ -1,3 +1,4 @@
+import 'package:client_appointime/pages/create_business.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -5,12 +6,15 @@ import 'package:client_appointime/pages/home_page.dart';
 
 import 'dart:async';
 
+import 'package:path/path.dart';
+
 
 class MenuBarState  {
 
   final BaseAuth auth;
   final VoidCallback onSignedOut;
   final String userId;
+  final BuildContext context;
   Choice _selectedChoice = choices[0]; // The app's "state".
   final FirebaseDatabase _database = FirebaseDatabase.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -21,7 +25,7 @@ class MenuBarState  {
 
   Query _todoQuery;
 
-MenuBarState(this.auth,this.onSignedOut,this.userId);
+MenuBarState(this.auth,this.onSignedOut,this.userId,this.context);
 
 
 
@@ -41,10 +45,16 @@ MenuBarState(this.auth,this.onSignedOut,this.userId);
 
 
 
-  void _select(Choice choice) {
+   _select(Choice choice) async {
     // Causes the app to rebuild with the new _selectedChoice.
 if (choice==choices[5])
      _signOut();
+if (choice==choices[4]) {
+  return await Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => CreateBusinessPage(auth: auth)),
+  );
+}
   }
 
 
@@ -103,7 +113,7 @@ const List<Choice> choices = const <Choice>[
   const Choice(title: 'Mes rdv', icon: Icons.directions_bike),
   const Choice(title: 'machin', icon: Icons.directions_boat),
   const Choice(title: 'truc', icon: Icons.directions_bus),
-  const Choice(title: 'bidule', icon: Icons.directions_railway),
+  const Choice(title: 'Renseigner mon entreprise', icon: Icons.business_center),
   const Choice(title: 'Déconnexion', icon: Icons.exit_to_app),
 ];
 

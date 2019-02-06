@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
        });
      });
     return new Scaffold(
-        appBar:  new MenuBarState(widget.auth,widget.onSignedOut,widget.userId).getAppBar('Page d\'accueil'),
+        appBar:  new MenuBarState(widget.auth,widget.onSignedOut,widget.userId,context).getAppBar('Page d\'accueil'),
         body: Center(
           child:
             new StreamBuilder<Event>(
