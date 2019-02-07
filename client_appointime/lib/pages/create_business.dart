@@ -109,6 +109,10 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   Widget build(BuildContext context) {
     animationController.forward();
     return Scaffold(
+      appBar: AppBar(
+        title:Text("Renseigner mon entreprise"),
+        backgroundColor: Colors.blueAccent.withOpacity(0.8),
+      ),
       backgroundColor: globalVar.couleurPrimaire,
       body: ModalProgressHUD(
         child: AnimatedBuilder(
@@ -150,46 +154,6 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
       child: Column(
         children: <Widget>[
           Transform(
-            transform:
-                Matrix4.translationValues(animation.value * width, 0.0, 0.0),
-            child: new Center(
-              child: Container(
-                padding: EdgeInsets.all(25),
-                child: new Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Stack(
-                          children: <Widget>[
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: Text(
-                                "Renseigner mon entreprise",
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                    color: globalVar.couleurSecondaire,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 30),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: FloatingActionButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: new Icon(Icons.keyboard_arrow_left),
-                                backgroundColor: globalVar.couleurSecondaire,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ]),
-              ),
-            ),
-          ),
-          Transform(
             transform: Matrix4.translationValues(
                 delayedAnimation.value * width, 0.0, 0.0),
             child: new Center(
@@ -205,7 +169,8 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       decoration: InputDecoration(
                         hintText: "Nom de l'entreprise",
                         icon: new Icon(Icons.business,
-                            color: globalVar.couleurSecondaire),
+                            color: Colors.blueAccent.withOpacity(0.8)
+                        ),
                       ),
                       validator: validateLastName,
                       onSaved: (value) => name = value,
@@ -230,10 +195,10 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Déscription',
+                        hintText: '\n\nDescription',
                         icon: new Icon(
                           Icons.chrome_reader_mode,
-                          color: globalVar.couleurSecondaire,
+                          color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validateDesc,
@@ -262,7 +227,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                         hintText: 'Domaine d\'activité',
                         icon: new Icon(
                           Icons.work,
-                          color: globalVar.couleurSecondaire,
+                          color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validateFirstName,
@@ -293,7 +258,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                             'Nombre de jours pour l"annulation d\'un rendez vous',
                         icon: new Icon(
                           Icons.timer,
-                          color: globalVar.couleurSecondaire,
+                          color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validateCancelAppointment,
@@ -323,7 +288,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                         hintText: 'Numéro de siret',
                         icon: new Icon(
                           Icons.no_encryption,
-                          color: globalVar.couleurSecondaire,
+                          color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validateSiret,
@@ -352,7 +317,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                         hintText: 'Adresse',
                         icon: new Icon(
                           Icons.add_location,
-                          color: globalVar.couleurSecondaire,
+                          color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validateAddress,
@@ -375,8 +340,8 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                     RaisedButton(
                       child: Text("   Valider   "),
                       onPressed: submit,
-                      color: globalVar.couleurSecondaire,
-                      textColor: globalVar.couleurPrimaire,
+                      color: Colors.blueAccent.withOpacity(0.8),
+                      textColor: Colors.white,
                     ),
                   ],
                 ),

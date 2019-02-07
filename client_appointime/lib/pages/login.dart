@@ -107,7 +107,7 @@ class ConnectPageState extends State<ConnectPage>
                   Text(
                     "Connexion",
                     style: TextStyle(
-                        color: globalVar.couleurSecondaire,
+                        color: Colors.blueAccent.withOpacity(0.8),
                         fontWeight: FontWeight.bold,
                         fontSize: 30),
                   ),
@@ -132,7 +132,8 @@ class ConnectPageState extends State<ConnectPage>
                     decoration: InputDecoration(
                       hintText: "Email",
                       icon: new Icon(Icons.mail,
-                          color: globalVar.couleurSecondaire),
+                          color: Colors.blueAccent.withOpacity(0.8)
+                      ),
                     ),
                     validator: validateEmail,
                     onSaved: (value) => email = value,
@@ -160,7 +161,7 @@ class ConnectPageState extends State<ConnectPage>
                       hintText: 'Mot de passe',
                       icon: new Icon(
                         Icons.lock,
-                        color: globalVar.couleurSecondaire,
+                        color: Colors.blueAccent.withOpacity(0.8),
                       ),
                     ),
                     validator: (value) => value.isEmpty ? 'Le mot de passe ne peut pas être vide' : null,
@@ -183,8 +184,8 @@ class ConnectPageState extends State<ConnectPage>
                   RaisedButton(
                     child: Text(" Se connecter"),
                     onPressed: submit,
-                    color: globalVar.couleurSecondaire,
-                    textColor: globalVar.couleurPrimaire,
+                    color: Colors.blueAccent.withOpacity(0.8),
+                    textColor: Colors.white,
                   ),
                   OutlineButton(
                     child: Text("   S'inscrire    "),
@@ -193,11 +194,11 @@ class ConnectPageState extends State<ConnectPage>
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeIn);
                     },
-                    color: globalVar.couleurSecondaire,
-                    textColor: globalVar.couleurSecondaire,
-                    highlightColor: globalVar.couleurSecondaire,
+                    color: Colors.blueAccent.withOpacity(0.8),
+                    textColor: Colors.blueAccent.withOpacity(0.8),
+                    highlightColor: Colors.blueAccent.withOpacity(0.8),
                     borderSide: BorderSide(
-                      color: globalVar.couleurSecondaire,
+                      color: Colors.blueAccent.withOpacity(0.8),
                       style: BorderStyle.solid,
                       width: 2,
                     ),

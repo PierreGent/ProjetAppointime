@@ -163,7 +163,7 @@ class InscPageState extends State<InscPage>
                   Text(
                     "Inscription",
                     style: TextStyle(
-                        color: globalVar.couleurSecondaire,
+                        color: Colors.blueAccent.withOpacity(0.8),
                         fontWeight: FontWeight.bold,
                         fontSize: 30),
                   ),
@@ -187,8 +187,10 @@ class InscPageState extends State<InscPage>
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       hintText: "Email",
-                      icon: new Icon(Icons.mail,
-                          color: globalVar.couleurSecondaire),
+                      icon: new Icon(
+                          Icons.mail,
+                          color: Colors.blueAccent.withOpacity(0.8)
+                      ),
                     ),
                     validator: validateEmail,
                     onSaved: (value) => email = value,
@@ -217,7 +219,7 @@ class InscPageState extends State<InscPage>
                       hintText: 'Mot de passe',
                       icon: new Icon(
                         Icons.lock,
-                        color: globalVar.couleurSecondaire,
+                        color: Colors.blueAccent.withOpacity(0.8),
                       ),
                     ),
                     validator: validatePass,
@@ -246,7 +248,7 @@ class InscPageState extends State<InscPage>
                       hintText: 'Confirmation',
                       icon: new Icon(
                         Icons.beenhere,
-                        color: globalVar.couleurSecondaire,
+                        color: Colors.blueAccent.withOpacity(0.8),
                       ),
                     ),
                     validator: (confirm) {
@@ -279,7 +281,7 @@ class InscPageState extends State<InscPage>
                       hintText: 'Prénom',
                       icon: new Icon(
                         Icons.supervised_user_circle,
-                        color: globalVar.couleurSecondaire,
+                        color: Colors.blueAccent.withOpacity(0.8),
                       ),
                     ),
                     validator: validateFirstName,
@@ -308,7 +310,7 @@ class InscPageState extends State<InscPage>
                       hintText: 'Nom',
                       icon: new Icon(
                         Icons.supervised_user_circle,
-                        color: globalVar.couleurSecondaire,
+                        color: Colors.blueAccent.withOpacity(0.8),
                       ),
                     ),
                     validator: validateLastName,
@@ -337,7 +339,7 @@ class InscPageState extends State<InscPage>
                       hintText: 'Adresse',
                       icon: new Icon(
                         Icons.add_location,
-                        color: globalVar.couleurSecondaire,
+                        color: Colors.blueAccent.withOpacity(0.8),
                       ),
                     ),
                     validator: validateAddress,
@@ -367,7 +369,7 @@ class InscPageState extends State<InscPage>
                       hintText: 'Numéro de téléphone',
                       icon: new Icon(
                         Icons.phone,
-                        color: globalVar.couleurSecondaire,
+                        color: Colors.blueAccent.withOpacity(0.8),
                       ),
                     ),
                     validator: validatePhone,
@@ -388,7 +390,11 @@ class InscPageState extends State<InscPage>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   new CheckboxListTile(
-                    title: Text("Cochez si vous etes professionnel"),
+                    title: Text(
+                      "Cochez si vous etes professionnel",
+                      style: TextStyle(color: Colors.black54
+                      ),
+                    ),
                     value: isPro,
                     onChanged: (bool value) {
                       setState(() {
@@ -413,8 +419,8 @@ class InscPageState extends State<InscPage>
                   RaisedButton(
                     child: Text("   S'inscrire    "),
                     onPressed: submit,
-                    color: globalVar.couleurSecondaire,
-                    textColor: globalVar.couleurPrimaire,
+                    color: Colors.blueAccent.withOpacity(0.8),
+                    textColor: Colors.white,
                   ),
                   OutlineButton(
                     child: Text("Se connecter"),
@@ -423,11 +429,11 @@ class InscPageState extends State<InscPage>
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeIn);
                     },
-                    color: globalVar.couleurSecondaire,
-                    textColor: globalVar.couleurSecondaire,
-                    highlightColor: globalVar.couleurSecondaire,
+                    color: Colors.blueAccent.withOpacity(0.8),
+                    textColor: Colors.blueAccent.withOpacity(0.8),
+                    highlightColor: Colors.blueAccent.withOpacity(0.8),
                     borderSide: BorderSide(
-                      color: globalVar.couleurSecondaire,
+                      color: Colors.blueAccent.withOpacity(0.8),
                       style: BorderStyle.solid,
                       width: 2,
                     ),
