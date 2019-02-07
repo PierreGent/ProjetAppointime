@@ -1,7 +1,10 @@
 import 'package:client_appointime/pages/base_page.dart';
+import 'package:client_appointime/pages/create_business.dart';
 import 'package:client_appointime/pages/my_appointment.dart';
+import 'package:client_appointime/pages/my_business.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:client_appointime/services/menu.dart';
+import 'package:client_appointime/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/services/my_icone_icons.dart';
 
@@ -19,12 +22,18 @@ class HomeState extends State<Home> {
   PageController pageController;
   int page = 0;
   String title = "Accueil";
+bool _isPro=false;
+var items;
 
-
-  void initState() {
+   initState() {
     super.initState();
+    isPro(widget.userId).then((result) {  setState(() {
+      _isPro = result;
+    });});
+
     pageController = new PageController();
     title = "Accueil";
+
   }
 
   void dispose() {
@@ -35,7 +44,47 @@ class HomeState extends State<Home> {
   }
 
   Widget build(BuildContext context) {
+     if(_isPro==null){
+       return AppBar(
+         backgroundColor: Colors.blueAccent.withOpacity(0.8),
+         title:  Text("loading"),
 
+       );
+
+
+     }
+    if(_isPro){
+      items=[
+        BottomNavigationBarItem(
+          icon: Icon(MyIcone.home_outline),
+          activeIcon: Icon(MyIcone.home),
+          title: Text("Accueil"),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today),
+          activeIcon: Icon(MyIcone.calendar),
+          title: Text("Mes rendez-vous"),
+        ),BottomNavigationBarItem(
+          icon: Icon(Icons.business),
+          activeIcon: Icon(Icons.business_center),
+          title: Text("Mon entreprise"),
+        )
+
+      ];
+    }else{
+      items=[
+        BottomNavigationBarItem(
+          icon: Icon(MyIcone.home_outline),
+          activeIcon: Icon(MyIcone.home),
+          title: Text("Accueil"),
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.calendar_today),
+          activeIcon: Icon(MyIcone.calendar),
+          title: Text("Mes rendez-vous"),
+        )
+      ];
+    }
     return new Scaffold(
       appBar: new MenuBarState(
               widget.auth, widget.onSignedOut, widget.userId, context)
@@ -46,6 +95,7 @@ class HomeState extends State<Home> {
         children: <Widget>[
           BasePage(),
           MyAppointment(),
+          MyBusiness()
         ],
       ),
       bottomNavigationBar: new Theme(
@@ -62,19 +112,7 @@ brightness: Brightness.light,
             .copyWith(caption: new TextStyle(color: Colors.black))), // sets the inactive color of the `BottomNavigationBar`
     child: BottomNavigationBar(
 
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(MyIcone.home_outline),
-          activeIcon: Icon(MyIcone.home),
-          title: Text("Accueil"),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.calendar_today),
-          activeIcon: Icon(MyIcone.calendar),
-          title: Text("Mes rendez-vous"),
-        ),
-
-      ],
+      items: items,
       onTap: navigateToPage,
       currentIndex: page,
     ),
