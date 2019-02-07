@@ -3,12 +3,16 @@ import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:client_appointime/services/menu.dart';
 import 'package:flutter/material.dart';
+import 'package:client_appointime/services/my_icone_icons.dart';
+import 'package:client_appointime/globalVar.dart' as globalVar;
+
 
 class Home extends StatefulWidget {
   Home({this.auth, this.userId, this.onSignedOut});
   final BaseAuth auth;
   final VoidCallback onSignedOut;
   final String userId;
+
 
   State<StatefulWidget> createState() => new HomeState();
 }
@@ -33,7 +37,7 @@ class HomeState extends State<Home> {
     return new Scaffold(
       appBar: new MenuBarState(
               widget.auth, widget.onSignedOut, widget.userId, context)
-          .getAppBar('Page d\'accueil'),
+          .getAppBar('Appointime'),
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
@@ -42,21 +46,37 @@ class HomeState extends State<Home> {
           MyAppointment(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: new Theme(
+
+    data: Theme.of(context).copyWith(
+      // sets the background color of the `BottomNavigationBar`
+        canvasColor: Colors.lightBlueAccent.withOpacity(0),
+        // sets the active color of the `BottomNavigationBar` if `Brightness` is light
+brightness: Brightness.light,
+        primaryColor: Colors.indigo,
+        textTheme: Theme
+            .of(context)
+            .textTheme
+            .copyWith(caption: new TextStyle(color: Colors.black))), // sets the inactive color of the `BottomNavigationBar`
+    child: BottomNavigationBar(
+
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(MyIcone.home_outline),
+              activeIcon: Icon(MyIcone.home),
               title: Text("Accueil"),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_view_day),
+              icon: Icon(Icons.calendar_today),
+              activeIcon: Icon(MyIcone.calendar),
               title: Text("Mes rendez-vous"),
             ),
+
           ],
           onTap: navigateToPage,
           currentIndex: page,
         ),
-    );
+      ), );
   }
 
   void navigateToPage(int page) {

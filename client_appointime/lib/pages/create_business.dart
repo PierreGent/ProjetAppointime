@@ -9,7 +9,9 @@ import 'package:firebase_database/firebase_database.dart';
 
 class CreateBusinessPage extends StatefulWidget {
   CreateBusinessPage({this.auth});
+
   final BaseAuth auth;
+
   @override
   CreateBusinessPageState createState() => CreateBusinessPageState();
 }
@@ -91,11 +93,8 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
   }
 
-
   String validateSiret(String value) {
-
-    if(value.length != 14)
-      return 'Le numéro siret n\'est pas valide';
+    if (value.length != 14) return 'Le numéro siret n\'est pas valide';
 
     if (_isSiretUsed) {
       // disable message until after next async call
@@ -106,32 +105,30 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
     return null;
   }
 
-
   Widget build(BuildContext context) {
     animationController.forward();
     return Scaffold(
-        backgroundColor: globalVar.couleurPrimaire,
-     body: ModalProgressHUD(
-        child :AnimatedBuilder(
-
-        animation: animationController,
-        builder: (BuildContext context, Widget child) {
-          formKey.currentState?.validate();
-          return Form(
-              key:this.formKey,
-              autovalidate: autoValidate,
-              child: Stack(
-                children: <Widget>[
-                  FormUI(),
-                  _showCircularProgress(),
-                ],
-              ));
-        }),
-       inAsyncCall: _isInAsyncCall,
-       // demo of some additional parameters
-       opacity: 0.5,
-       progressIndicator: CircularProgressIndicator(),
-     ),
+      backgroundColor: globalVar.couleurPrimaire,
+      body: ModalProgressHUD(
+        child: AnimatedBuilder(
+            animation: animationController,
+            builder: (BuildContext context, Widget child) {
+              formKey.currentState?.validate();
+              return Form(
+                  key: this.formKey,
+                  autovalidate: autoValidate,
+                  child: Stack(
+                    children: <Widget>[
+                      FormUI(),
+                      _showCircularProgress(),
+                    ],
+                  ));
+            }),
+        inAsyncCall: _isInAsyncCall,
+        // demo of some additional parameters
+        opacity: 0.5,
+        progressIndicator: CircularProgressIndicator(),
+      ),
     );
   }
 
@@ -148,228 +145,244 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   Widget FormUI() {
     final width = MediaQuery.of(context).size.width.toDouble();
     return SingleChildScrollView(
-      child:Column(
-
-      children: <Widget>[
-        Transform(
-          transform:
-              Matrix4.translationValues(animation.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Renseigner mon entreprise",
-                    style: TextStyle(
-                        color: globalVar.couleurSecondaire,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-              delayedAnimation.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: "Nom de l'entreprise",
-                      icon: new Icon(Icons.business,
-                          color: globalVar.couleurSecondaire),
-                    ),
-                    validator: validateLastName,
-                    onSaved: (value) => name = value,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-              muchDelayedAnimation.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 5,
-                    obscureText: false,
-                    autofocus: false,
-                    decoration: new InputDecoration(
-                      hintText: 'Déscription',
-                      icon: new Icon(
-                        Icons.chrome_reader_mode,
-                        color: globalVar.couleurSecondaire,
+      child: Column(
+        children: <Widget>[
+          Transform(
+            transform:
+                Matrix4.translationValues(animation.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Stack(
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: Text(
+                                "Renseigner mon entreprise",
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                    color: globalVar.couleurSecondaire,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: FloatingActionButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: new Icon(Icons.keyboard_arrow_left),
+                                backgroundColor: globalVar.couleurSecondaire,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    validator: validateDesc,
-                    onSaved: (value) => description = value,
-                  ),
-                ],
+                    ]),
               ),
             ),
           ),
-        ),
-
-        Transform(
-          transform: Matrix4.translationValues(
-              muchMuchMuchDelayedAnimation.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    obscureText: false,
-                    autofocus: false,
-                    decoration: new InputDecoration(
-                      hintText: 'Domaine d\'activité',
-                      icon: new Icon(
-                        Icons.work,
-                        color: globalVar.couleurSecondaire,
+          Transform(
+            transform: Matrix4.translationValues(
+                delayedAnimation.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    TextFormField(
+                      autovalidate: autoValidate,
+                      maxLines: 1,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        hintText: "Nom de l'entreprise",
+                        icon: new Icon(Icons.business,
+                            color: globalVar.couleurSecondaire),
                       ),
+                      validator: validateLastName,
+                      onSaved: (value) => name = value,
                     ),
-                    validator: validateFirstName,
-                    onSaved: (value) => activity = value,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-              muchMuchMuchDelayedAnimation1.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    obscureText: false,
-                    autofocus: false,
-                    keyboardType: TextInputType.number,
-                    decoration: new InputDecoration(
-                      hintText: 'Nombre de jours pour l"annulation d\'un rendez vous',
-                      icon: new Icon(
-                        Icons.timer,
-                        color: globalVar.couleurSecondaire,
+          Transform(
+            transform: Matrix4.translationValues(
+                muchDelayedAnimation.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new TextFormField(
+                      autovalidate: autoValidate,
+                      maxLines: 5,
+                      obscureText: false,
+                      autofocus: false,
+                      decoration: new InputDecoration(
+                        hintText: 'Déscription',
+                        icon: new Icon(
+                          Icons.chrome_reader_mode,
+                          color: globalVar.couleurSecondaire,
+                        ),
                       ),
+                      validator: validateDesc,
+                      onSaved: (value) => description = value,
                     ),
-                    validator: validateCancelAppointment,
-                    onSaved: (value) => cancelAppointment = num.tryParse(value),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-              muchMuchMuchDelayedAnimation.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    obscureText: false,
-                    autofocus: false,
-                    decoration: new InputDecoration(
-                      hintText: 'Numéro de siret',
-                      icon: new Icon(
-                        Icons.no_encryption,
-                        color: globalVar.couleurSecondaire,
+          Transform(
+            transform: Matrix4.translationValues(
+                muchMuchMuchDelayedAnimation.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new TextFormField(
+                      autovalidate: autoValidate,
+                      maxLines: 1,
+                      obscureText: false,
+                      autofocus: false,
+                      decoration: new InputDecoration(
+                        hintText: 'Domaine d\'activité',
+                        icon: new Icon(
+                          Icons.work,
+                          color: globalVar.couleurSecondaire,
+                        ),
                       ),
+                      validator: validateFirstName,
+                      onSaved: (value) => activity = value,
                     ),
-                    validator: validateSiret,
-                    onSaved: (value) => siret = value,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-              muchMuchMuchDelayedAnimation2.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    obscureText: false,
-                    autofocus: false,
-                    decoration: new InputDecoration(
-                      hintText: 'Adresse',
-                      icon: new Icon(
-                        Icons.add_location,
-                        color: globalVar.couleurSecondaire,
+          Transform(
+            transform: Matrix4.translationValues(
+                muchMuchMuchDelayedAnimation1.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new TextFormField(
+                      autovalidate: autoValidate,
+                      maxLines: 1,
+                      obscureText: false,
+                      autofocus: false,
+                      keyboardType: TextInputType.number,
+                      decoration: new InputDecoration(
+                        hintText:
+                            'Nombre de jours pour l"annulation d\'un rendez vous',
+                        icon: new Icon(
+                          Icons.timer,
+                          color: globalVar.couleurSecondaire,
+                        ),
                       ),
+                      validator: validateCancelAppointment,
+                      onSaved: (value) =>
+                          cancelAppointment = num.tryParse(value),
                     ),
-                    validator: validateAddress,
-                    onSaved: (value) => address = value,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-
-        Transform(
-          transform: Matrix4.translationValues(
-              0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  RaisedButton(
-                    child: Text("   Valider   "),
-                    onPressed: submit,
-                    color: globalVar.couleurSecondaire,
-                    textColor: globalVar.couleurPrimaire,
-                  ),
-
-                ],
+          Transform(
+            transform: Matrix4.translationValues(
+                muchMuchMuchDelayedAnimation.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new TextFormField(
+                      autovalidate: autoValidate,
+                      maxLines: 1,
+                      obscureText: false,
+                      autofocus: false,
+                      decoration: new InputDecoration(
+                        hintText: 'Numéro de siret',
+                        icon: new Icon(
+                          Icons.no_encryption,
+                          color: globalVar.couleurSecondaire,
+                        ),
+                      ),
+                      validator: validateSiret,
+                      onSaved: (value) => siret = value,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        _showErrorMessage(),
-      ],
+          Transform(
+            transform: Matrix4.translationValues(
+                muchMuchMuchDelayedAnimation2.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new TextFormField(
+                      autovalidate: autoValidate,
+                      maxLines: 1,
+                      obscureText: false,
+                      autofocus: false,
+                      decoration: new InputDecoration(
+                        hintText: 'Adresse',
+                        icon: new Icon(
+                          Icons.add_location,
+                          color: globalVar.couleurSecondaire,
+                        ),
+                      ),
+                      validator: validateAddress,
+                      onSaved: (value) => address = value,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Transform(
+            transform: Matrix4.translationValues(
+                0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    RaisedButton(
+                      child: Text("   Valider   "),
+                      onPressed: submit,
+                      color: globalVar.couleurSecondaire,
+                      textColor: globalVar.couleurPrimaire,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          _showErrorMessage(),
+        ],
       ),
     );
   }
@@ -392,34 +405,32 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   }
 
   submit() async {
-    final BusinessDetails = FirebaseDatabase.instance.reference().child('business');
+    final BusinessDetails =
+        FirebaseDatabase.instance.reference().child('business');
     final form = formKey.currentState;
-
 
     String userId = "";
 
     var user = await widget.auth.getCurrentUser();
     userId = user.uid;
-    if (form.validate()&& await validateBusiness(userId)==null) {
-        form.save();
+    if (form.validate() && await validateBusiness(userId) == null) {
+      form.save();
 
-        FocusScope.of(context).requestFocus(new FocusNode());
-        setState(() {
-          errorMessage = "";
-          _isLoading = true;
-          _isInAsyncCall = true;
-        });
-        Future.delayed(Duration(seconds: 1), () async {
-        _isSiretUsed=await isSiretUsed(siret);
+      FocusScope.of(context).requestFocus(new FocusNode());
+      setState(() {
+        errorMessage = "";
+        _isLoading = true;
+        _isInAsyncCall = true;
+      });
+      Future.delayed(Duration(seconds: 1), () async {
+        _isSiretUsed = await isSiretUsed(siret);
 
         setState(() {
           _isInAsyncCall = false;
         });
 
-
-        if(!_isSiretUsed ) {
+        if (!_isSiretUsed) {
           try {
-
             BusinessDetails.push().set({
               'name': name,
               'boss': userId,
@@ -440,17 +451,13 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
 
           Navigator.pop(context);
         }
-        });
+      });
     } else {
-      errorMessage=""+await validateBusiness(userId);
+      errorMessage = "" + await validateBusiness(userId);
       setState(() => autoValidate = true);
     }
     setState(() {
       _isLoading = false;
     });
-
-
-
-
   }
 }

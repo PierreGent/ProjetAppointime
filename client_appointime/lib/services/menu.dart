@@ -59,6 +59,7 @@ if (choice==choices[4]) {
 
   getAppBar(String title) {
     return AppBar(
+      backgroundColor: Colors.blueAccent.withOpacity(0.8),
       title:  Text(title),
       actions: <Widget>[
         // overflow menu

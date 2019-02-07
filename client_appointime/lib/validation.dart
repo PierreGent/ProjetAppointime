@@ -70,7 +70,14 @@ Future<bool> isPhoneUsed(String value) async {
     return true;
   return false;
 }
-
+Future<bool> isPro(String value) async {
+  final businessDetails = FirebaseDatabase.instance.reference().child('users').child(value);
+  DataSnapshot datas = await businessDetails.orderByChild("isPro").equalTo(true).once();
+  print(datas.value);
+  if(datas.value!=null)
+    return false;
+  return true;
+}
 
 
 Future<String> validateBusiness(String userId) async{
