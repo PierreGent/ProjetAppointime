@@ -37,6 +37,7 @@ class InscPageState extends State<InscPage>
   bool autoValidate = false;
   bool isPro = false;
   String email;
+  bool started=false;
   bool _isPhoneUsed=false;
   bool _isInAsyncCall=false;
   String pass;
@@ -95,13 +96,12 @@ class InscPageState extends State<InscPage>
 
   Widget build(BuildContext context) {
     animationController.forward();
-    return Scaffold(
-        backgroundColor: globalVar.couleurPrimaire,
-        body: ModalProgressHUD(
+    return ModalProgressHUD(
         child :AnimatedBuilder(
         animation: animationController,
         builder: (BuildContext context, Widget child) {
-          formKey.currentState?.validate();
+          if(started)
+            formKey.currentState?.validate();
           return Form(
               key: this.formKey,
               autovalidate: autoValidate,
@@ -116,8 +116,8 @@ class InscPageState extends State<InscPage>
     // demo of some additional parameters
     opacity: 0.5,
     progressIndicator: CircularProgressIndicator(),
-    ),
     );
+
   }
 
 
@@ -461,17 +461,18 @@ class InscPageState extends State<InscPage>
   }
 
   submit() async {
-    final userDetails = FirebaseDatabase.instance.reference().child('users');
+    started=true;
     final form = formKey.currentState;
 
-
+    setState(() {
+      errorMessage = "";
+      _isLoading = true;
+    });
     String userId = "";
     if (form.validate()) {
       form.save();
       FocusScope.of(context).requestFocus(new FocusNode());
       setState(() {
-        errorMessage = "";
-        _isLoading = true;
         _isInAsyncCall = true;
       });
       Future.delayed(Duration(seconds: 1), () async {

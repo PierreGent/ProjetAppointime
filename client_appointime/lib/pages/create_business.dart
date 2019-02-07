@@ -38,6 +38,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   bool autoValidate = false;
   bool _isInAsyncCall = false;
   bool _isSiretUsed = false;
+  bool started=false;
   String name;
   String description;
   String errorMessage;
@@ -113,7 +114,8 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
         child: AnimatedBuilder(
             animation: animationController,
             builder: (BuildContext context, Widget child) {
-              formKey.currentState?.validate();
+              if(started)
+                formKey.currentState?.validate();
               return Form(
                   key: this.formKey,
                   autovalidate: autoValidate,
@@ -405,6 +407,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   }
 
   submit() async {
+    started=true;
     final BusinessDetails =
         FirebaseDatabase.instance.reference().child('business');
     final form = formKey.currentState;
@@ -453,7 +456,8 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
         }
       });
     } else {
-      errorMessage = "" + await validateBusiness(userId);
+      if(form.validate())
+        errorMessage = "" + await validateBusiness(userId);
       setState(() => autoValidate = true);
     }
     setState(() {
