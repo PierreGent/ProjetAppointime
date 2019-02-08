@@ -1,11 +1,13 @@
+import 'package:client_appointime/pages/users/user.dart';
 import 'package:flutter/material.dart';
-import 'package:client_appointime/pages/business/business.dart';
 
-class BusinessDetailBody extends StatelessWidget {
-  BusinessDetailBody(this.friend);
-  final Business friend;
+class UserDetailBody extends StatelessWidget {
+  UserDetailBody(this.user);
+  final User user;
+String ispro="Particulier";
 
   Widget _buildLocationInfo(TextTheme textTheme) {
+
     return new Row(
       children: <Widget>[
         new Icon(
@@ -16,10 +18,27 @@ class BusinessDetailBody extends StatelessWidget {
         new Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: new Text(
-            friend.address,
+            user.address+"            ",
             style: textTheme.subhead.copyWith(color: Colors.white),
           ),
         ),
+
+
+        new Icon(
+          Icons.phone_in_talk,
+          color: Colors.white,
+          size: 16.0,
+        ),
+        new Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: new Text(
+
+            user.phoneNumber,
+            textAlign: TextAlign.right,
+            style: textTheme.subhead.copyWith(color: Colors.white),
+          ),
+        ),
+
       ],
     );
   }
@@ -41,6 +60,9 @@ class BusinessDetailBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    if(user.isPro)
+      ispro="Professionnel";
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
 
@@ -48,7 +70,7 @@ class BusinessDetailBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         new Text(
-          friend.name,
+          user.firstName+" "+user.lastName,
           style: textTheme.headline.copyWith(color: Colors.white),
         ),
         new Padding(
@@ -58,7 +80,7 @@ class BusinessDetailBody extends StatelessWidget {
         new Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: new Text(
-            friend.description,
+            ispro,
             style:
                 textTheme.body1.copyWith(color: Colors.white70, fontSize: 16.0),
           ),

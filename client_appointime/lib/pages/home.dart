@@ -1,10 +1,14 @@
+import 'dart:collection';
+
 import 'package:client_appointime/pages/base_page.dart';
 import 'package:client_appointime/pages/business/business_list_page.dart';
 import 'package:client_appointime/pages/create_business.dart';
 import 'package:client_appointime/pages/my_appointment.dart';
-import 'package:client_appointime/pages/my_business.dart';
+import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/pages/users/usersdetails/user_details_page.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:client_appointime/validation.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/services/my_icone_icons.dart';
 
@@ -23,9 +27,20 @@ class HomeState extends State<Home> {
   String title = "Accueil";
   bool _isPro = false;
   var items;
-
+  User user;
+  Map<String,dynamic> mailPass=new Map<String,dynamic>();
   initState() {
     super.initState();
+    widget.auth.getCurrentUser().then((result){
+      mailPass['email']=result.email;
+      mailPass['password']=result.uid;
+    });
+    getUser(widget.userId).then((DataSnapshot result) {
+      Map<dynamic, dynamic> values=result.value;
+        setState(() {
+          user = User.fromMap(mailPass, values);
+        });
+    });
     isPro(widget.userId).then((result) {
       setState(() {
         _isPro = result;
@@ -118,7 +133,28 @@ class HomeState extends State<Home> {
                   "Menu principal",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
+
+                new Hero(
+
+                    tag: 1,
+                    child: new CircleAvatar(
+
+                      child:GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      UserDetailsPage(user,1)));
+                        },
+
+                      ),
+
+                      // backgroundImage: new NetworkImage(friend.avatar),
+                    ),
+                  ),
               ],
+
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
             ),

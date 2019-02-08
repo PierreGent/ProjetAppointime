@@ -2,10 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:client_appointime/pages/business/businessdetails/business_details_page.dart';
 import 'package:client_appointime/pages/business/business.dart';
-import 'package:client_appointime/services/authentication.dart';
 
 class BusinessListPage extends StatefulWidget {
   @override
@@ -22,7 +19,6 @@ class _BusinessListPageState extends State<BusinessListPage> {
   }
 
   Future<void> _loadFriends() async {
-    List<Business> list;
     await FirebaseDatabase.instance.reference().child('business').once()
         .then((DataSnapshot snapshot){
       Map<dynamic, dynamic> values=snapshot.value;
@@ -60,7 +56,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (c) {
-          return new BusinessDetailsPage(friend, avatarTag: avatarTag);
+          return null;
         },
       ),
     );

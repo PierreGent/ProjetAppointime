@@ -1,17 +1,16 @@
+import 'package:client_appointime/pages/users/user.dart';
 import 'package:flutter/material.dart';
-import 'package:client_appointime/pages/business/businessdetails/header/diagonally_cut_colored_image.dart';
-import 'package:client_appointime/pages/business/business.dart';
-import 'package:meta/meta.dart';
+import 'package:client_appointime/pages/users/usersdetails/header/diagonally_cut_colored_image.dart';
 
-class BusinessDetailHeader extends StatelessWidget {
+
+class UserDetailHeader extends StatelessWidget {
   static const BACKGROUND_IMAGE = 'images/profile_header_background.png';
 
-  BusinessDetailHeader(
-    this.friend, {
-    @required this.avatarTag,
-  });
+  UserDetailHeader(
+      this.user, this.avatarTag
+      );
 
-  final Business friend;
+  final User user;
   final Object avatarTag;
 
   Widget _buildDiagonalImageBackground(BuildContext context) {
@@ -24,13 +23,13 @@ class BusinessDetailHeader extends StatelessWidget {
         height: 280.0,
         fit: BoxFit.cover,
       ),
-      color: const Color(0xBB8338f4),
+      color: Colors.blueAccent.withOpacity(0.8),
     );
   }
 
   Widget _buildAvatar() {
     return new Hero(
-      tag: avatarTag,
+      tag:avatarTag,
       child: new CircleAvatar(
         //backgroundImage: new NetworkImage(friend.avatar),
         radius: 50.0,
@@ -47,7 +46,7 @@ class BusinessDetailHeader extends StatelessWidget {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          new Text(friend.fieldOfActivity, style: followerStyle),
+          new Text(user.email, style: followerStyle),
 
         ],
       ),
@@ -65,7 +64,7 @@ class BusinessDetailHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _createPillButton(
-            'HIRE ME',
+            'KKCHOSE',
             backgroundColor: theme.accentColor,
           ),
           new DecoratedBox(
@@ -74,7 +73,7 @@ class BusinessDetailHeader extends StatelessWidget {
               borderRadius: new BorderRadius.circular(30.0),
             ),
             child: _createPillButton(
-              'FOLLOW',
+              'Modifier',
               textColor: Colors.white70,
             ),
           ),

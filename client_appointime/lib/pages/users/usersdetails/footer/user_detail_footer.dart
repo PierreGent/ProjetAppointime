@@ -1,19 +1,20 @@
+import 'package:client_appointime/pages/users/user.dart';
 import 'package:flutter/material.dart';
-import 'package:client_appointime/pages/business/businessdetails/footer/Conditions_showcase.dart';
-import 'package:client_appointime/pages/business/businessdetails/footer/Details_showcase.dart';
-import 'package:client_appointime/pages/business/businessdetails/footer/prestations_showcase.dart';
-import 'package:client_appointime/pages/business/business.dart';
+import 'package:client_appointime/pages/users/usersdetails/footer/Conditions_showcase.dart';
+import 'package:client_appointime/pages/users/usersdetails/footer/Details_showcase.dart';
+import 'package:client_appointime/pages/users/usersdetails/footer/prestations_showcase.dart';
 
-class BusinessShowcase extends StatefulWidget {
-  BusinessShowcase(this.friend);
 
-  final Business friend;
+class UserShowcase extends StatefulWidget {
+  UserShowcase(this.user);
+
+  final User user;
 
   @override
-  _BusinessShowcaseState createState() => new _BusinessShowcaseState();
+  _UserShowcaseState createState() => new _UserShowcaseState();
 }
 
-class _BusinessShowcaseState extends State<BusinessShowcase>
+class _UserShowcaseState extends State<UserShowcase>
     with TickerProviderStateMixin {
   List<Tab> _tabs;
   List<Widget> _pages;
@@ -30,7 +31,7 @@ class _BusinessShowcaseState extends State<BusinessShowcase>
     _pages = [
       new DetailsShowcase(),
       new PrestationsShowcase(),
-      new ConditionsShowcase(widget.friend),
+      new ConditionsShowcase(widget.user),
     ];
     _controller = new TabController(
       length: _tabs.length,

@@ -87,6 +87,16 @@ Future<String> validateBusiness(String userId) async{
     return "Vous avez déjâ une entreprise";
   return null;
 }
+
+
+
+Future<DataSnapshot> getUser(String userId) async{
+  final UserDetails = FirebaseDatabase.instance.reference().child('users').child(userId);
+  DataSnapshot datas = await UserDetails.once();
+  if(datas.value!=null)
+    return datas;
+  return null;
+}
 String validateDesc(String value){
   if(value.isEmpty || value == null){
     return 'La description ne peut pas être vide';
