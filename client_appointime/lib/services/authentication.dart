@@ -30,6 +30,8 @@ class Auth implements BaseAuth {
 
     return user.uid;
   }
+
+
   Future<void> signUpFull (String id,String firstName, String lastName,
       String address,String phoneNumber,bool isPro){
     userDetails.child(id).set({

@@ -1,4 +1,5 @@
 import 'package:client_appointime/pages/base_page.dart';
+import 'package:client_appointime/pages/business/business_list_page.dart';
 import 'package:client_appointime/pages/create_business.dart';
 import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/pages/my_business.dart';
@@ -87,7 +88,7 @@ class HomeState extends State<Home> {
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: <Widget>[BasePage(), MyAppointment(), MyBusiness()],
+        children: <Widget>[BasePage(), MyAppointment(),  BusinessListPage()],
       ),
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(

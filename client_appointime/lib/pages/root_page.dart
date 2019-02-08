@@ -92,7 +92,6 @@ class _RootPageState extends State<RootPage> {
                 auth: widget.auth,
                 onSignedOut: _onSignedOut,
               ),
-              MyAppointment(),
             ],
           );
         } else
