@@ -1,4 +1,5 @@
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/pages/users/usersdetails/header/diagonally_cut_colored_image.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailBody extends StatefulWidget {
@@ -26,35 +27,18 @@ String ispro="Particulier";
       children: <Widget>[
         new Icon(
           Icons.place,
-          color: Colors.white,
+          color: Colors.grey,
           size: 20.0,
         ),
         new Text(
           widget.user.address,
-          style: textTheme.subhead.copyWith(color: Colors.white,fontSize: 20),
+          style: textTheme.subhead.copyWith(color: Colors.grey,fontSize: 20),
 
         ),
       ],
     ),
     ),
-    new Container(
-      child: new Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          new Icon(
-            Icons.fastfood,
-            color: Colors.white,
-            size: 20.0,
-          ),
-          new Text(
 
-            'TARTIFLETTE',
-            style: textTheme.subhead.copyWith(color: Colors.white,fontSize: 20,fontStyle: FontStyle.italic),
-          ),
-
-        ],
-      ),
-    ),
 
     new Container(
       child: new Column(
@@ -62,14 +46,14 @@ String ispro="Particulier";
         children: <Widget>[
           new Icon(
             Icons.phone_in_talk,
-            color: Colors.white,
+            color: Colors.grey,
             size: 20.0,
           ),
           new Text(
 
             widget.user.phoneNumber,
             textAlign: TextAlign.right,
-            style: textTheme.subhead.copyWith(color: Colors.white,fontSize: 20),
+            style: textTheme.subhead.copyWith(color: Colors.grey,fontSize: 20),
           ),
 
         ],
@@ -81,62 +65,37 @@ String ispro="Particulier";
 
 
 
+
       ],
     );
   }
 
-  Widget _createCircleBadge(IconData iconData, Color color) {
-    return new Padding(
-      padding: const EdgeInsets.only(left: 8.0),
-      child: new CircleAvatar(
-        backgroundColor: color,
-        child: new Icon(
-          iconData,
-          color: Colors.white,
-          size: 16.0,
-        ),
-        radius: 16.0,
-      ),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
 
-    if(widget.user.isPro)
-      ispro="Professionnel";
+
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
 
     return new Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         new Text(
           widget.user.firstName+" "+widget.user.lastName,
-          style: textTheme.headline.copyWith(color: Colors.white),
+          style: textTheme.headline.copyWith(color: Colors.grey),
         ),
         new Padding(
-          padding: const EdgeInsets.only(top: 4.0),
+          padding: const EdgeInsets.only(top: 30.0),
           child: _buildLocationInfo(textTheme),
         ),
-        new Padding(
-          padding: const EdgeInsets.only(top: 16.0),
-          child: new Text(
-            ispro,
-            style:
-                textTheme.body1.copyWith(color: Colors.white70, fontSize: 16.0),
-          ),
+        new Container(
+          height: 0,
+          color: Colors.blueGrey,
+          margin: const EdgeInsets.only(left: 0.0, right: 0.0, top: 50),
         ),
-        new Padding(
-          padding: const EdgeInsets.only(top: 16.0),
-          child: new Row(
-            children: <Widget>[
-              _createCircleBadge(Icons.star, theme.accentColor),
-              _createCircleBadge(Icons.star, theme.accentColor),
-              _createCircleBadge(Icons.star_border, Colors.white12),
-            ],
-          ),
-        ),
+
       ],
     );
   }

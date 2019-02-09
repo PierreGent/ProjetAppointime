@@ -24,7 +24,7 @@ class UserDetailHeader extends StatelessWidget {
         height: 280.0,
         fit: BoxFit.cover,
       ),
-      color: Colors.blueAccent.withOpacity(0.5),
+      //color: Colors.blueAccent.withOpacity(1),
     );
   }
 
@@ -35,13 +35,9 @@ class UserDetailHeader extends StatelessWidget {
         backgroundColor: Colors.black.withOpacity(0.3),
         child: new Center(
 
-        child: Icon(
-        MyIcone.torso,
+        child: Text(user.firstName[0]+user.lastName[0],style: TextStyle(color: Colors.white, fontSize: 40,fontWeight: FontWeight.bold))
 
-        color: Colors.white.withOpacity(0.7),
-        size: 50.0,
-    ),
-      ),
+        ),
 
         radius: 50.0,
     ));
@@ -49,7 +45,7 @@ class UserDetailHeader extends StatelessWidget {
 
   Widget _buildFollowerInfo(TextTheme textTheme) {
     var followerStyle =
-        textTheme.subhead.copyWith(color: const Color(0xBBFFFFFF));
+        textTheme.subhead.copyWith(color: const Color(0xFFFFFFFF));
 
     return new Padding(
       padding: const EdgeInsets.only(top: 16.0),
@@ -75,7 +71,7 @@ class UserDetailHeader extends StatelessWidget {
         children: <Widget>[
           _createPillButton(
             'KKCHOSE',
-            backgroundColor: theme.accentColor,
+            backgroundColor: theme.accentColor.withOpacity(0.5),
           ),
           new DecoratedBox(
             decoration: new BoxDecoration(
@@ -84,6 +80,7 @@ class UserDetailHeader extends StatelessWidget {
             ),
             child: _createPillButton(
               'Modifier',
+              backgroundColor: Colors.black.withOpacity(0.4),
               textColor: Colors.white70,
             ),
           ),

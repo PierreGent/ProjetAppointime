@@ -10,8 +10,9 @@ class BusinessListPage extends StatefulWidget {
 }
 
 class _BusinessListPageState extends State<BusinessListPage> {
-  List<Business> _friends = [];
-
+  List<Business> _business = [];
+  bool _isFavorited=false;
+  int _favoriteCount=0;
   @override
   void initState() {
     super.initState();
@@ -27,7 +28,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
         print(k);
         print(v["name"]);
         setState(() {
-          this._friends.add(Business.fromMap(v));
+          this._business.add(Business.fromMap(v));
         });
 
 
@@ -35,22 +36,46 @@ class _BusinessListPageState extends State<BusinessListPage> {
       });
     });
   }
-
+  void _toggleFavorite() {
+    setState(() {
+      if (_isFavorited) {
+        _favoriteCount -= 1;
+        _isFavorited = false;
+      } else {
+        _favoriteCount += 1;
+        _isFavorited = true;
+      }
+    });
+  }
   Widget _buildFriendListTile(BuildContext context, int index) {
-    var friend = _friends[index];
+    var business = _business[index];
 
-    return new ListTile(
-      onTap: () => _navigateToFriendDetails(friend, index),
+    return Stack(
+        children: <Widget>[
+        ListTile(
+      onTap: () => _navigateToFriendDetails(business, index),
+
       leading: new Hero(
         tag: index,
         child: new CircleAvatar(
          // backgroundImage: new NetworkImage(friend.avatar),
         ),
       ),
-      title: new Text(friend.name),
-      subtitle: new Text(friend.address),
-    );
-  }
+      title: new Text(business.name),
+      subtitle: new Text(business.address),
+
+    ),
+
+          Container(
+            padding: EdgeInsets.all(0),
+            child: IconButton(
+              icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
+              color: Colors.red[500],
+              onPressed: _toggleFavorite,
+            ),
+          ),
+    ],);
+    }
 
   void _navigateToFriendDetails(Business friend, Object avatarTag) {
     Navigator.of(context).push(
@@ -66,14 +91,14 @@ class _BusinessListPageState extends State<BusinessListPage> {
   Widget build(BuildContext context) {
     Widget content;
 
-    if (_friends.isEmpty) {
-      print(_friends.toString());
+    if (_business.isEmpty) {
+      print(_business.toString());
       content = new Center(
         child: new CircularProgressIndicator(),
       );
     } else {
       content = new ListView.builder(
-        itemCount: _friends.length,
+        itemCount: _business.length,
         itemBuilder: _buildFriendListTile,
       );
     }

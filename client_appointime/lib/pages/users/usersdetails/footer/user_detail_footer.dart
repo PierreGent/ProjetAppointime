@@ -22,11 +22,25 @@ class _UserShowcaseState extends State<UserShowcase>
 
   @override
   void initState() {
+
     super.initState();
     _tabs = [
-      new Tab(text: 'Détails'),
-      new Tab(text: 'Prestations'),
-      new Tab(text: 'Conditions'),
+      new Tab(child: Text(
+        "Item1",
+        style: TextStyle(color: Colors.black38),
+      ),),
+      new Tab(
+          child: Text(
+            "Item2",
+            style: TextStyle(color: Colors.black38),
+          ),
+          ),
+      new Tab(
+        child: Text(
+          "Item3",
+          style: TextStyle(color: Colors.black38),
+        ),
+      ),
     ];
     _pages = [
       new DetailsShowcase(),
