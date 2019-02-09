@@ -1,4 +1,3 @@
-import 'dart:collection';
 
 import 'package:client_appointime/pages/base_page.dart';
 import 'package:client_appointime/pages/business/business_list_page.dart';
@@ -7,10 +6,10 @@ import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/pages/users/usersdetails/user_details_page.dart';
 import 'package:client_appointime/services/authentication.dart';
+import 'package:client_appointime/services/my_icone_icons.dart';
 import 'package:client_appointime/validation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:client_appointime/services/my_icone_icons.dart';
 
 class Home extends StatefulWidget {
   Home({this.auth, this.userId, this.onSignedOut});
@@ -127,14 +126,46 @@ class HomeState extends State<Home> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Column(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
                   "Menu principal",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
+         GestureDetector(
+            child: Center(
+              child: Hero(
+                tag: 1,
 
-                new Hero(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: new CircleAvatar(
+                    backgroundColor: Colors.black.withOpacity(0.2),
+                    child: new Center(
+                      child: new Icon(
+                        MyIcone.torso,
+
+                      color: Colors.white,
+                      size: 25.0,
+                    ),
+                    ),
+                    radius: 30.0,
+                  ),
+                ),
+
+              ),
+            ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          UserDetailsPage(user,1)));
+            },
+          ),
+
+                /*new Hero(
 
                     tag: 1,
                     child: new CircleAvatar(
@@ -152,11 +183,9 @@ class HomeState extends State<Home> {
 
                       // backgroundImage: new NetworkImage(friend.avatar),
                     ),
-                  ),
+                  ),*/
               ],
 
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
             ),
             decoration: BoxDecoration(
               color: Colors.blueAccent.withOpacity(0.8),

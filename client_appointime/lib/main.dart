@@ -18,7 +18,6 @@ class App extends StatelessWidget {
 
 class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
     return new MaterialApp(
         title: 'Appointime',
         debugShowCheckedModeBanner: false,

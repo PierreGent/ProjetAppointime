@@ -4,7 +4,7 @@ class DetailsShowcase extends StatelessWidget {
   List<Widget> _buildItems() {
     var items = <Widget>[];
 
-    for (var i = 1; i <= 6; i++) {
+    for (var i = 1; i <= 4; i++) {
       var image = new Image.asset(
         'images/portfolio_$i.jpeg',
         width: 200.0,

@@ -1,7 +1,6 @@
 import 'package:client_appointime/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/services/authentication.dart';
-import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:client_appointime/pages/login.dart';
 import 'package:client_appointime/pages/register.dart';

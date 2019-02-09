@@ -125,7 +125,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                   autovalidate: autoValidate,
                   child: Stack(
                     children: <Widget>[
-                      FormUI(),
+                      formUI(),
                       _showCircularProgress(),
                     ],
                   ));
@@ -148,7 +148,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
     );
   }
 
-  Widget FormUI() {
+  Widget formUI() {
     final width = MediaQuery.of(context).size.width.toDouble();
     return SingleChildScrollView(
       child: Column(
@@ -373,7 +373,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
 
   submit() async {
     started=true;
-    final BusinessDetails =
+    final businessDetails =
         FirebaseDatabase.instance.reference().child('business');
     final form = formKey.currentState;
 
@@ -399,7 +399,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
 
         if (!_isSiretUsed) {
           try {
-            BusinessDetails.push().set({
+            businessDetails.push().set({
               'name': name,
               'boss': userId,
               'address': address,

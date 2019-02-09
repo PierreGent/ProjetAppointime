@@ -7,7 +7,7 @@ class PrestationsShowcase extends StatelessWidget {
 
     return new Center(
       child: new Text(
-        'Skills: TODO',
+        'ETOUAIS JSUIS INFORMATICIEN!!! HE HO JE CONNAIS FLUTTER ET OH LES MEUFS',
         style: textTheme.title.copyWith(color: Colors.white),
       ),
     );

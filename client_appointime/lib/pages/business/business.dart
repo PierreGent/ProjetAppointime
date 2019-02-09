@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:firebase_database/firebase_database.dart';
+
 import 'package:meta/meta.dart';
 
 class Business {
@@ -22,11 +21,10 @@ class Business {
 
 
   static Business fromMap(Map map) {
-    var name = map['name'];
 
     return new Business(
       //avatar: map['picture']['large'],
-      name: map['name'],
+      name: '${_capitalize(map['name'])}',
       address: map['address'],
       description: map['description'],
       cancelAppointment: map['cancelAppointment'],

@@ -12,14 +12,14 @@
 ///       - asset: fonts/MyIcone.ttf
 ///
 /// 
-/// * Typicons, (c) Stephen Hutchings 2012
-///         Author:    Stephen Hutchings
-///         License:   SIL (http://scripts.sil.org/OFL)
-///         Homepage:  http://typicons.com/
 /// * Elusive, Copyright (C) 2013 by Aristeides Stathopoulos
 ///         Author:    Aristeides Stathopoulos
 ///         License:   SIL (http://scripts.sil.org/OFL)
 ///         Homepage:  http://aristeides.com/
+/// * Typicons, (c) Stephen Hutchings 2012
+///         Author:    Stephen Hutchings
+///         License:   SIL (http://scripts.sil.org/OFL)
+///         Homepage:  http://typicons.com/
 ///
 import 'package:flutter/widgets.dart';
 
@@ -28,8 +28,9 @@ class MyIcone {
 
   static const _kFontFam = 'MyIcone';
 
-  static const IconData home_outline = const IconData(0xe800, fontFamily: _kFontFam);
-  static const IconData home = const IconData(0xe801, fontFamily: _kFontFam);
+  static const IconData torso = const IconData(0xe800, fontFamily: _kFontFam);
+  static const IconData calendar_circled = const IconData(0xe801, fontFamily: _kFontFam);
   static const IconData calendar = const IconData(0xe802, fontFamily: _kFontFam);
-  static const IconData calendar_circled = const IconData(0xe803, fontFamily: _kFontFam);
+  static const IconData home = const IconData(0xe803, fontFamily: _kFontFam);
+  static const IconData home_outline = const IconData(0xe804, fontFamily: _kFontFam);
 }

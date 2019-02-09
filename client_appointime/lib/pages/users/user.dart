@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'package:firebase_database/firebase_database.dart';
+
 import 'package:meta/meta.dart';
 
 class User {
@@ -26,14 +25,13 @@ class User {
   final bool isPro;
 
   static User fromMap(Map mailPass, Map map) {
-    var name = map['name'];
 
     return new User(
         //avatar: map['picture']['large'],
         email: mailPass['email'],
         password: mailPass['password'],
-        firstName: map['firstName'],
-        lastName: map['lastName'],
+        firstName: '${_capitalize(map['firstName'])}',
+        lastName: '${_capitalize(map['lastName'])}',
         address: map['address'],
         credit: map['credit'],
         phoneNumber: map['phoneNumber'],

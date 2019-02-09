@@ -26,8 +26,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         begin: FractionalOffset.centerRight,
         end: FractionalOffset.bottomLeft,
         colors: <Color>[
-          const Color(0xFF0000FF),
-          const Color(0xFF2B264A),
+          const Color(0xDD3333FF),
+          const Color(0xFF00004A),
         ],
       ),
     );

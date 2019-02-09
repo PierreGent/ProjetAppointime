@@ -3,7 +3,6 @@ import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:client_appointime/validation.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:client_appointime/services/authentication.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 /* ************* INSCRIPTION ************** */
 
@@ -107,7 +106,7 @@ class InscPageState extends State<InscPage>
               autovalidate: autoValidate,
               child: Stack(
                 children: <Widget>[
-                  FormUI(),
+                  formUI(),
                   _showCircularProgress(),
                 ],
               ));
@@ -144,7 +143,7 @@ class InscPageState extends State<InscPage>
     );
   }
 
-  Widget FormUI() {
+  Widget formUI() {
     final width = MediaQuery.of(context).size.width.toDouble();
     return SingleChildScrollView(
       child:Column(
@@ -493,7 +492,7 @@ class InscPageState extends State<InscPage>
             widget.auth
                 .signUpFull(userId, firstName, lastName, address, phone, isPro);
 
-            print('Signed in: ${userId}');
+            print('Signed in: '+userId);
           } catch (e) {
             print('Error: $e');
             setState(() {

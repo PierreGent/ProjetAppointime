@@ -91,8 +91,8 @@ Future<String> validateBusiness(String userId) async{
 
 
 Future<DataSnapshot> getUser(String userId) async{
-  final UserDetails = FirebaseDatabase.instance.reference().child('users').child(userId);
-  DataSnapshot datas = await UserDetails.once();
+  final userDetails = FirebaseDatabase.instance.reference().child('users').child(userId);
+  DataSnapshot datas = await userDetails.once();
   if(datas.value!=null)
     return datas;
   return null;

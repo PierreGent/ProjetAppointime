@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:client_appointime/globalVar.dart' as globalVar;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:client_appointime/validation.dart';
 import 'package:client_appointime/services/authentication.dart';
 

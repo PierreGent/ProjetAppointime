@@ -1,4 +1,5 @@
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/services/my_icone_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/pages/users/usersdetails/header/diagonally_cut_colored_image.dart';
 
@@ -23,7 +24,7 @@ class UserDetailHeader extends StatelessWidget {
         height: 280.0,
         fit: BoxFit.cover,
       ),
-      color: Colors.blueAccent.withOpacity(0.8),
+      color: Colors.blueAccent.withOpacity(0.5),
     );
   }
 
@@ -31,10 +32,19 @@ class UserDetailHeader extends StatelessWidget {
     return new Hero(
       tag:avatarTag,
       child: new CircleAvatar(
-        //backgroundImage: new NetworkImage(friend.avatar),
-        radius: 50.0,
+        backgroundColor: Colors.black.withOpacity(0.3),
+        child: new Center(
+
+        child: Icon(
+        MyIcone.torso,
+
+        color: Colors.white.withOpacity(0.7),
+        size: 50.0,
+    ),
       ),
-    );
+
+        radius: 50.0,
+    ));
   }
 
   Widget _buildFollowerInfo(TextTheme textTheme) {
