@@ -37,7 +37,7 @@ class UserDetailHeader extends StatelessWidget {
         alignment: Alignment.centerRight,
         fit:BoxFit.cover,
       ),
-      color: Colors.blueAccent.withOpacity(0.9),
+      color: Colors.blueAccent.withOpacity(1),
     );
   }
 Widget emailShow(TextTheme textTheme){

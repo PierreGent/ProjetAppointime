@@ -62,14 +62,8 @@ class _UserEditPageState extends State<UserEditPage> {
 
     var textTheme = theme.textTheme;
 
-    return Form(
-        key: this.formKey,
-        autovalidate: autoValidate,
-        child: Stack(
-          children: <Widget>[
-        new Scaffold(
-        body: new SingleChildScrollView(
-        child: new Column(
+    return  Scaffold(
+        body: new Column(
           crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
         new Container(
@@ -87,28 +81,29 @@ class _UserEditPageState extends State<UserEditPage> {
           ],
         ),
     ),
-    new Padding(
-    padding: const EdgeInsets.all(24.0),
-    child: new UserDetailBody(widget.user,true),
-    ),
-    new Padding(
-    padding: const EdgeInsets.only(top: 16.0),
-    child: new Text(
-    isPro,
-    style:
-    textTheme.body1.copyWith(color: Colors.grey, fontSize: 16.0),
-    ),
-    ),
+        new Container(
+          child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              new  UserDetailBody(widget.user,true),
+
+
+              //new UserShowcase(widget.user),
+            ],
+          ),
+        ),
+
+
+
 
     ],),
 
-    ),
+    );
 
-    ),
 
-            _showCircularProgress(),
-          ],
-        ));
+
+
+
 
   }
 }

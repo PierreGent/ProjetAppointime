@@ -25,15 +25,9 @@ class _UserShowcaseState extends State<UserShowcase>
 
     super.initState();
     _tabs = [
-      new Tab(child: Text(
-        "Item1",
-        style: TextStyle(color: Colors.black38),
-      ),),
+      new Tab(child: Icon(Icons.alternate_email,color: Colors.black54)),
       new Tab(
-          child: Text(
-            "Item2",
-            style: TextStyle(color: Colors.black38),
-          ),
+          child:  Icon(Icons.vpn_key,color: Colors.black54)
           ),
       new Tab(
         child: Text(
@@ -43,8 +37,8 @@ class _UserShowcaseState extends State<UserShowcase>
       ),
     ];
     _pages = [
-      new DetailsShowcase(),
-      new PrestationsShowcase(),
+      new DetailsShowcase(widget.user),
+      new PrestationsShowcase(widget.user),
       new ConditionsShowcase(widget.user),
     ];
     _controller = new TabController(
@@ -62,7 +56,7 @@ class _UserShowcaseState extends State<UserShowcase>
           new TabBar(
             controller: _controller,
             tabs: _tabs,
-            indicatorColor: Colors.white,
+            indicatorColor: Colors.black54,
           ),
           new SizedBox.fromSize(
             size: const Size.fromHeight(300.0),

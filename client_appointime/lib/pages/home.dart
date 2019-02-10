@@ -105,6 +105,7 @@ class HomeState extends State<Home> {
         controller: pageController,
         onPageChanged: onPageChanged,
         children: <Widget>[BasePage(), MyAppointment(),  BusinessListPage()],
+
       ),
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(

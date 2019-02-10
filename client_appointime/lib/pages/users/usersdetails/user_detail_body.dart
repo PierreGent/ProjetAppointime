@@ -1,5 +1,6 @@
 import 'package:client_appointime/pages/editAccount.dart';
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/pages/users/usersdetails/footer/user_detail_footer.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailBody extends StatefulWidget {
@@ -17,7 +18,7 @@ class UserDetailBodyState extends State<UserDetailBody> {
 String ispro="Particulier";
 
   Widget _buildLocationInfo(TextTheme textTheme) {
-if(!widget.edit)
+
     return new Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -69,7 +70,7 @@ if(!widget.edit)
 
       ],
     );
-return editAccount(user:widget.user);
+
   }
 
 
@@ -87,7 +88,18 @@ Widget showName(TextTheme textTheme){
 
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
+    if(widget.edit)
+      return new Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          showName(textTheme),
+    new Container(
 
+    child: new UserShowcase(widget.user),
+    ),
+
+        ],
+      );
     return new Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[

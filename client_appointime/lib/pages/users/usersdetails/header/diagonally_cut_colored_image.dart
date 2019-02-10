@@ -17,12 +17,11 @@ class DiagonallyCutColoredImage extends StatelessWidget {
         decoration: new BoxDecoration(color: color,gradient: LinearGradient(
         begin: FractionalOffset.bottomLeft,
         end: FractionalOffset.topCenter,
-        stops: [0.3,0.7,1],
         colors: <Color>[
+
           const Color(0xFF0000FF),
 
           const Color(0xFF5555FF),
-          const Color(0xFFDDDDFF),
         ],
       ),),
         child: image,

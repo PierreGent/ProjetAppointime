@@ -94,6 +94,7 @@ class InscPageState extends State<InscPage>
   }
 
   Widget build(BuildContext context) {
+    animationController.reset();
     animationController.forward();
     return ModalProgressHUD(
         child :AnimatedBuilder(

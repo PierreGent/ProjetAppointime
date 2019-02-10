@@ -1,6 +1,5 @@
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:flutter/material.dart';
-import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:client_appointime/validation.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:client_appointime/services/authentication.dart';
@@ -8,9 +7,10 @@ import 'package:client_appointime/services/authentication.dart';
 /* ************* INSCRIPTION ************** */
 
 class editAccount extends StatefulWidget {
-  editAccount({this.auth, this.onSignedIn,this.user});
+  editAccount({this.auth, this.onSignedIn,this.user,this.type});
   final BaseAuth auth;
   final VoidCallback onSignedIn;
+  final String type;
   final User user;
   @override
   editAccountState createState() => editAccountState();
@@ -49,9 +49,11 @@ class editAccountState extends State<editAccount>
   String phone;
   String address;
   bool _isLoading;
-
+PageController pageController;
   void initState() {
     super.initState();
+
+    pageController = new PageController();
     _isLoading = false;
     errorMessage = "";
     animationController = AnimationController(
@@ -95,29 +97,21 @@ class editAccountState extends State<editAccount>
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
   }
 
-  Widget build(BuildContext context) {
-    animationController.forward();
-    return ModalProgressHUD(
-        child :AnimatedBuilder(
-        animation: animationController,
-        builder: (BuildContext context, Widget child) {
-          if(started)
-            formKey.currentState?.validate();
-          return Form(
-              key: this.formKey,
-              autovalidate: autoValidate,
-              child: Stack(
-                children: <Widget>[
-                  formUI(),
-                  _showCircularProgress(),
-                ],
-              ));
-        }),
-    inAsyncCall: _isInAsyncCall,
-    // demo of some additional parameters
-    opacity: 0.5,
-    progressIndicator: CircularProgressIndicator(),
-    );
+
+
+
+    Widget build(BuildContext context) {
+if(widget.type=="email")
+  return Container(
+          child:  formEmail(context),
+      );
+if(widget.type=="pass")
+  return Container(
+    child:  formPassword(context),
+  );
+
+
+
 
   }
 
@@ -144,6 +138,266 @@ class editAccountState extends State<editAccount>
       width: 0.0,
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Widget formEmail(BuildContext context) {
+    animationController.reset();
+    animationController.forward();
+    final width = MediaQuery.of(context).size.width.toDouble();
+
+    return ModalProgressHUD(
+        child :AnimatedBuilder(
+            animation: animationController,
+
+            builder: (BuildContext context, Widget child) {
+              if(started)
+                formKey.currentState?.validate();
+              return Form(
+                key: this.formKey,
+                autovalidate: autoValidate,
+                child: Stack(
+                    children: <Widget>[
+     SingleChildScrollView(
+      child:Column(
+
+        children: <Widget>[
+
+          Transform(
+            transform: Matrix4.translationValues(
+                delayedAnimation.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    TextFormField(
+                      autovalidate: autoValidate,
+                      maxLines: 1,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        hintText: widget.user.email,
+                        icon: new Icon(
+                            Icons.mail,
+                            color: Colors.blueAccent.withOpacity(0.8)
+                        ),
+                      ),
+                      validator: validateEmail,
+                      onSaved: (value) => email = value,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          Transform(
+            transform: Matrix4.translationValues(
+                0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new ClipRRect(
+                      borderRadius: new BorderRadius.circular(30.0),
+                      child: new MaterialButton(
+                        minWidth: 140.0,
+                        color: Colors.green.withOpacity(0.8),
+                        textColor: Colors.white,
+                        onPressed: (){null;},
+                        child: new Text('Confirmer'),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+          ),
+          _showErrorMessage(),
+        ],
+
+      ),
+    ),
+     _showCircularProgress(),
+
+                    ],
+                ));
+            }
+            ),
+      inAsyncCall: _isInAsyncCall,
+      // demo of some additional parameters
+      opacity: 0.5,
+      progressIndicator: CircularProgressIndicator(),
+    );
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  Widget formPassword(BuildContext context) {
+    animationController.forward();
+    final width = MediaQuery.of(context).size.width.toDouble();
+    return ModalProgressHUD(
+      child :AnimatedBuilder(
+          animation: animationController,
+          builder: (BuildContext context, Widget child) {
+            if(started)
+              formKey.currentState?.validate();
+            return Form(
+                key: this.formKey,
+                autovalidate: autoValidate,
+                child: Stack(
+                  children: <Widget>[
+                    SingleChildScrollView(
+      child:Column(
+
+        children: <Widget>[
+
+          Transform(
+            transform: Matrix4.translationValues(
+                muchDelayedAnimation.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new TextFormField(
+                      key: passKey,
+                      autovalidate: autoValidate,
+                      maxLines: 1,
+                      obscureText: true,
+                      autofocus: false,
+                      decoration: new InputDecoration(
+                        hintText: 'Nouveau de passe',
+                        icon: new Icon(
+                          Icons.lock,
+                          color: Colors.blueAccent.withOpacity(0.8),
+                        ),
+                      ),
+                      validator: validatePass,
+                      onSaved: (value) => pass = value,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Transform(
+            transform: Matrix4.translationValues(
+                muchMuchDelayedAnimation.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new TextFormField(
+                      autovalidate: autoValidate,
+                      maxLines: 1,
+                      obscureText: true,
+                      autofocus: false,
+                      decoration: new InputDecoration(
+                        hintText: 'Confirmation',
+                        icon: new Icon(
+                          Icons.beenhere,
+                          color: Colors.blueAccent.withOpacity(0.8),
+                        ),
+                      ),
+                      validator: (confirm) {
+                        print("ddskffskj");
+                        if (passKey.currentState != null)
+                          return validatePassConfirm(
+                              confirm, passKey.currentState.value);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+
+          Transform(
+            transform: Matrix4.translationValues(
+                0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new ClipRRect(
+                      borderRadius: new BorderRadius.circular(30.0),
+                      child: new MaterialButton(
+                        minWidth: 140.0,
+                        color: Colors.green.withOpacity(0.8),
+                        textColor: Colors.white,
+                        onPressed: (){null;},
+                        child: new Text('Confirmer'),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+          ),
+          _showErrorMessage(),
+        ],
+
+      ),
+    ),
+    _showCircularProgress(),
+
+    ],
+    ));
+    }),
+
+
+  inAsyncCall: _isInAsyncCall,
+  // demo of some additional parameters
+  opacity: 0.5,
+  progressIndicator: CircularProgressIndicator(),
+  );
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   Widget formUI() {
     final width = MediaQuery.of(context).size.width.toDouble();
@@ -317,7 +571,7 @@ class editAccountState extends State<editAccount>
     borderRadius: new BorderRadius.circular(30.0),
     child: new MaterialButton(
     minWidth: 140.0,
-    color: Colors.green,
+    color: Colors.green.withOpacity(0.8),
     textColor: Colors.white,
     onPressed: (){null;},
     child: new Text('Confirmer'),
