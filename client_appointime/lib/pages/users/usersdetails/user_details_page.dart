@@ -54,7 +54,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
             children: <Widget>[
               new UserDetailHeader(
                 widget.user,
-                widget.avatarTag
+                widget.avatarTag,
+                false
               ),
 
 
@@ -64,7 +65,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         ),
             new Padding(
               padding: const EdgeInsets.all(24.0),
-              child: new UserDetailBody(widget.user),
+              child: new UserDetailBody(widget.user,false),
             ),
           new Padding(
             padding: const EdgeInsets.only(top: 16.0),

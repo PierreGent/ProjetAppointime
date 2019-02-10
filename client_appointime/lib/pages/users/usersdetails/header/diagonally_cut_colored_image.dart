@@ -11,9 +11,22 @@ class DiagonallyCutColoredImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new ClipPath(
       clipper: new DiagonalClipper(),
-      child: new Container(
-       color: Colors.blueAccent,
+      child: new DecoratedBox(
+        position: DecorationPosition.background,
+
+        decoration: new BoxDecoration(color: color,gradient: LinearGradient(
+        begin: FractionalOffset.bottomLeft,
+        end: FractionalOffset.topCenter,
+        stops: [0.3,0.7,1],
+        colors: <Color>[
+          const Color(0xFF0000FF),
+
+          const Color(0xFF5555FF),
+          const Color(0xFFDDDDFF),
+        ],
+      ),),
         child: image,
+
       ),
     );
   }

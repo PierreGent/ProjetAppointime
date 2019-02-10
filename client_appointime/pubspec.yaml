@@ -42,10 +42,8 @@ flutter:
   uses-material-design: true
   assets:
   - images/profile_header_background.png
-  - images/portfolio_1.jpg
-  - images/portfolio_2.jpg
-  - images/portfolio_3.png
-  - images/portfolio_4.png
+  - images/editAccount.png
+  - images/myAccount.png
   fonts:
    - family: MyIcone
      fonts:

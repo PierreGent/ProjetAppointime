@@ -1,10 +1,11 @@
+import 'package:client_appointime/pages/editAccount.dart';
 import 'package:client_appointime/pages/users/user.dart';
-import 'package:client_appointime/pages/users/usersdetails/header/diagonally_cut_colored_image.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailBody extends StatefulWidget {
-  UserDetailBody(this.user);
+  UserDetailBody(this.user,this.edit);
   final User user;
+  final bool edit;
 
   @override
   UserDetailBodyState createState() {
@@ -16,7 +17,7 @@ class UserDetailBodyState extends State<UserDetailBody> {
 String ispro="Particulier";
 
   Widget _buildLocationInfo(TextTheme textTheme) {
-
+if(!widget.edit)
     return new Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
@@ -68,10 +69,18 @@ String ispro="Particulier";
 
       ],
     );
+return editAccount(user:widget.user);
   }
 
 
-
+Widget showName(TextTheme textTheme){
+    if(widget.edit)
+      return new Icon(Icons.mode_edit);
+    return new Text(
+      widget.user.firstName+" "+widget.user.lastName,
+      style: textTheme.headline.copyWith(color: Colors.grey),
+    );
+}
   @override
   Widget build(BuildContext context) {
 
@@ -82,13 +91,10 @@ String ispro="Particulier";
     return new Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        new Text(
-          widget.user.firstName+" "+widget.user.lastName,
-          style: textTheme.headline.copyWith(color: Colors.grey),
-        ),
+        showName(textTheme),
         new Padding(
           padding: const EdgeInsets.only(top: 30.0),
-          child: _buildLocationInfo(textTheme),
+          child:_buildLocationInfo(textTheme),
         ),
         new Container(
           height: 0,

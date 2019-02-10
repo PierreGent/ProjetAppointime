@@ -6,6 +6,7 @@ import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/pages/users/usersdetails/header/diagonally_cut_colored_image.dart';
 import 'package:client_appointime/pages/users/usersdetails/user_details_page.dart';
+import 'package:client_appointime/pages/users/usersdetails/user_edit_page.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:client_appointime/services/my_icone_icons.dart';
 import 'package:client_appointime/validation.dart';
@@ -192,10 +193,17 @@ class HomeState extends State<Home> {
             decoration: BoxDecoration(
 
               color: Colors.blueAccent,
-              image: DecorationImage(
-                image: ExactAssetImage('images/profile_header_background.png'),
-                fit: BoxFit.cover,
+              gradient: LinearGradient(
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomLeft,
+                stops: [0.6,1],
+                colors: <Color>[
+                  const Color(0xFF0000FF),
+
+                  const Color(0xFFFFFFFF),
+                ],
               ),
+              
 
             ),
           ),
