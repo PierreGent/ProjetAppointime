@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:client_appointime/globalVar.dart' as globalVar;
-import 'package:client_appointime/validation.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:client_appointime/services/authentication.dart';
+import 'package:client_appointime/validation.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 /* ************* INSCRIPTION ************** */
 
@@ -38,7 +38,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   bool autoValidate = false;
   bool _isInAsyncCall = false;
   bool _isSiretUsed = false;
-  bool started=false;
+  bool started = false;
   String name;
   String description;
   String errorMessage;
@@ -110,7 +110,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
     animationController.forward();
     return Scaffold(
       appBar: AppBar(
-        title:Text("Renseigner mon entreprise"),
+        title: Text("Renseigner mon entreprise"),
         backgroundColor: Colors.blueAccent.withOpacity(0.8),
       ),
       backgroundColor: globalVar.couleurPrimaire,
@@ -118,8 +118,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
         child: AnimatedBuilder(
             animation: animationController,
             builder: (BuildContext context, Widget child) {
-              if(started)
-                formKey.currentState?.validate();
+              if (started) formKey.currentState?.validate();
               return Form(
                   key: this.formKey,
                   autovalidate: autoValidate,
@@ -169,8 +168,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       decoration: InputDecoration(
                         hintText: "Nom de l'entreprise",
                         icon: new Icon(Icons.business,
-                            color: Colors.blueAccent.withOpacity(0.8)
-                        ),
+                            color: Colors.blueAccent.withOpacity(0.8)),
                       ),
                       validator: validateLastName,
                       onSaved: (value) => name = value,
@@ -372,7 +370,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   }
 
   submit() async {
-    started=true;
+    started = true;
     final businessDetails =
         FirebaseDatabase.instance.reference().child('business');
     final form = formKey.currentState;
@@ -421,8 +419,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
         }
       });
     } else {
-      if(form.validate())
-        errorMessage = "" + await validateBusiness(userId);
+      if (form.validate()) errorMessage = "" + await validateBusiness(userId);
       setState(() => autoValidate = true);
     }
     setState(() {

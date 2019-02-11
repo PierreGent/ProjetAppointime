@@ -1,8 +1,7 @@
 import 'package:client_appointime/pages/users/user.dart';
-import 'package:client_appointime/pages/users/usersdetails/user_edit_page.dart';
+import 'package:client_appointime/pages/users/usersdetails/header/diagonally_cut_colored_image.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:flutter/material.dart';
-import 'package:client_appointime/pages/users/usersdetails/header/diagonally_cut_colored_image.dart';
 
 class UserDetailHeader extends StatelessWidget {
   var BACKGROUND_IMAGE = 'images/myAccount.png';
@@ -72,76 +71,6 @@ class UserDetailHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButtons(ThemeData theme, BuildContext context) {
-    if (edit)
-      return new Padding(
-        padding: const EdgeInsets.only(
-          top: 16.0,
-          left: 16.0,
-          right: 16.0,
-        ),
-        child: new Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _createPillButton(context, 'Annuler',
-                backgroundColor: Colors.black.withOpacity(0.5),
-                textColor: Colors.white),
-          ],
-        ),
-      );
-    else
-      return new Padding(
-        padding: const EdgeInsets.only(
-          top: 16.0,
-          left: 16.0,
-          right: 16.0,
-        ),
-        child: new Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            new DecoratedBox(
-              decoration: new BoxDecoration(
-                border: new Border.all(color: Colors.white30),
-                borderRadius: new BorderRadius.circular(30.0),
-              ),
-              child: _createPillButton(
-                context,
-                'Modifier',
-                backgroundColor: Colors.black.withOpacity(0.5),
-                textColor: Colors.white,
-              ),
-            ),
-          ],
-        ),
-      );
-  }
-
-  Widget _createPillButton(
-    BuildContext context,
-    String text, {
-    Color backgroundColor = Colors.transparent,
-    textColor,
-  }) {
-    return new ClipRRect(
-      borderRadius: new BorderRadius.circular(30.0),
-      child: new MaterialButton(
-        minWidth: 140.0,
-        color: backgroundColor,
-        textColor: textColor,
-        onPressed: () {
-          if (edit)
-            Navigator.pop(context);
-          else
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => UserEditPage(user, avatarTag, auth)));
-        },
-        child: new Text(text),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -157,7 +86,6 @@ class UserDetailHeader extends StatelessWidget {
             children: <Widget>[
               _buildAvatar(),
               _buildUserInfo(textTheme),
-              _buildActionButtons(theme, context),
             ],
           ),
         ),

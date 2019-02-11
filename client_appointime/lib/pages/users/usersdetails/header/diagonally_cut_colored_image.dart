@@ -13,19 +13,18 @@ class DiagonallyCutColoredImage extends StatelessWidget {
       clipper: new DiagonalClipper(),
       child: new DecoratedBox(
         position: DecorationPosition.background,
-
-        decoration: new BoxDecoration(color: color,gradient: LinearGradient(
-        begin: FractionalOffset.bottomLeft,
-        end: FractionalOffset.topCenter,
-        colors: <Color>[
-
-          const Color(0xFF0000FF),
-
-          const Color(0xFF5555FF),
-        ],
-      ),),
+        decoration: new BoxDecoration(
+          color: color,
+          gradient: LinearGradient(
+            begin: FractionalOffset.bottomLeft,
+            end: FractionalOffset.topCenter,
+            colors: <Color>[
+              const Color(0xFF0000FF),
+              const Color(0xFF5555FF),
+            ],
+          ),
+        ),
         child: image,
-
       ),
     );
   }

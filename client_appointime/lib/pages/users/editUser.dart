@@ -1,19 +1,21 @@
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/services/authentication.dart';
+import 'package:client_appointime/validation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:client_appointime/validation.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:client_appointime/services/authentication.dart';
 
 /* ************* INSCRIPTION ************** */
 
 class EditUser extends StatefulWidget {
-  EditUser({this.auth, this.onSignedIn,this.user,this.type});
+  EditUser({this.auth, this.onSignedIn, this.user, this.type});
+
   final BaseAuth auth;
   final VoidCallback onSignedIn;
   final String type;
   final User user;
+
   @override
   EditUserState createState() => EditUserState();
 }
@@ -40,10 +42,10 @@ class EditUserState extends State<EditUser>
   var passKey = GlobalKey<FormFieldState>();
   bool autoValidate = false;
   String email;
-  bool started=false;
-  bool confirm=false;
-  bool _isPhoneUsed=false;
-  bool _isInAsyncCall=false;
+  bool started = false;
+  bool confirm = false;
+  bool _isPhoneUsed = false;
+  bool _isInAsyncCall = false;
   String oldPassword;
   String newPassword;
   String errorMessage;
@@ -51,13 +53,16 @@ class EditUserState extends State<EditUser>
   String phone;
   String address;
   bool _isLoading;
-PageController pageController;
+  PageController pageController;
   TextEditingController changeMailController;
+
   void initState() {
     super.initState();
-    changeMailController = new TextEditingController(text:widget.user.phoneNumber);
-    if(widget.type=="address")
-      changeMailController = new TextEditingController(text:widget.user.address);
+    changeMailController =
+        new TextEditingController(text: widget.user.phoneNumber);
+    if (widget.type == "address")
+      changeMailController =
+          new TextEditingController(text: widget.user.address);
 
     pageController = new PageController();
     _isLoading = false;
@@ -103,28 +108,22 @@ PageController pageController;
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
   }
 
-
-
-
-    Widget build(BuildContext context) {
-if(widget.type=="phone")
-  return Container(
-          child:  formPhone(context),
+  Widget build(BuildContext context) {
+    if (widget.type == "phone")
+      return Container(
+        child: formPhone(context),
       );
-if(widget.type=="pass")
-  return Container(
-    child:  formPassword(context),
-  );
-return Container(
-  child:  formAddress(context),
-);
-
-
+    if (widget.type == "pass")
+      return Container(
+        child: formPassword(context),
+      );
+    return Container(
+      child: formAddress(context),
+    );
   }
 
-
   String validatePhone(String value) {
-    if(value.length!=10 && !(value is int)){
+    if (value.length != 10 && !(value is int)) {
       return 'Telephone invalide';
     }
 
@@ -133,7 +132,7 @@ return Container(
       _isPhoneUsed = false;
       return 'Numéro déjâ utilisé';
     }
-      return null;
+    return null;
   }
 
   Widget _showCircularProgress() {
@@ -146,34 +145,23 @@ return Container(
     );
   }
 
-
-
-
-
-
-
-
   Widget formAddress(BuildContext context) {
     animationController.forward();
     final width = MediaQuery.of(context).size.width.toDouble();
 
     return ModalProgressHUD(
-      child :AnimatedBuilder(
+      child: AnimatedBuilder(
           animation: animationController,
-
           builder: (BuildContext context, Widget child) {
-            if(started)
-              formKey.currentState?.validate();
+            if (started) formKey.currentState?.validate();
             return Form(
                 key: this.formKey,
                 autovalidate: autoValidate,
                 child: Stack(
                   children: <Widget>[
                     SingleChildScrollView(
-                      child:Column(
-
+                      child: Column(
                         children: <Widget>[
-
                           Transform(
                             transform: Matrix4.translationValues(
                                 delayedAnimation.value * width, 0.0, 0.0),
@@ -189,11 +177,9 @@ return Container(
                                       maxLines: 1,
                                       keyboardType: TextInputType.emailAddress,
                                       decoration: InputDecoration(
-
-                                        icon: new Icon(
-                                            Icons.edit_location,
-                                            color: Colors.blueAccent.withOpacity(0.8)
-                                        ),
+                                        icon: new Icon(Icons.edit_location,
+                                            color: Colors.blueAccent
+                                                .withOpacity(0.8)),
                                       ),
                                       validator: validateAddress,
                                       onSaved: (value) => address = value,
@@ -203,10 +189,11 @@ return Container(
                               ),
                             ),
                           ),
-
                           Transform(
                             transform: Matrix4.translationValues(
-                                0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
+                                0.0,
+                                muchMuchMuchDelayedAnimation4.value * width,
+                                0.0),
                             child: new Center(
                               child: Container(
                                 padding: EdgeInsets.all(25),
@@ -214,7 +201,8 @@ return Container(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     new ClipRRect(
-                                      borderRadius: new BorderRadius.circular(30.0),
+                                      borderRadius:
+                                          new BorderRadius.circular(30.0),
                                       child: new MaterialButton(
                                         minWidth: 140.0,
                                         color: Colors.green.withOpacity(0.8),
@@ -223,7 +211,6 @@ return Container(
                                         child: new Text('Confirmer'),
                                       ),
                                     ),
-
                                   ],
                                 ),
                               ),
@@ -231,15 +218,12 @@ return Container(
                           ),
                           _showErrorMessage(),
                         ],
-
                       ),
                     ),
                     _showCircularProgress(),
-
                   ],
                 ));
-          }
-      ),
+          }),
       inAsyncCall: _isInAsyncCall,
       // demo of some additional parameters
       opacity: 0.5,
@@ -247,295 +231,264 @@ return Container(
     );
   }
 
-
-
-
-
   Widget formPhone(BuildContext context) {
-
     animationController.forward();
     final width = MediaQuery.of(context).size.width.toDouble();
 
     return ModalProgressHUD(
-        child :AnimatedBuilder(
-            animation: animationController,
-
-            builder: (BuildContext context, Widget child) {
-              if(started)
-                formKey.currentState?.validate();
-              return Form(
+      child: AnimatedBuilder(
+          animation: animationController,
+          builder: (BuildContext context, Widget child) {
+            if (started) formKey.currentState?.validate();
+            return Form(
                 key: this.formKey,
                 autovalidate: autoValidate,
                 child: Stack(
-                    children: <Widget>[
-     SingleChildScrollView(
-      child:Column(
-
-        children: <Widget>[
-
-          Transform(
-            transform: Matrix4.translationValues(
-                delayedAnimation.value * width, 0.0, 0.0),
-            child: new Center(
-              child: Container(
-                padding: EdgeInsets.all(25),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    TextFormField(
-                      controller: changeMailController,
-                      autovalidate: autoValidate,
-                      maxLines: 1,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-
-                        icon: new Icon(
-                            Icons.phone,
-                            color: Colors.blueAccent.withOpacity(0.8)
-                        ),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Transform(
+                            transform: Matrix4.translationValues(
+                                delayedAnimation.value * width, 0.0, 0.0),
+                            child: new Center(
+                              child: Container(
+                                padding: EdgeInsets.all(25),
+                                child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    TextFormField(
+                                      controller: changeMailController,
+                                      autovalidate: autoValidate,
+                                      maxLines: 1,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                        icon: new Icon(Icons.phone,
+                                            color: Colors.blueAccent
+                                                .withOpacity(0.8)),
+                                      ),
+                                      validator: validatePhone,
+                                      onSaved: (value) => phone = value,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Transform(
+                            transform: Matrix4.translationValues(
+                                0.0,
+                                muchMuchMuchDelayedAnimation4.value * width,
+                                0.0),
+                            child: new Center(
+                              child: Container(
+                                padding: EdgeInsets.all(25),
+                                child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new ClipRRect(
+                                      borderRadius:
+                                          new BorderRadius.circular(30.0),
+                                      child: new MaterialButton(
+                                        minWidth: 140.0,
+                                        color: Colors.green.withOpacity(0.8),
+                                        textColor: Colors.white,
+                                        onPressed: _showDialog,
+                                        child: new Text('Confirmer'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          _showErrorMessage(),
+                        ],
                       ),
-                      validator: validatePhone,
-                      onSaved: (value) => phone = value,
                     ),
+                    _showCircularProgress(),
                   ],
-                ),
-              ),
-            ),
-          ),
-
-          Transform(
-            transform: Matrix4.translationValues(
-                0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
-            child: new Center(
-              child: Container(
-                padding: EdgeInsets.all(25),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new ClipRRect(
-                      borderRadius: new BorderRadius.circular(30.0),
-                      child: new MaterialButton(
-                        minWidth: 140.0,
-                        color: Colors.green.withOpacity(0.8),
-                        textColor: Colors.white,
-                        onPressed: _showDialog,
-                        child: new Text('Confirmer'),
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-            ),
-          ),
-          _showErrorMessage(),
-        ],
-
-      ),
-    ),
-     _showCircularProgress(),
-
-                    ],
                 ));
-            }
-            ),
+          }),
       inAsyncCall: _isInAsyncCall,
       // demo of some additional parameters
       opacity: 0.5,
       progressIndicator: CircularProgressIndicator(),
     );
   }
-
-
-
-
-
-
-
-
-
-
-
 
   Widget formPassword(BuildContext context) {
     animationController.forward();
     final width = MediaQuery.of(context).size.width.toDouble();
     return ModalProgressHUD(
-      child :AnimatedBuilder(
+      child: AnimatedBuilder(
           animation: animationController,
           builder: (BuildContext context, Widget child) {
-            if(started)
-              formKeyPass.currentState?.validate();
+            if (started) formKeyPass.currentState?.validate();
             return Form(
                 key: this.formKeyPass,
                 autovalidate: autoValidate,
                 child: Stack(
                   children: <Widget>[
                     SingleChildScrollView(
-      child:Column(
-
-        children: <Widget>[
-
-
-          Transform(
-            transform: Matrix4.translationValues(
-                muchDelayedAnimation.value * width, 0.0, 0.0),
-            child: new Center(
-              child: Container(
-                padding: EdgeInsets.all(25),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new TextFormField(
-                      autovalidate: autoValidate,
-                      maxLines: 1,
-                      obscureText: true,
-                      autofocus: false,
-                      decoration: new InputDecoration(
-                        hintText: 'Ancien mot de passe',
-                        icon: new Icon(
-                          Icons.lock,
-                          color: Colors.blueAccent.withOpacity(0.8),
-                        ),
+                      child: Column(
+                        children: <Widget>[
+                          Transform(
+                            transform: Matrix4.translationValues(
+                                muchDelayedAnimation.value * width, 0.0, 0.0),
+                            child: new Center(
+                              child: Container(
+                                padding: EdgeInsets.all(25),
+                                child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new TextFormField(
+                                      autovalidate: autoValidate,
+                                      maxLines: 1,
+                                      obscureText: true,
+                                      autofocus: false,
+                                      decoration: new InputDecoration(
+                                        hintText: 'Ancien mot de passe',
+                                        icon: new Icon(
+                                          Icons.lock,
+                                          color: Colors.blueAccent
+                                              .withOpacity(0.8),
+                                        ),
+                                      ),
+                                      validator: validatePass,
+                                      onSaved: (value) => oldPassword = value,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Transform(
+                            transform: Matrix4.translationValues(
+                                muchDelayedAnimation.value * width, 0.0, 0.0),
+                            child: new Center(
+                              child: Container(
+                                padding: EdgeInsets.all(25),
+                                child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new TextFormField(
+                                      key: passKey,
+                                      autovalidate: autoValidate,
+                                      maxLines: 1,
+                                      obscureText: true,
+                                      autofocus: false,
+                                      decoration: new InputDecoration(
+                                        hintText: 'Nouveau mot de passe',
+                                        icon: new Icon(
+                                          Icons.lock,
+                                          color: Colors.blueAccent
+                                              .withOpacity(0.8),
+                                        ),
+                                      ),
+                                      validator: validatePass,
+                                      onSaved: (value) => newPassword = value,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Transform(
+                            transform: Matrix4.translationValues(
+                                muchMuchDelayedAnimation.value * width,
+                                0.0,
+                                0.0),
+                            child: new Center(
+                              child: Container(
+                                padding: EdgeInsets.all(25),
+                                child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new TextFormField(
+                                      autovalidate: autoValidate,
+                                      maxLines: 1,
+                                      obscureText: true,
+                                      autofocus: false,
+                                      decoration: new InputDecoration(
+                                        hintText: 'Confirmation',
+                                        icon: new Icon(
+                                          Icons.beenhere,
+                                          color: Colors.blueAccent
+                                              .withOpacity(0.8),
+                                        ),
+                                      ),
+                                      validator: (confirm) {
+                                        if (passKey.currentState != null)
+                                          return validatePassConfirm(confirm,
+                                              passKey.currentState.value);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Transform(
+                            transform: Matrix4.translationValues(
+                                0.0,
+                                muchMuchMuchDelayedAnimation4.value * width,
+                                0.0),
+                            child: new Center(
+                              child: Container(
+                                padding: EdgeInsets.all(25),
+                                child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new ClipRRect(
+                                      borderRadius:
+                                          new BorderRadius.circular(30.0),
+                                      child: new MaterialButton(
+                                        minWidth: 140.0,
+                                        color: Colors.green.withOpacity(0.8),
+                                        textColor: Colors.white,
+                                        onPressed: _showDialog,
+                                        child: new Text('Confirmer'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          _showErrorMessage(),
+                        ],
                       ),
-                      validator: validatePass,
-                      onSaved: (value) => oldPassword = value,
                     ),
+                    _showCircularProgress(),
                   ],
-                ),
-              ),
-            ),
-          ),
+                ));
+          }),
 
-          Transform(
-            transform: Matrix4.translationValues(
-                muchDelayedAnimation.value * width, 0.0, 0.0),
-            child: new Center(
-              child: Container(
-                padding: EdgeInsets.all(25),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new TextFormField(
-                      key: passKey,
-                      autovalidate: autoValidate,
-                      maxLines: 1,
-                      obscureText: true,
-                      autofocus: false,
-                      decoration: new InputDecoration(
-                        hintText: 'Nouveau mot de passe',
-                        icon: new Icon(
-                          Icons.lock,
-                          color: Colors.blueAccent.withOpacity(0.8),
-                        ),
-                      ),
-                      validator: validatePass,
-                      onSaved: (value) => newPassword = value,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Transform(
-            transform: Matrix4.translationValues(
-                muchMuchDelayedAnimation.value * width, 0.0, 0.0),
-            child: new Center(
-              child: Container(
-                padding: EdgeInsets.all(25),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new TextFormField(
-                      autovalidate: autoValidate,
-                      maxLines: 1,
-                      obscureText: true,
-                      autofocus: false,
-                      decoration: new InputDecoration(
-                        hintText: 'Confirmation',
-                        icon: new Icon(
-                          Icons.beenhere,
-                          color: Colors.blueAccent.withOpacity(0.8),
-                        ),
-                      ),
-                      validator: (confirm) {
-
-                        if (passKey.currentState != null)
-                          return validatePassConfirm(
-                              confirm, passKey.currentState.value);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-
-
-          Transform(
-            transform: Matrix4.translationValues(
-                0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
-            child: new Center(
-              child: Container(
-                padding: EdgeInsets.all(25),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new ClipRRect(
-                      borderRadius: new BorderRadius.circular(30.0),
-                      child: new MaterialButton(
-                        minWidth: 140.0,
-                        color: Colors.green.withOpacity(0.8),
-                        textColor: Colors.white,
-                        onPressed: _showDialog,
-                        child: new Text('Confirmer'),
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-            ),
-          ),
-          _showErrorMessage(),
-        ],
-
-      ),
-    ),
-    _showCircularProgress(),
-
-    ],
-    ));
-    }),
-
-
-  inAsyncCall: _isInAsyncCall,
-  // demo of some additional parameters
-  opacity: 0.5,
-  progressIndicator: CircularProgressIndicator(),
-  );
-
+      inAsyncCall: _isInAsyncCall,
+      // demo of some additional parameters
+      opacity: 0.5,
+      progressIndicator: CircularProgressIndicator(),
+    );
   }
 
   void _showDialog() {
     // flutter defined function
-    ontap(){
-      if(widget.type=="address")
-        return submitAddress();
-        if(widget.type=="phone")
-          return submitPhone();
+    ontap() {
+      if (widget.type == "address") return submitAddress();
+      if (widget.type == "phone") return submitPhone();
 
-          if(widget.type=="pass")
-            return submitPass();
+      if (widget.type == "pass") return submitPass();
     }
+
     showDialog(
       context: context,
-
       builder: (BuildContext context) {
         // return object of type Dialog
         return AlertDialog(
           title: new Text("Attention"),
-          content: new Text("Etes vous sur de vouloir effectuer ces chngements?"),
+          content:
+              new Text("Etes vous sur de vouloir effectuer ces chngements?"),
           actions: <Widget>[
             // usually buttons at the bottom of the dialog
             new FlatButton(
@@ -559,7 +512,6 @@ return Container(
     );
   }
 
-
   Widget _showErrorMessage() {
     if (errorMessage.length > 0 && errorMessage != null) {
       return new Text(
@@ -578,7 +530,7 @@ return Container(
   }
 
   submitPhone() async {
-    started=true;
+    started = true;
     final form = formKey.currentState;
 
     setState(() {
@@ -587,45 +539,45 @@ return Container(
     });
 
     if (form.validate()) {
+      form.save();
+      FocusScope.of(context).requestFocus(new FocusNode());
+      setState(() {
+        _isInAsyncCall = true;
+      });
+      Future.delayed(Duration(seconds: 1), () async {
+        _isPhoneUsed = await isPhoneUsed(phone);
 
-        form.save();
-        FocusScope.of(context).requestFocus(new FocusNode());
         setState(() {
-          _isInAsyncCall = true;
+          _isInAsyncCall = false;
         });
-        Future.delayed(Duration(seconds: 1), () async {
-          _isPhoneUsed = await isPhoneUsed(phone);
+        if (!_isPhoneUsed) {
+          try {
+            getInfosUser = await widget.auth.getCurrentUser();
+            widget.user.phoneNumber = phone;
+            FirebaseDatabase.instance
+                .reference()
+                .child('users')
+                .child(getInfosUser.uid)
+                .set({
+              'firstName': widget.user.firstName,
+              'lastName': widget.user.lastName,
+              'address': widget.user.address,
+              'phoneNumber': phone,
+              'isPro': widget.user.isPro,
+              'credit': widget.user.credit
+            });
+          } catch (e) {
+            print('Error: $e');
+            setState(() {
+              _isLoading = false;
 
-          setState(() {
-            _isInAsyncCall = false;
-          });
-          if (!_isPhoneUsed) {
-            try {
-              getInfosUser = await widget.auth.getCurrentUser();
-              widget.user.phoneNumber = phone;
-              FirebaseDatabase.instance.reference().child('users').child(
-                  getInfosUser.uid).set({
-                'firstName': widget.user.firstName,
-                'lastName': widget.user.lastName,
-                'address': widget.user.address,
-                'phoneNumber': phone,
-                'isPro': widget.user.isPro,
-                'credit': widget.user.credit
-              });
-            } catch (e) {
-              print('Error: $e');
-              setState(() {
-                _isLoading = false;
-
-                errorMessage = "Erreur";
-              });
-            }
-            _isLoading = false;
-            if (errorMessage.length == 0)
-              Navigator.pop(context);
+              errorMessage = "Erreur";
+            });
           }
-        });
-
+          _isLoading = false;
+          if (errorMessage.length == 0) Navigator.pop(context);
+        }
+      });
     } else {
       setState(() => autoValidate = true);
     }
@@ -636,7 +588,6 @@ return Container(
   }
 
   submitAddress() async {
-
     final form = formKey.currentState;
 
     setState(() {
@@ -644,16 +595,18 @@ return Container(
       _isLoading = true;
     });
 
-    if (form.validate() ) {
-
+    if (form.validate()) {
       form.save();
       FocusScope.of(context).requestFocus(new FocusNode());
 
       try {
         getInfosUser = await widget.auth.getCurrentUser();
         widget.user.address = address;
-        FirebaseDatabase.instance.reference().child('users').child(
-            getInfosUser.uid).set({
+        FirebaseDatabase.instance
+            .reference()
+            .child('users')
+            .child(getInfosUser.uid)
+            .set({
           'firstName': widget.user.firstName,
           'lastName': widget.user.lastName,
           'address': address,
@@ -670,9 +623,7 @@ return Container(
         });
       }
       _isLoading = false;
-      if (errorMessage.length == 0)
-        Navigator.pop(context);
-
+      if (errorMessage.length == 0) Navigator.pop(context);
     } else {
       setState(() => autoValidate = true);
     }
@@ -682,9 +633,8 @@ return Container(
     });
   }
 
-
   submitPass() async {
-    started=true;
+    started = true;
     final form = formKeyPass.currentState;
 
     setState(() {
@@ -696,7 +646,6 @@ return Container(
       if (confirm) {
         confirm = false;
         form.save();
-
 
         try {
           getInfosUser = await widget.auth.getCurrentUser();
@@ -716,7 +665,6 @@ return Container(
         }
       }
     }
-
 
     setState(() {
       _isLoading = false;

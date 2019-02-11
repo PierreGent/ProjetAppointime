@@ -1,4 +1,3 @@
-
 import 'package:client_appointime/pages/base_page.dart';
 import 'package:client_appointime/pages/business/business_list_page.dart';
 import 'package:client_appointime/pages/business/create_business.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
   Home({this.auth, this.userId, this.onSignedOut});
+
   final BaseAuth auth;
   final VoidCallback onSignedOut;
   final String userId;
@@ -27,21 +27,20 @@ class HomeState extends State<Home> {
   bool _isPro = false;
   var items;
   User user;
-  Map<String,dynamic> mailPass=new Map<String,dynamic>();
+  Map<String, dynamic> mailPass = new Map<String, dynamic>();
+
   initState() {
     super.initState();
-    widget.auth.getCurrentUser().then((result){
-      mailPass['email']=result.email;
-      mailPass['password']=result.uid;
+    widget.auth.getCurrentUser().then((result) {
+      mailPass['email'] = result.email;
+      mailPass['password'] = result.uid;
     });
     getUser(widget.userId).then((DataSnapshot result) {
-
       print(result.value);
-      Map<dynamic, dynamic> values=result.value;
-        setState(() {
-          user = User.fromMap(mailPass, values);
-        });
-
+      Map<dynamic, dynamic> values = result.value;
+      setState(() {
+        user = User.fromMap(mailPass, values);
+      });
     });
     isPro(widget.userId).then((result) {
       setState(() {
@@ -77,7 +76,7 @@ class HomeState extends State<Home> {
           activeIcon: Icon(MyIcone.calendar),
           title: Text("Mes rendez-vous"),
         ),
-       /* BottomNavigationBarItem(
+        /* BottomNavigationBarItem(
           icon: Icon(Icons.format_list_bulleted),
           activeIcon: Icon(Icons.playlist_add_check),
           title: Text("Liste des Entreprises"),
@@ -100,7 +99,7 @@ class HomeState extends State<Home> {
           activeIcon: Icon(MyIcone.calendar),
           title: Text("Mes rendez-vous"),
         ),
-      /*  BottomNavigationBarItem(
+        /*  BottomNavigationBarItem(
           icon: Icon(Icons.format_list_bulleted),
           activeIcon: Icon(Icons.playlist_add_check),
           title: Text("Liste des Entreprises"),
@@ -110,13 +109,16 @@ class HomeState extends State<Home> {
     return new Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueAccent.withOpacity(0.8),
-        title:  Text(title),
+        title: Text(title),
       ),
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: <Widget>[BasePage(), MyAppointment()/*,MyAppointment(),*/,  BusinessListPage(widget.auth,user)],
-
+        children: <Widget>[
+          BasePage(),
+          MyAppointment() /*,MyAppointment(),*/,
+          BusinessListPage(widget.auth, user)
+        ],
       ),
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(
@@ -125,10 +127,10 @@ class HomeState extends State<Home> {
             // sets the active color of the `BottomNavigationBar` if `Brightness` is light
             brightness: Brightness.light,
             primaryColor: Colors.blueAccent.withOpacity(0.8),
-            textTheme: Theme.of(context).textTheme.copyWith(
-                caption: new TextStyle(
-                    color: Colors
-                        .black45))), // sets the inactive color of the `BottomNavigationBar`
+            textTheme: Theme.of(context)
+                .textTheme
+                .copyWith(caption: new TextStyle(color: Colors.black45))),
+        // sets the inactive color of the `BottomNavigationBar`
         child: BottomNavigationBar(
           items: items,
           onTap: navigateToPage,
@@ -147,37 +149,34 @@ class HomeState extends State<Home> {
                   "Menu principal",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-         GestureDetector(
-            child: Center(
-              child: Hero(
-                tag: "myaccount",
-
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: new CircleAvatar(
-                    backgroundColor: Colors.black.withOpacity(0.2),
-                    child: new Center(
-                      child: new Icon(
-                        MyIcone.torso,
-
-                      color: Colors.white,
-                      size: 25.0,
+                GestureDetector(
+                  child: Center(
+                    child: Hero(
+                      tag: "myaccount",
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: new CircleAvatar(
+                          backgroundColor: Colors.black.withOpacity(0.2),
+                          child: new Center(
+                            child: new Icon(
+                              MyIcone.torso,
+                              color: Colors.white,
+                              size: 25.0,
+                            ),
+                          ),
+                          radius: 30.0,
+                        ),
+                      ),
                     ),
-                    ),
-                    radius: 30.0,
                   ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                UserDetailsPage(user, 1, widget.auth)));
+                  },
                 ),
-
-              ),
-            ),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          UserDetailsPage(user,1,widget.auth)));
-            },
-          ),
 
                 /*new Hero(
 
@@ -199,27 +198,20 @@ class HomeState extends State<Home> {
                     ),
                   ),*/
               ],
-
             ),
-
             decoration: BoxDecoration(
-
               color: Colors.blueAccent,
               gradient: LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomLeft,
-                stops: [0.6,1],
+                stops: [0.6, 1],
                 colors: <Color>[
                   const Color(0xFF0000FF),
-
                   const Color(0xFFFFFFFF),
                 ],
               ),
-              
-
             ),
           ),
-
           ListTile(
             title: Text(
               "Je suis un professionnel",
@@ -233,7 +225,6 @@ class HomeState extends State<Home> {
                           CreateBusinessPage(auth: widget.auth)));
             },
           ),
-
           ListTile(
             title: Text(
               "Déconnexion",
@@ -265,9 +256,9 @@ class HomeState extends State<Home> {
       /*case 2:
         temptitle = "Liste des entreprises";
         break;*/
-        case 2:
-      temptitle = "Mon entreprise";
-      break;
+      case 2:
+        temptitle = "Mon entreprise";
+        break;
     }
 
     setState(() {

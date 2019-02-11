@@ -1,4 +1,3 @@
-
 import 'package:meta/meta.dart';
 
 class Favorite {
@@ -12,19 +11,15 @@ class Favorite {
   final String userId;
   final String businessId;
 
-
-
-  static Favorite fromMap(String idFavorite,Map map) {
-
+  static Favorite fromMap(String idFavorite, Map map) {
     return new Favorite(
-      id:idFavorite,
+      id: idFavorite,
       userId: map['user'],
       businessId: map['business'],
     );
   }
 
-
-  String toString(){
-    return this.userId+"    "+this.businessId;
+  String toString() {
+    return this.userId + "    " + this.businessId;
   }
 }

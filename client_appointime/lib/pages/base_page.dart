@@ -1,19 +1,18 @@
 import 'package:client_appointime/services/authentication.dart';
 import 'package:flutter/material.dart';
 
-class BasePage extends StatefulWidget{
+class BasePage extends StatefulWidget {
   @override
   BasePage({this.auth, this.userId, this.onSignedOut});
 
   final BaseAuth auth;
   final VoidCallback onSignedOut;
   final String userId;
-  State<StatefulWidget> createState() => new BasePageState();
 
+  State<StatefulWidget> createState() => new BasePageState();
 }
 
-class BasePageState extends State<BasePage>{
-
+class BasePageState extends State<BasePage> {
   void initState() {
     super.initState();
   }

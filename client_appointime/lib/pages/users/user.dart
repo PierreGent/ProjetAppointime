@@ -1,5 +1,3 @@
-
-import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/favorite.dart';
 import 'package:meta/meta.dart';
 
@@ -22,14 +20,13 @@ class User {
   final String email;
   final String password;
   final String lastName;
-    String address;
+  String address;
   final int credit;
-    String phoneNumber;
+  String phoneNumber;
   final bool isPro;
   List<Favorite> favorite;
 
   static User fromMap(Map mailPass, Map map) {
-
     return new User(
         email: mailPass['email'],
         password: mailPass['password'],
@@ -39,8 +36,7 @@ class User {
         credit: map['credit'],
         phoneNumber: map['phoneNumber'],
         isPro: map['isPro'],
-        favorite:[]);
-
+        favorite: []);
   }
 
   static String _capitalize(String input) {

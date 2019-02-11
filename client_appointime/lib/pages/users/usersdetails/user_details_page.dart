@@ -5,22 +5,20 @@ import 'package:client_appointime/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailsPage extends StatefulWidget {
-  UserDetailsPage(
-    this.user,
-   this.avatarTag,
-      this.auth
-);
+  UserDetailsPage(this.user, this.avatarTag, this.auth);
+
   final BaseAuth auth;
   final User user;
   final Object avatarTag;
-
 
   @override
   _UserDetailsPageState createState() => new _UserDetailsPageState();
 }
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
-  String isPro="Particulier";
+  String isPro = "Particulier";
+  bool edit = false;
+
   Widget _createCircleBadge(IconData iconData, Color color) {
     return new Padding(
       padding: const EdgeInsets.only(left: 8.0),
@@ -36,62 +34,102 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     );
   }
 
+  Widget _createPillButton(
+    BuildContext context,
+    String text, {
+    Color backgroundColor = Colors.transparent,
+    textColor,
+  }) {
+    return new ClipRRect(
+      borderRadius: new BorderRadius.circular(30.0),
+      child: new MaterialButton(
+        minWidth: 140.0,
+        color: backgroundColor,
+        textColor: textColor,
+        onPressed: () {
+          if (edit)
+            setState(() {
+              edit = false;
+            });
+          else
+            setState(() {
+              edit = true;
+            });
+        },
+        child: new Text(text),
+      ),
+    );
+  }
+
+  Widget viewFooter() {
+    var theme = Theme.of(context);
+    var textTheme = theme.textTheme;
+    if (edit) return new Container();
+    return new Padding(
+      padding: const EdgeInsets.only(top: 16.0),
+      child: new Row(
+        children: <Widget>[
+          _createCircleBadge(Icons.star, theme.accentColor),
+          _createCircleBadge(Icons.star, theme.accentColor),
+          _createCircleBadge(Icons.star_border, Colors.white12),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    if(widget.user.isPro)
-      isPro="Professionnel";
-    var theme = Theme.of(context);
-
-    var textTheme = theme.textTheme;
-
+    if (widget.user.isPro) isPro = "Professionnel";
 
     return new Scaffold(
       body: new SingleChildScrollView(
         child: new Column(
           children: <Widget>[
             new Container(
-          child: new Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              new UserDetailHeader(
-                widget.user,
-                widget.avatarTag,
-                false,
-                widget.auth
+              child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Stack(
+                    children: <Widget>[
+                      new UserDetailHeader(
+                          widget.user, widget.avatarTag, edit, widget.auth),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          top: 235,
+                          left: 16.0,
+                          right: 16.0,
+                        ),
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            new DecoratedBox(
+                              decoration: new BoxDecoration(
+                                border: new Border.all(color: Colors.white30),
+                                borderRadius: new BorderRadius.circular(30.0),
+                              ),
+                              child: _createPillButton(
+                                context,
+                                'Modifier',
+                                backgroundColor: Colors.black.withOpacity(0.5),
+                                textColor: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-
-
-              //new UserShowcase(widget.user),
-            ],
-          ),
-        ),
+            ),
             new Padding(
               padding: const EdgeInsets.all(24.0),
-              child: new UserDetailBody(widget.user,false,widget.auth),
+              child: new UserDetailBody(widget.user, edit, widget.auth),
             ),
-          new Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: new Text(
-              isPro,
-              style:
-              textTheme.body1.copyWith(color: Colors.grey, fontSize: 16.0),
-            ),
-          ),
-          new Padding(
-            padding: const EdgeInsets.only(top: 16.0),
-            child: new Row(
-              children: <Widget>[
-                _createCircleBadge(Icons.star, theme.accentColor),
-                _createCircleBadge(Icons.star, theme.accentColor),
-                _createCircleBadge(Icons.star_border, Colors.white12),
-              ],
-            ),
-          ),
-        ],),
-
+            viewFooter(),
+          ],
+        ),
       ),
-
     );
   }
 }

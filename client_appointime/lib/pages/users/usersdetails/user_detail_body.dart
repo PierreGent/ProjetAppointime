@@ -1,11 +1,11 @@
-
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/pages/users/usersdetails/footer/user_detail_footer.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailBody extends StatefulWidget {
-  UserDetailBody(this.user,this.edit,this.auth);
+  UserDetailBody(this.user, this.edit, this.auth);
+
   final User user;
   final bool edit;
   final BaseAuth auth;
@@ -17,88 +17,70 @@ class UserDetailBody extends StatefulWidget {
 }
 
 class UserDetailBodyState extends State<UserDetailBody> {
-String ispro="Particulier";
+  String ispro = "Particulier";
 
   Widget _buildLocationInfo(TextTheme textTheme) {
-
     return new Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
       children: <Widget>[
-    new Container(
-    child: new Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        new Icon(
-          Icons.place,
-          color: Colors.grey,
-          size: 20.0,
-        ),
-        new Text(
-          widget.user.address,
-          style: textTheme.subhead.copyWith(color: Colors.grey,fontSize: 20),
-
-        ),
-      ],
-    ),
-    ),
-
-
-    new Container(
-      child: new Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          new Icon(
-            Icons.phone_in_talk,
-            color: Colors.grey,
-            size: 20.0,
+        new Container(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              new Icon(
+                Icons.place,
+                color: Colors.grey,
+                size: 20.0,
+              ),
+              new Text(
+                widget.user.address,
+                style: textTheme.subhead
+                    .copyWith(color: Colors.grey, fontSize: 20),
+              ),
+            ],
           ),
-          new Text(
-
-            widget.user.phoneNumber,
-            textAlign: TextAlign.right,
-            style: textTheme.subhead.copyWith(color: Colors.grey,fontSize: 20),
+        ),
+        new Container(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              new Icon(
+                Icons.phone_in_talk,
+                color: Colors.grey,
+                size: 20.0,
+              ),
+              new Text(
+                widget.user.phoneNumber,
+                textAlign: TextAlign.right,
+                style: textTheme.subhead
+                    .copyWith(color: Colors.grey, fontSize: 20),
+              ),
+            ],
           ),
-
-        ],
-      ),
-    ),
-
-
-
-
-
-
-
+        ),
       ],
     );
-
   }
 
-
-Widget showName(TextTheme textTheme){
-
+  Widget showName(TextTheme textTheme) {
     return new Text(
-      widget.user.firstName+" "+widget.user.lastName,
+      widget.user.firstName + " " + widget.user.lastName,
       style: textTheme.headline.copyWith(color: Colors.grey),
     );
-}
+  }
+
   @override
   Widget build(BuildContext context) {
-
-
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
-    if(widget.edit)
+    if (widget.edit)
       return new Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           showName(textTheme),
-    new Container(
-
-    child: new UserShowcase(widget.user,widget.auth),
-    ),
-
+          new Container(
+            child: new UserShowcase(widget.user, widget.auth),
+          ),
         ],
       );
     return new Column(
@@ -107,14 +89,13 @@ Widget showName(TextTheme textTheme){
         showName(textTheme),
         new Padding(
           padding: const EdgeInsets.only(top: 30.0),
-          child:_buildLocationInfo(textTheme),
+          child: _buildLocationInfo(textTheme),
         ),
         new Container(
           height: 0,
           color: Colors.blueGrey,
           margin: const EdgeInsets.only(left: 0.0, right: 0.0, top: 50),
         ),
-
       ],
     );
   }

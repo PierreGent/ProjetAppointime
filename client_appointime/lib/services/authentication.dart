@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -8,8 +9,9 @@ abstract class BaseAuth {
   Future<String> signUp(String email, String password);
 
   Future<FirebaseUser> getCurrentUser();
+
   Future<void> signUpFull(String id, String firstName, String lastName,
-      String address,String phoneNumber,bool isPro);
+      String address, String phoneNumber, bool isPro);
 
   Future<void> signOut();
 }
@@ -31,10 +33,9 @@ class Auth implements BaseAuth {
     return user.uid;
   }
 
-
   // ignore: missing_return
-  Future<void> signUpFull (String id,String firstName, String lastName,
-      String address,String phoneNumber,bool isPro){
+  Future<void> signUpFull(String id, String firstName, String lastName,
+      String address, String phoneNumber, bool isPro) {
     userDetails.child(id).set({
       'firstName': firstName,
       'lastName': lastName,
@@ -44,6 +45,7 @@ class Auth implements BaseAuth {
       'credit': 3
     });
   }
+
   Future<FirebaseUser> getCurrentUser() async {
     FirebaseUser user = await _firebaseAuth.currentUser();
     return user;

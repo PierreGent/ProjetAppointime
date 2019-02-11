@@ -1,16 +1,16 @@
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/pages/users/usersdetails/footer/editAdress.dart';
+import 'package:client_appointime/pages/users/usersdetails/footer/editPassword.dart';
+import 'package:client_appointime/pages/users/usersdetails/footer/editPhone.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:flutter/material.dart';
-import 'package:client_appointime/pages/users/usersdetails/footer/editAdress.dart';
-import 'package:client_appointime/pages/users/usersdetails/footer/editPhone.dart';
-import 'package:client_appointime/pages/users/usersdetails/footer/editPassword.dart';
-
 
 class UserShowcase extends StatefulWidget {
-  UserShowcase(this.user,this.auth);
+  UserShowcase(this.user, this.auth);
 
   final User user;
   final BaseAuth auth;
+
   @override
   _UserShowcaseState createState() => new _UserShowcaseState();
 }
@@ -23,21 +23,16 @@ class _UserShowcaseState extends State<UserShowcase>
 
   @override
   void initState() {
-
     super.initState();
     _tabs = [
-      new Tab(child: Icon(Icons.phone,color: Colors.black54)),
-      new Tab(
-          child:  Icon(Icons.vpn_key,color: Colors.black54)
-          ),
-      new Tab(
-        child: Icon(Icons.edit_location,color: Colors.black54)
-      ),
+      new Tab(child: Icon(Icons.phone, color: Colors.black54)),
+      new Tab(child: Icon(Icons.vpn_key, color: Colors.black54)),
+      new Tab(child: Icon(Icons.edit_location, color: Colors.black54)),
     ];
     _pages = [
-      new DetailsShowcase(widget.user,widget.auth),
-      new PrestationsShowcase(widget.user,widget.auth),
-      new ConditionsShowcase(widget.user,widget.auth),
+      new DetailsShowcase(widget.user, widget.auth),
+      new PrestationsShowcase(widget.user, widget.auth),
+      new ConditionsShowcase(widget.user, widget.auth),
     ];
     _controller = new TabController(
       length: _tabs.length,

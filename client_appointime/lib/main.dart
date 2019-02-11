@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:client_appointime/pages/root_page.dart';
 import 'package:client_appointime/services/authentication.dart';
-
+import 'package:flutter/material.dart';
 
 void main() => runApp(App());
 
@@ -11,7 +10,6 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: title,
       home: MyApp(),
-
     );
   }
 }
@@ -27,9 +25,3 @@ class MyApp extends StatelessWidget {
         home: new RootPage(auth: new Auth()));
   }
 }
-
-
-
-
-
-

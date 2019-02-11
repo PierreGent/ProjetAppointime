@@ -1,15 +1,17 @@
-import 'package:flutter/material.dart';
 import 'package:client_appointime/globalVar.dart' as globalVar;
-import 'package:client_appointime/validation.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:client_appointime/services/authentication.dart';
+import 'package:client_appointime/validation.dart';
+import 'package:flutter/material.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 /* ************* INSCRIPTION ************** */
 
 class InscPage extends StatefulWidget {
   InscPage({this.auth, this.onSignedIn});
+
   final BaseAuth auth;
   final VoidCallback onSignedIn;
+
   @override
   InscPageState createState() => InscPageState();
 }
