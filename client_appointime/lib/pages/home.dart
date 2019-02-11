@@ -1,12 +1,10 @@
 
 import 'package:client_appointime/pages/base_page.dart';
 import 'package:client_appointime/pages/business/business_list_page.dart';
-import 'package:client_appointime/pages/create_business.dart';
+import 'package:client_appointime/pages/business/create_business.dart';
 import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/pages/users/user.dart';
-import 'package:client_appointime/pages/users/usersdetails/header/diagonally_cut_colored_image.dart';
 import 'package:client_appointime/pages/users/usersdetails/user_details_page.dart';
-import 'package:client_appointime/pages/users/usersdetails/user_edit_page.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:client_appointime/services/my_icone_icons.dart';
 import 'package:client_appointime/validation.dart';
@@ -37,10 +35,13 @@ class HomeState extends State<Home> {
       mailPass['password']=result.uid;
     });
     getUser(widget.userId).then((DataSnapshot result) {
+
+      print(result.value);
       Map<dynamic, dynamic> values=result.value;
         setState(() {
           user = User.fromMap(mailPass, values);
         });
+
     });
     isPro(widget.userId).then((result) {
       setState(() {
@@ -104,7 +105,7 @@ class HomeState extends State<Home> {
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: <Widget>[BasePage(), MyAppointment(),  BusinessListPage()],
+        children: <Widget>[BasePage(), MyAppointment(),  BusinessListPage(widget.auth,user)],
 
       ),
       bottomNavigationBar: new Theme(
@@ -139,7 +140,7 @@ class HomeState extends State<Home> {
          GestureDetector(
             child: Center(
               child: Hero(
-                tag: 1,
+                tag: "myaccount",
 
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
@@ -164,7 +165,7 @@ class HomeState extends State<Home> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          UserDetailsPage(user,1)));
+                          UserDetailsPage(user,1,widget.auth)));
             },
           ),
 

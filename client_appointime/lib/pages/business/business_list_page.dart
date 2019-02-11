@@ -1,34 +1,42 @@
 import 'dart:async';
 
+import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/services/authentication.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/pages/business/business.dart';
 
 class BusinessListPage extends StatefulWidget {
+  BusinessListPage(this.auth,this.user);
+  final User user;
+  final BaseAuth auth;
   @override
   _BusinessListPageState createState() => new _BusinessListPageState();
 }
 
 class _BusinessListPageState extends State<BusinessListPage> {
+
   List<Business> _business = [];
-  bool _isFavorited=false;
-  int _favoriteCount=0;
+  FirebaseUser getInfosUser;
   @override
   void initState() {
     super.initState();
-     _loadFriends();
+     _loadBusiness();
+     _loadFavorite();
   }
 
-  Future<void> _loadFriends() async {
+  Future<void> _loadBusiness() async {
     await FirebaseDatabase.instance.reference().child('business').once()
         .then((DataSnapshot snapshot){
       Map<dynamic, dynamic> values=snapshot.value;
       print(values.toString());
-      values.forEach((k,v) {
+      values.forEach((k,v) async {
+
         print(k);
         print(v["name"]);
         setState(() {
-          this._business.add(Business.fromMap(v));
+          this._business.add(Business.fromMap(k,v));
         });
 
 
@@ -36,24 +44,77 @@ class _BusinessListPageState extends State<BusinessListPage> {
       });
     });
   }
-  void _toggleFavorite() {
-    setState(() {
-      if (_isFavorited) {
-        _favoriteCount -= 1;
-        _isFavorited = false;
-      } else {
-        _favoriteCount += 1;
-        _isFavorited = true;
-      }
+  Future<Business> loadBusiness (
+      String id
+      ) async{
+    Business business;
+  FirebaseDatabase.instance.reference().child('business').child(id).once().then((DataSnapshot result) {
+
+  print(result.value);
+  Map<dynamic, dynamic> values=result.value;
+  setState(() {
+  business = Business.fromMap(id,values);
+  });
+
+  });
+    return business;
+  }
+
+
+  Future<void> _loadFavorite() async {
+    getInfosUser = await widget.auth.getCurrentUser();
+    await FirebaseDatabase.instance.reference().child('favorite').once()
+        .then((DataSnapshot snapshot){
+      Map<dynamic, dynamic> values=snapshot.value;
+      print(values.toString());
+      values.forEach((k,v)  async {
+
+        print(k);
+        print(v["name"]);
+
+
+          if(v["user"]==getInfosUser)
+             widget.user.favorite.add(await loadBusiness(v["business"]));
+
+
+
+
+      });
     });
   }
-  Widget _buildFriendListTile(BuildContext context, int index) {
-    var business = _business[index];
+
+   _toggleFavorite(Business business)  {
+
+     Future.delayed(Duration(seconds: 1), () async {
+       getInfosUser = await widget.auth.getCurrentUser();
+       if (widget.user.favorite.contains(business)) {
+         FirebaseDatabase.instance.reference().child('favorite').child("user")
+             .child(getInfosUser.uid)
+             .parent().parent().child("business").child(business.id)
+             .remove();
+         widget.user.favorite.remove(business);
+       } else {
+         await FirebaseDatabase.instance.reference().child('favorite')
+             .push()
+             .set(
+             {
+               'user': getInfosUser.uid,
+               'business': business.id,
+             });
+         widget.user.favorite.add(business);
+         print(widget.user.favorite);
+       }
+       print("ONESTLAAAAA");
+     });
+     print("ONESTLAAAAA");
+  }
+  Widget _buildFriendListTile(BuildContext context, int index)  {
+    Business business = _business[index];
 
     return Stack(
         children: <Widget>[
         ListTile(
-      onTap: () => _navigateToFriendDetails(business, index),
+      onTap: () => _toggleFavorite(business),//_navigateToFriendDetails(business, index),
 
       leading: new Hero(
         tag: index,
@@ -67,12 +128,13 @@ class _BusinessListPageState extends State<BusinessListPage> {
     ),
 
           Container(
-            padding: EdgeInsets.all(0),
+            padding: EdgeInsets.all(7),
             child: IconButton(
-              icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
+              icon: (widget.user.favorite.contains(business) ? Icon(Icons.star) : Icon(Icons.star_border)),
               color: Colors.red[500],
-              onPressed: _toggleFavorite,
+              onPressed: _toggleFavorite(business),
             ),
+
           ),
     ],);
     }
@@ -89,6 +151,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
 
   @override
   Widget build(BuildContext context) {
+
     Widget content;
 
     if (_business.isEmpty) {

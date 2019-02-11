@@ -1,14 +1,16 @@
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/pages/users/usersdetails/header/user_detail_header.dart';
 import 'package:client_appointime/pages/users/usersdetails/user_detail_body.dart';
+import 'package:client_appointime/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailsPage extends StatefulWidget {
   UserDetailsPage(
     this.user,
-   this.avatarTag
+   this.avatarTag,
+      this.auth
 );
-
+  final BaseAuth auth;
   final User user;
   final Object avatarTag;
 
@@ -55,7 +57,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               new UserDetailHeader(
                 widget.user,
                 widget.avatarTag,
-                false
+                false,
+                widget.auth
               ),
 
 
@@ -65,7 +68,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         ),
             new Padding(
               padding: const EdgeInsets.all(24.0),
-              child: new UserDetailBody(widget.user,false),
+              child: new UserDetailBody(widget.user,false,widget.auth),
             ),
           new Padding(
             padding: const EdgeInsets.only(top: 16.0),

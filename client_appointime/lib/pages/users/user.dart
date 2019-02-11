@@ -1,4 +1,5 @@
 
+import 'package:client_appointime/pages/business/business.dart';
 import 'package:meta/meta.dart';
 
 class User {
@@ -12,6 +13,7 @@ class User {
     @required this.isPro,
     @required this.email,
     @required this.password,
+    @required this.favorite,
   });
 
   String avatar;
@@ -19,10 +21,11 @@ class User {
   final String email;
   final String password;
   final String lastName;
-  final String address;
+    String address;
   final int credit;
-  final String phoneNumber;
+    String phoneNumber;
   final bool isPro;
+  List<Business> favorite;
 
   static User fromMap(Map mailPass, Map map) {
 
@@ -35,7 +38,9 @@ class User {
         address: map['address'],
         credit: map['credit'],
         phoneNumber: map['phoneNumber'],
-        isPro: map['isPro']);
+        isPro: map['isPro'],
+        favorite:[]);
+
   }
 
   static String _capitalize(String input) {

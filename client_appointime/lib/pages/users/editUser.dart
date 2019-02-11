@@ -1,4 +1,6 @@
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:client_appointime/validation.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
@@ -6,17 +8,17 @@ import 'package:client_appointime/services/authentication.dart';
 
 /* ************* INSCRIPTION ************** */
 
-class editAccount extends StatefulWidget {
-  editAccount({this.auth, this.onSignedIn,this.user,this.type});
+class EditUser extends StatefulWidget {
+  EditUser({this.auth, this.onSignedIn,this.user,this.type});
   final BaseAuth auth;
   final VoidCallback onSignedIn;
   final String type;
   final User user;
   @override
-  editAccountState createState() => editAccountState();
+  EditUserState createState() => EditUserState();
 }
 
-class editAccountState extends State<editAccount>
+class EditUserState extends State<EditUser>
     with SingleTickerProviderStateMixin {
   // ANIMATION
 
@@ -34,24 +36,28 @@ class editAccountState extends State<editAccount>
   // FORM VALIDATION
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKeyPass = GlobalKey<FormState>();
   var passKey = GlobalKey<FormFieldState>();
   bool autoValidate = false;
-  bool isPro = false;
   String email;
   bool started=false;
+  bool confirm=false;
   bool _isPhoneUsed=false;
   bool _isInAsyncCall=false;
-  String pass;
-  String passConf;
+  String oldPassword;
+  String newPassword;
   String errorMessage;
-  String firstName;
-  String lastName;
+  FirebaseUser getInfosUser;
   String phone;
   String address;
   bool _isLoading;
 PageController pageController;
+  TextEditingController changeMailController;
   void initState() {
     super.initState();
+    changeMailController = new TextEditingController(text:widget.user.phoneNumber);
+    if(widget.type=="address")
+      changeMailController = new TextEditingController(text:widget.user.address);
 
     pageController = new PageController();
     _isLoading = false;
@@ -101,16 +107,17 @@ PageController pageController;
 
 
     Widget build(BuildContext context) {
-if(widget.type=="email")
+if(widget.type=="phone")
   return Container(
-          child:  formEmail(context),
+          child:  formPhone(context),
       );
 if(widget.type=="pass")
   return Container(
     child:  formPassword(context),
   );
-
-
+return Container(
+  child:  formAddress(context),
+);
 
 
   }
@@ -146,14 +153,106 @@ if(widget.type=="pass")
 
 
 
+  Widget formAddress(BuildContext context) {
+    animationController.forward();
+    final width = MediaQuery.of(context).size.width.toDouble();
+
+    return ModalProgressHUD(
+      child :AnimatedBuilder(
+          animation: animationController,
+
+          builder: (BuildContext context, Widget child) {
+            if(started)
+              formKey.currentState?.validate();
+            return Form(
+                key: this.formKey,
+                autovalidate: autoValidate,
+                child: Stack(
+                  children: <Widget>[
+                    SingleChildScrollView(
+                      child:Column(
+
+                        children: <Widget>[
+
+                          Transform(
+                            transform: Matrix4.translationValues(
+                                delayedAnimation.value * width, 0.0, 0.0),
+                            child: new Center(
+                              child: Container(
+                                padding: EdgeInsets.all(25),
+                                child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    TextFormField(
+                                      controller: changeMailController,
+                                      autovalidate: autoValidate,
+                                      maxLines: 1,
+                                      keyboardType: TextInputType.emailAddress,
+                                      decoration: InputDecoration(
+
+                                        icon: new Icon(
+                                            Icons.edit_location,
+                                            color: Colors.blueAccent.withOpacity(0.8)
+                                        ),
+                                      ),
+                                      validator: validateAddress,
+                                      onSaved: (value) => address = value,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          Transform(
+                            transform: Matrix4.translationValues(
+                                0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
+                            child: new Center(
+                              child: Container(
+                                padding: EdgeInsets.all(25),
+                                child: new Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    new ClipRRect(
+                                      borderRadius: new BorderRadius.circular(30.0),
+                                      child: new MaterialButton(
+                                        minWidth: 140.0,
+                                        color: Colors.green.withOpacity(0.8),
+                                        textColor: Colors.white,
+                                        onPressed: _showDialog,
+                                        child: new Text('Confirmer'),
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          _showErrorMessage(),
+                        ],
+
+                      ),
+                    ),
+                    _showCircularProgress(),
+
+                  ],
+                ));
+          }
+      ),
+      inAsyncCall: _isInAsyncCall,
+      // demo of some additional parameters
+      opacity: 0.5,
+      progressIndicator: CircularProgressIndicator(),
+    );
+  }
 
 
 
 
 
+  Widget formPhone(BuildContext context) {
 
-  Widget formEmail(BuildContext context) {
-    animationController.reset();
     animationController.forward();
     final width = MediaQuery.of(context).size.width.toDouble();
 
@@ -184,18 +283,19 @@ if(widget.type=="pass")
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     TextFormField(
+                      controller: changeMailController,
                       autovalidate: autoValidate,
                       maxLines: 1,
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        hintText: widget.user.email,
+
                         icon: new Icon(
-                            Icons.mail,
+                            Icons.phone,
                             color: Colors.blueAccent.withOpacity(0.8)
                         ),
                       ),
-                      validator: validateEmail,
-                      onSaved: (value) => email = value,
+                      validator: validatePhone,
+                      onSaved: (value) => phone = value,
                     ),
                   ],
                 ),
@@ -218,7 +318,7 @@ if(widget.type=="pass")
                         minWidth: 140.0,
                         color: Colors.green.withOpacity(0.8),
                         textColor: Colors.white,
-                        onPressed: (){null;},
+                        onPressed: _showDialog,
                         child: new Text('Confirmer'),
                       ),
                     ),
@@ -265,9 +365,9 @@ if(widget.type=="pass")
           animation: animationController,
           builder: (BuildContext context, Widget child) {
             if(started)
-              formKey.currentState?.validate();
+              formKeyPass.currentState?.validate();
             return Form(
-                key: this.formKey,
+                key: this.formKeyPass,
                 autovalidate: autoValidate,
                 child: Stack(
                   children: <Widget>[
@@ -275,6 +375,37 @@ if(widget.type=="pass")
       child:Column(
 
         children: <Widget>[
+
+
+          Transform(
+            transform: Matrix4.translationValues(
+                muchDelayedAnimation.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new TextFormField(
+                      autovalidate: autoValidate,
+                      maxLines: 1,
+                      obscureText: true,
+                      autofocus: false,
+                      decoration: new InputDecoration(
+                        hintText: 'Ancien mot de passe',
+                        icon: new Icon(
+                          Icons.lock,
+                          color: Colors.blueAccent.withOpacity(0.8),
+                        ),
+                      ),
+                      validator: validatePass,
+                      onSaved: (value) => oldPassword = value,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
           Transform(
             transform: Matrix4.translationValues(
@@ -292,14 +423,14 @@ if(widget.type=="pass")
                       obscureText: true,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Nouveau de passe',
+                        hintText: 'Nouveau mot de passe',
                         icon: new Icon(
                           Icons.lock,
                           color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validatePass,
-                      onSaved: (value) => pass = value,
+                      onSaved: (value) => newPassword = value,
                     ),
                   ],
                 ),
@@ -328,7 +459,7 @@ if(widget.type=="pass")
                         ),
                       ),
                       validator: (confirm) {
-                        print("ddskffskj");
+
                         if (passKey.currentState != null)
                           return validatePassConfirm(
                               confirm, passKey.currentState.value);
@@ -356,7 +487,7 @@ if(widget.type=="pass")
                         minWidth: 140.0,
                         color: Colors.green.withOpacity(0.8),
                         textColor: Colors.white,
-                        onPressed: (){null;},
+                        onPressed: _showDialog,
                         child: new Text('Confirmer'),
                       ),
                     ),
@@ -386,208 +517,48 @@ if(widget.type=="pass")
 
   }
 
+  void _showDialog() {
+    // flutter defined function
+    ontap(){
+      if(widget.type=="address")
+        return submitAddress();
+        if(widget.type=="phone")
+          return submitPhone();
 
+          if(widget.type=="pass")
+            return submitPass();
+    }
+    showDialog(
+      context: context,
 
-
-
-
-
-
-
-
-
-
-
-
-  Widget formUI() {
-    final width = MediaQuery.of(context).size.width.toDouble();
-    return SingleChildScrollView(
-      child:Column(
-
-      children: <Widget>[
-
-        Transform(
-          transform: Matrix4.translationValues(
-              delayedAnimation.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      hintText: widget.user.email,
-                      icon: new Icon(
-                          Icons.mail,
-                          color: Colors.blueAccent.withOpacity(0.8)
-                      ),
-                    ),
-                    validator: validateEmail,
-                    onSaved: (value) => email = value,
-                  ),
-                ],
-              ),
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Attention"),
+          content: new Text("Etes vous sur de vouloir effectuer ces chngements?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Annuler"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-          ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-              muchDelayedAnimation.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    key: passKey,
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    obscureText: true,
-                    autofocus: false,
-                    decoration: new InputDecoration(
-                      hintText: 'Nouveau de passe',
-                      icon: new Icon(
-                        Icons.lock,
-                        color: Colors.blueAccent.withOpacity(0.8),
-                      ),
-                    ),
-                    validator: validatePass,
-                    onSaved: (value) => pass = value,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-              muchMuchDelayedAnimation.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    obscureText: true,
-                    autofocus: false,
-                    decoration: new InputDecoration(
-                      hintText: 'Confirmation',
-                      icon: new Icon(
-                        Icons.beenhere,
-                        color: Colors.blueAccent.withOpacity(0.8),
-                      ),
-                    ),
-                    validator: (confirm) {
-                      print("ddskffskj");
-                      if (passKey.currentState != null)
-                        return validatePassConfirm(
-                            confirm, passKey.currentState.value);
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-
-        Transform(
-          transform: Matrix4.translationValues(
-              muchMuchMuchDelayedAnimation2.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    autovalidate: autoValidate,
-                    maxLines: 1,
-                    obscureText: false,
-                    autofocus: false,
-                    decoration: new InputDecoration(
-                      hintText: widget.user.address,
-                      icon: new Icon(
-                        Icons.add_location,
-                        color: Colors.blueAccent.withOpacity(0.8),
-                      ),
-                    ),
-                    validator: validateAddress,
-                    onSaved: (value) => address = value,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(
-              muchMuchMuchDelayedAnimation3.value * width, 0.0, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new TextFormField(
-                    autovalidate: autoValidate,
-                    keyboardType: TextInputType.phone,
-                    maxLines: 1,
-                    obscureText: false,
-                    autofocus: false,
-                    decoration: new InputDecoration(
-                      hintText: widget.user.phoneNumber,
-                      icon: new Icon(
-                        Icons.phone,
-                        color: Colors.blueAccent.withOpacity(0.8),
-                      ),
-                    ),
-                    validator: validatePhone,
-                    onSaved: (value) => phone = value,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-
-        Transform(
-          transform: Matrix4.translationValues(
-              0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
-          child: new Center(
-            child: Container(
-              padding: EdgeInsets.all(25),
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-    new ClipRRect(
-    borderRadius: new BorderRadius.circular(30.0),
-    child: new MaterialButton(
-    minWidth: 140.0,
-    color: Colors.green.withOpacity(0.8),
-    textColor: Colors.white,
-    onPressed: (){null;},
-    child: new Text('Confirmer'),
-    ),
-    ),
-
-                ],
-              ),
-            ),
-          ),
-        ),
-        _showErrorMessage(),
-      ],
-      ),
+            new FlatButton(
+              child: new Text("Continuer"),
+              onPressed: () {
+                setState(() {
+                  ontap();
+                });
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
     );
   }
+
 
   Widget _showErrorMessage() {
     if (errorMessage.length > 0 && errorMessage != null) {
@@ -606,7 +577,7 @@ if(widget.type=="pass")
     }
   }
 
-  submit() async {
+  submitPhone() async {
     started=true;
     final form = formKey.currentState;
 
@@ -614,43 +585,138 @@ if(widget.type=="pass")
       errorMessage = "";
       _isLoading = true;
     });
-    String userId = "";
+
     if (form.validate()) {
-      form.save();
-      FocusScope.of(context).requestFocus(new FocusNode());
-      setState(() {
-        _isInAsyncCall = true;
-      });
-      Future.delayed(Duration(seconds: 1), () async {
-        _isPhoneUsed=await isPhoneUsed(phone);
 
+        form.save();
+        FocusScope.of(context).requestFocus(new FocusNode());
         setState(() {
-          _isInAsyncCall = false;
+          _isInAsyncCall = true;
         });
-        if(!_isPhoneUsed ) {
-          try {
-            userId = await widget.auth.signUp(email, pass);
-            widget.auth
-                .signUpFull(userId, firstName, lastName, address, phone, isPro);
+        Future.delayed(Duration(seconds: 1), () async {
+          _isPhoneUsed = await isPhoneUsed(phone);
 
-            print('Signed in: '+userId);
-          } catch (e) {
-            print('Error: $e');
-            setState(() {
-              _isLoading = false;
+          setState(() {
+            _isInAsyncCall = false;
+          });
+          if (!_isPhoneUsed) {
+            try {
+              getInfosUser = await widget.auth.getCurrentUser();
+              widget.user.phoneNumber = phone;
+              FirebaseDatabase.instance.reference().child('users').child(
+                  getInfosUser.uid).set({
+                'firstName': widget.user.firstName,
+                'lastName': widget.user.lastName,
+                'address': widget.user.address,
+                'phoneNumber': phone,
+                'isPro': widget.user.isPro,
+                'credit': widget.user.credit
+              });
+            } catch (e) {
+              print('Error: $e');
+              setState(() {
+                _isLoading = false;
 
-              errorMessage = "Nom de compte ou mot de passe incorrect";
-            });
+                errorMessage = "Erreur";
+              });
+            }
+            _isLoading = false;
+            if (errorMessage.length == 0)
+              Navigator.pop(context);
           }
-          _isLoading = false;
-          if (userId.length > 0 && userId != null) {
-            widget.onSignedIn();
-          }
-        }
-      });
+        });
+
     } else {
       setState(() => autoValidate = true);
     }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  submitAddress() async {
+
+    final form = formKey.currentState;
+
+    setState(() {
+      errorMessage = "";
+      _isLoading = true;
+    });
+
+    if (form.validate() ) {
+
+      form.save();
+      FocusScope.of(context).requestFocus(new FocusNode());
+
+      try {
+        getInfosUser = await widget.auth.getCurrentUser();
+        widget.user.address = address;
+        FirebaseDatabase.instance.reference().child('users').child(
+            getInfosUser.uid).set({
+          'firstName': widget.user.firstName,
+          'lastName': widget.user.lastName,
+          'address': address,
+          'phoneNumber': widget.user.phoneNumber,
+          'isPro': widget.user.isPro,
+          'credit': widget.user.credit
+        });
+      } catch (e) {
+        print('Error: $e');
+        setState(() {
+          _isLoading = false;
+
+          errorMessage = "Erreur";
+        });
+      }
+      _isLoading = false;
+      if (errorMessage.length == 0)
+        Navigator.pop(context);
+
+    } else {
+      setState(() => autoValidate = true);
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+
+  submitPass() async {
+    started=true;
+    final form = formKeyPass.currentState;
+
+    setState(() {
+      errorMessage = "";
+      _isLoading = true;
+    });
+    if (form.validate()) {
+      _showDialog();
+      if (confirm) {
+        confirm = false;
+        form.save();
+
+
+        try {
+          getInfosUser = await widget.auth.getCurrentUser();
+
+          if (await widget.auth.signIn(widget.user.email, oldPassword) != null)
+            getInfosUser.updatePassword(newPassword);
+        } catch (e) {
+          print('Error: $e');
+          setState(() {
+            errorMessage = "Ancien mot de passe incorrect";
+            _isLoading = false;
+          });
+        }
+        _isLoading = false;
+        if (errorMessage.length == 0) {
+          Navigator.pop(context);
+        }
+      }
+    }
+
 
     setState(() {
       _isLoading = false;

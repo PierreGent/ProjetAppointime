@@ -60,7 +60,6 @@ class ConnectPageState extends State<ConnectPage>
 
   @override
   Widget build(BuildContext context) {
-    animationController.reset();
     animationController.forward();
     return AnimatedBuilder(
         animation: animationController,

@@ -1,12 +1,14 @@
-import 'package:client_appointime/pages/editAccount.dart';
+
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/pages/users/usersdetails/footer/user_detail_footer.dart';
+import 'package:client_appointime/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 class UserDetailBody extends StatefulWidget {
-  UserDetailBody(this.user,this.edit);
+  UserDetailBody(this.user,this.edit,this.auth);
   final User user;
   final bool edit;
+  final BaseAuth auth;
 
   @override
   UserDetailBodyState createState() {
@@ -75,8 +77,7 @@ String ispro="Particulier";
 
 
 Widget showName(TextTheme textTheme){
-    if(widget.edit)
-      return new Icon(Icons.mode_edit);
+
     return new Text(
       widget.user.firstName+" "+widget.user.lastName,
       style: textTheme.headline.copyWith(color: Colors.grey),
@@ -95,7 +96,7 @@ Widget showName(TextTheme textTheme){
           showName(textTheme),
     new Container(
 
-    child: new UserShowcase(widget.user),
+    child: new UserShowcase(widget.user,widget.auth),
     ),
 
         ],
