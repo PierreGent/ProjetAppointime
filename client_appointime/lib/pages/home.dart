@@ -77,6 +77,11 @@ class HomeState extends State<Home> {
           activeIcon: Icon(MyIcone.calendar),
           title: Text("Mes rendez-vous"),
         ),
+       /* BottomNavigationBarItem(
+          icon: Icon(Icons.format_list_bulleted),
+          activeIcon: Icon(Icons.playlist_add_check),
+          title: Text("Liste des Entreprises"),
+        ),*/
         BottomNavigationBarItem(
           icon: Icon(Icons.business_center),
           activeIcon: Icon(Icons.business_center),
@@ -94,7 +99,12 @@ class HomeState extends State<Home> {
           icon: Icon(Icons.calendar_today),
           activeIcon: Icon(MyIcone.calendar),
           title: Text("Mes rendez-vous"),
-        )
+        ),
+      /*  BottomNavigationBarItem(
+          icon: Icon(Icons.format_list_bulleted),
+          activeIcon: Icon(Icons.playlist_add_check),
+          title: Text("Liste des Entreprises"),
+        )*/
       ];
     }
     return new Scaffold(
@@ -105,7 +115,7 @@ class HomeState extends State<Home> {
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: <Widget>[BasePage(), MyAppointment(),  BusinessListPage(widget.auth,user)],
+        children: <Widget>[BasePage(), MyAppointment()/*,MyAppointment(),*/,  BusinessListPage(widget.auth,user)],
 
       ),
       bottomNavigationBar: new Theme(
@@ -252,6 +262,12 @@ class HomeState extends State<Home> {
       case 1:
         temptitle = "Mes rendez-vous";
         break;
+      /*case 2:
+        temptitle = "Liste des entreprises";
+        break;*/
+        case 2:
+      temptitle = "Mon entreprise";
+      break;
     }
 
     setState(() {

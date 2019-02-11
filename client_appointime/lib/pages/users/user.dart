@@ -1,5 +1,6 @@
 
 import 'package:client_appointime/pages/business/business.dart';
+import 'package:client_appointime/pages/business/favorite.dart';
 import 'package:meta/meta.dart';
 
 class User {
@@ -25,12 +26,11 @@ class User {
   final int credit;
     String phoneNumber;
   final bool isPro;
-  List<Business> favorite;
+  List<Favorite> favorite;
 
   static User fromMap(Map mailPass, Map map) {
 
     return new User(
-        //avatar: map['picture']['large'],
         email: mailPass['email'],
         password: mailPass['password'],
         firstName: '${_capitalize(map['firstName'])}',
