@@ -59,7 +59,11 @@ class ConnectPageState extends State<ConnectPage>
             parent: animationController,
             curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn)));
   }
+  void dispose(){
 
+    animationController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     animationController.forward();

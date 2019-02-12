@@ -94,7 +94,11 @@ class InscPageState extends State<InscPage>
             parent: animationController,
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
   }
+  void dispose(){
 
+    animationController.dispose();
+    super.dispose();
+  }
   Widget build(BuildContext context) {
     animationController.forward();
     return ModalProgressHUD(

@@ -20,44 +20,59 @@ class UserDetailBodyState extends State<UserDetailBody> {
   String ispro = "Particulier";
 
   Widget _buildLocationInfo(TextTheme textTheme) {
-    return new Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    double c_width = MediaQuery.of(context).size.width*0.75;
+    return new Column(
       children: <Widget>[
-        new Container(
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
+
+        new Row(
+          children: <Widget>[
+
+            new Icon(
+              Icons.phone_in_talk,
+              color: Colors.grey,
+              size: 30.0,
+            ),
+            new Container (
+              width: c_width,
+              child: new Column(
+              children: <Widget>[
+
+
+                new Text(
+                  widget.user.phoneNumber,
+                  style: textTheme.subhead
+                      .copyWith(color: Colors.grey, fontSize: 20),
+                ),
+              ],
+            ),),
+          ],),
+
+    new Row(
+    children: <Widget>[
               new Icon(
                 Icons.place,
                 color: Colors.grey,
-                size: 20.0,
+                size: 30.0,
               ),
+
+
+     new Container (
+    padding: const EdgeInsets.all(15.0),
+    width: c_width,
+    child:new Column(
+    children: <Widget>[
               new Text(
+
                 widget.user.address,
                 style: textTheme.subhead
                     .copyWith(color: Colors.grey, fontSize: 20),
+                textAlign: TextAlign.center,
               ),
-            ],
-          ),
-        ),
-        new Container(
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              new Icon(
-                Icons.phone_in_talk,
-                color: Colors.grey,
-                size: 20.0,
-              ),
-              new Text(
-                widget.user.phoneNumber,
-                textAlign: TextAlign.right,
-                style: textTheme.subhead
-                    .copyWith(color: Colors.grey, fontSize: 20),
-              ),
-            ],
-          ),
-        ),
+],),
+     )
+],),
+
+
       ],
     );
   }
@@ -88,7 +103,7 @@ class UserDetailBodyState extends State<UserDetailBody> {
       children: <Widget>[
         showName(textTheme),
         new Padding(
-          padding: const EdgeInsets.only(top: 30.0),
+          padding: const EdgeInsets.only(top: 20.0),
           child: _buildLocationInfo(textTheme),
         ),
         new Container(

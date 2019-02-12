@@ -106,8 +106,13 @@ class EditUserState extends State<EditUser>
         CurvedAnimation(
             parent: animationController,
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
-  }
 
+  }
+void dispose(){
+
+  animationController.dispose();
+  super.dispose();
+}
   Widget build(BuildContext context) {
     if (widget.type == "phone")
       return Container(

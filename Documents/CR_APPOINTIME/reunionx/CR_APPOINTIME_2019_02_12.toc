@@ -7,4 +7,4 @@
 \contentsline {subsection}{\numberline {2.1}Page d'accueil}{2}
 \contentsline {subsection}{\numberline {2.2}Gestion de compte}{2}
 \contentsline {subsection}{\numberline {2.3}Page d'affichages des d\IeC {\'e}tails de l'entreprise}{2}
-\contentsline {section}{\numberline {3}Autres informations}{2}
+\contentsline {section}{\numberline {3}Autres informations}{3}

@@ -18,7 +18,7 @@ class UserDetailsPage extends StatefulWidget {
 class _UserDetailsPageState extends State<UserDetailsPage> {
   String isPro = "Particulier";
   bool edit = false;
-
+String text="Modifier";
   Widget _createCircleBadge(IconData iconData, Color color) {
     return new Padding(
       padding: const EdgeInsets.only(left: 8.0),
@@ -36,7 +36,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
   Widget _createPillButton(
     BuildContext context,
-    String text, {
+    String textToShow, {
     Color backgroundColor = Colors.transparent,
     textColor,
   }) {
@@ -49,14 +49,16 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
         onPressed: () {
           if (edit)
             setState(() {
+              text="Modifier";
               edit = false;
             });
           else
             setState(() {
+              text="Annuler";
               edit = true;
             });
         },
-        child: new Text(text),
+        child: new Text(textToShow),
       ),
     );
   }
@@ -109,7 +111,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                               ),
                               child: _createPillButton(
                                 context,
-                                'Modifier',
+                                text,
                                 backgroundColor: Colors.black.withOpacity(0.5),
                                 textColor: Colors.white,
                               ),

@@ -9,10 +9,11 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class BusinessListPage extends StatefulWidget {
-  BusinessListPage(this.auth, this.user);
+  BusinessListPage(this.auth, this.user,this.type);
 
   final User user;
   final BaseAuth auth;
+  final String type;
 
   @override
   _BusinessListPageState createState() => new _BusinessListPageState();
@@ -28,30 +29,54 @@ class _BusinessListPageState extends State<BusinessListPage> {
     super.initState();
 
     _isLoading = false;
-    _loadBusiness();
-    _loadFavorite();
+      _loadFavorite();
+    if(widget.type=="all")
+      _loadBusiness();
   }
 
 //Chargement des entreprises
   Future<void> _loadBusiness() async {
-    setState(() {
-      _isLoading = true;
-    });
-    await FirebaseDatabase.instance
-        .reference()
-        .child('business')
-        .once()
-        .then((DataSnapshot snapshot) {
-      Map<dynamic, dynamic> values = snapshot.value;
-      values.forEach((k, v) async {
-        setState(() {
-          this._business.add(Business.fromMap(k, v));
+_business=[];
+if (this.mounted) {
+  setState(() {
+    _isLoading = true;
+  });
+}
+      await FirebaseDatabase.instance
+          .reference()
+          .child('business')
+          .once()
+          .then((DataSnapshot snapshot) {
+        Map<dynamic, dynamic> values = snapshot.value;
+        values.forEach((k, v) async {
+          if(widget.type=="all") {
+            if (this.mounted) {
+              setState(() {
+                this._business.add(Business.fromMap(k, v));
+              });
+            }
+          }else{
+print( widget.user.favorite);
+            widget.user.favorite.forEach((f) {
+              print(k+"     "+f.businessId);
+              if(f.businessId==k) {
+                if (this.mounted) {
+                  setState(() {
+                    this._business.add(Business.fromMap(k, v));
+                  });
+                }
+              }
+            });
+
+          }
         });
       });
-    });
-    setState(() {
-      _isLoading = false;
-    });
+if (this.mounted) {
+  setState(() {
+    _isLoading = false;
+  });
+}
+
   }
 
 //Chargement d'une entreprise par id
@@ -64,18 +89,22 @@ class _BusinessListPageState extends State<BusinessListPage> {
         .once()
         .then((DataSnapshot result) {
       Map<dynamic, dynamic> values = result.value;
-      setState(() {
-        business = Business.fromMap(id, values);
-      });
+      if (this.mounted) {
+        setState(() {
+          business = Business.fromMap(id, values);
+        });
+      }
     });
     return business;
   }
 
   //Chargement des favoris propres a l'utilisateur connecté
   Future<void> _loadFavorite() async {
-    setState(() {
-      _isLoading = true;
-    });
+    if (this.mounted) {
+      setState(() {
+        _isLoading = true;
+      });
+    }
     widget.user.favorite = [];
     getInfosUser = await widget.auth.getCurrentUser();
     await FirebaseDatabase.instance
@@ -89,14 +118,24 @@ class _BusinessListPageState extends State<BusinessListPage> {
         values.forEach((k, v) async {
           //Si il concerne l'utilisateur connecté on l'ajoute a la liste
           if (v["user"] == getInfosUser.uid)
-            setState(() {
-              widget.user.favorite.add(Favorite.fromMap(k, v));
-            });
+            if (this.mounted) {
+              setState(() {
+                widget.user.favorite.add(Favorite.fromMap(k, v));
+              });
+            }
         });
     });
-    setState(() {
-      _isLoading = false;
-    });
+    if (this.mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+    if(widget.type=="favorite")
+      if (this.mounted) {
+        setState(() {
+          _loadBusiness();
+        });
+      }
   }
 
 //Action au clique sur une etoile de favoris
