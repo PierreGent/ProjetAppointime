@@ -156,7 +156,7 @@ class InscPageState extends State<InscPage>
                 Matrix4.translationValues(animation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top:60,bottom:20),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -166,7 +166,7 @@ class InscPageState extends State<InscPage>
                       style: TextStyle(
                           color: Colors.blueAccent.withOpacity(0.8),
                           fontWeight: FontWeight.bold,
-                          fontSize: 30),
+                          fontSize: 40),
                     ),
                   ],
                 ),
@@ -186,12 +186,24 @@ class InscPageState extends State<InscPage>
                       autovalidate: autoValidate,
                       maxLines: 1,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        hintText: "Email",
+    decoration: new InputDecoration(
+    labelText: 'Email',
+    fillColor: Colors.white,
+    border: new OutlineInputBorder(
+    borderRadius: new BorderRadius.circular(25.0),
+    borderSide: new BorderSide(
+    ),
+    ),
+
                         icon: new Icon(Icons.mail,
                             color: Colors.blueAccent.withOpacity(0.8)),
                       ),
                       validator: validateEmail,
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                        color: Color(0xFF000000),
+                        fontSize: 20,
+                      ),
                       onSaved: (value) => email = value,
                     ),
                   ],
@@ -215,7 +227,13 @@ class InscPageState extends State<InscPage>
                       obscureText: true,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Mot de passe',
+                        labelText: 'Mot de passe',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         icon: new Icon(
                           Icons.lock,
                           color: Colors.blueAccent.withOpacity(0.8),
@@ -244,7 +262,13 @@ class InscPageState extends State<InscPage>
                       obscureText: true,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Confirmation',
+                        labelText: 'Confirmation',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         icon: new Icon(
                           Icons.beenhere,
                           color: Colors.blueAccent.withOpacity(0.8),
@@ -277,13 +301,24 @@ class InscPageState extends State<InscPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Prénom',
+                        labelText: 'Prénom',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         icon: new Icon(
                           Icons.supervised_user_circle,
                           color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validateFirstName,
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                        color: Color(0xFF000000),
+                        fontSize: 20,
+                      ),
                       onSaved: (value) => firstName = value,
                     ),
                   ],
@@ -306,13 +341,24 @@ class InscPageState extends State<InscPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Nom',
+                        labelText: 'Nom',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         icon: new Icon(
                           Icons.supervised_user_circle,
                           color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validateLastName,
+                      style: new TextStyle(
+                      fontFamily: "Poppins",
+                      color: Color(0xFF000000),
+                      fontSize: 20,
+                    ),
                       onSaved: (value) => lastName = value,
                     ),
                   ],
@@ -335,13 +381,24 @@ class InscPageState extends State<InscPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Adresse',
+                        labelText: 'Adresse',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         icon: new Icon(
                           Icons.add_location,
                           color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validateAddress,
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                        color: Color(0xFF000000),
+                        fontSize: 20,
+                      ),
                       onSaved: (value) => address = value,
                     ),
                   ],
@@ -362,16 +419,28 @@ class InscPageState extends State<InscPage>
                       autovalidate: autoValidate,
                       keyboardType: TextInputType.phone,
                       maxLines: 1,
+
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Numéro de téléphone',
+                        labelText: 'Numéro de téléphone',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         icon: new Icon(
                           Icons.phone,
                           color: Colors.blueAccent.withOpacity(0.8),
                         ),
                       ),
                       validator: validatePhone,
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                        color: Color(0xFF000000),
+                        fontSize: 20,
+                      ),
                       onSaved: (value) => phone = value,
                     ),
                   ],
@@ -389,10 +458,13 @@ class InscPageState extends State<InscPage>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     new CheckboxListTile(
+
                       title: Text(
+
                         "Cochez si vous etes professionnel",
-                        style: TextStyle(color: Colors.black54),
+                        style: TextStyle(color: Colors.black54,),
                       ),
+
                       value: isPro,
                       onChanged: (bool value) {
                         setState(() {
@@ -414,28 +486,40 @@ class InscPageState extends State<InscPage>
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text("   S'inscrire    "),
-                      onPressed: submit,
-                      color: Colors.blueAccent.withOpacity(0.8),
-                      textColor: Colors.white,
-                    ),
-                    OutlineButton(
-                      child: Text("Se connecter"),
-                      onPressed: () {
-                        globalVar.pageController.previousPage(
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
-                      },
-                      color: Colors.blueAccent.withOpacity(0.8),
-                      textColor: Colors.blueAccent.withOpacity(0.8),
-                      highlightColor: Colors.blueAccent.withOpacity(0.8),
-                      borderSide: BorderSide(
-                        color: Colors.blueAccent.withOpacity(0.8),
-                        style: BorderStyle.solid,
-                        width: 2,
+                    new ClipRRect(
+                      borderRadius:
+                      new BorderRadius.circular(30.0),
+                      child:
+                      new MaterialButton(
+                        minWidth: 140.0,
+                        color: Colors.green.withOpacity(0.8),
+                        textColor: Colors.white,
+                        onPressed: submit,
+                        child: new  Text("S'inscrire"),
                       ),
                     ),
+                    new ClipRRect(
+
+                      borderRadius:
+                      new BorderRadius.circular(30.0),
+                      child:
+                      MaterialButton(
+                        child: Text("Se connecter"),
+                        onPressed: () {
+                          globalVar.pageController.previousPage(
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeIn);
+                        },
+
+                        color: Colors.blueAccent.withOpacity(0.8),
+                        textColor: Colors.white,
+                        highlightColor: Colors.blueAccent.withOpacity(0.8),
+
+                      ),
+                    ),
+
+
+
                   ],
                 ),
               ),

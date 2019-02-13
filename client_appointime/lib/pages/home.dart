@@ -193,7 +193,8 @@ class HomeState extends State<Home> {
                 stops: [0.5, 1],
                 colors: <Color>[
                   const Color(0xFF3388FF),
-                  const Color(0xFFFFFFFF),
+
+                  const Color(0xFF88CCFF),
                 ],
               ),
             ),

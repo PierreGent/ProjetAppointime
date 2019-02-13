@@ -102,17 +102,18 @@ class ConnectPageState extends State<ConnectPage>
                 Matrix4.translationValues(animation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 110,bottom: 75),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+
                     Text(
                       "Connexion",
                       style: TextStyle(
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          color: Color(0xFF3388FF),
                           fontWeight: FontWeight.bold,
-                          fontSize: 30),
+                          fontSize: 50),
                     ),
                   ],
                 ),
@@ -124,7 +125,7 @@ class ConnectPageState extends State<ConnectPage>
                 delayedAnimation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(left: 35,right: 35),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -132,12 +133,23 @@ class ConnectPageState extends State<ConnectPage>
                       autovalidate: autoValidate,
                       maxLines: 1,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        hintText: "Email",
+                      decoration: new InputDecoration(
+                        labelText: 'Email',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         icon: new Icon(Icons.mail,
                             color: Colors.blueAccent.withOpacity(0.8)),
                       ),
                       validator: validateEmail,
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                        color: Color(0xFF000000),
+                        fontSize: 20,
+                      ),
                       onSaved: (value) => email = value,
                     ),
                   ],
@@ -150,17 +162,24 @@ class ConnectPageState extends State<ConnectPage>
                 muchDelayedAnimation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top:25,left: 35,right: 35),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     new TextFormField(
+
                       autovalidate: autoValidate,
                       maxLines: 1,
                       obscureText: true,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Mot de passe',
+                        labelText: 'Mot de passe',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
                         icon: new Icon(
                           Icons.lock,
                           color: Colors.blueAccent.withOpacity(0.8),
@@ -185,28 +204,39 @@ class ConnectPageState extends State<ConnectPage>
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    RaisedButton(
-                      child: Text(" Se connecter"),
-                      onPressed: submit,
-                      color: Colors.blueAccent.withOpacity(0.8),
+    new ClipRRect(
+    borderRadius:
+    new BorderRadius.circular(30.0),
+    child:
+    new MaterialButton(
+                      minWidth: 140.0,
+                      color: Colors.green.withOpacity(0.8),
                       textColor: Colors.white,
+                      onPressed: submit,
+                      child: new Text('Se connecter'),
                     ),
-                    OutlineButton(
-                      child: Text("   S'inscrire    "),
-                      onPressed: () {
-                        globalVar.pageController.nextPage(
-                            duration: Duration(milliseconds: 300),
-                            curve: Curves.easeIn);
-                      },
-                      color: Colors.blueAccent.withOpacity(0.8),
-                      textColor: Colors.blueAccent.withOpacity(0.8),
-                      highlightColor: Colors.blueAccent.withOpacity(0.8),
-                      borderSide: BorderSide(
-                        color: Colors.blueAccent.withOpacity(0.8),
-                        style: BorderStyle.solid,
-                        width: 2,
-                      ),
-                    ),
+    ),
+    new ClipRRect(
+
+      borderRadius:
+      new BorderRadius.circular(30.0),
+      child:
+      MaterialButton(
+        child: Text("   S'inscrire    "),
+        onPressed: () {
+          globalVar.pageController.nextPage(
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeIn);
+        },
+
+        color: Colors.blueAccent.withOpacity(0.8),
+        textColor: Colors.white,
+        highlightColor: Colors.blueAccent.withOpacity(0.8),
+
+      ),
+    ),
+
+
                   ],
                 ),
               ),

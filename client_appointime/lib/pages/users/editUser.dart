@@ -177,12 +177,17 @@ void dispose(){
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     TextFormField(
+
                                       controller: changeMailController,
                                       autovalidate: autoValidate,
                                       maxLines: 1,
                                       keyboardType: TextInputType.emailAddress,
+
                                       decoration: InputDecoration(
+                                        labelText: "Adresse",
+                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
                                         icon: new Icon(Icons.edit_location,
+
                                             color: Colors.blueAccent
                                                 .withOpacity(0.8)),
                                       ),
@@ -268,6 +273,8 @@ void dispose(){
                                       maxLines: 1,
                                       keyboardType: TextInputType.number,
                                       decoration: InputDecoration(
+                                        labelText: "Téléphone",
+                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
                                         icon: new Icon(Icons.phone,
                                             color: Colors.blueAccent
                                                 .withOpacity(0.8)),
@@ -353,7 +360,8 @@ void dispose(){
                                       obscureText: true,
                                       autofocus: false,
                                       decoration: new InputDecoration(
-                                        hintText: 'Ancien mot de passe',
+                                        labelText: 'Ancien mot de passe',
+                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
                                         icon: new Icon(
                                           Icons.lock,
                                           color: Colors.blueAccent
@@ -384,7 +392,8 @@ void dispose(){
                                       obscureText: true,
                                       autofocus: false,
                                       decoration: new InputDecoration(
-                                        hintText: 'Nouveau mot de passe',
+                                        labelText: 'Nouveau mot de passe',
+                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
                                         icon: new Icon(
                                           Icons.lock,
                                           color: Colors.blueAccent
@@ -416,7 +425,9 @@ void dispose(){
                                       obscureText: true,
                                       autofocus: false,
                                       decoration: new InputDecoration(
-                                        hintText: 'Confirmation',
+                                        labelText: 'Confirmation',
+                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
+
                                         icon: new Icon(
                                           Icons.beenhere,
                                           color: Colors.blueAccent

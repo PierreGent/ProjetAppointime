@@ -22,16 +22,12 @@ class BasePageState extends State<BasePage> {
   @override
   Widget build(BuildContext context) {
     if (widget.user == null) {
-      return AppBar(
-        backgroundColor: Colors.blueAccent.withOpacity(0.8),
-        title: Text("loading"),
+      return Container(
+        child: Text("loading"),
       );
     }
    return new Scaffold(
-        appBar: AppBar(
-          title: Text("Mes favoris"),
-          backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
-        ),
+
         backgroundColor: globalVar.couleurPrimaire,
         body:BusinessListPage(widget.auth, widget.user,"favorite"));
   }
