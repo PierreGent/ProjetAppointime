@@ -49,8 +49,14 @@ class HomeState extends State<Home> {
       });
     });
 
-    pageController = new PageController();
-    title = "Accueil";
+    pageController = new PageController(initialPage: 1);
+    setState(() {
+      page=1;
+      title = "Accueil";
+    });
+
+
+
   }
 
   void dispose() {
@@ -67,21 +73,18 @@ class HomeState extends State<Home> {
     }
     if (_isPro) {
       items = [
-        BottomNavigationBarItem(
-          icon: Icon(MyIcone.home_outline),
-          activeIcon: Icon(MyIcone.home),
-          title: Text("Accueil"),
-        ),
+
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today),
           activeIcon: Icon(MyIcone.calendar),
           title: Text("Mes rendez-vous"),
         ),
-        /* BottomNavigationBarItem(
-          icon: Icon(Icons.format_list_bulleted),
-          activeIcon: Icon(Icons.playlist_add_check),
-          title: Text("Liste des Entreprises"),
-        ),*/
+        BottomNavigationBarItem(
+          icon: Icon(MyIcone.home_outline),
+          activeIcon: Icon(MyIcone.home),
+          title: Text("Accueil"),
+        ),
+
         BottomNavigationBarItem(
           icon: Icon(Icons.business_center),
           activeIcon: Icon(Icons.business_center),
@@ -90,35 +93,36 @@ class HomeState extends State<Home> {
       ];
     } else {
       items = [
-        BottomNavigationBarItem(
-          icon: Icon(MyIcone.home_outline),
-          activeIcon: Icon(MyIcone.home),
-          title: Text("Accueil"),
-        ),
+
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today),
           activeIcon: Icon(MyIcone.calendar),
           title: Text("Mes rendez-vous"),
         ),
-        /*  BottomNavigationBarItem(
-          icon: Icon(Icons.format_list_bulleted),
-          activeIcon: Icon(Icons.playlist_add_check),
-          title: Text("Liste des Entreprises"),
-        )*/
+        BottomNavigationBarItem(
+          icon: Icon(MyIcone.home_outline),
+          activeIcon: Icon(MyIcone.home),
+          title: Text("Accueil"),
+        ),
+
       ];
     }
     return new Scaffold(
+
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent.withOpacity(0.8),
+        backgroundColor: const Color(0xFF3388FF).withOpacity(0.8),
         title: Text(title),
       ),
       body: PageView(
+
         controller: pageController,
         onPageChanged: onPageChanged,
+        
         children: <Widget>[
-          BasePage(widget.auth, user),
+
           MyAppointment() /*,MyAppointment(),*/,
-          BusinessListPage(widget.auth, user,"all")
+          BasePage(widget.auth, user),
+          MyAppointment(),
         ],
       ),
       bottomNavigationBar: new Theme(
@@ -127,7 +131,7 @@ class HomeState extends State<Home> {
             canvasColor: Colors.white,
             // sets the active color of the `BottomNavigationBar` if `Brightness` is light
             brightness: Brightness.light,
-            primaryColor: Colors.blueAccent.withOpacity(0.8),
+            primaryColor: const Color(0xFF3388FF).withOpacity(0.8),
             textTheme: Theme.of(context)
                 .textTheme
                 .copyWith(caption: new TextStyle(color: Colors.black45))),
@@ -141,8 +145,10 @@ class HomeState extends State<Home> {
       drawer: new Drawer(
           child: ListView(
         padding: EdgeInsets.zero,
+
         children: <Widget>[
           DrawerHeader(
+
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -181,13 +187,12 @@ class HomeState extends State<Home> {
               ],
             ),
             decoration: BoxDecoration(
-              color: Colors.blueAccent,
               gradient: LinearGradient(
                 begin: FractionalOffset.topCenter,
-                end: FractionalOffset.bottomLeft,
-                stops: [0.6, 1],
+                end: FractionalOffset.bottomCenter,
+                stops: [0.5, 1],
                 colors: <Color>[
-                  const Color(0xFF0000FF),
+                  const Color(0xFF3388FF),
                   const Color(0xFFFFFFFF),
                 ],
               ),
@@ -219,7 +224,7 @@ class HomeState extends State<Home> {
                   Scaffold(
                       appBar: AppBar(
                         title: Text("Liste des entreprises"),
-                        backgroundColor: Colors.blueAccent.withOpacity(0.8),
+                        backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                       ),
                       backgroundColor: globalVar.couleurPrimaire,
                       body:BusinessListPage(widget.auth, user,"all"))),);
@@ -246,12 +251,14 @@ class HomeState extends State<Home> {
 
   void onPageChanged(int page) {
     String temptitle = "";
+    this.page=page;
     switch (page) {
       case 0:
-        temptitle = "Accueil";
+        temptitle = "Mes rendez-vous";
+
         break;
       case 1:
-        temptitle = "Mes rendez-vous";
+        temptitle = "Accueil";
         break;
       /*case 2:
         temptitle = "Liste des entreprises";

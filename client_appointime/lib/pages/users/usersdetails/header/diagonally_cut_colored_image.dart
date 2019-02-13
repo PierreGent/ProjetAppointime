@@ -19,8 +19,8 @@ class DiagonallyCutColoredImage extends StatelessWidget {
             begin: FractionalOffset.bottomLeft,
             end: FractionalOffset.topCenter,
             colors: <Color>[
-              const Color(0xFF0000FF),
-              const Color(0xFF5555FF),
+              const Color(0xFF88CCFF),
+              const Color(0xFF3388FF),
             ],
           ),
         ),
