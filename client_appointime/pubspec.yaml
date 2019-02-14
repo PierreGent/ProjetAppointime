@@ -44,6 +44,8 @@ flutter:
   - images/profile_header_background.png
   - images/editAccount.png
   - images/myAccount.png
+  - images/mecano.jpg
+  - images/mecanoAvatar.jpg
   fonts:
    - family: MyIcone
      fonts:

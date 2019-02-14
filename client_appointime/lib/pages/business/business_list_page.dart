@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:client_appointime/pages/business/business.dart';
+import 'package:client_appointime/pages/business/businessdetails/business_details_page.dart';
 import 'package:client_appointime/pages/business/favorite.dart';
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/services/authentication.dart';
@@ -196,12 +197,14 @@ if (this.mounted) {
       if (favorite.businessId == business.id) isFavorite = true;
     });
     return Stack(
+
       children: <Widget>[
         ListTile(
+          onTap: () => _navigateToBusinessDetails(business, index),
           leading: new Hero(
             tag: index,
             child: new CircleAvatar(
-                // backgroundImage: new NetworkImage(friend.avatar),
+                 backgroundImage: AssetImage("images/mecanoAvatar.jpg"),
                 ),
           ),
           title: new Text(business.name),
@@ -218,7 +221,15 @@ if (this.mounted) {
       ],
     );
   }
-
+  void _navigateToBusinessDetails(Business business, Object avatarTag) {
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+        builder: (c) {
+          return new BusinessDetailsPage(business, avatarTag);
+        },
+      ),
+    );
+  }
   Widget _showCircularProgress() {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
