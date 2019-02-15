@@ -208,7 +208,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       decoration: InputDecoration(
                         prefixIcon: new Icon(Icons.business,
                             color: Color(0xFF3388FF).withOpacity(0.8)),
-                        hintText: "Nom de l'entreprise",
+                        labelText: "Nom de l'entreprise",
                         border: new OutlineInputBorder(
                           borderRadius: new BorderRadius.circular(8.0),
                         ),
@@ -236,7 +236,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: '\n\nDescription',
+                        labelText: 'Description',
                         prefixIcon: new Icon(
                           Icons.chrome_reader_mode,
                           color: Color(0xFF3388FF).withOpacity(0.8),
@@ -314,7 +314,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       autofocus: false,
                       keyboardType: TextInputType.number,
                       decoration: new InputDecoration(
-                        hintText:
+                        labelText:
                             'Nombre de jours pour l"annulation d\'un rendez vous',
                         prefixIcon: new Icon(
                           Icons.timer,
@@ -348,7 +348,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Numéro de siret',
+                        labelText: 'Numéro de siret',
                         prefixIcon: new Icon(
                           Icons.no_encryption,
                           color: Color(0xFF3388FF).withOpacity(0.8),
@@ -380,7 +380,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
-                        hintText: 'Adresse',
+                        labelText: 'Adresse',
                         prefixIcon: new Icon(
                           Icons.add_location,
                           color: Color(0xFF3388FF).withOpacity(0.8),
@@ -437,19 +437,30 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                 0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RaisedButton(
-                      child: Text("   Valider   "),
-                      onPressed: submit,
-                      color: Color(0xFF3388FF).withOpacity(0.8),
-                      textColor: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
+                  padding: EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 25),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      new Container(
+                        child: new SizedBox(
+                          child: RaisedButton(
+                            child: Text(
+                              "S'inscrire",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                            shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(8.0)),
+                            onPressed: submit,
+                            color: Color(0xFF3388FF).withOpacity(0.8),
+                          ),
+                          width: double.infinity,
+                          height: 55,
+                        ),
+                      ),
+                    ],
+                  )),
             ),
           ),
           _showErrorMessage(),
