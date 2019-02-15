@@ -111,6 +111,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
 
     return null;
   }
+
   String validatePhone(String value) {
     if (value.length != 10 && !(value is int)) {
       return 'Telephone invalide';
@@ -123,15 +124,16 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
     }
     return null;
   }
+
   Widget build(BuildContext context) {
     animationController.forward();
-    if(sectorActivityList==null || sectorActivityList.length<5)
+    if (sectorActivityList == null || sectorActivityList.length < 5)
       return Text("LOADING...");
     print(sectorActivityList);
     return Scaffold(
       appBar: AppBar(
         title: Text("Renseigner mon entreprise"),
-        backgroundColor: Colors.blueAccent.withOpacity(0.8),
+        backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
       ),
       backgroundColor: globalVar.couleurPrimaire,
       body: ModalProgressHUD(
@@ -168,20 +170,19 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   }
 
   Future loadJobs() async {
-    sectorActivityList=[];
+    sectorActivityList = [];
     await FirebaseDatabase.instance
         .reference()
         .child('activity')
         .once()
         .then((DataSnapshot snapshot) {
-          print(snapshot.value);
+      print(snapshot.value);
       Map<dynamic, dynamic> values = snapshot.value;
 
       values.forEach((k, v) async {
-        setState((){
+        setState(() {
           sectorActivityList.add(Activity.fromMap(k, v));
         });
-
       });
     });
   }
@@ -205,9 +206,12 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       maxLines: 1,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
+                        prefixIcon: new Icon(Icons.business,
+                            color: Color(0xFF3388FF).withOpacity(0.8)),
                         hintText: "Nom de l'entreprise",
-                        icon: new Icon(Icons.business,
-                            color: Colors.blueAccent.withOpacity(0.8)),
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(8.0),
+                        ),
                       ),
                       validator: validateLastName,
                       onSaved: (value) => name = value,
@@ -233,9 +237,12 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       autofocus: false,
                       decoration: new InputDecoration(
                         hintText: '\n\nDescription',
-                        icon: new Icon(
+                        prefixIcon: new Icon(
                           Icons.chrome_reader_mode,
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(8.0),
                         ),
                       ),
                       validator: validateDesc,
@@ -259,9 +266,12 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       builder: (FormFieldState state) {
                         return InputDecorator(
                           decoration: InputDecoration(
-                            icon:  Icon(Icons.work,
-                              color: Colors.blueAccent.withOpacity(0.8)),
+                            prefixIcon: Icon(Icons.work,
+                                color: Color(0xFF3388FF).withOpacity(0.8)),
                             labelText: 'Domaine d\'activité',
+                            border: new OutlineInputBorder(
+                              borderRadius: new BorderRadius.circular(8.0),
+                            ),
                           ),
                           child: new DropdownButtonHideUnderline(
                             child: new DropdownButton(
@@ -269,7 +279,6 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                               isDense: true,
                               onChanged: (newValue) {
                                 setState(() {
-
                                   activity = newValue;
                                 });
                               },
@@ -307,9 +316,12 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       decoration: new InputDecoration(
                         hintText:
                             'Nombre de jours pour l"annulation d\'un rendez vous',
-                        icon: new Icon(
+                        prefixIcon: new Icon(
                           Icons.timer,
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(8.0),
                         ),
                       ),
                       validator: validateCancelAppointment,
@@ -337,9 +349,12 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       autofocus: false,
                       decoration: new InputDecoration(
                         hintText: 'Numéro de siret',
-                        icon: new Icon(
+                        prefixIcon: new Icon(
                           Icons.no_encryption,
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(8.0),
                         ),
                       ),
                       validator: validateSiret,
@@ -366,9 +381,12 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       autofocus: false,
                       decoration: new InputDecoration(
                         hintText: 'Adresse',
-                        icon: new Icon(
+                        prefixIcon: new Icon(
                           Icons.add_location,
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(8.0),
                         ),
                       ),
                       validator: validateAddress,
@@ -392,28 +410,21 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                       autovalidate: autoValidate,
                       keyboardType: TextInputType.phone,
                       maxLines: 1,
-
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
                         labelText: 'Numéro de téléphone',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
+                          borderRadius: new BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(),
                         ),
-                        icon: new Icon(
+                        prefixIcon: new Icon(
                           Icons.phone,
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          color: Color(0xFF3388FF).withOpacity(0.8),
                         ),
                       ),
                       validator: validatePhone,
-                      style: new TextStyle(
-                        fontFamily: "Poppins",
-                        color: Color(0xFF000000),
-                        fontSize: 20,
-                      ),
                       onSaved: (value) => phone = value,
                     ),
                   ],
@@ -433,7 +444,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                     RaisedButton(
                       child: Text("   Valider   "),
                       onPressed: submit,
-                      color: Colors.blueAccent.withOpacity(0.8),
+                      color: Color(0xFF3388FF).withOpacity(0.8),
                       textColor: Colors.white,
                     ),
                   ],
@@ -505,7 +516,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
               'name': name,
               'boss': userId,
               'address': address,
-              'phoneNumber' : phone,
+              'phoneNumber': phone,
               'siret': siret,
               'description': description,
               'fieldOfActivity': activity,

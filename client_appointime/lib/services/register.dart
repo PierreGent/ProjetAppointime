@@ -94,11 +94,12 @@ class InscPageState extends State<InscPage>
             parent: animationController,
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
   }
-  void dispose(){
 
+  void dispose() {
     animationController.dispose();
     super.dispose();
   }
+
   Widget build(BuildContext context) {
     animationController.forward();
     return ModalProgressHUD(
@@ -156,7 +157,7 @@ class InscPageState extends State<InscPage>
                 Matrix4.translationValues(animation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.only(top:60,bottom:20),
+                padding: EdgeInsets.only(top: 50, bottom: 50),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -164,7 +165,7 @@ class InscPageState extends State<InscPage>
                     Text(
                       "Inscription",
                       style: TextStyle(
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          color: Color(0xFF3388FF).withOpacity(0.8),
                           fontWeight: FontWeight.bold,
                           fontSize: 40),
                     ),
@@ -178,7 +179,7 @@ class InscPageState extends State<InscPage>
                 delayedAnimation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -186,24 +187,17 @@ class InscPageState extends State<InscPage>
                       autovalidate: autoValidate,
                       maxLines: 1,
                       keyboardType: TextInputType.emailAddress,
-    decoration: new InputDecoration(
-    labelText: 'Email',
-    fillColor: Colors.white,
-    border: new OutlineInputBorder(
-    borderRadius: new BorderRadius.circular(25.0),
-    borderSide: new BorderSide(
-    ),
-    ),
-
-                        icon: new Icon(Icons.mail,
-                            color: Colors.blueAccent.withOpacity(0.8)),
+                      decoration: new InputDecoration(
+                        prefixIcon: new Icon(Icons.mail,
+                            color: Color(0xFF3388FF).withOpacity(0.8)),
+                        labelText: 'Email',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(),
+                        ),
                       ),
                       validator: validateEmail,
-                      style: new TextStyle(
-                        fontFamily: "Poppins",
-                        color: Color(0xFF000000),
-                        fontSize: 20,
-                      ),
                       onSaved: (value) => email = value,
                     ),
                   ],
@@ -216,7 +210,7 @@ class InscPageState extends State<InscPage>
                 muchDelayedAnimation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 35, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -227,16 +221,15 @@ class InscPageState extends State<InscPage>
                       obscureText: true,
                       autofocus: false,
                       decoration: new InputDecoration(
+                        prefixIcon: new Icon(
+                          Icons.lock,
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
                         labelText: 'Mot de passe',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
-                        ),
-                        icon: new Icon(
-                          Icons.lock,
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          borderRadius: new BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(),
                         ),
                       ),
                       validator: validatePass,
@@ -252,7 +245,7 @@ class InscPageState extends State<InscPage>
                 muchMuchDelayedAnimation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 35, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -262,20 +255,18 @@ class InscPageState extends State<InscPage>
                       obscureText: true,
                       autofocus: false,
                       decoration: new InputDecoration(
+                        prefixIcon: new Icon(
+                          Icons.beenhere,
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
                         labelText: 'Confirmation',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
-                        ),
-                        icon: new Icon(
-                          Icons.beenhere,
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          borderRadius: new BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(),
                         ),
                       ),
                       validator: (confirm) {
-                        print("ddskffskj");
                         if (passKey.currentState != null)
                           return validatePassConfirm(
                               confirm, passKey.currentState.value);
@@ -291,7 +282,7 @@ class InscPageState extends State<InscPage>
                 muchMuchMuchDelayedAnimation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 35, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -301,24 +292,18 @@ class InscPageState extends State<InscPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
+                        prefixIcon: new Icon(
+                          Icons.supervised_user_circle,
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
                         labelText: 'Prénom',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
-                        ),
-                        icon: new Icon(
-                          Icons.supervised_user_circle,
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          borderRadius: new BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(),
                         ),
                       ),
                       validator: validateFirstName,
-                      style: new TextStyle(
-                        fontFamily: "Poppins",
-                        color: Color(0xFF000000),
-                        fontSize: 20,
-                      ),
                       onSaved: (value) => firstName = value,
                     ),
                   ],
@@ -331,7 +316,7 @@ class InscPageState extends State<InscPage>
                 muchMuchMuchDelayedAnimation1.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 35, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -341,24 +326,19 @@ class InscPageState extends State<InscPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
+                        prefixIcon: new Icon(
+    Icons.supervised_user_circle,
+    color: Color(0xFF3388FF).withOpacity(0.8),
+    ),
                         labelText: 'Nom',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
+                          borderRadius: new BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(),
                         ),
-                        icon: new Icon(
-                          Icons.supervised_user_circle,
-                          color: Colors.blueAccent.withOpacity(0.8),
-                        ),
+
                       ),
                       validator: validateLastName,
-                      style: new TextStyle(
-                      fontFamily: "Poppins",
-                      color: Color(0xFF000000),
-                      fontSize: 20,
-                    ),
                       onSaved: (value) => lastName = value,
                     ),
                   ],
@@ -371,7 +351,7 @@ class InscPageState extends State<InscPage>
                 muchMuchMuchDelayedAnimation2.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 35, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -381,24 +361,19 @@ class InscPageState extends State<InscPage>
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
+                        prefixIcon: new Icon(
+                        Icons.add_location,
+                        color: Color(0xFF3388FF).withOpacity(0.8),
+                      ),
                         labelText: 'Adresse',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
+                          borderRadius: new BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(),
                         ),
-                        icon: new Icon(
-                          Icons.add_location,
-                          color: Colors.blueAccent.withOpacity(0.8),
-                        ),
+
                       ),
                       validator: validateAddress,
-                      style: new TextStyle(
-                        fontFamily: "Poppins",
-                        color: Color(0xFF000000),
-                        fontSize: 20,
-                      ),
                       onSaved: (value) => address = value,
                     ),
                   ],
@@ -411,7 +386,7 @@ class InscPageState extends State<InscPage>
                 muchMuchMuchDelayedAnimation3.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 35, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -419,28 +394,22 @@ class InscPageState extends State<InscPage>
                       autovalidate: autoValidate,
                       keyboardType: TextInputType.phone,
                       maxLines: 1,
-
                       obscureText: false,
                       autofocus: false,
                       decoration: new InputDecoration(
+                        prefixIcon: new Icon(
+                        Icons.phone,
+                        color: Color(0xFF3388FF).withOpacity(0.8),
+                      ),
                         labelText: 'Numéro de téléphone',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
+                          borderRadius: new BorderRadius.circular(8.0),
+                          borderSide: new BorderSide(),
                         ),
-                        icon: new Icon(
-                          Icons.phone,
-                          color: Colors.blueAccent.withOpacity(0.8),
-                        ),
+
                       ),
                       validator: validatePhone,
-                      style: new TextStyle(
-                        fontFamily: "Poppins",
-                        color: Color(0xFF000000),
-                        fontSize: 20,
-                      ),
                       onSaved: (value) => phone = value,
                     ),
                   ],
@@ -453,18 +422,17 @@ class InscPageState extends State<InscPage>
                 muchMuchMuchDelayedAnimation4.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 35, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     new CheckboxListTile(
-
                       title: Text(
-
                         "Cochez si vous etes professionnel",
-                        style: TextStyle(color: Colors.black54,),
+                        style: TextStyle(
+                          color: Colors.black54,
+                        ),
                       ),
-
                       value: isPro,
                       onChanged: (bool value) {
                         setState(() {
@@ -482,44 +450,55 @@ class InscPageState extends State<InscPage>
                 0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 25, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new ClipRRect(
-                      borderRadius:
-                      new BorderRadius.circular(30.0),
-                      child:
-                      new MaterialButton(
-                        minWidth: 140.0,
-                        color: Colors.green.withOpacity(0.8),
-                        textColor: Colors.white,
-                        onPressed: submit,
-                        child: new  Text("S'inscrire"),
+                    new Container(
+                      child: new SizedBox(
+                        child: RaisedButton(
+                          child: Text(
+                            "S'inscrire",
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(8.0)),
+                          onPressed: submit,
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
+                        width: double.infinity,
+                        height: 55,
                       ),
                     ),
-                    new ClipRRect(
-
-                      borderRadius:
-                      new BorderRadius.circular(30.0),
-                      child:
-                      MaterialButton(
-                        child: Text("Se connecter"),
-                        onPressed: () {
-                          globalVar.pageController.previousPage(
-                              duration: Duration(milliseconds: 300),
-                              curve: Curves.easeIn);
-                        },
-
-                        color: Colors.blueAccent.withOpacity(0.8),
-                        textColor: Colors.white,
-                        highlightColor: Colors.blueAccent.withOpacity(0.8),
-
+                    new Container(
+                      padding: EdgeInsets.only(top: 25, bottom: 25),
+                      child: new SizedBox(
+                        child: OutlineButton(
+                          child: Text(
+                            "Se connecter",
+                            style: TextStyle(
+                              color: Color(0xFF3388FF).withOpacity(0.8),
+                            ),
+                          ),
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(8.0)),
+                          onPressed: () {
+                            globalVar.pageController.previousPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.easeIn);
+                          },
+                          borderSide: BorderSide(
+                            color: Color(0xFF3388FF).withOpacity(0.8),
+                            style: BorderStyle.solid,
+                            width: 2, //width of the border
+                          ),
+                        ),
+                        width: double.infinity,
+                        height: 55,
                       ),
                     ),
-
-
-
                   ],
                 ),
               ),

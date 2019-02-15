@@ -59,11 +59,12 @@ class ConnectPageState extends State<ConnectPage>
             parent: animationController,
             curve: Interval(0.6, 1.0, curve: Curves.fastOutSlowIn)));
   }
-  void dispose(){
 
+  void dispose() {
     animationController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     animationController.forward();
@@ -102,18 +103,17 @@ class ConnectPageState extends State<ConnectPage>
                 Matrix4.translationValues(animation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.only(top: 110,bottom: 75),
+                padding: EdgeInsets.only(top: 50, bottom: 40),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-
                     Text(
                       "Connexion",
                       style: TextStyle(
-                          color: Color(0xFF3388FF),
+                          color: Color(0xFF3388FF).withOpacity(0.8),
                           fontWeight: FontWeight.bold,
-                          fontSize: 50),
+                          fontSize: 45),
                     ),
                   ],
                 ),
@@ -125,7 +125,7 @@ class ConnectPageState extends State<ConnectPage>
                 delayedAnimation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.only(left: 35,right: 35),
+                padding: EdgeInsets.only(left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -134,22 +134,14 @@ class ConnectPageState extends State<ConnectPage>
                       maxLines: 1,
                       keyboardType: TextInputType.emailAddress,
                       decoration: new InputDecoration(
+                        prefixIcon: new Icon(Icons.mail, color: Color(0xFF3388FF).withOpacity(0.8)),
                         labelText: 'Email',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
+                          borderRadius: new BorderRadius.circular(8.0),
                         ),
-                        icon: new Icon(Icons.mail,
-                            color: Colors.blueAccent.withOpacity(0.8)),
                       ),
                       validator: validateEmail,
-                      style: new TextStyle(
-                        fontFamily: "Poppins",
-                        color: Color(0xFF000000),
-                        fontSize: 20,
-                      ),
                       onSaved: (value) => email = value,
                     ),
                   ],
@@ -162,27 +154,24 @@ class ConnectPageState extends State<ConnectPage>
                 muchDelayedAnimation.value * width, 0.0, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.only(top:25,left: 35,right: 35),
+                padding: EdgeInsets.only(top: 35, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     new TextFormField(
-
                       autovalidate: autoValidate,
                       maxLines: 1,
                       obscureText: true,
                       autofocus: false,
                       decoration: new InputDecoration(
+                        prefixIcon: new Icon(
+                          Icons.lock,
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
                         labelText: 'Mot de passe',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
-                          borderRadius: new BorderRadius.circular(25.0),
-                          borderSide: new BorderSide(
-                          ),
-                        ),
-                        icon: new Icon(
-                          Icons.lock,
-                          color: Colors.blueAccent.withOpacity(0.8),
+                          borderRadius: new BorderRadius.circular(8.0),
                         ),
                       ),
                       validator: (value) => value.isEmpty
@@ -200,43 +189,55 @@ class ConnectPageState extends State<ConnectPage>
                 0.0, muchMuchDelayedAnimation.value * width, 0.0),
             child: new Center(
               child: Container(
-                padding: EdgeInsets.all(25),
+                padding: EdgeInsets.only(top: 25, left: 25, right: 25),
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-    new ClipRRect(
-    borderRadius:
-    new BorderRadius.circular(30.0),
-    child:
-    new MaterialButton(
-                      minWidth: 140.0,
-                      color: Colors.green.withOpacity(0.8),
-                      textColor: Colors.white,
-                      onPressed: submit,
-                      child: new Text('Se connecter'),
+                    new Container(
+                      child: new SizedBox(
+                        child: RaisedButton(
+                          child: Text(
+                            'Se connecter',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(8.0)),
+                          onPressed: submit,
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
+                        width: double.infinity,
+                        height: 55,
+                      ),
                     ),
-    ),
-    new ClipRRect(
-
-      borderRadius:
-      new BorderRadius.circular(30.0),
-      child:
-      MaterialButton(
-        child: Text("   S'inscrire    "),
-        onPressed: () {
-          globalVar.pageController.nextPage(
-              duration: Duration(milliseconds: 300),
-              curve: Curves.easeIn);
-        },
-
-        color: Colors.blueAccent.withOpacity(0.8),
-        textColor: Colors.white,
-        highlightColor: Colors.blueAccent.withOpacity(0.8),
-
-      ),
-    ),
-
-
+                    new Container(
+                      padding: EdgeInsets.only(top: 25, bottom: 25),
+                      child: new SizedBox(
+                        child: OutlineButton(
+                          child: Text(
+                            'S\'inscrire',
+                            style: TextStyle(
+                              color: Color(0xFF3388FF).withOpacity(0.8),
+                            ),
+                          ),
+                          shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(8.0)),
+                          onPressed: () {
+                            globalVar.pageController.nextPage(
+                                duration: Duration(milliseconds: 300),
+                                curve: Curves.easeIn);
+                          },
+                          borderSide: BorderSide(
+                            color: Color(0xFF3388FF).withOpacity(0.8),
+                            style: BorderStyle.solid,
+                            width: 2, //width of the border
+                          ),
+                        ),
+                        width: double.infinity,
+                        height: 55,
+                      ),
+                    ),
                   ],
                 ),
               ),

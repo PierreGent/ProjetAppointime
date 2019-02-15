@@ -1,0 +1,4 @@
+#Mon Jan 28 21:20:31 CET 2019
+base.0=/Users/gentile/AndroidStudioProjects/client_appointime/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
