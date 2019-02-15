@@ -63,9 +63,12 @@ Future<bool> isSiretUsed(String value) async {
   return false;
 }
 Future<bool> isPhoneUsed(String value) async {
-  final businessDetails = FirebaseDatabase.instance.reference().child('users');
-  DataSnapshot datas = await businessDetails.orderByChild("phoneNumber").equalTo(value).once();
+
+  DataSnapshot datas = await  FirebaseDatabase.instance.reference().child('users').orderByChild("phoneNumber").equalTo(value).once();
   print(datas.value);
+  if(datas.value!=null)
+    return true;
+   datas = await  FirebaseDatabase.instance.reference().child('business').orderByChild("phoneNumber").equalTo(value).once();
   if(datas.value!=null)
     return true;
   return false;

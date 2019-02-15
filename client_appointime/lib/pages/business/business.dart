@@ -2,22 +2,27 @@ import 'package:meta/meta.dart';
 
 class Business {
   Business({
-    this.avatar,
     @required this.id,
     @required this.name,
     @required this.address,
+    @required this.phoneNumber,
     @required this.cancelAppointment,
     @required this.fieldOfActivity,
     @required this.description,
+    @required this.avatarUrl,
+    @required this.bannerUrl
   });
 
-  String avatar;
   final String id;
   final String name;
   final String address;
+  final String phoneNumber;
   final int cancelAppointment;
   final String fieldOfActivity;
   final String description;
+  final String avatarUrl;
+  final String bannerUrl;
+
 
   static Business fromMap(String idBusiness, Map map) {
     return new Business(
@@ -25,9 +30,12 @@ class Business {
       id: idBusiness,
       name: '${_capitalize(map['name'])}',
       address: map['address'],
+      phoneNumber: map['phoneNumber'],
       description: map['description'],
       cancelAppointment: map['cancelAppointment'],
-      fieldOfActivity: map['fieldOfActivity'],
+      fieldOfActivity: map['fieldOfActivity'].toString(),
+      avatarUrl: map['avatarUrl'],
+      bannerUrl: map['bannerUrl'],
     );
   }
 

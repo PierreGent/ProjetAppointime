@@ -4,6 +4,7 @@ import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/businessdetails/business_details_page.dart';
 import 'package:client_appointime/pages/business/favorite.dart';
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/services/activity.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -22,6 +23,7 @@ class BusinessListPage extends StatefulWidget {
 
 class _BusinessListPageState extends State<BusinessListPage> {
   bool _isLoading = false;
+  List<Activity> sectorActivityList;
   List<Business> _business = [];
   FirebaseUser getInfosUser;
 
@@ -30,9 +32,28 @@ class _BusinessListPageState extends State<BusinessListPage> {
     super.initState();
 
     _isLoading = false;
+    loadJobs();
       _loadFavorite();
     if(widget.type=="all")
       _loadBusiness();
+  }
+  Future loadJobs() async {
+    sectorActivityList=[];
+    await FirebaseDatabase.instance
+        .reference()
+        .child('activity')
+        .once()
+        .then((DataSnapshot snapshot) {
+      print(snapshot.value);
+      Map<dynamic, dynamic> values = snapshot.value;
+
+      values.forEach((k, v) async {
+        setState((){
+          sectorActivityList.add(Activity.fromMap(k, v));
+        });
+
+      });
+    });
   }
 
 //Chargement des entreprises
@@ -49,7 +70,10 @@ if (this.mounted) {
           .once()
           .then((DataSnapshot snapshot) {
         Map<dynamic, dynamic> values = snapshot.value;
+        if(values==null)
+          return;
         values.forEach((k, v) async {
+
           if(widget.type=="all") {
             if (this.mounted) {
               setState(() {
@@ -88,9 +112,10 @@ if (this.mounted) {
         .child('business')
         .child(id)
         .once()
-        .then((DataSnapshot result) {
+        .then((DataSnapshot result) async {
       Map<dynamic, dynamic> values = result.value;
       if (this.mounted) {
+
         setState(() {
           business = Business.fromMap(id, values);
         });
@@ -196,6 +221,7 @@ if (this.mounted) {
     widget.user.favorite.forEach((favorite) {
       if (favorite.businessId == business.id) isFavorite = true;
     });
+
     return Stack(
 
       children: <Widget>[
@@ -204,7 +230,7 @@ if (this.mounted) {
           leading: new Hero(
             tag: index,
             child: new CircleAvatar(
-                 backgroundImage: AssetImage("images/mecanoAvatar.jpg"),
+                 backgroundImage: NetworkImage(business.avatarUrl),
                 ),
           ),
           title: new Text(business.name),
@@ -225,7 +251,7 @@ if (this.mounted) {
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (c) {
-          return new BusinessDetailsPage(business, avatarTag);
+          return new BusinessDetailsPage(business, avatarTag,sectorActivityList);
         },
       ),
     );

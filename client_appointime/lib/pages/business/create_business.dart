@@ -1,7 +1,9 @@
 import 'package:client_appointime/globalVar.dart' as globalVar;
+import 'package:client_appointime/services/activity.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:client_appointime/validation.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
@@ -39,6 +41,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   bool _isInAsyncCall = false;
   bool _isSiretUsed = false;
   bool started = false;
+  bool _isPhoneUsed = false;
   String name;
   String description;
   String errorMessage;
@@ -46,10 +49,13 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   int cancelAppointment;
   String siret;
   String address;
+  String phone;
   bool _isLoading;
+  List<Activity> sectorActivityList;
 
   void initState() {
     super.initState();
+    loadJobs();
     _isLoading = false;
 
     errorMessage = "";
@@ -105,9 +111,23 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
 
     return null;
   }
+  String validatePhone(String value) {
+    if (value.length != 10 && !(value is int)) {
+      return 'Telephone invalide';
+    }
 
+    if (_isPhoneUsed) {
+      // disable message until after next async call
+      _isPhoneUsed = false;
+      return 'Numéro déjâ utilisé';
+    }
+    return null;
+  }
   Widget build(BuildContext context) {
     animationController.forward();
+    if(sectorActivityList==null || sectorActivityList.length<5)
+      return Text("LOADING...");
+    print(sectorActivityList);
     return Scaffold(
       appBar: AppBar(
         title: Text("Renseigner mon entreprise"),
@@ -145,6 +165,25 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
       height: 0.0,
       width: 0.0,
     );
+  }
+
+  Future loadJobs() async {
+    sectorActivityList=[];
+    await FirebaseDatabase.instance
+        .reference()
+        .child('activity')
+        .once()
+        .then((DataSnapshot snapshot) {
+          print(snapshot.value);
+      Map<dynamic, dynamic> values = snapshot.value;
+
+      values.forEach((k, v) async {
+        setState((){
+          sectorActivityList.add(Activity.fromMap(k, v));
+        });
+
+      });
+    });
   }
 
   Widget formUI() {
@@ -216,20 +255,34 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                 child: new Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    new TextFormField(
-                      autovalidate: autoValidate,
-                      maxLines: 1,
-                      obscureText: false,
-                      autofocus: false,
-                      decoration: new InputDecoration(
-                        hintText: 'Domaine d\'activité',
-                        icon: new Icon(
-                          Icons.work,
-                          color: Colors.blueAccent.withOpacity(0.8),
-                        ),
-                      ),
-                      validator: validateFirstName,
-                      onSaved: (value) => activity = value,
+                    new FormField(
+                      builder: (FormFieldState state) {
+                        return InputDecorator(
+                          decoration: InputDecoration(
+                            icon:  Icon(Icons.work,
+                              color: Colors.blueAccent.withOpacity(0.8)),
+                            labelText: 'Domaine d\'activité',
+                          ),
+                          child: new DropdownButtonHideUnderline(
+                            child: new DropdownButton(
+                              value: activity,
+                              isDense: true,
+                              onChanged: (newValue) {
+                                setState(() {
+
+                                  activity = newValue;
+                                });
+                              },
+                              items: sectorActivityList.map((value) {
+                                return new DropdownMenuItem<String>(
+                                  value: value.id,
+                                  child: new Text(value.name),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -328,6 +381,48 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
           ),
           Transform(
             transform: Matrix4.translationValues(
+                muchMuchMuchDelayedAnimation3.value * width, 0.0, 0.0),
+            child: new Center(
+              child: Container(
+                padding: EdgeInsets.all(25),
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new TextFormField(
+                      autovalidate: autoValidate,
+                      keyboardType: TextInputType.phone,
+                      maxLines: 1,
+
+                      obscureText: false,
+                      autofocus: false,
+                      decoration: new InputDecoration(
+                        labelText: 'Numéro de téléphone',
+                        fillColor: Colors.white,
+                        border: new OutlineInputBorder(
+                          borderRadius: new BorderRadius.circular(25.0),
+                          borderSide: new BorderSide(
+                          ),
+                        ),
+                        icon: new Icon(
+                          Icons.phone,
+                          color: Colors.blueAccent.withOpacity(0.8),
+                        ),
+                      ),
+                      validator: validatePhone,
+                      style: new TextStyle(
+                        fontFamily: "Poppins",
+                        color: Color(0xFF000000),
+                        fontSize: 20,
+                      ),
+                      onSaved: (value) => phone = value,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Transform(
+            transform: Matrix4.translationValues(
                 0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
             child: new Center(
               child: Container(
@@ -389,22 +484,34 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
         _isInAsyncCall = true;
       });
       Future.delayed(Duration(seconds: 1), () async {
+        _isPhoneUsed = await isPhoneUsed(phone);
         _isSiretUsed = await isSiretUsed(siret);
 
         setState(() {
           _isInAsyncCall = false;
         });
 
-        if (!_isSiretUsed) {
+        if (!_isSiretUsed && !_isPhoneUsed) {
           try {
+            var banner = await FirebaseStorage.instance
+                .ref()
+                .child(activity.toString() + '.jpg')
+                .getDownloadURL() as String;
+            var avatar = await FirebaseStorage.instance
+                .ref()
+                .child(activity.toString() + 'Avatar.jpg')
+                .getDownloadURL() as String;
             businessDetails.push().set({
               'name': name,
               'boss': userId,
               'address': address,
+              'phoneNumber' : phone,
               'siret': siret,
               'description': description,
               'fieldOfActivity': activity,
-              'cancelAppointment': cancelAppointment
+              'cancelAppointment': cancelAppointment,
+              'bannerUrl': banner,
+              'avatarUrl': avatar
             });
           } catch (e) {
             print('Error: $e');
