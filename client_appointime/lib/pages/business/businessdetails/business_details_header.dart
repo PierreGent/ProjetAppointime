@@ -52,7 +52,7 @@ final Activity activity;
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 140.0),
+          padding: const EdgeInsets.only(bottom: 100.0),
 
           child: Hero(
             tag: avatarTag,

@@ -128,7 +128,11 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
   Widget build(BuildContext context) {
     animationController.forward();
     if (sectorActivityList == null || sectorActivityList.length < 5)
-      return Text("LOADING...");
+      return new Center(
+        child:Container(
+            child:CircularProgressIndicator()
+        ),
+      );
     print(sectorActivityList);
     return Scaffold(
       appBar: AppBar(

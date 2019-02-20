@@ -1,6 +1,7 @@
 import 'package:client_appointime/pages/base_page.dart';
 import 'package:client_appointime/pages/business/business_list_page.dart';
 import 'package:client_appointime/pages/business/create_business.dart';
+import 'package:client_appointime/pages/business/my_business.dart';
 import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/globalVar.dart' as globalVar;
@@ -122,7 +123,7 @@ class HomeState extends State<Home> {
 
           MyAppointment() /*,MyAppointment(),*/,
           BasePage(widget.auth, user),
-          MyAppointment(),
+          MyBusiness(auth:widget.auth,userId:widget.userId,onSignedOut:widget.onSignedOut),
         ],
       ),
       bottomNavigationBar: new Theme(
@@ -199,7 +200,7 @@ class HomeState extends State<Home> {
               ),
             ),
           ),
-          ListTile(
+       /*   ListTile(
             title: Text(
               "Je suis un professionnel",
               style: TextStyle(color: Colors.black54),
@@ -211,7 +212,7 @@ class HomeState extends State<Home> {
                       builder: (context) =>
                           CreateBusinessPage(auth: widget.auth)));
             },
-          ),
+          ),*/
           ListTile(
             title: Text(
               "Liste des entreprises",

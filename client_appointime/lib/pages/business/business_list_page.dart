@@ -269,7 +269,42 @@ if (this.mounted) {
   @override
   Widget build(BuildContext context) {
     Widget content;
+if(_business.length<1 && widget.type=="favorite"){
+  return new Center(
+    child: Container(
+      padding: EdgeInsets.all(25),
+      child: new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text("Vous ne possedez pas de favoris"),
+          new ClipRRect(
+            borderRadius:
+            new BorderRadius.circular(30.0),
+            child: new MaterialButton(
+              minWidth: 140.0,
+              color: Colors.green.withOpacity(0.8),
+              textColor: Colors.white,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          Scaffold(
+                              appBar: AppBar(
+                                title: Text("Liste des entreprises"),
+                                backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
+                              ),
+                              body:BusinessListPage(widget.auth, widget.user,"all"))),);
+              },
+              child: new Text('Voir la liste des entreprises'),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 
+}
     content = new ListView.builder(
       itemCount: _business.length,
       itemBuilder: _buildBusinessListTile,

@@ -26,6 +26,7 @@ class BasePageState extends State<BasePage> {
         child: Text("loading"),
       );
     }
+
    return new Scaffold(
 
         backgroundColor: globalVar.couleurPrimaire,
