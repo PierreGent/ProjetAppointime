@@ -13,12 +13,12 @@ class MyBusiness extends StatefulWidget {
   final BaseAuth auth;
   final VoidCallback onSignedOut;
   final String userId;
-
   State<StatefulWidget> createState() => new MyBusinessState();
 }
 
 class MyBusinessState extends State<MyBusiness> {
   Business business;
+  bool isLoading=false;
   List<Activity> sectorActivityList;
   void initState() {
     super.initState();
@@ -27,6 +27,7 @@ class MyBusinessState extends State<MyBusiness> {
   }
 
   Future MyBusiness() async {
+    isLoading=true;
     FirebaseDatabase.instance.reference().child('business').orderByChild("boss")
         .equalTo(widget.userId).once()
         .then((DataSnapshot snapshot) {
@@ -41,8 +42,10 @@ class MyBusinessState extends State<MyBusiness> {
         }
       });
     });
+    isLoading=false;
   }
   Future loadJobs() async {
+    isLoading=true;
     sectorActivityList=[];
     await FirebaseDatabase.instance
         .reference()
@@ -59,10 +62,13 @@ class MyBusinessState extends State<MyBusiness> {
 
       });
     });
+    isLoading=false;
   }
+
+
   @override
   Widget build(BuildContext context) {
-    if (!(sectorActivityList == [])) {
+    if (!isLoading) {
       if (this.business == null) {
        return
          new Center(
@@ -97,7 +103,7 @@ class MyBusinessState extends State<MyBusiness> {
         return BusinessDetailsPage(this.business, -1, this.sectorActivityList);
     }
     return new Center(
-      child:Text("LOADING..."),
+      child:CircularProgressIndicator(),
 
     );
   }

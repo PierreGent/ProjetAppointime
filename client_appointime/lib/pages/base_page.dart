@@ -23,7 +23,7 @@ class BasePageState extends State<BasePage> {
   Widget build(BuildContext context) {
     if (widget.user == null) {
       return Container(
-        child: Text("loading"),
+        child: CircularProgressIndicator(),
       );
     }
 

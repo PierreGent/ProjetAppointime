@@ -268,6 +268,10 @@ if (this.mounted) {
 
   @override
   Widget build(BuildContext context) {
+    if(_isLoading)
+      return  new Center(
+          child: CircularProgressIndicator(),
+      );
     Widget content;
 if(_business.length<1 && widget.type=="favorite"){
   return new Center(
