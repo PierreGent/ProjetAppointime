@@ -12,6 +12,16 @@ String validateEmail(String value) {
     return null;
 }
 
+//VALIDATION NOM
+
+String validateName(String value){
+  if(value.isEmpty || value == null){
+    return 'Le nom ne peut pas être vide';
+  }
+
+  return null;
+}
+
 //VALIDATION DU MOT DE PASSE (INSCRIPTION)
 
 String validatePass(String value){
@@ -114,7 +124,7 @@ String validateDesc(String value){
 //VALIDATION DUE LADRESSE (INSCRIPTION)
 String validateAddress(String value){
   if(value.isEmpty || value == null){
-    return 'Le Nom ne peut pas être vide';
+    return 'L\'addresse ne peut pas être vide';
   }
 
   return null;
@@ -128,4 +138,16 @@ String validatePassConfirm(String value1,String value2){
   return null;
 }
 
+//VALIDATION PRIX
+
+String validatePrice(String value){
+  RegExp regex = new RegExp("^\$|^(0|([1-9][0-9]{0,3}))(\\.[0-9]{2,2})?\$");
+  if(value == null || value==""){
+    return "Le champ ne doit pas être vide";
+  }
+  if(!regex.hasMatch(value)){
+    return "Le prix doit être de la forme XXXX.XX";
+  }
+  return null;
+}
 
