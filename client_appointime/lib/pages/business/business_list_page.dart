@@ -251,7 +251,7 @@ if (this.mounted) {
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (c) {
-          return new BusinessDetailsPage(business, avatarTag,sectorActivityList);
+          return new BusinessDetailsPage(business, avatarTag,sectorActivityList,false);
         },
       ),
     );

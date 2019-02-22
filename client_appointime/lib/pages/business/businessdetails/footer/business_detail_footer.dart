@@ -7,9 +7,10 @@ import 'package:client_appointime/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 class BusinessShowcase extends StatefulWidget {
-  BusinessShowcase(this.business);
+  BusinessShowcase(this.business,this.edit);
 
   final Business business;
+  final bool edit;
 
   @override
   _BusinessShowcaseState createState() => new _BusinessShowcaseState();
@@ -31,7 +32,7 @@ class _BusinessShowcaseState extends State<BusinessShowcase>
     ];
     _pages = [
       new DetailsShowcase(widget.business),
-      new PrestationsShowcase(widget.business),
+      new PrestationsShowcase(widget.business,widget.edit),
       new ConditionsShowcase(widget.business),
     ];
     _controller = new TabController(

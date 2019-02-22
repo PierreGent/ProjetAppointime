@@ -100,7 +100,7 @@ class MyBusinessState extends State<MyBusiness> {
              ),
            );
       } else
-        return BusinessDetailsPage(this.business, -1, this.sectorActivityList);
+        return BusinessDetailsPage(this.business, -1, this.sectorActivityList,true);
     }
     return new Center(
       child:CircularProgressIndicator(),

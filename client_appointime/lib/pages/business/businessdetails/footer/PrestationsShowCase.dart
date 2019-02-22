@@ -2,15 +2,17 @@ import 'package:client_appointime/pages/business/business.dart';
 import 'package:flutter/material.dart';
 
 class PrestationsShowcase extends StatefulWidget {
-  PrestationsShowcase(this.business);
+  PrestationsShowcase(this.business,this.edit);
   Business business;
+  final bool edit;
 
   PrestationsShowcaseState createState() => PrestationsShowcaseState();
 }
 
+
 class PrestationsShowcaseState extends State<PrestationsShowcase> {
-  double sliderValue = 5;
-  Widget build(BuildContext context) {
+  Widget showForm(){
+    double sliderValue = 5;
     return new Stack(
       children: <Widget>[
         Container(
@@ -69,7 +71,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
                                 '${sliderValue.toInt() % 60}' +
                                 " minutes",
                             style:
-                                TextStyle(color: Colors.black45, fontSize: 20),
+                            TextStyle(color: Colors.black45, fontSize: 20),
                           ),
                         ],
                       ),
@@ -133,5 +135,15 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
         ),
       ],
     );
+  }
+
+
+  Widget build(BuildContext context) {
+    if(widget.edit)
+      return showForm();
+    else
+      return new Center(
+        child: Text("SHOWPRESTA")
+      );
   }
 }

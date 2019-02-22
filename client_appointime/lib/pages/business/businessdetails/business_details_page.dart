@@ -5,9 +5,10 @@ import 'package:client_appointime/services/activity.dart';
 import 'package:flutter/material.dart';
 
 class BusinessDetailsPage extends StatelessWidget {
-  BusinessDetailsPage(this.business,this.avatarTag,this.sectorActivityList);
+  BusinessDetailsPage(this.business,this.avatarTag,this.sectorActivityList,this.edit);
   final Business business;
   final Object avatarTag;
+  final bool edit;
   final List<Activity> sectorActivityList;
 Activity getActivity(){
   Activity activityToReturn;
@@ -27,7 +28,7 @@ Widget showDetails(){
             BusinessDetailHeader(business, avatarTag, getActivity()),
             Padding(
               padding: const EdgeInsets.all(5.0),
-              child: BusinessShowcase(this.business),
+              child: BusinessShowcase(this.business,this.edit),
               // child: Storyline(movie.storyline),
             ),
             /* PhotoScroller(movie.photoUrls),
@@ -50,7 +51,7 @@ Widget showDetails(){
             BusinessDetailHeader(business, avatarTag, getActivity()),
             Padding(
               padding: const EdgeInsets.all(5.0),
-              child: BusinessShowcase(this.business),
+              child: BusinessShowcase(this.business,this.edit),
               // child: Storyline(movie.storyline),
             ),
             /* PhotoScroller(movie.photoUrls),
