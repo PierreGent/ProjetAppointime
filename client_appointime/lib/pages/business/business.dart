@@ -1,3 +1,4 @@
+import 'package:client_appointime/pages/business/prestation.dart';
 import 'package:meta/meta.dart';
 
 class Business {
@@ -10,7 +11,8 @@ class Business {
     @required this.fieldOfActivity,
     @required this.description,
     @required this.avatarUrl,
-    @required this.bannerUrl
+    @required this.bannerUrl,
+    @required this.prestation
   });
 
   final String id;
@@ -22,6 +24,7 @@ class Business {
   final String description;
   final String avatarUrl;
   final String bannerUrl;
+  List<Prestation> prestation;
 
 
   static Business fromMap(String idBusiness, Map map) {
@@ -36,6 +39,7 @@ class Business {
       fieldOfActivity: map['fieldOfActivity'].toString(),
       avatarUrl: map['avatarUrl'],
       bannerUrl: map['bannerUrl'],
+      prestation: [],
     );
   }
 

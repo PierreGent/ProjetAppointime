@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:client_appointime/validation.dart';
+import 'package:client_appointime/pages/business/prestation.dart';
 
 class PrestationsShowcase extends StatefulWidget {
   PrestationsShowcase(this.business, this.edit);
@@ -14,6 +15,9 @@ class PrestationsShowcase extends StatefulWidget {
 }
 
 class PrestationsShowcaseState extends State<PrestationsShowcase> {
+
+  List<Prestation> prestation = [];
+
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool autoValidate = false;
   String namePresta;
@@ -25,6 +29,13 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
   bool isLoading;
 
   final format = new NumberFormat("00");
+
+  void initState() {
+    super.initState();
+
+   loadPresta();
+  }
+
 
   Widget showForm() {
     return new Form(
@@ -168,11 +179,64 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
   }
 
   Widget build(BuildContext context) {
+    print(widget.business.prestation);
     if (widget.edit)
       return showForm();
     else
-      return new Center(child: Text("SHOWPRESTA"));
+      return new ListView.builder(
+        itemCount: widget.business.prestation.length,
+        itemBuilder: buildPrestaListTile,
+      );
   }
+
+  Future<void> loadPresta() async {
+
+    print(widget.business);
+    prestation = [];
+
+
+    widget.business.prestation = [];
+    var buisness = await widget.business;
+    await FirebaseDatabase.instance
+        .reference()
+        .child('prestation')
+        .once()
+        .then((DataSnapshot snapshot) {
+      //Pour chaque prestation disponnible en bdd
+      Map<dynamic, dynamic> values = snapshot.value;
+      if (values != null)
+        values.forEach((k, v) async {
+          //Si il concerne l'utilisateur connecté on l'ajoute a la liste
+          if (v["buisnessId"] == widget.business.id) if (this.mounted) {
+
+            setState(() {
+              widget.business.prestation.add(Prestation.fromMap(k, v));
+              prestation.add(Prestation.fromMap(k, v));
+            });
+          }
+        });
+    });
+  }
+
+  Widget buildPrestaListTile(BuildContext context, int index) {
+    Prestation presta = prestation[index];
+    print(presta.namePresta);
+    return Stack(
+      children: <Widget>[
+        ListTile(
+          //onTap: () => _navigateToBusinessDetails(business, index),
+          title: new Text(presta.namePresta),
+          subtitle: new Text("Durée : " +presta.duration.toString()),
+          trailing: Container(
+            padding: EdgeInsets.all(10),
+            child: Text("Prix : " + presta.price.toString()),
+          ),
+        ),
+      ],
+    );
+  }
+
+
 
   submit() async {
 
@@ -195,7 +259,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
         'name':namePresta,
         'description':description,
         'duration':duration,
-        'price':price,
+        'price': price.toDouble(),
       });
     } else {
       setState(() => autoValidate = true);

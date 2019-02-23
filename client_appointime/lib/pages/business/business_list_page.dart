@@ -11,7 +11,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class BusinessListPage extends StatefulWidget {
-  BusinessListPage(this.auth, this.user,this.type);
+  BusinessListPage(this.auth, this.user, this.type);
 
   final User user;
   final BaseAuth auth;
@@ -33,12 +33,12 @@ class _BusinessListPageState extends State<BusinessListPage> {
 
     _isLoading = false;
     loadJobs();
-      _loadFavorite();
-    if(widget.type=="all")
-      _loadBusiness();
+    _loadFavorite();
+    if (widget.type == "all") _loadBusiness();
   }
+
   Future loadJobs() async {
-    sectorActivityList=[];
+    sectorActivityList = [];
     await FirebaseDatabase.instance
         .reference()
         .child('activity')
@@ -48,60 +48,55 @@ class _BusinessListPageState extends State<BusinessListPage> {
       Map<dynamic, dynamic> values = snapshot.value;
 
       values.forEach((k, v) async {
-        setState((){
+        setState(() {
           sectorActivityList.add(Activity.fromMap(k, v));
         });
-
       });
     });
   }
 
 //Chargement des entreprises
   Future<void> _loadBusiness() async {
-_business=[];
-if (this.mounted) {
-  setState(() {
-    _isLoading = true;
-  });
-}
-      await FirebaseDatabase.instance
-          .reference()
-          .child('business')
-          .once()
-          .then((DataSnapshot snapshot) {
-        Map<dynamic, dynamic> values = snapshot.value;
-        if(values==null)
-          return;
-        values.forEach((k, v) async {
-
-          if(widget.type=="all") {
-            if (this.mounted) {
-              setState(() {
-                this._business.add(Business.fromMap(k, v));
-              });
-            }
-          }else{
-print( widget.user.favorite);
-            widget.user.favorite.forEach((f) {
-              print(k+"     "+f.businessId);
-              if(f.businessId==k) {
-                if (this.mounted) {
-                  setState(() {
-                    this._business.add(Business.fromMap(k, v));
-                  });
-                }
-              }
-            });
-
-          }
-        });
+    _business = [];
+    if (this.mounted) {
+      setState(() {
+        _isLoading = true;
       });
-if (this.mounted) {
-  setState(() {
-    _isLoading = false;
-  });
-}
-
+    }
+    await FirebaseDatabase.instance
+        .reference()
+        .child('business')
+        .once()
+        .then((DataSnapshot snapshot) {
+      Map<dynamic, dynamic> values = snapshot.value;
+      if (values == null) return;
+      values.forEach((k, v) async {
+        if (widget.type == "all") {
+          if (this.mounted) {
+            setState(() {
+              this._business.add(Business.fromMap(k, v));
+            });
+          }
+        } else {
+          print(widget.user.favorite);
+          widget.user.favorite.forEach((f) {
+            print(k + "     " + f.businessId);
+            if (f.businessId == k) {
+              if (this.mounted) {
+                setState(() {
+                  this._business.add(Business.fromMap(k, v));
+                });
+              }
+            }
+          });
+        }
+      });
+    });
+    if (this.mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
 //Chargement d'une entreprise par id
@@ -115,7 +110,6 @@ if (this.mounted) {
         .then((DataSnapshot result) async {
       Map<dynamic, dynamic> values = result.value;
       if (this.mounted) {
-
         setState(() {
           business = Business.fromMap(id, values);
         });
@@ -143,12 +137,11 @@ if (this.mounted) {
       if (values != null)
         values.forEach((k, v) async {
           //Si il concerne l'utilisateur connecté on l'ajoute a la liste
-          if (v["user"] == getInfosUser.uid)
-            if (this.mounted) {
-              setState(() {
-                widget.user.favorite.add(Favorite.fromMap(k, v));
-              });
-            }
+          if (v["user"] == getInfosUser.uid) if (this.mounted) {
+            setState(() {
+              widget.user.favorite.add(Favorite.fromMap(k, v));
+            });
+          }
         });
     });
     if (this.mounted) {
@@ -156,12 +149,11 @@ if (this.mounted) {
         _isLoading = false;
       });
     }
-    if(widget.type=="favorite")
-      if (this.mounted) {
-        setState(() {
-          _loadBusiness();
-        });
-      }
+    if (widget.type == "favorite") if (this.mounted) {
+      setState(() {
+        _loadBusiness();
+      });
+    }
   }
 
 //Action au clique sur une etoile de favoris
@@ -223,15 +215,14 @@ if (this.mounted) {
     });
 
     return Stack(
-
       children: <Widget>[
         ListTile(
           onTap: () => _navigateToBusinessDetails(business, index),
           leading: new Hero(
             tag: index,
             child: new CircleAvatar(
-                 backgroundImage: NetworkImage(business.avatarUrl),
-                ),
+              backgroundImage: NetworkImage(business.avatarUrl),
+            ),
           ),
           title: new Text(business.name),
           subtitle: new Text(business.address),
@@ -247,15 +238,18 @@ if (this.mounted) {
       ],
     );
   }
+
   void _navigateToBusinessDetails(Business business, Object avatarTag) {
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (c) {
-          return new BusinessDetailsPage(business, avatarTag,sectorActivityList,false);
+          return new BusinessDetailsPage(
+              business, avatarTag, sectorActivityList, false);
         },
       ),
     );
   }
+
   Widget _showCircularProgress() {
     if (_isLoading) {
       return Center(child: CircularProgressIndicator());
@@ -268,47 +262,47 @@ if (this.mounted) {
 
   @override
   Widget build(BuildContext context) {
-    if(_isLoading)
-      return  new Center(
-          child: CircularProgressIndicator(),
+    if (_isLoading)
+      return new Center(
+        child: CircularProgressIndicator(),
       );
     Widget content;
-if(_business.length<1 && widget.type=="favorite"){
-  return new Center(
-    child: Container(
-      padding: EdgeInsets.all(25),
-      child: new Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text("Vous ne possedez pas de favoris"),
-          new ClipRRect(
-            borderRadius:
-            new BorderRadius.circular(30.0),
-            child: new MaterialButton(
-              minWidth: 140.0,
-              color: Colors.green.withOpacity(0.8),
-              textColor: Colors.white,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          Scaffold(
+    if (_business.length < 1 && widget.type == "favorite") {
+      return new Center(
+        child: Container(
+          padding: EdgeInsets.all(25),
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Vous ne possedez pas de favoris"),
+              new ClipRRect(
+                borderRadius: new BorderRadius.circular(30.0),
+                child: new MaterialButton(
+                  minWidth: 140.0,
+                  color: Colors.green.withOpacity(0.8),
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Scaffold(
                               appBar: AppBar(
                                 title: Text("Liste des entreprises"),
-                                backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
+                                backgroundColor:
+                                    Color(0xFF3388FF).withOpacity(0.8),
                               ),
-                              body:BusinessListPage(widget.auth, widget.user,"all"))),);
-              },
-              child: new Text('Voir la liste des entreprises'),
-            ),
+                              body: BusinessListPage(
+                                  widget.auth, widget.user, "all"))),
+                    );
+                  },
+                  child: new Text('Voir la liste des entreprises'),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    ),
-  );
-
-}
+        ),
+      );
+    }
     content = new ListView.builder(
       itemCount: _business.length,
       itemBuilder: _buildBusinessListTile,
