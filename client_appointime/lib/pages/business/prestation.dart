@@ -24,7 +24,7 @@ class Prestation{
       namePresta: map['name'],
       description: map['description'],
       duration: map['duration'],
-      price: map['price'],
+      price: map['price'].toDouble(),
     );
   }
 }

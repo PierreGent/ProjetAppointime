@@ -53,7 +53,7 @@ class _BusinessShowcaseState extends State<BusinessShowcase>
             indicatorColor: Colors.black54,
           ),
           new SizedBox.fromSize(
-            size: const Size.fromHeight(600.0),
+            size: const Size.fromHeight(250.0),
             child: new TabBarView(
               controller: _controller,
               children: _pages,
