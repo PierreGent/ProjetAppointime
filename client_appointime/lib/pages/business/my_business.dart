@@ -91,7 +91,12 @@ class MyBusinessState extends State<MyBusiness> {
                              context,
                              MaterialPageRoute(
                                  builder: (context) =>
-                                     CreateBusinessPage(auth: widget.auth)));
+                                     CreateBusinessPage(auth: widget.auth))
+                         ).then((value) {
+                           setState(() {
+                             MyBusiness();
+                           });
+                         });
                        },
                        child: new Text('Créer une entreprise'),
                      ),
