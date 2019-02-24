@@ -12,10 +12,12 @@ class Business {
     @required this.description,
     @required this.avatarUrl,
     @required this.bannerUrl,
-    @required this.prestation
+    @required this.prestation,
+    @required this.boss
   });
 
   final String id;
+  final String boss;
   final String name;
   final String address;
   final String phoneNumber;
@@ -39,6 +41,7 @@ class Business {
       fieldOfActivity: map['fieldOfActivity'].toString(),
       avatarUrl: map['avatarUrl'],
       bannerUrl: map['bannerUrl'],
+      boss: map['boss'],
       prestation: [],
     );
   }

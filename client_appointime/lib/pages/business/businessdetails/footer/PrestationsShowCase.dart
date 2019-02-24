@@ -7,7 +7,7 @@ import 'package:client_appointime/pages/business/prestation.dart';
 
 class PrestationsShowcase extends StatefulWidget {
   PrestationsShowcase(this.business, this.edit);
-  Business business;
+  final Business business;
   final bool edit;
 
   PrestationsShowcaseState createState() => PrestationsShowcaseState();
@@ -47,7 +47,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
   floatingActionButton:   FloatingActionButton(
 
 
-    backgroundColor: Colors.greenAccent,
+    backgroundColor: Colors.lightBlueAccent,
     onPressed: () {
       Navigator.push(
         context,
@@ -59,7 +59,11 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
                       backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                     ),
                     body:PrestationsForm(widget.business))),
-      );
+      ).then((value) {
+        setState(() {
+          loadPresta();
+        });
+      });
     },
     tooltip: 'Toggle',
     child: Icon(Icons.add,size: 40,
@@ -85,7 +89,6 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
 
 
     widget.business.prestation = [];
-    var buisness = await widget.business;
     await FirebaseDatabase.instance
         .reference()
         .child('prestation')
@@ -133,7 +136,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
 
     final form = formKey.currentState;
 
-    var buisness = await widget.business;
+    var buisness = widget.business;
     String buisnessId = buisness.id;
     print(buisnessId);
     setState(() {

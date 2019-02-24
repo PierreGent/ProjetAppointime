@@ -27,7 +27,9 @@ final Activity activity;
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
 
-    var businessInformation = Column(
+    var businessInformation = Row(
+      children:<Widget>[
+      Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -42,17 +44,24 @@ final Activity activity;
           business.phoneNumber,
           style: textTheme.subtitle,
         ),
-        SizedBox(height: 8.0),
-        RatingInformation(business),
-        SizedBox(height: 12.0),
+    ],),
+
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+    children: <Widget>[
+      //  SizedBox(height: 8.0),
+       // RatingInformation(business),
+        SizedBox(height: 30.0),
          _buildCategoryChips(textTheme),
       ],
-    );
+    ),
+    ],);
+
 
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 100.0),
+          padding: const EdgeInsets.only(bottom: 66.0),
 
           child: Hero(
             tag: avatarTag,
@@ -61,11 +70,9 @@ final Activity activity;
         ),
         Positioned(
           bottom: 0.0,
-          left: 16.0,
-          right: 16.0,
+          left: 0.0,
+          right: 0.0,
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.end,
             children: [
 
               SizedBox(width: 16.0),

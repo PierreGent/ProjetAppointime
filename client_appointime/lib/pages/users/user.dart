@@ -13,10 +13,12 @@ class User {
     @required this.email,
     @required this.password,
     @required this.favorite,
+    @required this.id,
   });
 
   String avatar;
   final String firstName;
+  final String id;
   final String email;
   final String password;
   final String lastName;
@@ -26,7 +28,7 @@ class User {
   final bool isPro;
   List<Favorite> favorite;
 
-  static User fromMap(Map mailPass, Map map) {
+  static User fromMap(Map mailPass, Map map,String id) {
     return new User(
         email: mailPass['email'],
         password: mailPass['password'],
@@ -36,6 +38,7 @@ class User {
         credit: map['credit'],
         phoneNumber: map['phoneNumber'],
         isPro: map['isPro'],
+        id: id,
         favorite: []);
   }
 

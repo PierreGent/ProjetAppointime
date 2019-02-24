@@ -41,7 +41,7 @@ class HomeState extends State<Home> {
       print(result.value);
       Map<dynamic, dynamic> values = result.value;
       setState(() {
-        user = User.fromMap(mailPass, values);
+        user = User.fromMap(mailPass, values,widget.userId);
       });
     });
     isPro(widget.userId).then((result) {

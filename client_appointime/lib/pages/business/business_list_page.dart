@@ -240,11 +240,14 @@ class _BusinessListPageState extends State<BusinessListPage> {
   }
 
   void _navigateToBusinessDetails(Business business, Object avatarTag) {
+    bool edit=false;
+    if(business.boss==widget.user.id)
+      edit=true;
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (c) {
           return new BusinessDetailsPage(
-              business, avatarTag, sectorActivityList, false);
+              business, avatarTag, sectorActivityList,edit );
         },
       ),
     );
@@ -293,7 +296,11 @@ class _BusinessListPageState extends State<BusinessListPage> {
                               ),
                               body: BusinessListPage(
                                   widget.auth, widget.user, "all"))),
-                    );
+                    ).then((value) {
+                      setState(() {
+                        _loadFavorite();
+                      });
+                    });
                   },
                   child: new Text('Voir la liste des entreprises'),
                 ),

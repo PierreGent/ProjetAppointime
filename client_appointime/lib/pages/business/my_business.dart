@@ -56,9 +56,10 @@ class MyBusinessState extends State<MyBusiness> {
       Map<dynamic, dynamic> values = snapshot.value;
 
       values.forEach((k, v) async {
-        setState((){
-          sectorActivityList.add(Activity.fromMap(k, v));
-        });
+        if(this.mounted)
+          setState((){
+            sectorActivityList.add(Activity.fromMap(k, v));
+          });
 
       });
     });
