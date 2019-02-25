@@ -1,12 +1,13 @@
 import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/PrestationsForm.dart';
+import 'package:client_appointime/pages/business/prestation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:client_appointime/pages/business/prestation.dart';
 
 class PrestationsShowcase extends StatefulWidget {
   PrestationsShowcase(this.business, this.edit);
+
   final Business business;
   final bool edit;
 
@@ -14,7 +15,6 @@ class PrestationsShowcase extends StatefulWidget {
 }
 
 class PrestationsShowcaseState extends State<PrestationsShowcase> {
-
   List<Prestation> prestation = [];
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -32,61 +32,53 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
   void initState() {
     super.initState();
 
-   loadPresta();
+    loadPresta();
   }
 
   Widget build(BuildContext context) {
-
     if (widget.edit)
       return new Scaffold(
-        body:ListView.builder(
-        itemCount: widget.business.prestation.length,
-        itemBuilder: buildPrestaListTile,
-      ),
-
-  floatingActionButton:   FloatingActionButton(
-
-
-    backgroundColor: Colors.lightBlueAccent,
-    onPressed: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                Scaffold(
-                    appBar: AppBar(
-                      title: Text("Ajouter une prestation"),
-                      backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
-                    ),
-                    body:PrestationsForm(widget.business))),
-      ).then((value) {
-        setState(() {
-          loadPresta();
-        });
-      });
-    },
-    tooltip: 'Toggle',
-    child: Icon(Icons.add,size: 40,
-        color: Colors.white
-            .withOpacity(0.8)),
-  ),
-
+        body: ListView.builder(
+          itemCount: widget.business.prestation.length,
+          itemBuilder: buildPrestaListTile,
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.lightBlueAccent,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Scaffold(
+                      appBar: AppBar(
+                        title: Text("Ajouter une prestation"),
+                        backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
+                      ),
+                      body: PrestationsForm(widget.business))),
+            ).then((value) {
+              setState(() {
+                loadPresta();
+              });
+            });
+          },
+          tooltip: 'Toggle',
+          child:
+              Icon(Icons.add, size: 40, color: Colors.white.withOpacity(0.8)),
+        ),
       );
     else
-    return new Stack(children: <Widget>[
-    ListView.builder(
-    itemCount: widget.business.prestation.length,
-    itemBuilder: buildPrestaListTile,
-    ),
-
-    ],);
+      return new Stack(
+        children: <Widget>[
+          ListView.builder(
+            itemCount: widget.business.prestation.length,
+            itemBuilder: buildPrestaListTile,
+          ),
+        ],
+      );
   }
 
   Future<void> loadPresta() async {
-
     print(widget.business);
     prestation = [];
-
 
     widget.business.prestation = [];
     await FirebaseDatabase.instance
@@ -100,7 +92,6 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
         values.forEach((k, v) async {
           //Si il concerne l'utilisateur connecté on l'ajoute a la liste
           if (v["buisnessId"] == widget.business.id) if (this.mounted) {
-
             setState(() {
               widget.business.prestation.add(Prestation.fromMap(k, v));
               prestation.add(Prestation.fromMap(k, v));
@@ -114,25 +105,22 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
     Prestation presta = prestation[index];
     print(presta.namePresta);
     return Container(
-      child:ListTile(
-          //onTap: () => _navigateToBusinessDetails(business, index),
-          title: new Text(presta.namePresta),
-          subtitle: new Text("Durée : " +presta.duration.toString()+" minutes"),
-          trailing: Container(
-            padding: EdgeInsets.all(10),
-            child: Text("Prix : " + presta.price.toString()+" €"),
-          ),
+      child: ListTile(
+        //onTap: () => _navigateToBusinessDetails(business, index),
+        title: new Text(presta.namePresta),
+        subtitle:
+            new Text("Durée : " + presta.duration.toString() + " minutes"),
+        trailing: Container(
+          padding: EdgeInsets.all(10),
+          child: Text("Prix : " + presta.price.toString() + " €"),
         ),
-
+      ),
     );
   }
 
-
-
   submit() async {
-
     final prestation =
-    FirebaseDatabase.instance.reference().child('prestation');
+        FirebaseDatabase.instance.reference().child('prestation');
 
     final form = formKey.currentState;
 
@@ -146,10 +134,10 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
     if (form.validate()) {
       form.save();
       prestation.push().set({
-        'buisnessId':buisnessId,
-        'name':namePresta,
-        'description':description,
-        'duration':duration,
+        'buisnessId': buisnessId,
+        'name': namePresta,
+        'description': description,
+        'duration': duration,
         'price': price.toDouble(),
       });
     } else {

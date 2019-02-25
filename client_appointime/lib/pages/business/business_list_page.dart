@@ -6,6 +6,7 @@ import 'package:client_appointime/pages/business/favorite.dart';
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/services/activity.dart';
 import 'package:client_appointime/services/authentication.dart';
+import 'package:client_appointime/validation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +45,6 @@ class _BusinessListPageState extends State<BusinessListPage> {
         .child('activity')
         .once()
         .then((DataSnapshot snapshot) {
-      print(snapshot.value);
       Map<dynamic, dynamic> values = snapshot.value;
 
       values.forEach((k, v) async {
@@ -71,25 +71,33 @@ class _BusinessListPageState extends State<BusinessListPage> {
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
-        if (widget.type == "all") {
-          if (this.mounted) {
-            setState(() {
-              this._business.add(Business.fromMap(k, v));
+        Map<String, dynamic> mailPass = new Map<String, dynamic>();
+        widget.auth.getCurrentUser().then((result) {
+          mailPass['email'] = result.email;
+          mailPass['password'] = result.uid;
+        });
+        getUser(v['boss']).then((DataSnapshot result) {
+          Map<dynamic, dynamic> values = result.value;
+          if (widget.type == "all") {
+            if (this.mounted) {
+              setState(() {
+                this._business.add(Business.fromMap(k, v,User.fromMap(mailPass, values, v['boss'])));
+              });
+            }
+          } else {
+            widget.user.favorite.forEach((f) {
+              if (f.businessId == k) {
+                if (this.mounted) {
+                  setState(() {
+                    this._business.add(Business.fromMap(k, v,User.fromMap(mailPass, values, v['boss'])));
+                  });
+                }
+              }
             });
           }
-        } else {
-          print(widget.user.favorite);
-          widget.user.favorite.forEach((f) {
-            print(k + "     " + f.businessId);
-            if (f.businessId == k) {
-              if (this.mounted) {
-                setState(() {
-                  this._business.add(Business.fromMap(k, v));
-                });
-              }
-            }
-          });
-        }
+
+        });
+
       });
     });
     if (this.mounted) {
@@ -108,12 +116,21 @@ class _BusinessListPageState extends State<BusinessListPage> {
         .child(id)
         .once()
         .then((DataSnapshot result) async {
-      Map<dynamic, dynamic> values = result.value;
+      Map<dynamic, dynamic> valuesBusiness = result.value;
+
+      Map<String, dynamic> mailPass = new Map<String, dynamic>();
+      widget.auth.getCurrentUser().then((result) {
+        mailPass['email'] = result.email;
+        mailPass['password'] = result.uid;
+      });
+      getUser(valuesBusiness['boss']).then((DataSnapshot result) {
+        Map<dynamic, dynamic> values = result.value;
       if (this.mounted) {
         setState(() {
-          business = Business.fromMap(id, values);
+          business = Business.fromMap(id, values,User.fromMap(mailPass, values, valuesBusiness['boss']));
         });
-      }
+      }});
+
     });
     return business;
   }
@@ -209,9 +226,22 @@ class _BusinessListPageState extends State<BusinessListPage> {
   Widget _buildBusinessListTile(BuildContext context, int index) {
     Business business = _business[index];
     bool isFavorite = false;
+    Map<String, dynamic> mailPass = new Map<String, dynamic>();
+    User user;
+
     //On verifie si l'entreprise est favorite, si oui isFavorite passe a true
     widget.user.favorite.forEach((favorite) {
       if (favorite.businessId == business.id) isFavorite = true;
+    });
+    widget.auth.getCurrentUser().then((result) {
+      mailPass['email'] = result.email;
+      mailPass['password'] = result.uid;
+    });
+    getUser(business.boss.id).then((DataSnapshot result) {
+      Map<dynamic, dynamic> values = result.value;
+      setState(() {
+        user = User.fromMap(mailPass, values, business.boss.id);
+      });
     });
 
     return Stack(
@@ -239,15 +269,16 @@ class _BusinessListPageState extends State<BusinessListPage> {
     );
   }
 
-  void _navigateToBusinessDetails(Business business, Object avatarTag) {
-    bool edit=false;
-    if(business.boss==widget.user.id)
-      edit=true;
+  _navigateToBusinessDetails(Business business, Object avatarTag) {
+    bool edit = false;
+    if (business.boss == widget.user.id) edit = true;
+
+
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (c) {
           return new BusinessDetailsPage(
-              business, avatarTag, sectorActivityList,edit );
+              business, avatarTag, sectorActivityList, edit);
         },
       ),
     );

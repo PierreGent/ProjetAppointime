@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class RatingInformation extends StatelessWidget {
   RatingInformation(this.business);
+
   final Business business;
 
   Widget _buildRatingBar(ThemeData theme) {

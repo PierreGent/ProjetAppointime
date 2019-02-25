@@ -28,7 +28,7 @@ class User {
   final bool isPro;
   List<Favorite> favorite;
 
-  static User fromMap(Map mailPass, Map map,String id) {
+  static User fromMap(Map mailPass, Map map, String id) {
     return new User(
         email: mailPass['email'],
         password: mailPass['password'],

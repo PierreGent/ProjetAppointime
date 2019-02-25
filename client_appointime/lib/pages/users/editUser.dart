@@ -1,4 +1,3 @@
-
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:client_appointime/validation.dart';
@@ -107,13 +106,13 @@ class EditUserState extends State<EditUser>
         CurvedAnimation(
             parent: animationController,
             curve: Interval(0.8, 1.0, curve: Curves.fastOutSlowIn)));
-
   }
-void dispose(){
 
-  animationController.dispose();
-  super.dispose();
-}
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     if (widget.type == "phone")
       return Container(
@@ -178,17 +177,16 @@ void dispose(){
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     TextFormField(
-
                                       controller: changeMailController,
                                       autovalidate: autoValidate,
                                       maxLines: 1,
                                       keyboardType: TextInputType.emailAddress,
-
                                       decoration: InputDecoration(
                                         labelText: "Adresse",
-                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
+                                        labelStyle: TextStyle(
+                                            color: Color(0xFF44BBFF),
+                                            fontSize: 20),
                                         icon: new Icon(Icons.edit_location,
-
                                             color: Colors.blueAccent
                                                 .withOpacity(0.8)),
                                       ),
@@ -275,7 +273,9 @@ void dispose(){
                                       keyboardType: TextInputType.number,
                                       decoration: InputDecoration(
                                         labelText: "Téléphone",
-                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
+                                        labelStyle: TextStyle(
+                                            color: Color(0xFF44BBFF),
+                                            fontSize: 20),
                                         icon: new Icon(Icons.phone,
                                             color: Colors.blueAccent
                                                 .withOpacity(0.8)),
@@ -362,7 +362,9 @@ void dispose(){
                                       autofocus: false,
                                       decoration: new InputDecoration(
                                         labelText: 'Ancien mot de passe',
-                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
+                                        labelStyle: TextStyle(
+                                            color: Color(0xFF44BBFF),
+                                            fontSize: 20),
                                         icon: new Icon(
                                           Icons.lock,
                                           color: Colors.blueAccent
@@ -394,7 +396,9 @@ void dispose(){
                                       autofocus: false,
                                       decoration: new InputDecoration(
                                         labelText: 'Nouveau mot de passe',
-                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
+                                        labelStyle: TextStyle(
+                                            color: Color(0xFF44BBFF),
+                                            fontSize: 20),
                                         icon: new Icon(
                                           Icons.lock,
                                           color: Colors.blueAccent
@@ -427,8 +431,9 @@ void dispose(){
                                       autofocus: false,
                                       decoration: new InputDecoration(
                                         labelText: 'Confirmation',
-                                        labelStyle: TextStyle(color: Color(0xFF44BBFF),fontSize: 20),
-
+                                        labelStyle: TextStyle(
+                                            color: Color(0xFF44BBFF),
+                                            fontSize: 20),
                                         icon: new Icon(
                                           Icons.beenhere,
                                           color: Colors.blueAccent

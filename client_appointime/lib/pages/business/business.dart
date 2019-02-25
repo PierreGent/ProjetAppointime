@@ -1,23 +1,23 @@
 import 'package:client_appointime/pages/business/prestation.dart';
+import 'package:client_appointime/pages/users/user.dart';
 import 'package:meta/meta.dart';
 
 class Business {
-  Business({
-    @required this.id,
-    @required this.name,
-    @required this.address,
-    @required this.phoneNumber,
-    @required this.cancelAppointment,
-    @required this.fieldOfActivity,
-    @required this.description,
-    @required this.avatarUrl,
-    @required this.bannerUrl,
-    @required this.prestation,
-    @required this.boss
-  });
+  Business(
+      {@required this.id,
+      @required this.name,
+      @required this.address,
+      @required this.phoneNumber,
+      @required this.cancelAppointment,
+      @required this.fieldOfActivity,
+      @required this.description,
+      @required this.avatarUrl,
+      @required this.bannerUrl,
+      @required this.prestation,
+      @required this.boss});
 
   final String id;
-  final String boss;
+  final User boss;
   final String name;
   final String address;
   final String phoneNumber;
@@ -28,8 +28,7 @@ class Business {
   final String bannerUrl;
   List<Prestation> prestation;
 
-
-  static Business fromMap(String idBusiness, Map map) {
+  static Business fromMap(String idBusiness, Map map,User user) {
     return new Business(
       //avatar: map['picture']['large'],
       id: idBusiness,
@@ -41,7 +40,7 @@ class Business {
       fieldOfActivity: map['fieldOfActivity'].toString(),
       avatarUrl: map['avatarUrl'],
       bannerUrl: map['bannerUrl'],
-      boss: map['boss'],
+      boss:user,
       prestation: [],
     );
   }

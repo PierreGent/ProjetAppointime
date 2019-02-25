@@ -327,16 +327,15 @@ class InscPageState extends State<InscPage>
                       autofocus: false,
                       decoration: new InputDecoration(
                         prefixIcon: new Icon(
-    Icons.supervised_user_circle,
-    color: Color(0xFF3388FF).withOpacity(0.8),
-    ),
+                          Icons.supervised_user_circle,
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
                         labelText: 'Nom',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
                           borderRadius: new BorderRadius.circular(8.0),
                           borderSide: new BorderSide(),
                         ),
-
                       ),
                       validator: validateLastName,
                       onSaved: (value) => lastName = value,
@@ -362,16 +361,15 @@ class InscPageState extends State<InscPage>
                       autofocus: false,
                       decoration: new InputDecoration(
                         prefixIcon: new Icon(
-                        Icons.add_location,
-                        color: Color(0xFF3388FF).withOpacity(0.8),
-                      ),
+                          Icons.add_location,
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
                         labelText: 'Adresse',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
                           borderRadius: new BorderRadius.circular(8.0),
                           borderSide: new BorderSide(),
                         ),
-
                       ),
                       validator: validateAddress,
                       onSaved: (value) => address = value,
@@ -398,16 +396,15 @@ class InscPageState extends State<InscPage>
                       autofocus: false,
                       decoration: new InputDecoration(
                         prefixIcon: new Icon(
-                        Icons.phone,
-                        color: Color(0xFF3388FF).withOpacity(0.8),
-                      ),
+                          Icons.phone,
+                          color: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
                         labelText: 'Numéro de téléphone',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(
                           borderRadius: new BorderRadius.circular(8.0),
                           borderSide: new BorderSide(),
                         ),
-
                       ),
                       validator: validatePhone,
                       onSaved: (value) => phone = value,

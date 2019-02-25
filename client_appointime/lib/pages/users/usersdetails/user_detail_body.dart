@@ -20,59 +20,53 @@ class UserDetailBodyState extends State<UserDetailBody> {
   String ispro = "Particulier";
 
   Widget _buildLocationInfo(TextTheme textTheme) {
-    double c_width = MediaQuery.of(context).size.width*0.75;
+    double c_width = MediaQuery.of(context).size.width * 0.75;
     return new Column(
       children: <Widget>[
-
         new Row(
           children: <Widget>[
-
             new Icon(
               Icons.phone_in_talk,
               color: Colors.grey,
               size: 30.0,
             ),
-            new Container (
+            new Container(
               width: c_width,
               child: new Column(
-              children: <Widget>[
-
-
-                new Text(
-                  widget.user.phoneNumber,
-                  style: textTheme.subhead
-                      .copyWith(color: Colors.grey, fontSize: 20),
-                ),
-              ],
-            ),),
-          ],),
-
-    new Row(
-    children: <Widget>[
-              new Icon(
-                Icons.place,
-                color: Colors.grey,
-                size: 30.0,
+                children: <Widget>[
+                  new Text(
+                    widget.user.phoneNumber,
+                    style: textTheme.subhead
+                        .copyWith(color: Colors.grey, fontSize: 20),
+                  ),
+                ],
               ),
-
-
-     new Container (
-    padding: const EdgeInsets.all(15.0),
-    width: c_width,
-    child:new Column(
-    children: <Widget>[
-              new Text(
-
-                widget.user.address,
-                style: textTheme.subhead
-                    .copyWith(color: Colors.grey, fontSize: 20),
-                textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        new Row(
+          children: <Widget>[
+            new Icon(
+              Icons.place,
+              color: Colors.grey,
+              size: 30.0,
+            ),
+            new Container(
+              padding: const EdgeInsets.all(15.0),
+              width: c_width,
+              child: new Column(
+                children: <Widget>[
+                  new Text(
+                    widget.user.address,
+                    style: textTheme.subhead
+                        .copyWith(color: Colors.grey, fontSize: 20),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
               ),
-],),
-     )
-],),
-
-
+            )
+          ],
+        ),
       ],
     );
   }

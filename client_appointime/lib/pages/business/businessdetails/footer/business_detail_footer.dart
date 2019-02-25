@@ -1,13 +1,11 @@
-
-import 'package:client_appointime/pages/business/businessdetails/footer/conditionShowCase.dart';
-import 'package:client_appointime/pages/business/businessdetails/footer/PrestationsShowCase.dart';
-import 'package:client_appointime/pages/business/businessdetails/footer/DetailsShowCase.dart';
 import 'package:client_appointime/pages/business/business.dart';
-import 'package:client_appointime/services/authentication.dart';
+import 'package:client_appointime/pages/business/businessdetails/footer/DetailsShowCase.dart';
+import 'package:client_appointime/pages/business/businessdetails/footer/PrestationsShowCase.dart';
+import 'package:client_appointime/pages/business/businessdetails/footer/conditionShowCase.dart';
 import 'package:flutter/material.dart';
 
 class BusinessShowcase extends StatefulWidget {
-  BusinessShowcase(this.business,this.edit);
+  BusinessShowcase(this.business, this.edit);
 
   final Business business;
   final bool edit;
@@ -32,7 +30,7 @@ class _BusinessShowcaseState extends State<BusinessShowcase>
     ];
     _pages = [
       new DetailsShowcase(widget.business),
-      new PrestationsShowcase(widget.business,widget.edit),
+      new PrestationsShowcase(widget.business, widget.edit),
       new ConditionsShowcase(widget.business),
     ];
     _controller = new TabController(

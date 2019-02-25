@@ -18,7 +18,8 @@ class UserDetailsPage extends StatefulWidget {
 class _UserDetailsPageState extends State<UserDetailsPage> {
   String isPro = "Particulier";
   bool edit = false;
-String text="Modifier";
+  String text = "Modifier";
+
   Widget _createCircleBadge(IconData iconData, Color color) {
     return new Padding(
       padding: const EdgeInsets.only(left: 8.0),
@@ -49,12 +50,12 @@ String text="Modifier";
         onPressed: () {
           if (edit)
             setState(() {
-              text="Modifier";
+              text = "Modifier";
               edit = false;
             });
           else
             setState(() {
-              text="Annuler";
+              text = "Annuler";
               edit = true;
             });
         },

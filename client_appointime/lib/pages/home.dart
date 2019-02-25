@@ -1,10 +1,9 @@
+import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:client_appointime/pages/base_page.dart';
 import 'package:client_appointime/pages/business/business_list_page.dart';
-import 'package:client_appointime/pages/business/create_business.dart';
 import 'package:client_appointime/pages/business/my_business.dart';
 import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/pages/users/user.dart';
-import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:client_appointime/pages/users/usersdetails/user_details_page.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:client_appointime/services/my_icone_icons.dart';
@@ -38,10 +37,9 @@ class HomeState extends State<Home> {
       mailPass['password'] = result.uid;
     });
     getUser(widget.userId).then((DataSnapshot result) {
-      print(result.value);
       Map<dynamic, dynamic> values = result.value;
       setState(() {
-        user = User.fromMap(mailPass, values,widget.userId);
+        user = User.fromMap(mailPass, values, widget.userId);
       });
     });
     isPro(widget.userId).then((result) {
@@ -52,12 +50,9 @@ class HomeState extends State<Home> {
 
     pageController = new PageController(initialPage: 1);
     setState(() {
-      page=1;
+      page = 1;
       title = "Accueil";
     });
-
-
-
   }
 
   void dispose() {
@@ -74,7 +69,6 @@ class HomeState extends State<Home> {
     }
     if (_isPro) {
       items = [
-
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today),
           activeIcon: Icon(MyIcone.calendar),
@@ -85,7 +79,6 @@ class HomeState extends State<Home> {
           activeIcon: Icon(MyIcone.home),
           title: Text("Accueil"),
         ),
-
         BottomNavigationBarItem(
           icon: Icon(Icons.business_center),
           activeIcon: Icon(Icons.business_center),
@@ -94,7 +87,6 @@ class HomeState extends State<Home> {
       ];
     } else {
       items = [
-
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today),
           activeIcon: Icon(MyIcone.calendar),
@@ -105,25 +97,23 @@ class HomeState extends State<Home> {
           activeIcon: Icon(MyIcone.home),
           title: Text("Accueil"),
         ),
-
       ];
     }
     return new Scaffold(
-
       appBar: AppBar(
         backgroundColor: const Color(0xFF3388FF).withOpacity(0.8),
         title: Text(title),
       ),
       body: PageView(
-
         controller: pageController,
         onPageChanged: onPageChanged,
-        
         children: <Widget>[
-
           MyAppointment() /*,MyAppointment(),*/,
           BasePage(widget.auth, user),
-          MyBusiness(auth:widget.auth,userId:widget.userId,onSignedOut:widget.onSignedOut),
+          MyBusiness(
+              auth: widget.auth,
+              userId: widget.userId,
+              onSignedOut: widget.onSignedOut),
         ],
       ),
       bottomNavigationBar: new Theme(
@@ -146,10 +136,8 @@ class HomeState extends State<Home> {
       drawer: new Drawer(
           child: ListView(
         padding: EdgeInsets.zero,
-
         children: <Widget>[
           DrawerHeader(
-
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -181,8 +169,8 @@ class HomeState extends State<Home> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                UserDetailsPage(user, "myaccount", widget.auth)));
+                            builder: (context) => UserDetailsPage(
+                                user, "myaccount", widget.auth)));
                   },
                 ),
               ],
@@ -194,13 +182,12 @@ class HomeState extends State<Home> {
                 stops: [0.5, 1],
                 colors: <Color>[
                   const Color(0xFF3388FF),
-
                   const Color(0xFF88CCFF),
                 ],
               ),
             ),
           ),
-       /*   ListTile(
+          /*   ListTile(
             title: Text(
               "Je suis un professionnel",
               style: TextStyle(color: Colors.black54),
@@ -220,16 +207,16 @@ class HomeState extends State<Home> {
             ),
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                  Scaffold(
-                      appBar: AppBar(
-                        title: Text("Liste des entreprises"),
-                        backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
-                      ),
-                      backgroundColor: globalVar.couleurPrimaire,
-                      body:BusinessListPage(widget.auth, user,"all"))),);
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Scaffold(
+                        appBar: AppBar(
+                          title: Text("Liste des entreprises"),
+                          backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
+                        ),
+                        backgroundColor: globalVar.couleurPrimaire,
+                        body: BusinessListPage(widget.auth, user, "all"))),
+              );
             },
           ),
           ListTile(
@@ -253,7 +240,7 @@ class HomeState extends State<Home> {
 
   void onPageChanged(int page) {
     String temptitle = "";
-    this.page=page;
+    this.page = page;
     switch (page) {
       case 0:
         temptitle = "Mes rendez-vous";

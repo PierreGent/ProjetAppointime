@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-class Prestation{
+class Prestation {
   final String id;
   final String buisnessId;
   final String namePresta;

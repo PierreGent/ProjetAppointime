@@ -1,4 +1,3 @@
-
 import 'package:firebase_database/firebase_database.dart';
 // VALIDATION DE L'EMAIL
 
@@ -14,8 +13,8 @@ String validateEmail(String value) {
 
 //VALIDATION NOM
 
-String validateName(String value){
-  if(value.isEmpty || value == null){
+String validateName(String value) {
+  if (value.isEmpty || value == null) {
     return 'Le nom ne peut pas être vide';
   }
 
@@ -24,37 +23,40 @@ String validateName(String value){
 
 //VALIDATION DU MOT DE PASSE (INSCRIPTION)
 
-String validatePass(String value){
-  if(value.isEmpty || value == null){
+String validatePass(String value) {
+  if (value.isEmpty || value == null) {
     return 'Le mot de passe ne peut pas être vide';
   }
-  if(value.length < 6){
+  if (value.length < 6) {
     return "Mot de passe trop court";
   }
   return null;
 }
+
 //VALIDATION DU PRENOM (INSCRIPTION)
-String validateFirstName(String value){
-  if(value.isEmpty || value == null){
+String validateFirstName(String value) {
+  if (value.isEmpty || value == null) {
     return 'Le prénom ne peut pas être vide';
   }
 
   return null;
 }
+
 //VALIDATION DU NOM (INSCRIPTION)
-String validateLastName(String value){
-  if(value.isEmpty || value == null){
+String validateLastName(String value) {
+  if (value.isEmpty || value == null) {
     return 'Le Nom ne peut pas être vide';
   }
 
   return null;
 }
+
 //VALIDATION DE LA DURéE D'ANNULATION (INSCRIPTION ENTREPRISE)
-String validateCancelAppointment(String value){
-  if(value.isEmpty || value == null){
+String validateCancelAppointment(String value) {
+  if (value.isEmpty || value == null) {
     return 'Ce champ ne peut pas être vide';
   }
-  if(num.tryParse(value)==null){
+  if (num.tryParse(value) == null) {
     return 'Ce champ doit etre un nombre';
   }
 
@@ -63,58 +65,66 @@ String validateCancelAppointment(String value){
 
 //Validation du numéro siret
 
-
 Future<bool> isSiretUsed(String value) async {
-  final businessDetails = FirebaseDatabase.instance.reference().child('business');
-  DataSnapshot datas = await businessDetails.orderByChild("siret").equalTo(value).once();
+  final businessDetails =
+      FirebaseDatabase.instance.reference().child('business');
+  DataSnapshot datas =
+      await businessDetails.orderByChild("siret").equalTo(value).once();
   print(datas.value);
-  if(datas.value!=null)
-    return true;
+  if (datas.value != null) return true;
   return false;
 }
-Future<bool> isPhoneUsed(String value) async {
 
-  DataSnapshot datas = await  FirebaseDatabase.instance.reference().child('users').orderByChild("phoneNumber").equalTo(value).once();
+Future<bool> isPhoneUsed(String value) async {
+  DataSnapshot datas = await FirebaseDatabase.instance
+      .reference()
+      .child('users')
+      .orderByChild("phoneNumber")
+      .equalTo(value)
+      .once();
   print(datas.value);
-  if(datas.value!=null)
-    return true;
-   datas = await  FirebaseDatabase.instance.reference().child('business').orderByChild("phoneNumber").equalTo(value).once();
-  if(datas.value!=null)
-    return true;
+  if (datas.value != null) return true;
+  datas = await FirebaseDatabase.instance
+      .reference()
+      .child('business')
+      .orderByChild("phoneNumber")
+      .equalTo(value)
+      .once();
+  if (datas.value != null) return true;
   return false;
 }
+
 Future<bool> isPro(String value) async {
-  final businessDetails = FirebaseDatabase.instance.reference().child('users').child(value);
+  final businessDetails =
+      FirebaseDatabase.instance.reference().child('users').child(value);
   DataSnapshot datas = await businessDetails.once();
 
-  if(datas.value["isPro"])
-    return true;
+  if (datas.value["isPro"]) return true;
   return false;
 }
 
-
-Future<String> validateBusiness(String userId) async{
-  final businessDetails = FirebaseDatabase.instance.reference().child('business');
-  DataSnapshot datas = await businessDetails.orderByChild("boss").equalTo(userId).once();
-  if(datas.value!=null)
-    return "Vous avez déjâ une entreprise";
+Future<String> validateBusiness(String userId) async {
+  final businessDetails =
+      FirebaseDatabase.instance.reference().child('business');
+  DataSnapshot datas =
+      await businessDetails.orderByChild("boss").equalTo(userId).once();
+  if (datas.value != null) return "Vous avez déjâ une entreprise";
   return null;
 }
 
-
-
-Future<DataSnapshot> getUser(String userId) async{
-  final userDetails = FirebaseDatabase.instance.reference().child('users').child(userId);
+Future<DataSnapshot> getUser(String userId) async {
+  final userDetails =
+      FirebaseDatabase.instance.reference().child('users').child(userId);
   DataSnapshot datas = await userDetails.once();
-  if(datas.value!=null)
-    return datas;
+  if (datas.value != null) return datas;
   return null;
 }
-String validateDesc(String value){
-  if(value.isEmpty || value == null){
+
+String validateDesc(String value) {
+  if (value.isEmpty || value == null) {
     return 'La description ne peut pas être vide';
   }
-  if(value.length < 6){
+  if (value.length < 6) {
     return 'La description doit faire plus de 10 caracteres';
   }
 
@@ -122,8 +132,8 @@ String validateDesc(String value){
 }
 
 //VALIDATION DUE LADRESSE (INSCRIPTION)
-String validateAddress(String value){
-  if(value.isEmpty || value == null){
+String validateAddress(String value) {
+  if (value.isEmpty || value == null) {
     return 'L\'addresse ne peut pas être vide';
   }
 
@@ -131,8 +141,8 @@ String validateAddress(String value){
 }
 //VALIDATION DU MOT DE PASSE DE CONFIRMATION (INSCRIPTION)
 
-String validatePassConfirm(String value1,String value2){
-  if(!(value1 == value2)){
+String validatePassConfirm(String value1, String value2) {
+  if (!(value1 == value2)) {
     return "Mot de passe différents";
   }
   return null;
@@ -140,14 +150,13 @@ String validatePassConfirm(String value1,String value2){
 
 //VALIDATION PRIX
 
-String validatePrice(String value){
+String validatePrice(String value) {
   RegExp regex = new RegExp("^\$|^(0|([1-9][0-9]{0,3}))(\\.[0-9]{2,2})?\$");
-  if(value == null || value==""){
+  if (value == null || value == "") {
     return "Le champ ne doit pas être vide";
   }
-  if(!regex.hasMatch(value)){
+  if (!regex.hasMatch(value)) {
     return "Le prix doit être de la forme XXXX.XX";
   }
   return null;
 }
-

@@ -134,7 +134,8 @@ class ConnectPageState extends State<ConnectPage>
                       maxLines: 1,
                       keyboardType: TextInputType.emailAddress,
                       decoration: new InputDecoration(
-                        prefixIcon: new Icon(Icons.mail, color: Color(0xFF3388FF).withOpacity(0.8)),
+                        prefixIcon: new Icon(Icons.mail,
+                            color: Color(0xFF3388FF).withOpacity(0.8)),
                         labelText: 'Email',
                         fillColor: Colors.white,
                         border: new OutlineInputBorder(

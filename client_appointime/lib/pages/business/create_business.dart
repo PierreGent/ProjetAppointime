@@ -129,11 +129,8 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
     animationController.forward();
     if (sectorActivityList == null || sectorActivityList.length < 5)
       return new Center(
-        child:Container(
-            child:CircularProgressIndicator()
-        ),
+        child: Container(child: CircularProgressIndicator()),
       );
-    print(sectorActivityList);
     return Scaffold(
       appBar: AppBar(
         title: Text("Renseigner mon entreprise"),
@@ -180,7 +177,6 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
         .child('activity')
         .once()
         .then((DataSnapshot snapshot) {
-      print(snapshot.value);
       Map<dynamic, dynamic> values = snapshot.value;
 
       values.forEach((k, v) async {
@@ -441,7 +437,8 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
                 0.0, muchMuchMuchDelayedAnimation4.value * width, 0.0),
             child: new Center(
               child: Container(
-                  padding: EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 25),
+                  padding:
+                      EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 25),
                   child: new Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
