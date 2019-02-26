@@ -21,7 +21,10 @@ class MyAppointmentState extends State<MyAppointment> {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text("Liste rendez-vous"),
+        child: Text(
+          "Liste des rendez-vous",
+          style: TextStyle(color: Colors.black54),
+        ),
       ),
     );
   }

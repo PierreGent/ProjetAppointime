@@ -81,7 +81,8 @@ class _BusinessListPageState extends State<BusinessListPage> {
           if (widget.type == "all") {
             if (this.mounted) {
               setState(() {
-                this._business.add(Business.fromMap(k, v,User.fromMap(mailPass, values, v['boss'])));
+                this._business.add(Business.fromMap(
+                    k, v, User.fromMap(mailPass, values, v['boss'])));
               });
             }
           } else {
@@ -89,15 +90,14 @@ class _BusinessListPageState extends State<BusinessListPage> {
               if (f.businessId == k) {
                 if (this.mounted) {
                   setState(() {
-                    this._business.add(Business.fromMap(k, v,User.fromMap(mailPass, values, v['boss'])));
+                    this._business.add(Business.fromMap(
+                        k, v, User.fromMap(mailPass, values, v['boss'])));
                   });
                 }
               }
             });
           }
-
         });
-
       });
     });
     if (this.mounted) {
@@ -125,12 +125,13 @@ class _BusinessListPageState extends State<BusinessListPage> {
       });
       getUser(valuesBusiness['boss']).then((DataSnapshot result) {
         Map<dynamic, dynamic> values = result.value;
-      if (this.mounted) {
-        setState(() {
-          business = Business.fromMap(id, values,User.fromMap(mailPass, values, valuesBusiness['boss']));
-        });
-      }});
-
+        if (this.mounted) {
+          setState(() {
+            business = Business.fromMap(id, values,
+                User.fromMap(mailPass, values, valuesBusiness['boss']));
+          });
+        }
+      });
     });
     return business;
   }
@@ -273,7 +274,6 @@ class _BusinessListPageState extends State<BusinessListPage> {
     bool edit = false;
     if (business.boss == widget.user.id) edit = true;
 
-
     Navigator.of(context).push(
       new MaterialPageRoute(
         builder: (c) {
@@ -308,12 +308,15 @@ class _BusinessListPageState extends State<BusinessListPage> {
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text("Vous ne possedez pas de favoris"),
+              Text(
+                "Vous ne possedez pas de favoris",
+                style: TextStyle(color: Colors.black54),
+              ),
               new ClipRRect(
                 borderRadius: new BorderRadius.circular(30.0),
                 child: new MaterialButton(
                   minWidth: 140.0,
-                  color: Colors.green.withOpacity(0.8),
+                  color: Color(0xFF3388FF).withOpacity(0.8),
                   textColor: Colors.white,
                   onPressed: () {
                     Navigator.push(

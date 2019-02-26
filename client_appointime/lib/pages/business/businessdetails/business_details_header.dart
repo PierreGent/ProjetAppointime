@@ -25,46 +25,49 @@ class BusinessDetailHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
 
-    var businessInformation = Row(
-      children: <Widget>[
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                business.name,
-                style: textTheme.title,
-              ),
-              Text(
-                business.address,
-                style: textTheme.subtitle,
-              ),
-              Text(
-                business.phoneNumber,
-                style: textTheme.subtitle,
-              ),
-            ],
+    var businessInformation = Container(
+      padding: EdgeInsets.only(top: 100),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  business.name,
+                  style: textTheme.title,
+                ),
+                Text(
+                  business.address,
+                  style: textTheme.subtitle,
+                ),
+                Text(
+                  business.phoneNumber,
+                  style: textTheme.subtitle,
+                ),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              //  SizedBox(height: 8.0),
-              // RatingInformation(business),
-              _buildCategoryChips(textTheme),
-              Text(
-                business.boss.firstName + " " + business.boss.lastName,
-                style: textTheme.subtitle,
-              ),
-              Text(
-                business.boss.email,
-                style: textTheme.subtitle,
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                //  SizedBox(height: 8.0),
+                // RatingInformation(business),
+                _buildCategoryChips(textTheme),
+                Text(
+                  business.boss.firstName + " " + business.boss.lastName,
+                  style: textTheme.subtitle,
+                ),
+                Text(
+                  business.boss.email,
+                  style: textTheme.subtitle,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
 
     return Stack(

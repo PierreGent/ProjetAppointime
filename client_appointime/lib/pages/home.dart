@@ -181,8 +181,8 @@ class HomeState extends State<Home> {
                 end: FractionalOffset.bottomCenter,
                 stops: [0.5, 1],
                 colors: <Color>[
-                  const Color(0xFF3388FF),
-                  const Color(0xFF88CCFF),
+                  const Color(0xFF3388FF).withOpacity(0.8),
+                  const Color(0xFF3388FF).withOpacity(0.8),
                 ],
               ),
             ),

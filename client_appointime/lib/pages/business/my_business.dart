@@ -98,12 +98,15 @@ class MyBusinessState extends State<MyBusiness> {
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text("Vous ne possedez pas d'entreprise"),
+                Text(
+                  "Vous ne possedez pas d'entreprise",
+                  style: TextStyle(color: Colors.black54),
+                ),
                 new ClipRRect(
                   borderRadius: new BorderRadius.circular(30.0),
                   child: new MaterialButton(
                     minWidth: 140.0,
-                    color: Colors.green.withOpacity(0.8),
+                    color: Color(0xFF3388FF).withOpacity(0.8),
                     textColor: Colors.white,
                     onPressed: () {
                       Navigator.push(

@@ -167,12 +167,9 @@ class EditUserState extends State<EditUser>
                     SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          Transform(
-                            transform: Matrix4.translationValues(
-                                delayedAnimation.value * width, 0.0, 0.0),
-                            child: new Center(
+                          new Center(
                               child: Container(
-                                padding: EdgeInsets.all(25),
+                                padding: EdgeInsets.only(top: 25, left: 25, right: 25),
                                 child: new Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -181,47 +178,52 @@ class EditUserState extends State<EditUser>
                                       autovalidate: autoValidate,
                                       maxLines: 1,
                                       keyboardType: TextInputType.emailAddress,
-                                      decoration: InputDecoration(
-                                        labelText: "Adresse",
-                                        labelStyle: TextStyle(
-                                            color: Color(0xFF44BBFF),
-                                            fontSize: 20),
-                                        icon: new Icon(Icons.edit_location,
-                                            color: Colors.blueAccent
-                                                .withOpacity(0.8)),
+                                      decoration: new InputDecoration(
+                                        prefixIcon: new Icon(
+                                          Icons.lock,
+                                          color: Color(0xFF3388FF).withOpacity(0.8),
+                                        ),
+                                        labelText: 'Adresse',
+                                        fillColor: Colors.white,
+                                        border: new OutlineInputBorder(
+                                          borderRadius: new BorderRadius.circular(8.0),
+                                        ),
                                       ),
                                       validator: validateAddress,
                                       onSaved: (value) => address = value,
                                     ),
                                   ],
                                 ),
-                              ),
                             ),
                           ),
-                          Transform(
-                            transform: Matrix4.translationValues(
-                                0.0,
-                                muchMuchMuchDelayedAnimation4.value * width,
-                                0.0),
-                            child: new Center(
-                              child: Container(
-                                padding: EdgeInsets.all(25),
-                                child: new Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new ClipRRect(
-                                      borderRadius:
-                                          new BorderRadius.circular(30.0),
-                                      child: new MaterialButton(
-                                        minWidth: 140.0,
-                                        color: Colors.green.withOpacity(0.8),
-                                        textColor: Colors.white,
+                          Center(
+                            child: Container(
+                              padding:
+                                  EdgeInsets.only(top: 25, left: 25, right: 25),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new Container(
+                                    child: new SizedBox(
+                                      child: RaisedButton(
+                                        child: Text(
+                                          'Confirmer',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(8.0)),
                                         onPressed: _showDialog,
-                                        child: new Text('Confirmer'),
+                                        color:
+                                            Color(0xFF3388FF).withOpacity(0.8),
                                       ),
+                                      width: double.infinity,
+                                      height: 55,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -257,10 +259,7 @@ class EditUserState extends State<EditUser>
                     SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          Transform(
-                            transform: Matrix4.translationValues(
-                                delayedAnimation.value * width, 0.0, 0.0),
-                            child: new Center(
+                          new Center(
                               child: Container(
                                 padding: EdgeInsets.all(25),
                                 child: new Column(
@@ -271,14 +270,16 @@ class EditUserState extends State<EditUser>
                                       autovalidate: autoValidate,
                                       maxLines: 1,
                                       keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
-                                        labelText: "Téléphone",
-                                        labelStyle: TextStyle(
-                                            color: Color(0xFF44BBFF),
-                                            fontSize: 20),
-                                        icon: new Icon(Icons.phone,
-                                            color: Colors.blueAccent
-                                                .withOpacity(0.8)),
+                                      decoration: new InputDecoration(
+                                        prefixIcon: new Icon(
+                                          Icons.lock,
+                                          color: Color(0xFF3388FF).withOpacity(0.8),
+                                        ),
+                                        labelText: 'Télephone',
+                                        fillColor: Colors.white,
+                                        border: new OutlineInputBorder(
+                                          borderRadius: new BorderRadius.circular(8.0),
+                                        ),
                                       ),
                                       validator: validatePhone,
                                       onSaved: (value) => phone = value,
@@ -286,32 +287,35 @@ class EditUserState extends State<EditUser>
                                   ],
                                 ),
                               ),
-                            ),
                           ),
-                          Transform(
-                            transform: Matrix4.translationValues(
-                                0.0,
-                                muchMuchMuchDelayedAnimation4.value * width,
-                                0.0),
-                            child: new Center(
-                              child: Container(
-                                padding: EdgeInsets.all(25),
-                                child: new Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new ClipRRect(
-                                      borderRadius:
-                                          new BorderRadius.circular(30.0),
-                                      child: new MaterialButton(
-                                        minWidth: 140.0,
-                                        color: Colors.green.withOpacity(0.8),
-                                        textColor: Colors.white,
+                          Center(
+                            child: Container(
+                              padding:
+                              EdgeInsets.only(top: 25, left: 25, right: 25),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new Container(
+                                    child: new SizedBox(
+                                      child: RaisedButton(
+                                        child: Text(
+                                          'Confirmer',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                            new BorderRadius.circular(8.0)),
                                         onPressed: _showDialog,
-                                        child: new Text('Confirmer'),
+                                        color:
+                                        Color(0xFF3388FF).withOpacity(0.8),
                                       ),
+                                      width: double.infinity,
+                                      height: 55,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -346,10 +350,7 @@ class EditUserState extends State<EditUser>
                     SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          Transform(
-                            transform: Matrix4.translationValues(
-                                muchDelayedAnimation.value * width, 0.0, 0.0),
-                            child: new Center(
+                          new Center(
                               child: Container(
                                 padding: EdgeInsets.all(25),
                                 child: new Column(
@@ -361,14 +362,14 @@ class EditUserState extends State<EditUser>
                                       obscureText: true,
                                       autofocus: false,
                                       decoration: new InputDecoration(
-                                        labelText: 'Ancien mot de passe',
-                                        labelStyle: TextStyle(
-                                            color: Color(0xFF44BBFF),
-                                            fontSize: 20),
-                                        icon: new Icon(
+                                        prefixIcon: new Icon(
                                           Icons.lock,
-                                          color: Colors.blueAccent
-                                              .withOpacity(0.8),
+                                          color: Color(0xFF3388FF).withOpacity(0.8),
+                                        ),
+                                        labelText: 'Ancien mot de passe',
+                                        fillColor: Colors.white,
+                                        border: new OutlineInputBorder(
+                                          borderRadius: new BorderRadius.circular(8.0),
                                         ),
                                       ),
                                       validator: validatePass,
@@ -376,13 +377,9 @@ class EditUserState extends State<EditUser>
                                     ),
                                   ],
                                 ),
-                              ),
                             ),
                           ),
-                          Transform(
-                            transform: Matrix4.translationValues(
-                                muchDelayedAnimation.value * width, 0.0, 0.0),
-                            child: new Center(
+                          new Center(
                               child: Container(
                                 padding: EdgeInsets.all(25),
                                 child: new Column(
@@ -395,14 +392,14 @@ class EditUserState extends State<EditUser>
                                       obscureText: true,
                                       autofocus: false,
                                       decoration: new InputDecoration(
-                                        labelText: 'Nouveau mot de passe',
-                                        labelStyle: TextStyle(
-                                            color: Color(0xFF44BBFF),
-                                            fontSize: 20),
-                                        icon: new Icon(
+                                        prefixIcon: new Icon(
                                           Icons.lock,
-                                          color: Colors.blueAccent
-                                              .withOpacity(0.8),
+                                          color: Color(0xFF3388FF).withOpacity(0.8),
+                                        ),
+                                        labelText: 'Nouveau mot de passe',
+                                        fillColor: Colors.white,
+                                        border: new OutlineInputBorder(
+                                          borderRadius: new BorderRadius.circular(8.0),
                                         ),
                                       ),
                                       validator: validatePass,
@@ -411,14 +408,8 @@ class EditUserState extends State<EditUser>
                                   ],
                                 ),
                               ),
-                            ),
                           ),
-                          Transform(
-                            transform: Matrix4.translationValues(
-                                muchMuchDelayedAnimation.value * width,
-                                0.0,
-                                0.0),
-                            child: new Center(
+                          new Center(
                               child: Container(
                                 padding: EdgeInsets.all(25),
                                 child: new Column(
@@ -430,14 +421,14 @@ class EditUserState extends State<EditUser>
                                       obscureText: true,
                                       autofocus: false,
                                       decoration: new InputDecoration(
+                                        prefixIcon: new Icon(
+                                          Icons.lock,
+                                          color: Color(0xFF3388FF).withOpacity(0.8),
+                                        ),
                                         labelText: 'Confirmation',
-                                        labelStyle: TextStyle(
-                                            color: Color(0xFF44BBFF),
-                                            fontSize: 20),
-                                        icon: new Icon(
-                                          Icons.beenhere,
-                                          color: Colors.blueAccent
-                                              .withOpacity(0.8),
+                                        fillColor: Colors.white,
+                                        border: new OutlineInputBorder(
+                                          borderRadius: new BorderRadius.circular(8.0),
                                         ),
                                       ),
                                       validator: (confirm) {
@@ -449,32 +440,35 @@ class EditUserState extends State<EditUser>
                                   ],
                                 ),
                               ),
-                            ),
                           ),
-                          Transform(
-                            transform: Matrix4.translationValues(
-                                0.0,
-                                muchMuchMuchDelayedAnimation4.value * width,
-                                0.0),
-                            child: new Center(
-                              child: Container(
-                                padding: EdgeInsets.all(25),
-                                child: new Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new ClipRRect(
-                                      borderRadius:
-                                          new BorderRadius.circular(30.0),
-                                      child: new MaterialButton(
-                                        minWidth: 140.0,
-                                        color: Colors.green.withOpacity(0.8),
-                                        textColor: Colors.white,
+                          Center(
+                            child: Container(
+                              padding:
+                              EdgeInsets.only(top: 25, left: 25, right: 25),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new Container(
+                                    child: new SizedBox(
+                                      child: RaisedButton(
+                                        child: Text(
+                                          'Confirmer',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                            new BorderRadius.circular(8.0)),
                                         onPressed: _showDialog,
-                                        child: new Text('Confirmer'),
+                                        color:
+                                        Color(0xFF3388FF).withOpacity(0.8),
                                       ),
+                                      width: double.infinity,
+                                      height: 55,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

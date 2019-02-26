@@ -22,12 +22,12 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
 
   Widget _createCircleBadge(IconData iconData, Color color) {
     return new Padding(
-      padding: const EdgeInsets.only(left: 8.0),
+      padding: const EdgeInsets.only(left: 10.0),
       child: new CircleAvatar(
         backgroundColor: color,
         child: new Icon(
           iconData,
-          color: Colors.black38,
+          color: Colors.white,
           size: 16.0,
         ),
         radius: 16.0,
@@ -68,15 +68,16 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     var theme = Theme.of(context);
     var textTheme = theme.textTheme;
     if (edit) return new Container();
-    return new Padding(
-      padding: const EdgeInsets.only(top: 16.0),
+    return new Container(
+      padding: const EdgeInsets.only(top: 5.0),
       child: new Row(
-        children: <Widget>[
-          _createCircleBadge(Icons.star, theme.accentColor),
-          _createCircleBadge(Icons.star, theme.accentColor),
-          _createCircleBadge(Icons.star_border, Colors.white12),
-        ],
-      ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _createCircleBadge(Icons.star, Color(0xFF3388FF).withOpacity(0.8)),
+            _createCircleBadge(Icons.star, Color(0xFF3388FF).withOpacity(0.8)),
+            _createCircleBadge(Icons.star, Colors.black45),
+          ],
+        ),
     );
   }
 
@@ -105,16 +106,19 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                         child: new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            new DecoratedBox(
-                              decoration: new BoxDecoration(
-                                border: new Border.all(color: Colors.white30),
-                                borderRadius: new BorderRadius.circular(30.0),
-                              ),
-                              child: _createPillButton(
-                                context,
-                                text,
-                                backgroundColor: Colors.black.withOpacity(0.5),
-                                textColor: Colors.white,
+                            new Container(
+                              padding: EdgeInsets.only(top: 50),
+                              child: new DecoratedBox(
+                                decoration: new BoxDecoration(
+                                  border: new Border.all(color: Colors.white30),
+                                  borderRadius: new BorderRadius.circular(30.0),
+                                ),
+                                child: _createPillButton(
+                                  context,
+                                  text,
+                                  backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
+                                  textColor: Colors.white,
+                                ),
                               ),
                             ),
                           ],
