@@ -1,13 +1,12 @@
 import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/businessdetails/business_details_header.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/business_detail_footer.dart';
-import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/services/activity.dart';
 import 'package:flutter/material.dart';
 
 class BusinessDetailsPage extends StatelessWidget {
-  BusinessDetailsPage(this.business, this.avatarTag, this.sectorActivityList,
-      this.edit);
+  BusinessDetailsPage(
+      this.business, this.avatarTag, this.sectorActivityList, this.edit);
 
   final Business business;
   final Object avatarTag;

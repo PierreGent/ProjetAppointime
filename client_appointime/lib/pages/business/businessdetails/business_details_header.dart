@@ -26,7 +26,7 @@ class BusinessDetailHeader extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
 
     var businessInformation = Container(
-      padding: EdgeInsets.only(top: 100),
+      padding: EdgeInsets.only(top: 30),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -72,13 +72,31 @@ class BusinessDetailHeader extends StatelessWidget {
 
     return Stack(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 66.0),
-          child: Hero(
-            tag: avatarTag,
-            child: ArcBannerImage(business.bannerUrl),
+       Stack(
+        children: <Widget>[
+
+          Padding(
+            padding: const EdgeInsets.only(bottom: 95.0),
+            child:ArcBannerImage(business.bannerUrl),
+
           ),
-        ),
+    new Align(
+    alignment: FractionalOffset.bottomCenter,
+    heightFactor: 1.6,
+    child:
+     Center(
+       child: Hero(
+
+         tag: avatarTag,
+         child: new CircleAvatar(
+
+           backgroundImage: NetworkImage(business.avatarUrl),
+
+           radius: 50.0,
+         )),),)
+
+    ],),
+
         Positioned(
           bottom: 0.0,
           left: 0.0,

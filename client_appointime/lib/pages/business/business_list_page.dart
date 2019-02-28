@@ -23,19 +23,78 @@ class BusinessListPage extends StatefulWidget {
 }
 
 class _BusinessListPageState extends State<BusinessListPage> {
+  final TextEditingController _filter = new TextEditingController();
+  String _searchText = "";
+  Widget content = new Container();
+  List names = new List(); // names we get from API
+  List filteredNames = new List(); // names filtered by search text
+  Icon _searchIcon = new Icon(Icons.search);
+  Widget _appBarTitle = new Text('Rechercher une entreprise');
   bool _isLoading = false;
   List<Activity> sectorActivityList;
   List<Business> _business = [];
+  List<Business> _oldBusiness = [];
   FirebaseUser getInfosUser;
-
+  _BusinessListPageState() {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          filteredNames = names;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
   @override
   void initState() {
-    super.initState();
-
     _isLoading = false;
     loadJobs();
     _loadFavorite();
     if (widget.type == "all") _loadBusiness();
+
+    super.initState();
+  }
+
+  Widget _buildList() {
+    if (!(_searchText.isEmpty)) {
+      List<Business> searchListBusiness = new List();
+      List tempList = new List();
+      for (int i = 0; i < filteredNames.length; i++) {
+        if (filteredNames[i]['address']
+            .toLowerCase()
+            .contains(_searchText.toLowerCase()) || filteredNames[i]['name']
+            .toLowerCase()
+            .contains(_searchText.toLowerCase()) || filteredNames[i]['description']
+            .toLowerCase()
+            .contains(_searchText.toLowerCase())) {
+          tempList.add(filteredNames[i]);
+          searchListBusiness.add(Business.fromMap(
+              filteredNames[i]['id'], filteredNames[i], widget.user));
+        }
+      }
+      setState(() {
+        _oldBusiness = _business;
+        _business = searchListBusiness;
+        filteredNames = tempList;
+      });
+    }
+    return content;
+  }
+
+  Widget _buildBar(BuildContext context) {
+    return new AppBar(
+      centerTitle: true,
+      backgroundColor: Colors.white10,
+      title: GestureDetector(child: _appBarTitle, onTap: _searchPressed),
+      leading: new IconButton(
+        icon: _searchIcon,
+        onPressed: _searchPressed,
+      ),
+    );
   }
 
   Future loadJobs() async {
@@ -57,6 +116,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
 
 //Chargement des entreprises
   Future<void> _loadBusiness() async {
+    List tempList = new List();
     _business = [];
     if (this.mounted) {
       setState(() {
@@ -78,6 +138,13 @@ class _BusinessListPageState extends State<BusinessListPage> {
         });
         getUser(v['boss']).then((DataSnapshot result) {
           Map<dynamic, dynamic> values = result.value;
+          setState(() {
+            v['id'] = k;
+            tempList.add(v);
+            names = tempList;
+            names.shuffle();
+            filteredNames = names;
+          });
           if (widget.type == "all") {
             if (this.mounted) {
               setState(() {
@@ -162,14 +229,16 @@ class _BusinessListPageState extends State<BusinessListPage> {
           }
         });
     });
-    if (this.mounted) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+
     if (widget.type == "favorite") if (this.mounted) {
       setState(() {
         _loadBusiness();
+        _isLoading = false;
+      });
+    }
+    if (this.mounted) {
+      setState(() {
+        _isLoading = false;
       });
     }
   }
@@ -180,7 +249,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
       _isLoading = true;
     });
 
-    Future.delayed(Duration(seconds: 1), () async {
+    Future.delayed(Duration(milliseconds: 100), () async {
       bool toDelete = false;
       Favorite favToDelete;
       getInfosUser = await widget.auth.getCurrentUser();
@@ -225,6 +294,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
   }
 
   Widget _buildBusinessListTile(BuildContext context, int index) {
+    if (index >= _business.length) return Text("loading");
     Business business = _business[index];
     bool isFavorite = false;
     Map<String, dynamic> mailPass = new Map<String, dynamic>();
@@ -240,9 +310,10 @@ class _BusinessListPageState extends State<BusinessListPage> {
     });
     getUser(business.boss.id).then((DataSnapshot result) {
       Map<dynamic, dynamic> values = result.value;
-      setState(() {
-        user = User.fromMap(mailPass, values, business.boss.id);
-      });
+      if (this.mounted)
+        setState(() {
+          user = User.fromMap(mailPass, values, business.boss.id);
+        });
     });
 
     return Stack(
@@ -284,24 +355,43 @@ class _BusinessListPageState extends State<BusinessListPage> {
     );
   }
 
-  Widget _showCircularProgress() {
-    if (_isLoading) {
-      return Center(child: CircularProgressIndicator());
-    }
-    return Container(
-      height: 0.0,
-      width: 0.0,
-    );
+  void _searchPressed() {
+    setState(() {
+      _isLoading = true;
+      if (this._searchIcon.icon == Icons.search) {
+        this._searchIcon = new Icon(Icons.close);
+
+        this._appBarTitle = new TextField(
+          autofocus: true,
+          controller: _filter,
+          decoration: new InputDecoration(
+
+              // prefixIcon: new Icon(Icons.search),
+              hintText: 'Tapez ici...'),
+        );
+      } else {
+        _loadFavorite();
+        if (widget.type == "all") _loadBusiness();
+
+        this._searchIcon = new Icon(Icons.search);
+        this._appBarTitle = new Text('Rechercher une entreprise');
+        filteredNames = names;
+        _filter.clear();
+      }
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading)
+    if (_business == null || _isLoading)
       return new Center(
         child: CircularProgressIndicator(),
       );
-    Widget content;
-    if (_business.length < 1 && widget.type == "favorite") {
+
+    if (_business.length < 1 &&
+        widget.type == "favorite" &&
+        this._searchIcon.icon == Icons.search) {
       return new Center(
         child: Container(
           padding: EdgeInsets.all(25),
@@ -344,17 +434,23 @@ class _BusinessListPageState extends State<BusinessListPage> {
         ),
       );
     }
-    content = new ListView.builder(
-      itemCount: _business.length,
-      itemBuilder: _buildBusinessListTile,
-    );
+    setState(() {
+      content = new ListView.builder(
+        itemCount: _business.length,
+        itemBuilder: _buildBusinessListTile,
+      );
+    });
 
-    return Container(
+    return Scaffold(
+      appBar: _buildBar(context),
+      body: new Container(
         child: Stack(
-      children: <Widget>[
-        content,
-        _showCircularProgress(),
-      ],
-    ));
+          children: <Widget>[
+            _buildList(),
+          ],
+        ),
+      ),
+      resizeToAvoidBottomPadding: false,
+    );
   }
 }

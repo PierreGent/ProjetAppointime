@@ -22,13 +22,14 @@ class BasePageState extends State<BasePage> {
   @override
   Widget build(BuildContext context) {
     if (widget.user == null) {
-      return Container(
+      return Center(
         child: CircularProgressIndicator(),
       );
     }
 
     return new Scaffold(
         backgroundColor: globalVar.couleurPrimaire,
+        resizeToAvoidBottomPadding: false,
         body: BusinessListPage(widget.auth, widget.user, "favorite"));
   }
 }

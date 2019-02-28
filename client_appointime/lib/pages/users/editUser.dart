@@ -168,32 +168,35 @@ class EditUserState extends State<EditUser>
                       child: Column(
                         children: <Widget>[
                           new Center(
-                              child: Container(
-                                padding: EdgeInsets.only(top: 25, left: 25, right: 25),
-                                child: new Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    TextFormField(
-                                      controller: changeMailController,
-                                      autovalidate: autoValidate,
-                                      maxLines: 1,
-                                      keyboardType: TextInputType.emailAddress,
-                                      decoration: new InputDecoration(
-                                        prefixIcon: new Icon(
-                                          Icons.lock,
-                                          color: Color(0xFF3388FF).withOpacity(0.8),
-                                        ),
-                                        labelText: 'Adresse',
-                                        fillColor: Colors.white,
-                                        border: new OutlineInputBorder(
-                                          borderRadius: new BorderRadius.circular(8.0),
-                                        ),
+                            child: Container(
+                              padding:
+                                  EdgeInsets.only(top: 25, left: 25, right: 25),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  TextFormField(
+                                    controller: changeMailController,
+                                    autovalidate: autoValidate,
+                                    maxLines: 1,
+                                    keyboardType: TextInputType.emailAddress,
+                                    decoration: new InputDecoration(
+                                      prefixIcon: new Icon(
+                                        Icons.lock,
+                                        color:
+                                            Color(0xFF3388FF).withOpacity(0.8),
                                       ),
-                                      validator: validateAddress,
-                                      onSaved: (value) => address = value,
+                                      labelText: 'Adresse',
+                                      fillColor: Colors.white,
+                                      border: new OutlineInputBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(8.0),
+                                      ),
                                     ),
-                                  ],
-                                ),
+                                    validator: validateAddress,
+                                    onSaved: (value) => address = value,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           Center(
@@ -260,38 +263,40 @@ class EditUserState extends State<EditUser>
                       child: Column(
                         children: <Widget>[
                           new Center(
-                              child: Container(
-                                padding: EdgeInsets.all(25),
-                                child: new Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    TextFormField(
-                                      controller: changeMailController,
-                                      autovalidate: autoValidate,
-                                      maxLines: 1,
-                                      keyboardType: TextInputType.number,
-                                      decoration: new InputDecoration(
-                                        prefixIcon: new Icon(
-                                          Icons.lock,
-                                          color: Color(0xFF3388FF).withOpacity(0.8),
-                                        ),
-                                        labelText: 'Télephone',
-                                        fillColor: Colors.white,
-                                        border: new OutlineInputBorder(
-                                          borderRadius: new BorderRadius.circular(8.0),
-                                        ),
+                            child: Container(
+                              padding: EdgeInsets.all(25),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  TextFormField(
+                                    controller: changeMailController,
+                                    autovalidate: autoValidate,
+                                    maxLines: 1,
+                                    keyboardType: TextInputType.number,
+                                    decoration: new InputDecoration(
+                                      prefixIcon: new Icon(
+                                        Icons.lock,
+                                        color:
+                                            Color(0xFF3388FF).withOpacity(0.8),
                                       ),
-                                      validator: validatePhone,
-                                      onSaved: (value) => phone = value,
+                                      labelText: 'Télephone',
+                                      fillColor: Colors.white,
+                                      border: new OutlineInputBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(8.0),
+                                      ),
                                     ),
-                                  ],
-                                ),
+                                    validator: validatePhone,
+                                    onSaved: (value) => phone = value,
+                                  ),
+                                ],
                               ),
+                            ),
                           ),
                           Center(
                             child: Container(
                               padding:
-                              EdgeInsets.only(top: 25, left: 25, right: 25),
+                                  EdgeInsets.only(top: 25, left: 25, right: 25),
                               child: new Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -306,10 +311,10 @@ class EditUserState extends State<EditUser>
                                         ),
                                         shape: new RoundedRectangleBorder(
                                             borderRadius:
-                                            new BorderRadius.circular(8.0)),
+                                                new BorderRadius.circular(8.0)),
                                         onPressed: _showDialog,
                                         color:
-                                        Color(0xFF3388FF).withOpacity(0.8),
+                                            Color(0xFF3388FF).withOpacity(0.8),
                                       ),
                                       width: double.infinity,
                                       height: 55,
@@ -351,100 +356,106 @@ class EditUserState extends State<EditUser>
                       child: Column(
                         children: <Widget>[
                           new Center(
-                              child: Container(
-                                padding: EdgeInsets.all(25),
-                                child: new Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new TextFormField(
-                                      autovalidate: autoValidate,
-                                      maxLines: 1,
-                                      obscureText: true,
-                                      autofocus: false,
-                                      decoration: new InputDecoration(
-                                        prefixIcon: new Icon(
-                                          Icons.lock,
-                                          color: Color(0xFF3388FF).withOpacity(0.8),
-                                        ),
-                                        labelText: 'Ancien mot de passe',
-                                        fillColor: Colors.white,
-                                        border: new OutlineInputBorder(
-                                          borderRadius: new BorderRadius.circular(8.0),
-                                        ),
+                            child: Container(
+                              padding: EdgeInsets.all(25),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new TextFormField(
+                                    autovalidate: autoValidate,
+                                    maxLines: 1,
+                                    obscureText: true,
+                                    autofocus: false,
+                                    decoration: new InputDecoration(
+                                      prefixIcon: new Icon(
+                                        Icons.lock,
+                                        color:
+                                            Color(0xFF3388FF).withOpacity(0.8),
                                       ),
-                                      validator: validatePass,
-                                      onSaved: (value) => oldPassword = value,
+                                      labelText: 'Ancien mot de passe',
+                                      fillColor: Colors.white,
+                                      border: new OutlineInputBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(8.0),
+                                      ),
                                     ),
-                                  ],
-                                ),
+                                    validator: validatePass,
+                                    onSaved: (value) => oldPassword = value,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           new Center(
-                              child: Container(
-                                padding: EdgeInsets.all(25),
-                                child: new Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new TextFormField(
-                                      key: passKey,
-                                      autovalidate: autoValidate,
-                                      maxLines: 1,
-                                      obscureText: true,
-                                      autofocus: false,
-                                      decoration: new InputDecoration(
-                                        prefixIcon: new Icon(
-                                          Icons.lock,
-                                          color: Color(0xFF3388FF).withOpacity(0.8),
-                                        ),
-                                        labelText: 'Nouveau mot de passe',
-                                        fillColor: Colors.white,
-                                        border: new OutlineInputBorder(
-                                          borderRadius: new BorderRadius.circular(8.0),
-                                        ),
+                            child: Container(
+                              padding: EdgeInsets.all(25),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new TextFormField(
+                                    key: passKey,
+                                    autovalidate: autoValidate,
+                                    maxLines: 1,
+                                    obscureText: true,
+                                    autofocus: false,
+                                    decoration: new InputDecoration(
+                                      prefixIcon: new Icon(
+                                        Icons.lock,
+                                        color:
+                                            Color(0xFF3388FF).withOpacity(0.8),
                                       ),
-                                      validator: validatePass,
-                                      onSaved: (value) => newPassword = value,
+                                      labelText: 'Nouveau mot de passe',
+                                      fillColor: Colors.white,
+                                      border: new OutlineInputBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(8.0),
+                                      ),
                                     ),
-                                  ],
-                                ),
+                                    validator: validatePass,
+                                    onSaved: (value) => newPassword = value,
+                                  ),
+                                ],
                               ),
+                            ),
                           ),
                           new Center(
-                              child: Container(
-                                padding: EdgeInsets.all(25),
-                                child: new Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new TextFormField(
-                                      autovalidate: autoValidate,
-                                      maxLines: 1,
-                                      obscureText: true,
-                                      autofocus: false,
-                                      decoration: new InputDecoration(
-                                        prefixIcon: new Icon(
-                                          Icons.lock,
-                                          color: Color(0xFF3388FF).withOpacity(0.8),
-                                        ),
-                                        labelText: 'Confirmation',
-                                        fillColor: Colors.white,
-                                        border: new OutlineInputBorder(
-                                          borderRadius: new BorderRadius.circular(8.0),
-                                        ),
+                            child: Container(
+                              padding: EdgeInsets.all(25),
+                              child: new Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  new TextFormField(
+                                    autovalidate: autoValidate,
+                                    maxLines: 1,
+                                    obscureText: true,
+                                    autofocus: false,
+                                    decoration: new InputDecoration(
+                                      prefixIcon: new Icon(
+                                        Icons.lock,
+                                        color:
+                                            Color(0xFF3388FF).withOpacity(0.8),
                                       ),
-                                      validator: (confirm) {
-                                        if (passKey.currentState != null)
-                                          return validatePassConfirm(confirm,
-                                              passKey.currentState.value);
-                                      },
+                                      labelText: 'Confirmation',
+                                      fillColor: Colors.white,
+                                      border: new OutlineInputBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(8.0),
+                                      ),
                                     ),
-                                  ],
-                                ),
+                                    validator: (confirm) {
+                                      if (passKey.currentState != null)
+                                        return validatePassConfirm(confirm,
+                                            passKey.currentState.value);
+                                    },
+                                  ),
+                                ],
                               ),
+                            ),
                           ),
                           Center(
                             child: Container(
                               padding:
-                              EdgeInsets.only(top: 25, left: 25, right: 25),
+                                  EdgeInsets.only(top: 25, left: 25, right: 25),
                               child: new Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -459,10 +470,10 @@ class EditUserState extends State<EditUser>
                                         ),
                                         shape: new RoundedRectangleBorder(
                                             borderRadius:
-                                            new BorderRadius.circular(8.0)),
+                                                new BorderRadius.circular(8.0)),
                                         onPressed: _showDialog,
                                         color:
-                                        Color(0xFF3388FF).withOpacity(0.8),
+                                            Color(0xFF3388FF).withOpacity(0.8),
                                       ),
                                       width: double.infinity,
                                       height: 55,

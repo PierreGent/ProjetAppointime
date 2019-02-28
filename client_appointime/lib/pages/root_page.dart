@@ -57,12 +57,7 @@ class _RootPageState extends State<RootPage> {
   }
 
   Widget _buildWaitingScreen() {
-    return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return Center(child: CircularProgressIndicator());
   }
 
   @override

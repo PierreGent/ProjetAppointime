@@ -34,7 +34,6 @@ class MyBusinessState extends State<MyBusiness> {
   }
 
   Future MyBusiness() async {
-
     isLoading = true;
     FirebaseDatabase.instance
         .reference()
@@ -53,13 +52,13 @@ class MyBusinessState extends State<MyBusiness> {
         getUser(widget.userId).then((DataSnapshot result) {
           Map<dynamic, dynamic> values = result.value;
 
-          if (this.mounted ) {
+          if (this.mounted) {
             setState(() {
-              this.business = Business.fromMap(k, v,User.fromMap(mailPass, values, widget.userId));
+              this.business = Business.fromMap(
+                  k, v, User.fromMap(mailPass, values, widget.userId));
             });
           }
         });
-
       });
     });
     isLoading = false;

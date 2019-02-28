@@ -71,13 +71,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
     return new Container(
       padding: const EdgeInsets.only(top: 5.0),
       child: new Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _createCircleBadge(Icons.star, Color(0xFF3388FF).withOpacity(0.8)),
-            _createCircleBadge(Icons.star, Color(0xFF3388FF).withOpacity(0.8)),
-            _createCircleBadge(Icons.star, Colors.black45),
-          ],
-        ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _createCircleBadge(Icons.star, Color(0xFF3388FF).withOpacity(0.8)),
+          _createCircleBadge(Icons.star, Color(0xFF3388FF).withOpacity(0.8)),
+          _createCircleBadge(Icons.star, Colors.black45),
+        ],
+      ),
     );
   }
 
@@ -116,7 +116,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                 child: _createPillButton(
                                   context,
                                   text,
-                                  backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
+                                  backgroundColor:
+                                      Color(0xFF3388FF).withOpacity(0.8),
                                   textColor: Colors.white,
                                 ),
                               ),

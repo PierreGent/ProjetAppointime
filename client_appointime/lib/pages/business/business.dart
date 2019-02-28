@@ -28,7 +28,7 @@ class Business {
   final String bannerUrl;
   List<Prestation> prestation;
 
-  static Business fromMap(String idBusiness, Map map,User user) {
+  static Business fromMap(String idBusiness, Map map, User user) {
     return new Business(
       //avatar: map['picture']['large'],
       id: idBusiness,
@@ -40,7 +40,7 @@ class Business {
       fieldOfActivity: map['fieldOfActivity'].toString(),
       avatarUrl: map['avatarUrl'],
       bannerUrl: map['bannerUrl'],
-      boss:user,
+      boss: user,
       prestation: [],
     );
   }
