@@ -109,7 +109,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
     return Container(
       child: ListTile(
 
-        onTap:  _selectDate,
+        onTap: ()=> _selectDate(presta),
         title: new Text(presta.namePresta),
 
         subtitle:
@@ -123,7 +123,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
     );
   }
 
-  Future _selectDate() async {
+  Future _selectDate(Prestation presta) async {
     DateTime picked = await showDatePicker(
         context: context,
         initialDate: new DateTime.now(),
@@ -135,7 +135,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => DayView(widget.business,picked)),
+            builder: (context) => DayView(widget.business,picked,presta)),
       );
     });
   }

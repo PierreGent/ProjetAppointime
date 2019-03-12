@@ -1,4 +1,5 @@
 import 'package:client_appointime/pages/business/business.dart';
+import 'package:client_appointime/pages/business/prestation.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -12,39 +13,25 @@ class Event {
     @required this.startMinuteOfDay,
     @required this.duration,
     @required this.title,
+    @required this.isFree,
+
   });
 
   final int startMinuteOfDay;
   final int duration;
+  final bool isFree;
 
   final String title;
 }
 
-List<Event> eventsOfDay0 = <Event>[
-  new Event(startMinuteOfDay: 0, duration: 60, title: "Midnight Party"),
-  new Event(
-      startMinuteOfDay: 6 * 60, duration: 2 * 60, title: "Morning Routine"),
-  new Event(startMinuteOfDay: 6 * 60, duration: 60, title: "Eat Breakfast"),
-  new Event(startMinuteOfDay: 7 * 60, duration: 60, title: "Get Dressed"),
-  new Event(
-      startMinuteOfDay: 18 * 60, duration: 60, title: "Take Dog For A Walk"),
-];
 
-List<Event> eventsOfDay1 = <Event>[
-  new Event(startMinuteOfDay: 1 * 60, duration: 90, title: "Sleep Walking"),
-  new Event(startMinuteOfDay: 7 * 60, duration: 60, title: "Drive To Work"),
-  new Event(startMinuteOfDay: 8 * 60, duration: 20, title: "A"),
-  new Event(startMinuteOfDay: 8 * 60, duration: 30, title: "B"),
-  new Event(startMinuteOfDay: 8 * 60, duration: 60, title: "C"),
-  new Event(startMinuteOfDay: 8 * 60 + 10, duration: 20, title: "D"),
-  new Event(startMinuteOfDay: 8 * 60 + 30, duration: 30, title: "E"),
-  new Event(startMinuteOfDay: 23 * 60, duration: 60, title: "Midnight Snack"),
-];
+
 
 class DayView extends StatefulWidget {
-  DayView(this.business, this.day);
+  DayView(this.business, this.day,this.presta);
 
   final Business business;
+  final Prestation presta;
   final DateTime day;
   @override
   State createState() => new _DayViewState();
@@ -52,8 +39,14 @@ class DayView extends StatefulWidget {
 
 class _DayViewState extends State<DayView> {
   @override
+  List<Event> eventsOfDay=[];
   void initState() {
+    loadEvent();
     super.initState();
+  }
+  void loadEvent(){
+    for(int i=480;i<1200;i+=widget.presta.duration)
+      eventsOfDay.add(new Event(startMinuteOfDay: i, duration: widget.presta.duration, title: "plage horaire disponible pour: "+widget.presta.namePresta, isFree: true));
   }
 
   String _minuteOfDayToHourMinuteString(int minuteOfDay) {
@@ -65,7 +58,7 @@ class _DayViewState extends State<DayView> {
   List<StartDurationItem> _getEventsOfDay(DateTime day) {
     List<Event> events;
 
-    events = eventsOfDay0;
+    events = eventsOfDay;
 
     return events
         .map(
