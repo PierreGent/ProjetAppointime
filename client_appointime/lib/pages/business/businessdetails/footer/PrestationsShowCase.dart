@@ -1,6 +1,7 @@
 import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/PrestationsForm.dart';
 import 'package:client_appointime/pages/business/prestation.dart';
+import 'package:client_appointime/pages/calendar/day_view.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,6 +20,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool autoValidate = false;
+  String _value = '';
   String namePresta;
   String description;
   double duration = 5;
@@ -106,18 +108,55 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
     print(presta.namePresta);
     return Container(
       child: ListTile(
-        //onTap: () => _navigateToBusinessDetails(business, index),
+
+        onTap:  _selectDate,
         title: new Text(presta.namePresta),
+
         subtitle:
             new Text("Durée : " + presta.duration.toString() + " minutes"),
-        trailing: Container(
+        trailing: Column(children: <Widget>[Container(
           padding: EdgeInsets.all(10),
           child: Text("Prix : " + presta.price.toString() + " €"),
         ),
+        showDelete(presta),],)
       ),
     );
   }
 
+  Future _selectDate() async {
+    DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: new DateTime.now(),
+        firstDate: new DateTime(2018),
+        lastDate: new DateTime(2021)
+    );
+    if(picked != null) setState(() {
+      _value = picked.toString();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DayView(widget.business,picked)),
+      );
+    });
+  }
+
+
+  Widget showDelete(Prestation presta){
+    if(widget.edit)
+    return  IconButton(
+      icon: Icon(Icons.delete_forever,color: Colors.red),
+      onPressed:() async =>await FirebaseDatabase.instance
+          .reference()
+          .child('prestation')
+          .child(presta.id)
+          .remove()
+          .then((_) { setState(() {
+        loadPresta();
+      });}),
+    );
+    return  Icon(Icons.check,color: Colors.green);
+
+}
   submit() async {
     final prestation =
         FirebaseDatabase.instance.reference().child('prestation');

@@ -1,10 +1,7 @@
 \babel@toc {french}{}
 \contentsline {section}{\numberline {1}Retour sur les travaux men\IeC {\'e}s durant la semaine}{2}
-\contentsline {subsection}{\numberline {1.1}Menu de navigation et formulaire pour renseigner une entreprise}{2}
-\contentsline {subsection}{\numberline {1.2}Esth\IeC {\'e}tique de l'application}{2}
-\contentsline {subsection}{\numberline {1.3}Autres avancements}{2}
+\contentsline {subsection}{\numberline {1.1}Barre de recherche}{2}
+\contentsline {subsection}{\numberline {1.2}Autres t\IeC {\^a}ches}{2}
 \contentsline {section}{\numberline {2}T\IeC {\^a}ches \IeC {\`a} venir}{2}
-\contentsline {subsection}{\numberline {2.1}Page d'accueil}{2}
-\contentsline {subsection}{\numberline {2.2}Gestion de compte}{2}
-\contentsline {subsection}{\numberline {2.3}Page d'affichages des d\IeC {\'e}tails de l'entreprise}{2}
-\contentsline {section}{\numberline {3}Autres informations}{3}
+\contentsline {subsection}{\numberline {2.1}Horaires et disponibilit\IeC {\'e}s}{2}
+\contentsline {subsection}{\numberline {2.2}Prise de rendez vous}{2}
