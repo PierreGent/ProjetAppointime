@@ -59,21 +59,24 @@ class _BusinessListPageState extends State<BusinessListPage> {
     super.initState();
   }
 
-  Widget _buildList() {
+  Future<void> _buildList() async {
     if (!(_searchText.isEmpty)) {
       List<Business> searchListBusiness = new List();
       List tempList = new List();
       for (int i = 0; i < filteredNames.length; i++) {
         if (filteredNames[i]['address']
-            .toLowerCase()
-            .contains(_searchText.toLowerCase()) || filteredNames[i]['name']
-            .toLowerCase()
-            .contains(_searchText.toLowerCase()) || filteredNames[i]['description']
-            .toLowerCase()
-            .contains(_searchText.toLowerCase())) {
+                .toLowerCase()
+                .contains(_searchText.toLowerCase()) ||
+            filteredNames[i]['name']
+                .toLowerCase()
+                .contains(_searchText.toLowerCase()) ||
+            filteredNames[i]['description']
+                .toLowerCase()
+                .contains(_searchText.toLowerCase())) {
           tempList.add(filteredNames[i]);
-          searchListBusiness.add(Business.fromMap(
-              filteredNames[i]['id'], filteredNames[i], widget.user));
+          for (Business thebusiness in _business)
+            if (filteredNames[i]['id'].equals(thebusiness.id))
+              searchListBusiness.add(thebusiness);
         }
       }
       setState(() {
@@ -82,7 +85,6 @@ class _BusinessListPageState extends State<BusinessListPage> {
         filteredNames = tempList;
       });
     }
-    return content;
   }
 
   Widget _buildBar(BuildContext context) {
@@ -145,25 +147,41 @@ class _BusinessListPageState extends State<BusinessListPage> {
             names.shuffle();
             filteredNames = names;
           });
-          if (widget.type == "all") {
-            if (this.mounted) {
-              setState(() {
-                this._business.add(Business.fromMap(
-                    k, v, User.fromMap(mailPass, values, v['boss'])));
+          FirebaseDatabase.instance
+              .reference()
+              .child('shedule')
+              .orderByChild("businessId")
+              .equalTo(k)
+              .once()
+              .then((DataSnapshot resultShedule) async {
+            Map<dynamic, dynamic> valuesShedule = resultShedule.value;
+            print(valuesShedule);
+            if (widget.type == "all") {
+              if (this.mounted) {
+                setState(() {
+                  this._business.add(Business.fromMap(
+                      k,
+                      v,
+                      User.fromMap(mailPass, values, v['boss']),
+                      valuesShedule));
+                });
+              }
+            } else {
+              widget.user.favorite.forEach((f) {
+                if (f.businessId == k) {
+                  if (this.mounted) {
+                    setState(()  {
+                      this._business.add(Business.fromMap(
+                          k,
+                          v,
+                          User.fromMap(mailPass, values, v['boss']),
+                          valuesShedule));
+                    });
+                  }
+                }
               });
             }
-          } else {
-            widget.user.favorite.forEach((f) {
-              if (f.businessId == k) {
-                if (this.mounted) {
-                  setState(() {
-                    this._business.add(Business.fromMap(
-                        k, v, User.fromMap(mailPass, values, v['boss'])));
-                  });
-                }
-              }
-            });
-          }
+          });
         });
       });
     });
@@ -190,14 +208,25 @@ class _BusinessListPageState extends State<BusinessListPage> {
         mailPass['email'] = result.email;
         mailPass['password'] = result.uid;
       });
-      getUser(valuesBusiness['boss']).then((DataSnapshot result) {
-        Map<dynamic, dynamic> values = result.value;
-        if (this.mounted) {
-          setState(() {
-            business = Business.fromMap(id, values,
-                User.fromMap(mailPass, values, valuesBusiness['boss']));
-          });
-        }
+      FirebaseDatabase.instance
+          .reference()
+          .child('shedule')
+          .orderByChild("businessId")
+          .equalTo(id)
+          .once()
+          .then((DataSnapshot resultShedule) {
+        Map<dynamic, dynamic> valuesShedule = resultShedule.value;
+        print(valuesShedule);
+
+        getUser(valuesBusiness['boss']).then((DataSnapshot result) {
+          Map<dynamic, dynamic> values = result.value;
+
+          business = Business.fromMap(
+              id,
+              values,
+              User.fromMap(mailPass, values, valuesBusiness['boss']),
+              valuesShedule);
+        });
       });
     });
     return business;
@@ -446,7 +475,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
       body: new Container(
         child: Stack(
           children: <Widget>[
-            _buildList(),
+            content,
           ],
         ),
       ),

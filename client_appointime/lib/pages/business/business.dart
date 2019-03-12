@@ -1,5 +1,8 @@
 import 'package:client_appointime/pages/business/prestation.dart';
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/services/authentication.dart';
+import 'package:client_appointime/validation.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:meta/meta.dart';
 
 class Business {
@@ -14,7 +17,8 @@ class Business {
       @required this.avatarUrl,
       @required this.bannerUrl,
       @required this.prestation,
-      @required this.boss});
+      @required this.boss,
+        @required this.businessShedule});
 
   final String id;
   final User boss;
@@ -27,8 +31,9 @@ class Business {
   final String avatarUrl;
   final String bannerUrl;
   List<Prestation> prestation;
+  final Map businessShedule;
 
-  static Business fromMap(String idBusiness, Map map, User user) {
+  static Business fromMap(String idBusiness, Map map, User user,Map businessShedule) {
     return new Business(
       //avatar: map['picture']['large'],
       id: idBusiness,
@@ -42,6 +47,7 @@ class Business {
       bannerUrl: map['bannerUrl'],
       boss: user,
       prestation: [],
+        businessShedule: businessShedule
     );
   }
 

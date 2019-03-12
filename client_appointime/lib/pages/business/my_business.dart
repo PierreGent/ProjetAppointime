@@ -51,13 +51,19 @@ class MyBusinessState extends State<MyBusiness> {
         });
         getUser(widget.userId).then((DataSnapshot result) {
           Map<dynamic, dynamic> values = result.value;
-
-          if (this.mounted) {
-            setState(() {
-              this.business = Business.fromMap(
-                  k, v, User.fromMap(mailPass, values, widget.userId));
-            });
-          }
+          FirebaseDatabase.instance
+              .reference()
+              .child('shedule').orderByChild("businessId").equalTo(k).once()
+              .then((DataSnapshot resultShedule) async {
+            Map<dynamic, dynamic> valuesShedule = resultShedule.value;
+            print(valuesShedule);
+            if (this.mounted) {
+              setState(() {
+                this.business = Business.fromMap(
+                    k, v, User.fromMap(mailPass, values, widget.userId),valuesShedule);
+              });
+            }
+          });
         });
       });
     });
