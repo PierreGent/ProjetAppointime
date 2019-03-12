@@ -28,13 +28,15 @@ class MyBusinessState extends State<MyBusiness> {
   List<Activity> sectorActivityList;
 
   void initState() {
-    super.initState();
     MyBusiness();
     loadJobs();
+    super.initState();
   }
 
   Future MyBusiness() async {
-    isLoading = true;
+    setState(() {
+      isLoading = true;
+    });
     FirebaseDatabase.instance
         .reference()
         .child('business')
@@ -61,17 +63,26 @@ class MyBusinessState extends State<MyBusiness> {
               setState(() {
                 this.business = Business.fromMap(
                     k, v, User.fromMap(mailPass, values, widget.userId),valuesShedule);
+
+
+
               });
             }
           });
         });
       });
+
     });
-    isLoading = false;
+    setState(() {
+      isLoading = false;
+    });
   }
 
   Future loadJobs() async {
-    isLoading = true;
+    setState(() {
+      isLoading = true;
+    });
+
     sectorActivityList = [];
     await FirebaseDatabase.instance
         .reference()
@@ -84,19 +95,29 @@ class MyBusinessState extends State<MyBusiness> {
         if (this.mounted)
           setState(() {
             sectorActivityList.add(Activity.fromMap(k, v));
+
           });
       });
+      setState(() {
+        isLoading = false;
+      });
     });
-    isLoading = false;
+
   }
 
   @override
   Widget build(BuildContext context) {
-    isLoading = true;
 
-    isLoading = false;
-    if (!isLoading) {
-      if (this.business == null) {
+    if (isLoading || this.business == null )
+      return new Center(
+        child: CircularProgressIndicator(),
+      );
+    if(this.business!=null)
+      return BusinessDetailsPage(
+          this.business, -1, this.sectorActivityList, true);
+
+
+    if (this.business == null)
         return new Center(
           child: Container(
             padding: EdgeInsets.all(25),
@@ -132,12 +153,7 @@ class MyBusinessState extends State<MyBusiness> {
             ),
           ),
         );
-      } else
-        return BusinessDetailsPage(
-            this.business, -1, this.sectorActivityList, true);
-    }
-    return new Center(
-      child: CircularProgressIndicator(),
-    );
+
+
   }
 }

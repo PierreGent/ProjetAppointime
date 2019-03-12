@@ -39,15 +39,48 @@ class DayView extends StatefulWidget {
 
 class _DayViewState extends State<DayView> {
   @override
+  int openingDayTime;
+  bool isLoading;
+  int closingDayTime;
   List<Event> eventsOfDay=[];
   void initState() {
     loadEvent();
     super.initState();
   }
   void loadEvent(){
-    for(int i=480;i<1200;i+=widget.presta.duration)
-      eventsOfDay.add(new Event(startMinuteOfDay: i, duration: widget.presta.duration, title: "plage horaire disponible pour: "+widget.presta.namePresta, isFree: true));
-  }
+    setState(() {
+      isLoading=true;
+    });
+if(widget.business.businessShedule!=null)
+  widget.business.businessShedule.forEach((k,v){
+    setState(() {
+
+    int closingTime=v["closingTime"];
+    int openingTime=v["openingTime"];
+    if((v["halfDayId"]/2)==widget.day.weekday || (v["halfDayId"]/2)+0.5==widget.day.weekday) {
+      if (openingDayTime == null)
+        openingDayTime = openingTime;
+      if (openingTime < openingDayTime)
+        openingDayTime = openingTime;
+
+      if (closingDayTime == null)
+        closingDayTime = closingTime;
+      if (closingTime > closingDayTime)
+        closingDayTime = closingTime;
+      for (int i = openingTime; i < closingTime; i += widget.presta.duration)
+        if (i + widget.presta.duration < closingTime)
+          eventsOfDay.add(new Event(startMinuteOfDay: i,
+              duration: widget.presta.duration,
+              title: widget.day.weekday.toString() +
+                  "plage horaire disponible pour: " + widget.presta.namePresta,
+              isFree: true));
+    }
+    });
+  });
+    setState(() {
+      isLoading=false;
+    });
+     }
 
   String _minuteOfDayToHourMinuteString(int minuteOfDay) {
     return "${(minuteOfDay ~/ 60).toString().padLeft(2, "0")}"
@@ -76,62 +109,78 @@ class _DayViewState extends State<DayView> {
         )
         .toList();
   }
+Widget content(){
 
+  if(widget.business.businessShedule==null)
+    return new Center(
+      child: Text("Cette entreprise n'a pas spécifié d'horaires",style: TextStyle(fontSize: 30),textAlign: TextAlign.center),
+    );
+  if(!isLoading && (openingDayTime==null || closingDayTime==null))
+    return new Center(
+      child: Text("Aucun horaire spécifié pour ce jour",style: TextStyle(fontSize: 30),textAlign: TextAlign.center),
+    );
+  new DayViewEssentials(
+    properties: new DayViewProperties(
+      maximumMinuteOfDay: closingDayTime+60,
+      minimumMinuteOfDay: openingDayTime-60,
+      days: <DateTime>[
+        widget.day,
+      ],
+    ),
+    child: new Column(
+      children: <Widget>[
+        new Container(
+
+          color: Colors.grey[200],
+          child: new DayViewDaysHeader(
+
+            headerItemBuilder: _headerItemBuilder,
+          ),
+        ),
+        new Expanded(
+          child: new SingleChildScrollView(
+            child: new DayViewSchedule(
+
+              heightPerMinute: 1.5,
+              components: <ScheduleComponent>[
+                new TimeIndicationComponent.intervalGenerated(
+
+                  timeIndicatorDuration: 30,
+                  generatedTimeIndicatorBuilder:
+                  _generatedTimeIndicatorBuilder,
+                ),
+                new SupportLineComponent.intervalGenerated(
+                  interval: 60,
+                  generatedSupportLineBuilder: _generatedSupportLineBuilder,
+                ),
+                new DaySeparationComponent(
+                  generatedDaySeparatorBuilder:
+                  _generatedDaySeparatorBuilder,
+                ),
+                new EventViewComponent(
+
+                  getEventsOfDay: _getEventsOfDay,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
   @override
   Widget build(BuildContext context) {
+    if(isLoading)
+      return new Center(
+        child: CircularProgressIndicator(),
+    );
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Prendre un rendez vous"),
       ),
-      body: new DayViewEssentials(
-        properties: new DayViewProperties(
-          maximumMinuteOfDay: 1200,
-          minimumMinuteOfDay: 480,
-          days: <DateTime>[
-            widget.day,
-          ],
-        ),
-        child: new Column(
-          children: <Widget>[
-            new Container(
-
-              color: Colors.grey[200],
-              child: new DayViewDaysHeader(
-
-                headerItemBuilder: _headerItemBuilder,
-              ),
-            ),
-            new Expanded(
-              child: new SingleChildScrollView(
-                child: new DayViewSchedule(
-
-                  heightPerMinute: 1.5,
-                  components: <ScheduleComponent>[
-                    new TimeIndicationComponent.intervalGenerated(
-
-                      timeIndicatorDuration: 30,
-                      generatedTimeIndicatorBuilder:
-                          _generatedTimeIndicatorBuilder,
-                    ),
-                    new SupportLineComponent.intervalGenerated(
-                      interval: 60,
-                      generatedSupportLineBuilder: _generatedSupportLineBuilder,
-                    ),
-                    new DaySeparationComponent(
-                      generatedDaySeparatorBuilder:
-                          _generatedDaySeparatorBuilder,
-                    ),
-                    new EventViewComponent(
-
-                      getEventsOfDay: _getEventsOfDay,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: content(),
     );
   }
 

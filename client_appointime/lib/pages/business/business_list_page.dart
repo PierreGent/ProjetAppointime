@@ -33,6 +33,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
   bool _isLoading = false;
   List<Activity> sectorActivityList;
   List<Business> _business = [];
+  List<Business> _allBusiness = [];
   List<Business> _oldBusiness = [];
   FirebaseUser getInfosUser;
   _BusinessListPageState() {
@@ -51,7 +52,6 @@ class _BusinessListPageState extends State<BusinessListPage> {
   }
   @override
   void initState() {
-    _isLoading = false;
     loadJobs();
     _loadFavorite();
     if (widget.type == "all") _loadBusiness();
@@ -59,7 +59,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
     super.initState();
   }
 
-  Future<void> _buildList() async {
+  Widget _buildList()  {
     if (!(_searchText.isEmpty)) {
       List<Business> searchListBusiness = new List();
       List tempList = new List();
@@ -74,8 +74,8 @@ class _BusinessListPageState extends State<BusinessListPage> {
                 .toLowerCase()
                 .contains(_searchText.toLowerCase())) {
           tempList.add(filteredNames[i]);
-          for (Business thebusiness in _business)
-            if (filteredNames[i]['id'].equals(thebusiness.id))
+          for (Business thebusiness in _allBusiness)
+            if (filteredNames[i]['id']==thebusiness.id)
               searchListBusiness.add(thebusiness);
         }
       }
@@ -85,6 +85,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
         filteredNames = tempList;
       });
     }
+    return content;
   }
 
   Widget _buildBar(BuildContext context) {
@@ -100,6 +101,11 @@ class _BusinessListPageState extends State<BusinessListPage> {
   }
 
   Future loadJobs() async {
+    if (this.mounted) {
+      setState(() {
+        _isLoading = true;
+      });
+    }
     sectorActivityList = [];
     await FirebaseDatabase.instance
         .reference()
@@ -114,6 +120,11 @@ class _BusinessListPageState extends State<BusinessListPage> {
         });
       });
     });
+    if (this.mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
 //Chargement des entreprises
@@ -156,14 +167,19 @@ class _BusinessListPageState extends State<BusinessListPage> {
               .then((DataSnapshot resultShedule) async {
             Map<dynamic, dynamic> valuesShedule = resultShedule.value;
             print(valuesShedule);
+            if (this.mounted) {
+              setState(() {
+                this._allBusiness.add(Business.fromMap(
+                    k,
+                    v,
+                    User.fromMap(mailPass, values, v['boss']),
+                    valuesShedule));
+              });
+            }
             if (widget.type == "all") {
               if (this.mounted) {
                 setState(() {
-                  this._business.add(Business.fromMap(
-                      k,
-                      v,
-                      User.fromMap(mailPass, values, v['boss']),
-                      valuesShedule));
+                  this._business=this._allBusiness;
                 });
               }
             } else {
@@ -194,6 +210,11 @@ class _BusinessListPageState extends State<BusinessListPage> {
 
 //Chargement d'une entreprise par id
   Future<Business> loadBusiness(String id) async {
+    if (this.mounted) {
+      setState(() {
+        _isLoading = true;
+      });
+    }
     Business business;
     FirebaseDatabase.instance
         .reference()
@@ -229,6 +250,11 @@ class _BusinessListPageState extends State<BusinessListPage> {
         });
       });
     });
+    if (this.mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
     return business;
   }
 
@@ -262,7 +288,6 @@ class _BusinessListPageState extends State<BusinessListPage> {
     if (widget.type == "favorite") if (this.mounted) {
       setState(() {
         _loadBusiness();
-        _isLoading = false;
       });
     }
     if (this.mounted) {
@@ -316,14 +341,17 @@ class _BusinessListPageState extends State<BusinessListPage> {
           widget.user.favorite.remove(favToDelete);
         });
       }
-      setState(() {
-        _isLoading = false;
-      });
+
+    });
+    setState(() {
+      _isLoading = false;
     });
   }
 
   Widget _buildBusinessListTile(BuildContext context, int index) {
-    if (index >= _business.length) return Text("loading");
+    if (index >= _business.length)  return new Center(
+      child: CircularProgressIndicator(),
+    );
     Business business = _business[index];
     bool isFavorite = false;
     Map<String, dynamic> mailPass = new Map<String, dynamic>();
@@ -418,9 +446,26 @@ class _BusinessListPageState extends State<BusinessListPage> {
         child: CircularProgressIndicator(),
       );
 
-    if (_business.length < 1 &&
-        widget.type == "favorite" &&
-        this._searchIcon.icon == Icons.search) {
+    if (_business.length !=null ||  this._searchIcon.icon != Icons.search) {
+      setState(() {
+        content = new ListView.builder(
+          itemCount: _business.length,
+          itemBuilder: _buildBusinessListTile,
+        );
+      });
+
+      return Scaffold(
+        appBar: _buildBar(context),
+        body: new Container(
+          child: Stack(
+            children: <Widget>[
+              _buildList(),
+            ],
+          ),
+        ),
+        resizeToAvoidBottomPadding: false,
+      );
+    }
       return new Center(
         child: Container(
           padding: EdgeInsets.all(25),
@@ -462,24 +507,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
           ),
         ),
       );
-    }
-    setState(() {
-      content = new ListView.builder(
-        itemCount: _business.length,
-        itemBuilder: _buildBusinessListTile,
-      );
-    });
 
-    return Scaffold(
-      appBar: _buildBar(context),
-      body: new Container(
-        child: Stack(
-          children: <Widget>[
-            content,
-          ],
-        ),
-      ),
-      resizeToAvoidBottomPadding: false,
-    );
+
   }
 }

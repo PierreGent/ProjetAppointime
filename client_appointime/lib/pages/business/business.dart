@@ -18,7 +18,7 @@ class Business {
       @required this.bannerUrl,
       @required this.prestation,
       @required this.boss,
-        @required this.businessShedule});
+      @required this.businessShedule});
 
   final String id;
   final User boss;
@@ -31,24 +31,25 @@ class Business {
   final String avatarUrl;
   final String bannerUrl;
   List<Prestation> prestation;
-  final Map businessShedule;
+  final Map<dynamic,dynamic> businessShedule;
 
-  static Business fromMap(String idBusiness, Map map, User user,Map businessShedule) {
+  static Business fromMap(
+      String idBusiness, Map map, User user, Map<dynamic,dynamic> businessSheduleMap) {
+    print(businessSheduleMap);
     return new Business(
-      //avatar: map['picture']['large'],
-      id: idBusiness,
-      name: '${_capitalize(map['name'])}',
-      address: map['address'],
-      phoneNumber: map['phoneNumber'],
-      description: map['description'],
-      cancelAppointment: map['cancelAppointment'],
-      fieldOfActivity: map['fieldOfActivity'].toString(),
-      avatarUrl: map['avatarUrl'],
-      bannerUrl: map['bannerUrl'],
-      boss: user,
-      prestation: [],
-        businessShedule: businessShedule
-    );
+        //avatar: map['picture']['large'],
+        id: idBusiness,
+        name: '${_capitalize(map['name'])}',
+        address: map['address'],
+        phoneNumber: map['phoneNumber'],
+        description: map['description'],
+        cancelAppointment: map['cancelAppointment'],
+        fieldOfActivity: map['fieldOfActivity'].toString(),
+        avatarUrl: map['avatarUrl'],
+        bannerUrl: map['bannerUrl'],
+        boss: user,
+        prestation: [],
+        businessShedule: businessSheduleMap);
   }
 
   static String _capitalize(String input) {
