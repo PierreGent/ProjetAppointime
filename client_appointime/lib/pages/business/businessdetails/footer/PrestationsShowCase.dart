@@ -108,8 +108,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
 
   Widget buildPrestaListTile(BuildContext context, int index) {
     Prestation presta = prestation[index];
-    print(presta.namePresta);
-    return Container(
+    return Card(
       child: ListTile(
 
         onTap: ()=> _selectDate(presta),

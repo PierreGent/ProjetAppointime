@@ -1,5 +1,6 @@
 import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/DetailsShowCase.dart';
+import 'package:client_appointime/pages/business/businessdetails/footer/HoursList.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/PrestationsShowCase.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/conditionShowCase.dart';
 import 'package:client_appointime/pages/users/user.dart';
@@ -28,13 +29,20 @@ class _BusinessShowcaseState extends State<BusinessShowcase>
     _tabs = [
       new Tab(child: Icon(Icons.description, color: Colors.black54)),
       new Tab(child: Icon(Icons.work, color: Colors.black54)),
+
       new Tab(child: Icon(Icons.calendar_today, color: Colors.black54)),
     ];
     _pages = [
       new DetailsShowcase(widget.business),
       new PrestationsShowcase(widget.business, widget.edit,widget.user),
+
       new ConditionsShowcase(widget.business),
     ];
+
+    if(widget.edit){
+      _tabs.add(new Tab(child: Icon(Icons.timer, color: Colors.black54)),);
+      _pages.add(new HoursList(widget.business),);
+    }
     _controller = new TabController(
       length: _tabs.length,
       vsync: this,
