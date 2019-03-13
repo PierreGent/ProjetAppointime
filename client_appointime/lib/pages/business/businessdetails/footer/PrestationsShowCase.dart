@@ -5,6 +5,7 @@ import 'package:client_appointime/pages/calendar/day_view.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class PrestationsShowcase extends StatefulWidget {
   PrestationsShowcase(this.business, this.edit);
@@ -128,7 +129,9 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
         context: context,
         initialDate: new DateTime.now(),
         firstDate: new DateTime(2018),
-        lastDate: new DateTime(2021)
+        lastDate: new DateTime(2021),
+      locale: const Locale('fr','FR')
+        
     );
     if(picked != null) setState(() {
       _value = picked.toString();

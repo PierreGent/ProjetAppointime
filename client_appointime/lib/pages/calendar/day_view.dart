@@ -1,6 +1,7 @@
 import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/prestation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
 import 'package:calendar_views/day_view.dart';
@@ -40,11 +41,16 @@ class DayView extends StatefulWidget {
 class _DayViewState extends State<DayView> {
   @override
   int openingDayTime;
+
+  final format = new NumberFormat("00");
+  double calendarSize=1.5;
   bool isLoading;
   int closingDayTime;
   List<Event> eventsOfDay=[];
   void initState() {
     loadEvent();
+    if(widget.presta.duration<20)
+      calendarSize=2.5;
     super.initState();
   }
   void loadEvent(){
@@ -72,7 +78,9 @@ if(widget.business.businessShedule!=null)
           eventsOfDay.add(new Event(startMinuteOfDay: i,
               duration: widget.presta.duration,
               title: widget.day.weekday.toString() +
-                  "plage horaire disponible pour: " + widget.presta.namePresta,
+                  "plage horaire disponible pour: " + widget.presta.namePresta+" de "+
+                  (i~/60).toString()+"h "+'${format.format(i%60)}'+"min à "+
+                  ((i+widget.presta.duration)~/60).toString()+"h "+'${format.format((i+widget.presta.duration)%60)}'+"min",
               isFree: true));
     }
     });
@@ -109,6 +117,47 @@ if(widget.business.businessShedule!=null)
         )
         .toList();
   }
+
+  void _showDialog(int start) {
+    // flutter defined function
+    ontap() {
+     print("ajouté");
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Attention"),
+          content:
+          new Text("Etes vous sur de vouloir prendre ce rendez vous pour "+widget.presta.namePresta+
+              " le "+widget.day.toString()+" de "+
+              (start~/60).toString()+"h "+'${format.format(start%60)}'+"min à "+
+              ((start+widget.presta.duration)~/60).toString()+"h "+'${format.format((start+widget.presta.duration)%60)}'+"min?"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Annuler"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text("Continuer"),
+              onPressed: () {
+                setState(() {
+                  ontap();
+                });
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
 Widget content(){
 
   if(widget.business.businessShedule==null)
@@ -119,7 +168,7 @@ Widget content(){
     return new Center(
       child: Text("Aucun horaire spécifié pour ce jour",style: TextStyle(fontSize: 30),textAlign: TextAlign.center),
     );
-  new DayViewEssentials(
+  return new DayViewEssentials(
     properties: new DayViewProperties(
       maximumMinuteOfDay: closingDayTime+60,
       minimumMinuteOfDay: openingDayTime-60,
@@ -141,7 +190,7 @@ Widget content(){
           child: new SingleChildScrollView(
             child: new DayViewSchedule(
 
-              heightPerMinute: 1.5,
+              heightPerMinute: calendarSize,
               components: <ScheduleComponent>[
                 new TimeIndicationComponent.intervalGenerated(
 
@@ -169,6 +218,8 @@ Widget content(){
     ),
   );
 }
+
+
   @override
   Widget build(BuildContext context) {
     if(isLoading)
@@ -221,6 +272,8 @@ Widget content(){
     );
   }
 
+
+
   Positioned _generatedSupportLineBuilder(
     BuildContext context,
     ItemPosition itemPosition,
@@ -270,7 +323,7 @@ Widget content(){
       width: itemSize.width,
       height: itemSize.height,
       child: new GestureDetector(
-        onTap: ()=>print("details"),
+        onTap: ()=>_showDialog(event.startMinuteOfDay),
         child:new Container(
         margin: new EdgeInsets.only(left: 1.0, right: 1.0, bottom: 1.0),
         padding: new EdgeInsets.all(3.0),
