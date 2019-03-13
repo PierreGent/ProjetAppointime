@@ -18,7 +18,7 @@ class Hours {
   static Hours fromMap(String idHours, Map map) {
     return new Hours(
       id: idHours,
-      buisnessId: map['buisnessId'],
+      buisnessId: map['businessId'],
       closingTime: map['closingTime'].toDouble(),
       halfDayId: map['halfDayId'],
       openingTime: map['openingTime'].toDouble(),

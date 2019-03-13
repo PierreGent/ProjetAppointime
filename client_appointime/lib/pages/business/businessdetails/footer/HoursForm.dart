@@ -74,7 +74,7 @@ class HoursFormState extends State<HoursForm> {
                                   lowerValue: _lowerValueMorning,
                                   upperValue: _upperValueMorning,
                                   divisions: 84,
-                                  showValueIndicator: true,
+                                  showValueIndicator: false,
                                   onChanged: (double newLowerValue,
                                       double newUpperValue) {
                                     setState(() {
@@ -109,7 +109,7 @@ class HoursFormState extends State<HoursForm> {
                                   lowerValue: _lowerValueAfternoon,
                                   upperValue: _upperValueAfternoon,
                                   divisions: 108,
-                                  showValueIndicator: true,
+                                  showValueIndicator: false,
                                   onChanged: (double newLowerValue,
                                       double newUpperValue) {
                                     setState(() {
@@ -169,7 +169,7 @@ class HoursFormState extends State<HoursForm> {
       if (values != null)
         values.forEach((k, v) async {
           //Si il concerne l'utilisateur connecté et la journée
-          if (v["buisnessId"] == widget.business.id &&
+          if (v["businessId"] == widget.business.id &&
               (v["halfDayId"] == halfDayIdAfternoon || v["halfDayId"] == halfDayIdMorning)) if (this.mounted) {
             print("pouleet");
             await Hour
@@ -180,14 +180,14 @@ class HoursFormState extends State<HoursForm> {
     });
 
     Hour.push().set({
-      'buisnessId': buisnessId,
+      'businessId': buisnessId,
       'closingTime': _upperValueMorning,
       'halfDayId': halfDayIdMorning,
       'openingTime': _lowerValueMorning,
     });
 
     Hour.push().set({
-      'buisnessId': buisnessId,
+      'businessId': buisnessId,
       'closingTime': _upperValueAfternoon,
       'halfDayId': halfDayIdAfternoon,
       'openingTime': _lowerValueAfternoon,
@@ -210,14 +210,14 @@ class HoursFormState extends State<HoursForm> {
       if (values != null)
         values.forEach((k, v) async {
           //Si il concerne l'utilisateur connecté on l'ajoute a la liste
-          if (v["buisnessId"] == widget.business.id && v["halfDayId"] == halfDayIdAfternoon) if (this.mounted) {
+          if (v["businessId"] == widget.business.id && v["halfDayId"] == halfDayIdAfternoon) if (this.mounted) {
             setState(() {
               _lowerValueAfternoon = Hours.fromMap(k, v).openingTime;
               _upperValueAfternoon = Hours.fromMap(k, v).closingTime;
             });
           }
 
-          if (v["buisnessId"] == widget.business.id && v["halfDayId"] == halfDayIdMorning) if (this.mounted) {
+          if (v["businessId"] == widget.business.id && v["halfDayId"] == halfDayIdMorning) if (this.mounted) {
             setState(() {
               _lowerValueMorning = Hours.fromMap(k, v).openingTime;
               _upperValueMorning = Hours.fromMap(k, v).closingTime;
