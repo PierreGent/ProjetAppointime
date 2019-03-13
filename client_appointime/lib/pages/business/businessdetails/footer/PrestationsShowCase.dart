@@ -2,16 +2,18 @@ import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/PrestationsForm.dart';
 import 'package:client_appointime/pages/business/prestation.dart';
 import 'package:client_appointime/pages/calendar/day_view.dart';
+import 'package:client_appointime/pages/users/user.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class PrestationsShowcase extends StatefulWidget {
-  PrestationsShowcase(this.business, this.edit);
+  PrestationsShowcase(this.business, this.edit,this.user);
 
   final Business business;
   final bool edit;
+  final User user;
 
   PrestationsShowcaseState createState() => PrestationsShowcaseState();
 }
@@ -138,7 +140,7 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => DayView(widget.business,picked,presta)),
+            builder: (context) => DayView(widget.business,picked,presta,widget.user)),
       );
     });
   }

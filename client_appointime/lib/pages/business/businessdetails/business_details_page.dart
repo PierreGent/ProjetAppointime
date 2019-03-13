@@ -1,16 +1,18 @@
 import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/businessdetails/business_details_header.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/business_detail_footer.dart';
+import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/services/activity.dart';
 import 'package:flutter/material.dart';
 
 class BusinessDetailsPage extends StatelessWidget {
   BusinessDetailsPage(
-      this.business, this.avatarTag, this.sectorActivityList, this.edit);
+      this.business, this.avatarTag, this.sectorActivityList, this.edit,this.user);
 
   final Business business;
   final Object avatarTag;
   final bool edit;
+  final User user;
   final List<Activity> sectorActivityList;
 
   Activity getActivity() {
@@ -30,7 +32,7 @@ class BusinessDetailsPage extends StatelessWidget {
               BusinessDetailHeader(business, avatarTag, getActivity()),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: BusinessShowcase(this.business, this.edit),
+                child: BusinessShowcase(this.business, this.edit,this.user),
                 // child: Storyline(movie.storyline),
               ),
               /* PhotoScroller(movie.photoUrls),
@@ -53,7 +55,7 @@ class BusinessDetailsPage extends StatelessWidget {
               BusinessDetailHeader(business, avatarTag, getActivity()),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: BusinessShowcase(this.business, this.edit),
+                child: BusinessShowcase(this.business, this.edit,this.user),
                 // child: Storyline(movie.storyline),
               ),
               /* PhotoScroller(movie.photoUrls),

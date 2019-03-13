@@ -406,7 +406,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
       new MaterialPageRoute(
         builder: (c) {
           return new BusinessDetailsPage(
-              business, avatarTag, sectorActivityList, edit);
+              business, avatarTag, sectorActivityList, edit,widget.user);
         },
       ),
     );

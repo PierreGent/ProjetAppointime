@@ -113,7 +113,8 @@ class HomeState extends State<Home> {
           MyBusiness(
               auth: widget.auth,
               userId: widget.userId,
-              onSignedOut: widget.onSignedOut),
+              onSignedOut: widget.onSignedOut,
+          user: user),
         ],
       ),
       bottomNavigationBar: new Theme(

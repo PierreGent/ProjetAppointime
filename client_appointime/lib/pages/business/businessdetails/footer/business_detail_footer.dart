@@ -2,13 +2,15 @@ import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/DetailsShowCase.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/PrestationsShowCase.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/conditionShowCase.dart';
+import 'package:client_appointime/pages/users/user.dart';
 import 'package:flutter/material.dart';
 
 class BusinessShowcase extends StatefulWidget {
-  BusinessShowcase(this.business, this.edit);
+  BusinessShowcase(this.business, this.edit,this.user);
 
   final Business business;
   final bool edit;
+  final User user;
 
   @override
   _BusinessShowcaseState createState() => new _BusinessShowcaseState();
@@ -30,7 +32,7 @@ class _BusinessShowcaseState extends State<BusinessShowcase>
     ];
     _pages = [
       new DetailsShowcase(widget.business),
-      new PrestationsShowcase(widget.business, widget.edit),
+      new PrestationsShowcase(widget.business, widget.edit,widget.user),
       new ConditionsShowcase(widget.business),
     ];
     _controller = new TabController(

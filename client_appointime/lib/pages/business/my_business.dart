@@ -10,11 +10,12 @@ import 'package:flutter/material.dart';
 
 class MyBusiness extends StatefulWidget {
   @override
-  MyBusiness({this.auth, this.userId, this.onSignedOut});
+  MyBusiness({this.auth, this.userId, this.onSignedOut,this.user});
 
   final BaseAuth auth;
   final VoidCallback onSignedOut;
   final String userId;
+  final User user;
 
   State<StatefulWidget> createState() => new MyBusinessState();
 }
@@ -23,7 +24,6 @@ class MyBusinessState extends State<MyBusiness> {
   Business business;
   bool isLoading = false;
 
-  User user;
   Map<String, dynamic> mailPass = new Map<String, dynamic>();
   List<Activity> sectorActivityList;
 
@@ -114,7 +114,7 @@ class MyBusinessState extends State<MyBusiness> {
       );
     if(this.business!=null)
       return BusinessDetailsPage(
-          this.business, -1, this.sectorActivityList, true);
+          this.business, -1, this.sectorActivityList, true,widget.user);
 
 
     if (this.business == null)
