@@ -108,7 +108,7 @@ class HomeState extends State<Home> {
         controller: pageController,
         onPageChanged: onPageChanged,
         children: <Widget>[
-          MyAppointment() /*,MyAppointment(),*/,
+          MyAppointment(user) /*,MyAppointment(),*/,
           BasePage(widget.auth, user),
           MyBusiness(
               auth: widget.auth,

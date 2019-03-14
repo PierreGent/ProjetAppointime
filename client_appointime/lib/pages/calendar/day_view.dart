@@ -52,7 +52,9 @@ class _DayViewState extends State<DayView> {
   void initState() {
     loadAppointment();
     Future.delayed(Duration(seconds: 3), () {
-      loadEvent();isLoading=false;});
+      loadEvent();
+      isLoading = false;
+    });
 
     if (widget.presta.duration < 20) calendarSize = 3.5;
     super.initState();
@@ -90,28 +92,23 @@ class _DayViewState extends State<DayView> {
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
-        presta=null;
+        presta = null;
 
         if (v["dayAppointment"] == widget.day.toString()) {
-
           getUser(v["user"]).then((DataSnapshot result) {
             Map<dynamic, dynamic> valuesUser = result.value;
             Map<String, dynamic> mailPass = new Map<String, dynamic>();
             mailPass['email'] = "";
             mailPass['password'] = "";
 
-            Future.delayed(
-                Duration(milliseconds: 200),
-                    () async {
-                  presta = await loadPresta(v['prestation']);
-                  setState(() {
-                    isLoading = true;
-                    takenAppointment_business
-                        .add(Appointment.fromMap(
-                        k, v, User.fromMap(mailPass, valuesUser, v["user"]),
-                        presta));
-                  });
-                });
+            Future.delayed(Duration(milliseconds: 200), () async {
+              presta = await loadPresta(v['prestation']);
+              setState(() {
+                isLoading = true;
+                takenAppointment_business.add(Appointment.fromMap(k, v,
+                    User.fromMap(mailPass, valuesUser, v["user"]), presta));
+              });
+            });
           });
         }
       });
@@ -127,7 +124,7 @@ class _DayViewState extends State<DayView> {
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
-        presta=null;
+        presta = null;
         if (v["dayAppointment"] == widget.day.toString()) {
           getUser(v["user"]).then((DataSnapshot result) {
             Map<dynamic, dynamic> valuesUser = result.value;
@@ -135,22 +132,19 @@ class _DayViewState extends State<DayView> {
             mailPass['email'] = "";
             mailPass['password'] = "";
             setState(() {
-              Future.delayed(
-                  Duration(milliseconds: 200),
-                      () async {
-                    presta = await loadPresta(v['prestation']);
-                    setState(() {
-                      isLoading = true;
-                      takenAppointment_user
-                          .add(Appointment.fromMap(k, v, User.fromMap(mailPass, valuesUser, v["user"]), presta));
-                    });
-                  });
+              Future.delayed(Duration(milliseconds: 200), () async {
+                presta = await loadPresta(v['prestation']);
+                setState(() {
+                  isLoading = true;
+                  takenAppointment_user.add(Appointment.fromMap(k, v,
+                      User.fromMap(mailPass, valuesUser, v["user"]), presta));
+                });
+              });
             });
           });
         }
       });
     });
-
   }
 
   void loadEvent() async {
@@ -160,13 +154,13 @@ class _DayViewState extends State<DayView> {
       print(takenAppointment_business.toString() +
           takenAppointment_user.toString());
       for (Appointment appoint in takenAppointment_business)
-         if(appoint.user!=widget.user.id)
+        if (appoint.user != widget.user.id)
           eventsOfDay.add(new Event(
               startMinuteOfDay: appoint.startTime,
               duration: appoint.prestation.duration,
               title: "Cette plage horaire n'est pas disponible",
               color: Colors.red));
-print("\n\n"+takenAppointment_business.toString());
+      print("\n\n" + takenAppointment_business.toString());
       for (Appointment appoint in takenAppointment_user)
         eventsOfDay.add(new Event(
             startMinuteOfDay: appoint.startTime,
@@ -186,44 +180,49 @@ print("\n\n"+takenAppointment_business.toString());
 
             if (closingDayTime == null) closingDayTime = closingTime;
             if (closingTime > closingDayTime) closingDayTime = closingTime;
-              for (int i = openingTime; i < closingTime; i += widget.presta.duration) {
-                if (i + widget.presta.duration < closingTime) {
-                  for(Appointment appoint in takenAppointment_business)
-                    if((i<=appoint.startTime
-                        && i+widget.presta.duration>appoint.startTime) || (i<appoint.startTime+appoint.prestation.duration
-                        && i>=appoint.startTime)) {
-
-                      i=appoint.prestation.duration+appoint.startTime;
-                    }
-                  for(Appointment appoint in takenAppointment_user)
-                    if((i<=appoint.startTime
-                        && i+widget.presta.duration>appoint.startTime) || (i<appoint.startTime+appoint.prestation.duration
-                        && i>=appoint.startTime)) {
-
-                      i=appoint.prestation.duration+appoint.startTime;
-                    }
-                  if (i + widget.presta.duration < closingTime)
-                  eventsOfDay.add(new Event(startMinuteOfDay: i,
+            for (int i = openingTime;
+                i < closingTime;
+                i += widget.presta.duration) {
+              if (i + widget.presta.duration < closingTime) {
+                for (Appointment appoint in takenAppointment_business)
+                  if ((i <= appoint.startTime &&
+                          i + widget.presta.duration > appoint.startTime) ||
+                      (i < appoint.startTime + appoint.prestation.duration &&
+                          i >= appoint.startTime)) {
+                    i = appoint.prestation.duration + appoint.startTime;
+                  }
+                for (Appointment appoint in takenAppointment_user)
+                  if ((i <= appoint.startTime &&
+                          i + widget.presta.duration > appoint.startTime) ||
+                      (i < appoint.startTime + appoint.prestation.duration &&
+                          i >= appoint.startTime)) {
+                    i = appoint.prestation.duration + appoint.startTime;
+                  }
+                if (i + widget.presta.duration < closingTime)
+                  eventsOfDay.add(new Event(
+                      startMinuteOfDay: i,
                       duration: widget.presta.duration,
-
                       title: widget.day.weekday.toString() +
                           "plage horaire disponible pour: " +
-                          widget.presta.namePresta + " de " +
-                          (i ~/ 60).toString() + "h " +
-                          '${format.format(i % 60)}' + "min à " +
+                          widget.presta.namePresta +
+                          " de " +
+                          (i ~/ 60).toString() +
+                          "h " +
+                          '${format.format(i % 60)}' +
+                          "min à " +
                           ((i + widget.presta.duration) ~/ 60).toString() +
-                          "h " + '${format.format(
-                          (i + widget.presta.duration) % 60)}' + "min",
+                          "h " +
+                          '${format.format((i + widget.presta.duration) % 60)}' +
+                          "min",
                       color: Colors.green));
-                }
               }
+            }
           }
         });
     });
 
     setState(() {
       isLoading = false;
-
     });
   }
 
@@ -255,62 +254,64 @@ print("\n\n"+takenAppointment_business.toString());
   }
 
   void _showDialog(Event event) {
-    int start=event.startMinuteOfDay;
+    int start = event.startMinuteOfDay;
     // flutter defined function
     ontap() {
-      if(event.color==Colors.green)
-      FirebaseDatabase.instance.reference().child('appointment').push().set({
-        'user': widget.user.id,
-        'prestation': widget.presta.id,
-        'startAppointment': event.startMinuteOfDay,
-        'dayAppointment': widget.day.toString(),
-        'businessId': widget.presta.buisnessId
-      });
+      if (event.color == Colors.green)
+        FirebaseDatabase.instance.reference().child('appointment').push().set({
+          'user': widget.user.id,
+          'prestation': widget.presta.id,
+          'startAppointment': event.startMinuteOfDay,
+          'dayAppointment': widget.day.toString(),
+          'businessId': widget.presta.buisnessId
+        });
     }
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         // return object of type Dialog
-       var action=[
+        var action = [
           new FlatButton(
-          child: new Text("Ok"),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),];
-       var title=Text("Attention");
-       var content=Text("Cette plage horaire n'est pas disponible");
-       if(event.color==Colors.blue) {
-         title = Text("Mon rendez-vous");
-         content=Text(event.title);
-       }
-
-        if(event.color==Colors.green) {
-          action = [new FlatButton(
-            child: new Text("Annuler"),
+            child: new Text("Ok"),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
-          new FlatButton(
-            child: new Text("Continuer"),
-            onPressed: () {
-              if (event.color == Colors.green) {
-                setState(() {
-                  ontap();
-                });
+        ];
+        var title = Text("Attention");
+        var content = Text("Cette plage horaire n'est pas disponible");
+        if (event.color == Colors.blue) {
+          title = Text("Mon rendez-vous");
+          content = Text(event.title);
+        }
+
+        if (event.color == Colors.green) {
+          action = [
+            new FlatButton(
+              child: new Text("Annuler"),
+              onPressed: () {
                 Navigator.of(context).pop();
-                setState(() {
-                  loadAppointment();
-                  Future.delayed(Duration(seconds: 1), () => loadEvent());
-                });
-                _showDialogCheck();
-              }
-            },
-          )
+              },
+            ),
+            new FlatButton(
+              child: new Text("Continuer"),
+              onPressed: () {
+                if (event.color == Colors.green) {
+                  setState(() {
+                    ontap();
+                  });
+                  Navigator.of(context).pop();
+                  setState(() {
+                    loadAppointment();
+                    Future.delayed(Duration(seconds: 1), () => loadEvent());
+                  });
+                  _showDialogCheck();
+                }
+              },
+            )
           ];
-          content=Text(
+          content = Text(
               "Etes vous sur de vouloir prendre ce rendez vous pour " +
                   widget.presta.namePresta +
                   " le " +
@@ -328,9 +329,8 @@ print("\n\n"+takenAppointment_business.toString());
 
         return AlertDialog(
           title: title,
-          content:  content,
+          content: content,
           actions: action,
-
         );
       },
     );
@@ -353,7 +353,6 @@ print("\n\n"+takenAppointment_business.toString());
               child: new Text("Ok"),
               onPressed: () {
                 Navigator.of(context).pop();
-
               },
             )
           ],
@@ -527,7 +526,11 @@ print("\n\n"+takenAppointment_business.toString());
           margin: new EdgeInsets.only(left: 1.0, right: 1.0, bottom: 1.0),
           padding: new EdgeInsets.all(3.0),
           color: event.color,
-          child: new Center(child:Text("${event.title}",textAlign: TextAlign.center,)),
+          child: new Center(
+              child: Text(
+            "${event.title}",
+            textAlign: TextAlign.center,
+          )),
         ),
       ),
     );

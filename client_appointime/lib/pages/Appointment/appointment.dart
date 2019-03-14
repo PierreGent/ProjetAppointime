@@ -17,13 +17,13 @@ class Appointment {
     @required this.startTime,
   });
 
-  static Appointment fromMap(String id, Map map,User user,Prestation presta) {
+  static Appointment fromMap(String id, Map map, User user, Prestation presta) {
     return new Appointment(
       id: id,
       user: user,
       day: DateTime.parse(map['dayAppointment']),
       prestation: presta,
-     startTime: map['startAppointment'],
+      startTime: map['startAppointment'],
     );
   }
 }
