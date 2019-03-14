@@ -2,6 +2,7 @@ import 'package:client_appointime/pages/Appointment/appointment.dart';
 import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/prestation.dart';
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/validation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -50,7 +51,8 @@ class _DayViewState extends State<DayView> {
   List<Appointment> takenAppointment_business = [];
   void initState() {
     loadAppointment();
-    Future.delayed(Duration(seconds: 1), () => loadEvent());
+    Future.delayed(Duration(seconds: 3), () {
+      loadEvent();isLoading=false;});
 
     if (widget.presta.duration < 20) calendarSize = 3.5;
     super.initState();
@@ -58,7 +60,6 @@ class _DayViewState extends State<DayView> {
 
   Future<Prestation> loadPresta(String id) async {
     Prestation presta;
-    widget.business.prestation = [];
     await FirebaseDatabase.instance
         .reference()
         .child('prestation')
@@ -74,29 +75,43 @@ class _DayViewState extends State<DayView> {
   Future<void> loadAppointment() async {
     setState(() {
       isLoading = true;
+      takenAppointment_user = [];
+      takenAppointment_business = [];
     });
+    print(widget.business.id);
     Prestation presta;
     FirebaseDatabase.instance
         .reference()
         .child('appointment')
-        .orderByChild("businessId")
+        .orderByChild('businessId')
         .equalTo(widget.business.id)
         .once()
         .then((DataSnapshot snapshot) {
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
-        if (v["dayAppointment"] == widget.day.toString()) {
-          presta = await loadPresta(v['prestation']);
+        presta=null;
 
-          setState(() {
+        if (v["dayAppointment"] == widget.day.toString()) {
+
+          getUser(v["user"]).then((DataSnapshot result) {
+            Map<dynamic, dynamic> valuesUser = result.value;
+            Map<String, dynamic> mailPass = new Map<String, dynamic>();
+            mailPass['email'] = "";
+            mailPass['password'] = "";
+
             Future.delayed(
-                Duration(milliseconds: 100),
-                () => takenAppointment_business
-                    .add(Appointment.fromMap(k, v, widget.user, presta)));
-            print("heeeeeeerrrrreee" +
-                takenAppointment_business.toString() +
-                takenAppointment_user.toString());
+                Duration(milliseconds: 200),
+                    () async {
+                  presta = await loadPresta(v['prestation']);
+                  setState(() {
+                    isLoading = true;
+                    takenAppointment_business
+                        .add(Appointment.fromMap(
+                        k, v, User.fromMap(mailPass, valuesUser, v["user"]),
+                        presta));
+                  });
+                });
           });
         }
       });
@@ -112,35 +127,46 @@ class _DayViewState extends State<DayView> {
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
+        presta=null;
         if (v["dayAppointment"] == widget.day.toString()) {
-          presta = await loadPresta(v['prestation']);
-          setState(() {
-            Future.delayed(
-                Duration(milliseconds: 100),
-                () => takenAppointment_user
-                    .add(Appointment.fromMap(k, v, widget.user, presta)));
+          getUser(v["user"]).then((DataSnapshot result) {
+            Map<dynamic, dynamic> valuesUser = result.value;
+            Map<String, dynamic> mailPass = new Map<String, dynamic>();
+            mailPass['email'] = "";
+            mailPass['password'] = "";
+            setState(() {
+              Future.delayed(
+                  Duration(milliseconds: 200),
+                      () async {
+                    presta = await loadPresta(v['prestation']);
+                    setState(() {
+                      isLoading = true;
+                      takenAppointment_user
+                          .add(Appointment.fromMap(k, v, User.fromMap(mailPass, valuesUser, v["user"]), presta));
+                    });
+                  });
+            });
           });
         }
       });
     });
-    setState(() {
-      isLoading = false;
-    });
+
   }
 
   void loadEvent() async {
     setState(() {
+      eventsOfDay = [];
       isLoading = true;
       print(takenAppointment_business.toString() +
           takenAppointment_user.toString());
       for (Appointment appoint in takenAppointment_business)
-        if(appoint.user!=widget.user)
+         if(appoint.user!=widget.user.id)
           eventsOfDay.add(new Event(
               startMinuteOfDay: appoint.startTime,
               duration: appoint.prestation.duration,
               title: "Cette plage horaire n'est pas disponible",
               color: Colors.red));
-
+print("\n\n"+takenAppointment_business.toString());
       for (Appointment appoint in takenAppointment_user)
         eventsOfDay.add(new Event(
             startMinuteOfDay: appoint.startTime,
@@ -164,14 +190,22 @@ class _DayViewState extends State<DayView> {
                 if (i + widget.presta.duration < closingTime) {
                   for(Appointment appoint in takenAppointment_business)
                     if((i<=appoint.startTime
-                        && i+widget.presta.duration>=appoint.startTime) || (i<=appoint.startTime+appoint.prestation.duration
-                        && i+widget.presta.duration<=appoint.startTime)) {
+                        && i+widget.presta.duration>appoint.startTime) || (i<appoint.startTime+appoint.prestation.duration
+                        && i>=appoint.startTime)) {
 
-                      i=appoint.prestation.duration+appoint.startTime+1;
+                      i=appoint.prestation.duration+appoint.startTime;
                     }
+                  for(Appointment appoint in takenAppointment_user)
+                    if((i<=appoint.startTime
+                        && i+widget.presta.duration>appoint.startTime) || (i<appoint.startTime+appoint.prestation.duration
+                        && i>=appoint.startTime)) {
 
+                      i=appoint.prestation.duration+appoint.startTime;
+                    }
+                  if (i + widget.presta.duration < closingTime)
                   eventsOfDay.add(new Event(startMinuteOfDay: i,
                       duration: widget.presta.duration,
+
                       title: widget.day.weekday.toString() +
                           "plage horaire disponible pour: " +
                           widget.presta.namePresta + " de " +
@@ -238,9 +272,45 @@ class _DayViewState extends State<DayView> {
       context: context,
       builder: (BuildContext context) {
         // return object of type Dialog
-        return AlertDialog(
-          title: new Text("Attention"),
-          content: new Text(
+       var action=[
+          new FlatButton(
+          child: new Text("Ok"),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),];
+       var title=Text("Attention");
+       var content=Text("Cette plage horaire n'est pas disponible");
+       if(event.color==Colors.blue) {
+         title = Text("Mon rendez-vous");
+         content=Text(event.title);
+       }
+
+        if(event.color==Colors.green) {
+          action = [new FlatButton(
+            child: new Text("Annuler"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          new FlatButton(
+            child: new Text("Continuer"),
+            onPressed: () {
+              if (event.color == Colors.green) {
+                setState(() {
+                  ontap();
+                });
+                Navigator.of(context).pop();
+                setState(() {
+                  loadAppointment();
+                  Future.delayed(Duration(seconds: 1), () => loadEvent());
+                });
+                _showDialogCheck();
+              }
+            },
+          )
+          ];
+          content=Text(
               "Etes vous sur de vouloir prendre ce rendez vous pour " +
                   widget.presta.namePresta +
                   " le " +
@@ -253,26 +323,14 @@ class _DayViewState extends State<DayView> {
                   ((start + widget.presta.duration) ~/ 60).toString() +
                   "h " +
                   '${format.format((start + widget.presta.duration) % 60)}' +
-                  "min?"),
-          actions: <Widget>[
-            // usually buttons at the bottom of the dialog
-            new FlatButton(
-              child: new Text("Annuler"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            new FlatButton(
-              child: new Text("Continuer"),
-              onPressed: () {
-                setState(() {
-                  ontap();
-                });
-                Navigator.of(context).pop();
-                _showDialogCheck();
-              },
-            )
-          ],
+                  "min?");
+        }
+
+        return AlertDialog(
+          title: title,
+          content:  content,
+          actions: action,
+
         );
       },
     );
@@ -295,6 +353,7 @@ class _DayViewState extends State<DayView> {
               child: new Text("Ok"),
               onPressed: () {
                 Navigator.of(context).pop();
+
               },
             )
           ],
@@ -362,8 +421,13 @@ class _DayViewState extends State<DayView> {
   @override
   Widget build(BuildContext context) {
     if (isLoading)
-      return new Center(
-        child: CircularProgressIndicator(),
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Chargement du calendrier"),
+        ),
+        body: new Center(
+          child: CircularProgressIndicator(),
+        ),
       );
 
     return new Scaffold(
@@ -463,7 +527,7 @@ class _DayViewState extends State<DayView> {
           margin: new EdgeInsets.only(left: 1.0, right: 1.0, bottom: 1.0),
           padding: new EdgeInsets.all(3.0),
           color: event.color,
-          child: new Text("${event.title}"),
+          child: new Center(child:Text("${event.title}",textAlign: TextAlign.center,)),
         ),
       ),
     );
