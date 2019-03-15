@@ -151,6 +151,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
         });
         getUser(v['boss']).then((DataSnapshot result) {
           Map<dynamic, dynamic> values = result.value;
+          if(this.mounted)
           setState(() {
             v['id'] = k;
             tempList.add(v);

@@ -52,17 +52,75 @@ class MyAppointmentState extends State<MyAppointment> {
 
     return Card(
       child: ListTile(
-        title: new Text(appoint.prestation.namePresta),
-        subtitle: new Text("le " + format.format(date.day) +"/"+ format.format(date.month) +"/"+ date.year.toString()),
-        trailing: Text("de " + format.format(heureDebut~/60) +"h"+ format.format(heureDebut%60) +
-            " à " + format.format(heureFin~/60) +"h"+ format.format(heureFin%60)),
+        title: new Text(appoint.prestation.namePresta,textAlign: TextAlign.right,style: TextStyle(fontWeight:FontWeight.bold,fontSize: 20,color: Colors.blueAccent),),
+        subtitle: new Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            new Row(
+              children: <Widget>[
+                Icon(Icons.calendar_today,size: 20),
+                Text(" " + format.format(date.day) +"/"+ format.format(date.month) +"/"+ date.year.toString()),
+
+              ],
+            ),
+            new Row(
+              children: <Widget>[
+                Icon(Icons.timer,size: 20,),
+                Text(" " + format.format(heureDebut~/60) +"h"+ format.format(heureDebut%60) +" à " + format.format(heureFin~/60) +"h"+ format.format(heureFin%60)),
+
+              ],
+            ),
+  ]) ,
+        trailing: tempsRestant(appoint),
       ),
     );
+  }
+
+  Widget tempsRestant(Appointment appoint){
+    if(appoint.day.difference(DateTime.now()).inMinutes<0)
+      return new Column(
+        children: <Widget>[
+          Icon(Icons.directions_run,size: 20,color: Colors.redAccent,),
+          new Text("il y a " + appoint.day.difference(DateTime.now()).inMinutes.abs().toString()+" min",style: TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold),),
+        ],
+      );
+
+    if(appoint.day.difference(DateTime.now()).inMinutes<120)
+      return new Column(
+        children: <Widget>[
+          Icon(Icons.warning,size: 20,color: Colors.redAccent,),
+          new Text("dans " + appoint.day.difference(DateTime.now()).inMinutes.toString()+" min",style: TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold),),
+        ],
+      );
+
+    if(appoint.day.difference(DateTime.now()).inDays==0)
+      return new Column(
+        children: <Widget>[
+          Icon(Icons.warning,size: 20,color: Colors.redAccent,),
+          new Text("dans " + appoint.day.difference(DateTime.now()).inHours.toString()+":"+
+              '${format.format(appoint.day.difference(DateTime.now()).inMinutes)}',style: TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold),),
+        ],
+      );
+    if(appoint.day.difference(DateTime.now()).inDays<3)
+      return new Column(
+      children: <Widget>[
+          Icon(Icons.warning,size: 20,color: Colors.redAccent,),
+        new Text("dans " + appoint.day.difference(DateTime.now()).inDays.toString()+" jours",style: TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold),),
+      ],
+    );
+
+    return new Column(
+        children: <Widget>[
+    new Text("dans " + appoint.day.difference(DateTime.now()).inDays.toString()+" jours"),
+    ],
+    );
+
   }
 
   Future<void> loadAppointment() async {
     print(widget.user.id);
     appointment = [];
+    Appointment appoint;
     FirebaseDatabase.instance
         .reference()
         .child('appointment')
@@ -70,6 +128,7 @@ class MyAppointmentState extends State<MyAppointment> {
         .equalTo(widget.user.id)
         .once()
         .then((DataSnapshot snapshot) {
+
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
@@ -85,9 +144,12 @@ class MyAppointmentState extends State<MyAppointment> {
             Future.delayed(Duration(milliseconds: 200), () async {
               presta = await loadPresta(v['prestation']);
               setState(() {
-                appointment.add(Appointment.fromMap(
+                appoint=Appointment.fromMap(
                     k, v, User.fromMap(mailPass, valuesUser, v["user"]),
-                    presta));
+                    presta);
+                if(appoint.day.difference(DateTime.now()).inMinutes>(-20))
+                  appointment.add(appoint);
+                appointment.sort((a, b) => a.day.compareTo(b.day));
               });
             });
           });

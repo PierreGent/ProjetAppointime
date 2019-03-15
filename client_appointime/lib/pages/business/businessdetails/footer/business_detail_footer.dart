@@ -2,7 +2,7 @@ import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/DetailsShowCase.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/HoursList.dart';
 import 'package:client_appointime/pages/business/businessdetails/footer/PrestationsShowCase.dart';
-import 'package:client_appointime/pages/business/businessdetails/footer/conditionShowCase.dart';
+import 'package:client_appointime/pages/business/businessdetails/footer/calendarShowCase.dart';
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +36,7 @@ class _BusinessShowcaseState extends State<BusinessShowcase>
       new DetailsShowcase(widget.business),
       new PrestationsShowcase(widget.business, widget.edit,widget.user),
 
-      new ConditionsShowcase(widget.business),
+      new ConditionsShowcase(widget.business,widget.user),
     ];
 
     if(widget.edit){

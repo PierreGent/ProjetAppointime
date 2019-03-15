@@ -16,14 +16,14 @@ import 'utils/all.dart';
 class Event {
   Event({
     @required this.startMinuteOfDay,
-    @required this.duration,
+    @required this.appointment,
     @required this.title,
     @required this.color,
   });
 
   final int startMinuteOfDay;
-  final int duration;
-  final MaterialColor color;
+  final Appointment appointment;
+  final Color color;
 
   final String title;
 }
@@ -34,7 +34,7 @@ class DayView extends StatefulWidget {
   final Business business;
   final Prestation presta;
   final User user;
-  final DateTime day;
+   DateTime day;
   @override
   State createState() => new _DayViewState();
 }
@@ -51,11 +51,11 @@ class _DayViewState extends State<DayView> {
   List<Appointment> takenAppointment_business = [];
   void initState() {
     loadAppointment();
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(milliseconds: 800), () {
       loadEvent();
       isLoading = false;
     });
-
+if(widget.presta!=null)
     if (widget.presta.duration < 20) calendarSize = 3.5;
     super.initState();
   }
@@ -101,7 +101,7 @@ class _DayViewState extends State<DayView> {
             mailPass['email'] = "";
             mailPass['password'] = "";
 
-            Future.delayed(Duration(milliseconds: 200), () async {
+            Future.delayed(Duration(milliseconds: 100), () async {
               presta = await loadPresta(v['prestation']);
               setState(() {
                 isLoading = true;
@@ -126,21 +126,17 @@ class _DayViewState extends State<DayView> {
       values.forEach((k, v) async {
         presta = null;
         if (v["dayAppointment"] == widget.day.toString()) {
-          getUser(v["user"]).then((DataSnapshot result) {
-            Map<dynamic, dynamic> valuesUser = result.value;
-            Map<String, dynamic> mailPass = new Map<String, dynamic>();
-            mailPass['email'] = "";
-            mailPass['password'] = "";
+
             setState(() {
-              Future.delayed(Duration(milliseconds: 200), () async {
+              Future.delayed(Duration(milliseconds: 100), () async {
                 presta = await loadPresta(v['prestation']);
                 setState(() {
                   isLoading = true;
                   takenAppointment_user.add(Appointment.fromMap(k, v,
-                      User.fromMap(mailPass, valuesUser, v["user"]), presta));
+                      widget.user, presta));
                 });
               });
-            });
+
           });
         }
       });
@@ -151,26 +147,51 @@ class _DayViewState extends State<DayView> {
     setState(() {
       eventsOfDay = [];
       isLoading = true;
-      print(takenAppointment_business.toString() +
-          takenAppointment_user.toString());
+
       for (Appointment appoint in takenAppointment_business)
-        if (appoint.user != widget.user.id)
+        if (appoint.user.id != widget.user.id)
           eventsOfDay.add(new Event(
               startMinuteOfDay: appoint.startTime,
-              duration: appoint.prestation.duration,
+              appointment: appoint,
               title: "Cette plage horaire n'est pas disponible",
-              color: Colors.red));
+              color: Colors.red.withOpacity(0.5)));
       print("\n\n" + takenAppointment_business.toString());
       for (Appointment appoint in takenAppointment_user)
         eventsOfDay.add(new Event(
             startMinuteOfDay: appoint.startTime,
-            duration: appoint.prestation.duration,
+            appointment: appoint,
             title: "Vous n'êtes pas disponible (rendez vous pour " +
                 appoint.prestation.namePresta +
                 ")",
-            color: Colors.blue));
+            color: Colors.blue.withOpacity(0.5)));
+      int midi;
+      int katorzeur;
       if (widget.business.businessShedule != null)
         widget.business.businessShedule.forEach((k, v) {
+          if((v["halfDayId"] / 2) + 0.5 == widget.day.weekday) {
+            midi = v["closingTime"];
+          }
+          if(v["halfDayId"] / 2== widget.day.weekday)
+            katorzeur= v["openingTime"];
+          if(midi!=null && katorzeur!=null) {
+            if(katorzeur-midi>20)
+            eventsOfDay.add(new Event(
+                startMinuteOfDay: midi,
+                appointment: Appointment(id: null,
+                    user: null,
+                    day: null,
+                    prestation: Prestation(id: null,
+                        buisnessId: null,
+                        namePresta: null,
+                        description: null,
+                        duration: katorzeur - midi,
+                        price: null),
+                    startTime: null),
+                title: "FERME",
+                color: Colors.black12.withOpacity(0.5)));
+            midi=null;
+            katorzeur=null;
+          }
           int closingTime = v["closingTime"];
           int openingTime = v["openingTime"];
           if ((v["halfDayId"] / 2) == widget.day.weekday ||
@@ -180,6 +201,7 @@ class _DayViewState extends State<DayView> {
 
             if (closingDayTime == null) closingDayTime = closingTime;
             if (closingTime > closingDayTime) closingDayTime = closingTime;
+            if(widget.presta!=null)
             for (int i = openingTime;
                 i < closingTime;
                 i += widget.presta.duration) {
@@ -201,7 +223,7 @@ class _DayViewState extends State<DayView> {
                 if (i + widget.presta.duration < closingTime)
                   eventsOfDay.add(new Event(
                       startMinuteOfDay: i,
-                      duration: widget.presta.duration,
+                      appointment: Appointment(id: null, user: null, day: null, prestation: widget.presta, startTime: null),
                       title: widget.day.weekday.toString() +
                           "plage horaire disponible pour: " +
                           widget.presta.namePresta +
@@ -214,11 +236,43 @@ class _DayViewState extends State<DayView> {
                           "h " +
                           '${format.format((i + widget.presta.duration) % 60)}' +
                           "min",
-                      color: Colors.green));
+                      color: Colors.green.withOpacity(0.5)));
               }
             }
           }
-        });
+        }
+
+
+        );
+      print(openingDayTime.toString()+closingDayTime.toString());
+      eventsOfDay.add(new Event(
+          startMinuteOfDay: openingDayTime-60,
+          appointment: Appointment(id: null,
+              user: null,
+              day: null,
+              prestation: Prestation(id: null,
+                  buisnessId: null,
+                  namePresta: null,
+                  description: null,
+                  duration: 60,
+                  price: null),
+              startTime: null),
+          title: "FERME",
+          color: Colors.black12.withOpacity(0.5)));
+      eventsOfDay.add(new Event(
+          startMinuteOfDay: closingDayTime,
+          appointment: Appointment(id: null,
+              user: null,
+              day: null,
+              prestation: Prestation(id: null,
+                  buisnessId: null,
+                  namePresta: null,
+                  description: null,
+                  duration: 60,
+                  price: null),
+              startTime: null),
+          title: "FERME",
+          color: Colors.black12.withOpacity(0.5)));
     });
 
     setState(() {
@@ -241,7 +295,7 @@ class _DayViewState extends State<DayView> {
         .map(
           (event) => new StartDurationItem(
                 startMinuteOfDay: event.startMinuteOfDay,
-                duration: event.duration,
+                duration: event.appointment.prestation.duration,
                 builder: (context, itemPosition, itemSize) => _eventBuilder(
                       context,
                       itemPosition,
@@ -254,10 +308,12 @@ class _DayViewState extends State<DayView> {
   }
 
   void _showDialog(Event event) {
+    if(event.color==Colors.black12.withOpacity(0.5))
+      return;
     int start = event.startMinuteOfDay;
     // flutter defined function
     ontap() {
-      if (event.color == Colors.green)
+      if (event.color == Colors.green.withOpacity(0.5))
         FirebaseDatabase.instance.reference().child('appointment').push().set({
           'user': widget.user.id,
           'prestation': widget.presta.id,
@@ -280,13 +336,13 @@ class _DayViewState extends State<DayView> {
           ),
         ];
         var title = Text("Attention");
-        var content = Text("Cette plage horaire n'est pas disponible");
-        if (event.color == Colors.blue) {
+        Widget content = Text("Cette plage horaire n'est pas disponible");
+        if (event.color == Colors.blue.withOpacity(0.5)) {
           title = Text("Mon rendez-vous");
           content = Text(event.title);
         }
 
-        if (event.color == Colors.green) {
+        if (event.color == Colors.green.withOpacity(0.5)) {
           action = [
             new FlatButton(
               child: new Text("Annuler"),
@@ -297,14 +353,14 @@ class _DayViewState extends State<DayView> {
             new FlatButton(
               child: new Text("Continuer"),
               onPressed: () {
-                if (event.color == Colors.green) {
+                if (event.color == Colors.green.withOpacity(0.5)) {
                   setState(() {
                     ontap();
                   });
                   Navigator.of(context).pop();
                   setState(() {
                     loadAppointment();
-                    Future.delayed(Duration(seconds: 1), () => loadEvent());
+                    Future.delayed(Duration(milliseconds: 800), () => loadEvent());
                   });
                   _showDialogCheck();
                 }
@@ -326,7 +382,22 @@ class _DayViewState extends State<DayView> {
                   '${format.format((start + widget.presta.duration) % 60)}' +
                   "min?");
         }
+        if(widget.presta==null) {
+          title =Text("Rendez vous de "+(start ~/ 60).toString() +
+              "h" +
+              '${format.format(start % 60)}' +
+              "");
+          content=SizedBox(
+            height: 100,
+            child:
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.center
+                  ,children: <Widget>[
 
+                Text("Pour :"+event.appointment.prestation.namePresta),
+        Text("Utilisateur: "+event.appointment.user.firstName.substring(0,1)+". "
+            +event.appointment.user.lastName),]),);
+        }
         return AlertDialog(
           title: title,
           content: content,
@@ -435,21 +506,48 @@ class _DayViewState extends State<DayView> {
       ),
       body: content(),
     );
+
   }
 
   Widget _headerItemBuilder(BuildContext context, DateTime day) {
     return new Container(
       color: Colors.grey[300],
       padding: new EdgeInsets.symmetric(vertical: 4.0),
-      child: new Column(
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+        IconButton(icon: Icon(Icons.skip_previous), onPressed: ()=>
+            setState(() {
+          widget.day=widget.day.add(Duration(days: -1));
+          loadAppointment();
+          Future.delayed(Duration(milliseconds: 800), () {
+            loadEvent();
+            isLoading = false;
+          });
+          if(widget.presta!=null)
+            if (widget.presta.duration < 20) calendarSize = 3.5;
+        })),
+        Column(
         children: <Widget>[
           new Text(
-            "${weekdayToAbbreviatedString(day.weekday)}",
+            "${weekdayToString(day.weekday)} "+"${day.day}",
             style: new TextStyle(fontWeight: FontWeight.bold),
           ),
-          new Text("${day.day}"),
+          new Text("${yearAndMonthToString(day)}"),
         ],
       ),
+        IconButton(icon: Icon(Icons.skip_next), onPressed: ()=>
+            setState(() {
+              widget.day=widget.day.add(Duration(days: 1));
+              loadAppointment();
+              Future.delayed(Duration(milliseconds: 800), () {
+                loadEvent();
+                isLoading = false;
+              });
+              if(widget.presta!=null)
+                if (widget.presta.duration < 20) calendarSize = 3.5;
+            })),
+      ],)
     );
   }
 

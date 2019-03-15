@@ -47,7 +47,10 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
           itemCount: widget.business.prestation.length,
           itemBuilder: buildPrestaListTile,
         ),
+
         floatingActionButton: FloatingActionButton(
+elevation: 0.0,
+          isExtended: true,
           backgroundColor: Colors.lightBlueAccent,
           onPressed: () {
             Navigator.push(
@@ -65,10 +68,11 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
               });
             });
           },
-          tooltip: 'Toggle',
+
           child:
               Icon(Icons.add, size: 40, color: Colors.white.withOpacity(0.8)),
         ),
+
       );
     else
       return new Stack(
