@@ -16,8 +16,24 @@ class ConditionsShowcase extends StatefulWidget {
 
   class ConditionsShowcaseState extends State<ConditionsShowcase> {
      DateTime date = DateTime.now();
+     bool myBusiness=false;
+     void initState() {
+       if(widget.business.boss.id==widget.user.id)
+         setState(() {
+           myBusiness=true;
+
+         });
+
+       super.initState();
+     }
 String _value;
      Future _selectDate() async {
+
+       if(widget.user.id==widget.business.id)
+         setState(() {
+           myBusiness=true;
+         });
+
        DateTime picked = await showDatePicker(
            context: context,
            initialDate: new DateTime.now(),
@@ -31,7 +47,7 @@ String _value;
          Navigator.push(
            context,
            MaterialPageRoute(
-               builder: (context) => DayView(widget.business,picked,null,widget.user)),
+               builder: (context) => DayView(widget.business,picked,null,widget.user,myBusiness)),
          );
        });
      }

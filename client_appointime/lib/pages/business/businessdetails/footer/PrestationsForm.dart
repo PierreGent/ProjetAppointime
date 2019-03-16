@@ -23,6 +23,7 @@ class PrestationsFormState extends State<PrestationsForm> {
   String description;
   double duration = 5;
   double price;
+  bool autoConf=false;
 
   String errorMessage;
   bool isLoading;
@@ -154,6 +155,20 @@ class PrestationsFormState extends State<PrestationsForm> {
                               ],
                             ),
                           ),
+                          Container(child: CheckboxListTile(
+                            title: Text(
+                              "Confirmation automatique des rendez vous",
+                              style: TextStyle(
+                                color: Colors.black54,
+                              ),
+                            ),
+                            value: autoConf,
+                            onChanged: (bool value) {
+                              setState(() {
+                                autoConf = value;
+                              });
+                            },
+                          ),),
                           Container(
                             padding: EdgeInsets.only(top: 20),
                             child: new SizedBox(
@@ -193,9 +208,9 @@ class PrestationsFormState extends State<PrestationsForm> {
 
     final form = formKey.currentState;
 
-    var buisness = await widget.business;
-    String buisnessId = buisness.id;
-    print(buisnessId);
+    var business = await widget.business;
+    String businessId = business.id;
+    print(businessId);
     setState(() {
       errorMessage = "";
     });
@@ -203,11 +218,12 @@ class PrestationsFormState extends State<PrestationsForm> {
     if (form.validate()) {
       form.save();
       prestation.push().set({
-        'buisnessId': buisnessId,
+        'businessId': businessId,
         'name': namePresta,
         'description': description,
         'duration': duration,
         'price': price.toDouble(),
+        'autoConf':autoConf,
       });
     } else {
       setState(() => autoValidate = true);

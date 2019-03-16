@@ -158,8 +158,8 @@ class HoursFormState extends State<HoursForm> {
   submit() async {
     final Hour = FirebaseDatabase.instance.reference().child('shedule');
 
-    var buisness = await widget.business;
-    String buisnessId = buisness.id;
+    var business = await widget.business;
+    String businessId = business.id;
     var halfDayIdMorning = await widget.halfDayIdMorning;
     var halfDayIdAfternoon = await widget.halfDayIdAfternoon;
 
@@ -180,14 +180,14 @@ class HoursFormState extends State<HoursForm> {
     });
 
     Hour.push().set({
-      'businessId': buisnessId,
+      'businessId': businessId,
       'closingTime': _upperValueMorning,
       'halfDayId': halfDayIdMorning,
       'openingTime': _lowerValueMorning,
     });
 
     Hour.push().set({
-      'businessId': buisnessId,
+      'businessId': businessId,
       'closingTime': _upperValueAfternoon,
       'halfDayId': halfDayIdAfternoon,
       'openingTime': _lowerValueAfternoon,

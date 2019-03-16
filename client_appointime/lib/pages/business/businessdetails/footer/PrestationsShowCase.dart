@@ -3,6 +3,7 @@ import 'package:client_appointime/pages/business/businessdetails/footer/Prestati
 import 'package:client_appointime/pages/business/prestation.dart';
 import 'package:client_appointime/pages/calendar/day_view.dart';
 import 'package:client_appointime/pages/users/user.dart';
+import 'package:client_appointime/validation.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -28,6 +29,9 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
   String description;
   double duration = 5;
   double price;
+  bool _isLoading;
+
+  bool myBusiness=false;
 
   String errorMessage;
   bool isLoading;
@@ -35,9 +39,14 @@ class PrestationsShowcaseState extends State<PrestationsShowcase> {
   final format = new NumberFormat("00");
 
   void initState() {
-    super.initState();
+    if(widget.business.boss.id==widget.user.id)
+      setState(() {
+        myBusiness=true;
+
+      });
 
     loadPresta();
+    super.initState();
   }
 
   Widget build(BuildContext context) {
@@ -100,10 +109,11 @@ elevation: 0.0,
       if (values != null)
         values.forEach((k, v) async {
           //Si il concerne l'utilisateur connecté on l'ajoute a la liste
-          if (v["buisnessId"] == widget.business.id) if (this.mounted) {
+          if (v["businessId"] == widget.business.id) if (this.mounted) {
             setState(() {
-              widget.business.prestation.add(Prestation.fromMap(k, v));
-              prestation.add(Prestation.fromMap(k, v));
+              Prestation presta=Prestation.fromMap(k, v);
+              widget.business.prestation.add(presta);
+              prestation.add(presta);
             });
           }
         });
@@ -130,10 +140,11 @@ elevation: 0.0,
   }
 
   Future _selectDate(Prestation presta) async {
+
     DateTime picked = await showDatePicker(
         context: context,
         initialDate: new DateTime.now(),
-        firstDate: new DateTime(2018),
+        firstDate: new DateTime.now().subtract(Duration(days: 1)),
         lastDate: new DateTime(2021),
       locale: const Locale('fr','FR')
         
@@ -143,7 +154,7 @@ elevation: 0.0,
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => DayView(widget.business,picked,presta,widget.user)),
+            builder: (context) => DayView(widget.business,picked,presta,widget.user,myBusiness)),
       );
     });
   }
@@ -171,9 +182,9 @@ elevation: 0.0,
 
     final form = formKey.currentState;
 
-    var buisness = widget.business;
-    String buisnessId = buisness.id;
-    print(buisnessId);
+    var business = widget.business;
+    String businessId = business.id;
+    print(businessId);
     setState(() {
       errorMessage = "";
     });
@@ -181,7 +192,7 @@ elevation: 0.0,
     if (form.validate()) {
       form.save();
       prestation.push().set({
-        'buisnessId': buisnessId,
+        'businessId': businessId,
         'name': namePresta,
         'description': description,
         'duration': duration,

@@ -6,15 +6,16 @@ class Appointment {
   final String id;
   final User user;
   final Prestation prestation;
-  final DateTime day;
+   DateTime day;
   final int startTime;
-
+ bool confirmed;
   Appointment({
     @required this.id,
     @required this.user,
     @required this.day,
     @required this.prestation,
     @required this.startTime,
+    @required this.confirmed,
   });
 
   static Appointment fromMap(String id, Map map, User user, Prestation presta) {
@@ -24,6 +25,7 @@ class Appointment {
       day: DateTime.parse(map['dayAppointment']),
       prestation: presta,
       startTime: map['startAppointment'],
+      confirmed: map["confirmed"]
     );
   }
 }

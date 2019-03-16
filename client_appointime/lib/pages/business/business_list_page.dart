@@ -115,6 +115,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
       Map<dynamic, dynamic> values = snapshot.value;
 
       values.forEach((k, v) async {
+        if(this.mounted)
         setState(() {
           sectorActivityList.add(Activity.fromMap(k, v));
         });
@@ -245,7 +246,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
 
           business = Business.fromMap(
               id,
-              values,
+              valuesBusiness,
               User.fromMap(mailPass, values, valuesBusiness['boss']),
               valuesShedule);
         });

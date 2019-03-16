@@ -23,18 +23,19 @@ class Event {
 
   final int startMinuteOfDay;
   final Appointment appointment;
-  final Color color;
+  Color color;
 
   final String title;
 }
 
 class DayView extends StatefulWidget {
-  DayView(this.business, this.day, this.presta, this.user);
+  DayView(this.business, this.day, this.presta, this.user, this.myBusiness);
 
   final Business business;
   final Prestation presta;
   final User user;
-   DateTime day;
+  final bool myBusiness;
+  DateTime day;
   @override
   State createState() => new _DayViewState();
 }
@@ -53,10 +54,9 @@ class _DayViewState extends State<DayView> {
     loadAppointment();
     Future.delayed(Duration(milliseconds: 800), () {
       loadEvent();
-      isLoading = false;
     });
-if(widget.presta!=null)
-    if (widget.presta.duration < 20) calendarSize = 3.5;
+    if (widget.presta != null) if (widget.presta.duration < 20)
+      calendarSize = 3.5;
     super.initState();
   }
 
@@ -126,17 +126,15 @@ if(widget.presta!=null)
       values.forEach((k, v) async {
         presta = null;
         if (v["dayAppointment"] == widget.day.toString()) {
-
-            setState(() {
-              Future.delayed(Duration(milliseconds: 100), () async {
-                presta = await loadPresta(v['prestation']);
-                setState(() {
-                  isLoading = true;
-                  takenAppointment_user.add(Appointment.fromMap(k, v,
-                      widget.user, presta));
-                });
+          setState(() {
+            Future.delayed(Duration(milliseconds: 100), () async {
+              presta = await loadPresta(v['prestation']);
+              setState(() {
+                isLoading = true;
+                takenAppointment_user
+                    .add(Appointment.fromMap(k, v, widget.user, presta));
               });
-
+            });
           });
         }
       });
@@ -144,53 +142,81 @@ if(widget.presta!=null)
   }
 
   void loadEvent() async {
+    Color couleurConf;
+    String title;
     setState(() {
       eventsOfDay = [];
       isLoading = true;
 
-      for (Appointment appoint in takenAppointment_business)
+      for (Appointment appoint in takenAppointment_business) {
+        title = "Cette plage horaire n'est pas disponible";
+        couleurConf = Colors.red.withOpacity(0.5);
+        if (!appoint.confirmed &&
+            appoint.prestation.business == widget.business.id) {
+          couleurConf = Colors.orange.withOpacity(0.5);
+          title = title + " En cours de traitement";
+        }
+        print("\n\n\n" + appoint.user.id + widget.user.id);
         if (appoint.user.id != widget.user.id)
+          setState(() {
+            eventsOfDay.add(new Event(
+                startMinuteOfDay: appoint.startTime,
+                appointment: appoint,
+                title: title,
+                color: couleurConf));
+          });
+
+        print("\n\n" + takenAppointment_business.toString());
+      }
+      for (Appointment appoint in takenAppointment_user) {
+        couleurConf = Colors.blue.withOpacity(0.5);
+        title = "Vous n'êtes pas disponible (rendez vous pour " +
+            appoint.prestation.namePresta +
+            ")";
+        if (!appoint.confirmed) {
+          couleurConf = Colors.amber.withOpacity(0.5);
+          title = title + " En cours de traitement";
+        }
+
+        setState(() {
           eventsOfDay.add(new Event(
               startMinuteOfDay: appoint.startTime,
               appointment: appoint,
-              title: "Cette plage horaire n'est pas disponible",
-              color: Colors.red.withOpacity(0.5)));
-      print("\n\n" + takenAppointment_business.toString());
-      for (Appointment appoint in takenAppointment_user)
-        eventsOfDay.add(new Event(
-            startMinuteOfDay: appoint.startTime,
-            appointment: appoint,
-            title: "Vous n'êtes pas disponible (rendez vous pour " +
-                appoint.prestation.namePresta +
-                ")",
-            color: Colors.blue.withOpacity(0.5)));
+              title: title,
+              color: couleurConf));
+        });
+      }
       int midi;
       int katorzeur;
       if (widget.business.businessShedule != null)
         widget.business.businessShedule.forEach((k, v) {
-          if((v["halfDayId"] / 2) + 0.5 == widget.day.weekday) {
+          if ((v["halfDayId"] / 2) + 0.5 == widget.day.weekday) {
             midi = v["closingTime"];
           }
-          if(v["halfDayId"] / 2== widget.day.weekday)
-            katorzeur= v["openingTime"];
-          if(midi!=null && katorzeur!=null) {
-            if(katorzeur-midi>20)
-            eventsOfDay.add(new Event(
-                startMinuteOfDay: midi,
-                appointment: Appointment(id: null,
-                    user: null,
-                    day: null,
-                    prestation: Prestation(id: null,
-                        buisnessId: null,
-                        namePresta: null,
-                        description: null,
-                        duration: katorzeur - midi,
-                        price: null),
-                    startTime: null),
-                title: "FERME",
-                color: Colors.black12.withOpacity(0.5)));
-            midi=null;
-            katorzeur=null;
+          if (v["halfDayId"] / 2 == widget.day.weekday)
+            katorzeur = v["openingTime"];
+          if (midi != null && katorzeur != null) {
+            if (katorzeur - midi > 20)
+              eventsOfDay.add(new Event(
+                  startMinuteOfDay: midi,
+                  appointment: Appointment(
+                      confirmed: null,
+                      id: null,
+                      user: null,
+                      day: null,
+                      prestation: Prestation(
+                          autoConf: null,
+                          id: null,
+                          business: null,
+                          namePresta: null,
+                          description: null,
+                          duration: katorzeur - midi,
+                          price: null),
+                      startTime: null),
+                  title: "FERME",
+                  color: Colors.black12.withOpacity(0.5)));
+            midi = null;
+            katorzeur = null;
           }
           int closingTime = v["closingTime"];
           int openingTime = v["openingTime"];
@@ -201,57 +227,65 @@ if(widget.presta!=null)
 
             if (closingDayTime == null) closingDayTime = closingTime;
             if (closingTime > closingDayTime) closingDayTime = closingTime;
-            if(widget.presta!=null)
-            for (int i = openingTime;
-                i < closingTime;
-                i += widget.presta.duration) {
-              if (i + widget.presta.duration < closingTime) {
-                for (Appointment appoint in takenAppointment_business)
-                  if ((i <= appoint.startTime &&
-                          i + widget.presta.duration > appoint.startTime) ||
-                      (i < appoint.startTime + appoint.prestation.duration &&
-                          i >= appoint.startTime)) {
-                    i = appoint.prestation.duration + appoint.startTime;
-                  }
-                for (Appointment appoint in takenAppointment_user)
-                  if ((i <= appoint.startTime &&
-                          i + widget.presta.duration > appoint.startTime) ||
-                      (i < appoint.startTime + appoint.prestation.duration &&
-                          i >= appoint.startTime)) {
-                    i = appoint.prestation.duration + appoint.startTime;
-                  }
-                if (i + widget.presta.duration < closingTime)
-                  eventsOfDay.add(new Event(
-                      startMinuteOfDay: i,
-                      appointment: Appointment(id: null, user: null, day: null, prestation: widget.presta, startTime: null),
-                      title: widget.day.weekday.toString() +
-                          "plage horaire disponible pour: " +
-                          widget.presta.namePresta +
-                          " de " +
-                          (i ~/ 60).toString() +
-                          "h " +
-                          '${format.format(i % 60)}' +
-                          "min à " +
-                          ((i + widget.presta.duration) ~/ 60).toString() +
-                          "h " +
-                          '${format.format((i + widget.presta.duration) % 60)}' +
-                          "min",
-                      color: Colors.green.withOpacity(0.5)));
+            if (widget.presta != null)
+              for (int i = openingTime;
+                  i < closingTime;
+                  i += widget.presta.duration) {
+                if (i + widget.presta.duration < closingTime) {
+                  for (Appointment appoint in takenAppointment_business)
+                    if ((i <= appoint.startTime &&
+                            i + widget.presta.duration > appoint.startTime) ||
+                        (i < appoint.startTime + appoint.prestation.duration &&
+                            i >= appoint.startTime)) {
+                      i = appoint.prestation.duration + appoint.startTime;
+                    }
+                  for (Appointment appoint in takenAppointment_user)
+                    if ((i <= appoint.startTime &&
+                            i + widget.presta.duration > appoint.startTime) ||
+                        (i < appoint.startTime + appoint.prestation.duration &&
+                            i >= appoint.startTime)) {
+                      i = appoint.prestation.duration + appoint.startTime;
+                    }
+                  if (i + widget.presta.duration < closingTime)
+                    eventsOfDay.add(new Event(
+                        startMinuteOfDay: i,
+                        appointment: Appointment(
+                            confirmed: null,
+                            id: null,
+                            user: null,
+                            day: null,
+                            prestation: widget.presta,
+                            startTime: null),
+                        title: widget.day.weekday.toString() +
+                            "plage horaire disponible pour: " +
+                            widget.presta.namePresta +
+                            " de " +
+                            (i ~/ 60).toString() +
+                            "h " +
+                            '${format.format(i % 60)}' +
+                            "min à " +
+                            ((i + widget.presta.duration) ~/ 60).toString() +
+                            "h " +
+                            '${format.format((i + widget.presta.duration) % 60)}' +
+                            "min",
+                        color: Colors.green.withOpacity(0.5)));
+                }
               }
-            }
           }
-        }
-
-
-        );
-      print(openingDayTime.toString()+closingDayTime.toString());
+        });
+      if(openingDayTime!=null){
+      print(openingDayTime.toString() + closingDayTime.toString());
       eventsOfDay.add(new Event(
-          startMinuteOfDay: openingDayTime-60,
-          appointment: Appointment(id: null,
+          startMinuteOfDay: openingDayTime - 60,
+          appointment: Appointment(
+              id: null,
               user: null,
               day: null,
-              prestation: Prestation(id: null,
-                  buisnessId: null,
+              confirmed: null,
+              prestation: Prestation(
+                  id: null,
+                  business: null,
+                  autoConf: null,
                   namePresta: null,
                   description: null,
                   duration: 60,
@@ -261,11 +295,15 @@ if(widget.presta!=null)
           color: Colors.black12.withOpacity(0.5)));
       eventsOfDay.add(new Event(
           startMinuteOfDay: closingDayTime,
-          appointment: Appointment(id: null,
+          appointment: Appointment(
+              id: null,
               user: null,
               day: null,
-              prestation: Prestation(id: null,
-                  buisnessId: null,
+              confirmed: null,
+              prestation: Prestation(
+                  id: null,
+                  business: null,
+                  autoConf: null,
                   namePresta: null,
                   description: null,
                   duration: 60,
@@ -273,6 +311,7 @@ if(widget.presta!=null)
               startTime: null),
           title: "FERME",
           color: Colors.black12.withOpacity(0.5)));
+      }
     });
 
     setState(() {
@@ -308,19 +347,33 @@ if(widget.presta!=null)
   }
 
   void _showDialog(Event event) {
-    if(event.color==Colors.black12.withOpacity(0.5))
-      return;
+    if (event.color == Colors.black12.withOpacity(0.5)) return;
     int start = event.startMinuteOfDay;
     // flutter defined function
     ontap() {
-      if (event.color == Colors.green.withOpacity(0.5))
+      if (event.color == Colors.green.withOpacity(0.5)) {
         FirebaseDatabase.instance.reference().child('appointment').push().set({
           'user': widget.user.id,
           'prestation': widget.presta.id,
           'startAppointment': event.startMinuteOfDay,
           'dayAppointment': widget.day.toString(),
-          'businessId': widget.presta.buisnessId
+          'businessId': widget.presta.business,
+          'confirmed': event.appointment.prestation.autoConf
         });
+      } else {
+        FirebaseDatabase.instance
+            .reference()
+            .child('appointment')
+            .child(event.appointment.id)
+            .set({
+          'user': event.appointment.user.id,
+          'prestation': event.appointment.prestation.id,
+          'startAppointment': event.startMinuteOfDay,
+          'dayAppointment': event.appointment.day.toString(),
+          'businessId': event.appointment.prestation.business,
+          'confirmed': true
+        });
+      }
     }
 
     showDialog(
@@ -341,8 +394,10 @@ if(widget.presta!=null)
           title = Text("Mon rendez-vous");
           content = Text(event.title);
         }
-
-        if (event.color == Colors.green.withOpacity(0.5)) {
+        if (event.color == Colors.green.withOpacity(0.5) ||
+            (widget.presta == null &&
+                !event.appointment.confirmed &&
+                event.color == Colors.orange.withOpacity(0.5))) {
           action = [
             new FlatButton(
               child: new Text("Annuler"),
@@ -351,52 +406,89 @@ if(widget.presta!=null)
               },
             ),
             new FlatButton(
-              child: new Text("Continuer"),
+              child: new Text("Confirmer"),
               onPressed: () {
-                if (event.color == Colors.green.withOpacity(0.5)) {
+                setState(() {
+                  ontap();
+                });
+                Navigator.of(context).pop();
+
+                if (widget.myBusiness) {
                   setState(() {
-                    ontap();
+                    takenAppointment_business
+                        .singleWhere((e) => e.id == event.appointment.id,
+                            orElse: () => null)
+                        .confirmed = true;
+
+                    loadEvent();
                   });
-                  Navigator.of(context).pop();
+                } else {
                   setState(() {
                     loadAppointment();
-                    Future.delayed(Duration(milliseconds: 800), () => loadEvent());
+                    Future.delayed(
+                        Duration(milliseconds: 800), () => loadEvent());
                   });
-                  _showDialogCheck();
                 }
+
+                _showDialogCheck();
               },
             )
           ];
-          content = Text(
-              "Etes vous sur de vouloir prendre ce rendez vous pour " +
-                  widget.presta.namePresta +
-                  " le " +
-                  widget.day.toString() +
-                  " de " +
-                  (start ~/ 60).toString() +
-                  "h " +
-                  '${format.format(start % 60)}' +
-                  "min à " +
-                  ((start + widget.presta.duration) ~/ 60).toString() +
-                  "h " +
-                  '${format.format((start + widget.presta.duration) % 60)}' +
-                  "min?");
+          if (!widget.myBusiness)
+            content = Text(
+                "Etes vous sur de vouloir prendre ce rendez vous pour " +
+                    widget.presta.namePresta +
+                    " le " +
+                    widget.day.toString() +
+                    " de " +
+                    (start ~/ 60).toString() +
+                    "h " +
+                    '${format.format(start % 60)}' +
+                    "min à " +
+                    ((start + widget.presta.duration) ~/ 60).toString() +
+                    "h " +
+                    '${format.format((start + widget.presta.duration) % 60)}' +
+                    "min?");
         }
-        if(widget.presta==null) {
-          title =Text("Rendez vous de "+(start ~/ 60).toString() +
-              "h" +
-              '${format.format(start % 60)}' +
-              "");
-          content=SizedBox(
+        if (widget.myBusiness) {
+          content = SizedBox(
             height: 100,
-            child:
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.center
-                  ,children: <Widget>[
-
-                Text("Pour :"+event.appointment.prestation.namePresta),
-        Text("Utilisateur: "+event.appointment.user.firstName.substring(0,1)+". "
-            +event.appointment.user.lastName),]),);
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Pour :" + event.appointment.prestation.namePresta),
+                  Text("Utilisateur: " +
+                      event.appointment.user.firstName.substring(0, 1) +
+                      ". " +
+                      event.appointment.user.lastName),
+                  Row(
+                    children: <Widget>[
+                      Icon(Icons.warning,
+                          color: Colors.redAccent.withOpacity(0.5)),
+                      Text("A CONFIRMER"),
+                    ],
+                  )
+                ]),
+          );
+          if (event.appointment.confirmed) {
+            title = Text("Rendez vous de " +
+                (start ~/ 60).toString() +
+                "h" +
+                '${format.format(start % 60)}' +
+                "");
+            content = SizedBox(
+              height: 100,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Pour :" + event.appointment.prestation.namePresta),
+                    Text("Utilisateur: " +
+                        event.appointment.user.firstName.substring(0, 1) +
+                        ". " +
+                        event.appointment.user.lastName),
+                  ]),
+            );
+          }
         }
         return AlertDialog(
           title: title,
@@ -438,7 +530,7 @@ if(widget.presta!=null)
         child: Text("Cette entreprise n'a pas spécifié d'horaires",
             style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
       );
-    if (!isLoading && (openingDayTime == null || closingDayTime == null))
+    if (openingDayTime == null || closingDayTime == null)
       return new Center(
         child: Text("Aucun horaire spécifié pour ce jour",
             style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
@@ -506,49 +598,50 @@ if(widget.presta!=null)
       ),
       body: content(),
     );
-
   }
 
   Widget _headerItemBuilder(BuildContext context, DateTime day) {
     return new Container(
-      color: Colors.grey[300],
-      padding: new EdgeInsets.symmetric(vertical: 4.0),
-      child: new Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-        IconButton(icon: Icon(Icons.skip_previous), onPressed: ()=>
-            setState(() {
-          widget.day=widget.day.add(Duration(days: -1));
-          loadAppointment();
-          Future.delayed(Duration(milliseconds: 800), () {
-            loadEvent();
-            isLoading = false;
-          });
-          if(widget.presta!=null)
-            if (widget.presta.duration < 20) calendarSize = 3.5;
-        })),
-        Column(
-        children: <Widget>[
-          new Text(
-            "${weekdayToString(day.weekday)} "+"${day.day}",
-            style: new TextStyle(fontWeight: FontWeight.bold),
-          ),
-          new Text("${yearAndMonthToString(day)}"),
-        ],
-      ),
-        IconButton(icon: Icon(Icons.skip_next), onPressed: ()=>
-            setState(() {
-              widget.day=widget.day.add(Duration(days: 1));
-              loadAppointment();
-              Future.delayed(Duration(milliseconds: 800), () {
-                loadEvent();
-                isLoading = false;
-              });
-              if(widget.presta!=null)
-                if (widget.presta.duration < 20) calendarSize = 3.5;
-            })),
-      ],)
-    );
+        color: Colors.grey[300],
+        padding: new EdgeInsets.symmetric(vertical: 4.0),
+        child: new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+                icon: Icon(Icons.skip_previous),
+                onPressed: () => setState(() {
+                      widget.day = widget.day.add(Duration(days: -1));
+                      loadAppointment();
+                      Future.delayed(Duration(milliseconds: 800), () {
+                        loadEvent();
+                        isLoading = false;
+                      });
+                      if (widget.presta != null) if (widget.presta.duration <
+                          20) calendarSize = 3.5;
+                    })),
+            Column(
+              children: <Widget>[
+                new Text(
+                  "${weekdayToString(day.weekday)} " + "${day.day}",
+                  style: new TextStyle(fontWeight: FontWeight.bold),
+                ),
+                new Text("${yearAndMonthToString(day)}"),
+              ],
+            ),
+            IconButton(
+                icon: Icon(Icons.skip_next),
+                onPressed: () => setState(() {
+                      widget.day = widget.day.add(Duration(days: 1));
+                      loadAppointment();
+                      Future.delayed(Duration(milliseconds: 800), () {
+                        loadEvent();
+                        isLoading = false;
+                      });
+                      if (widget.presta != null) if (widget.presta.duration <
+                          20) calendarSize = 3.5;
+                    })),
+          ],
+        ));
   }
 
   Positioned _generatedTimeIndicatorBuilder(
