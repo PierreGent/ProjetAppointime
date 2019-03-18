@@ -108,7 +108,7 @@ class MyBusinessState extends State<MyBusiness> {
   @override
   Widget build(BuildContext context) {
 
-    if (isLoading || this.business == null )
+    if (isLoading )
       return new Center(
         child: CircularProgressIndicator(),
       );
