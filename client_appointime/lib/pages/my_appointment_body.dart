@@ -34,7 +34,9 @@ class MyAppointmentBodyState extends State<MyAppointmentBody> {
   Widget build(BuildContext context) {
     if(_isLoading)
       return new Scaffold(
-        body: CircularProgressIndicator(),
+        body:new Center(child:  CircularProgressIndicator(),
+        )
+
       );
     return new Scaffold(
       body: ListView.builder(

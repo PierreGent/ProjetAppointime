@@ -25,10 +25,11 @@ class MyAppointmentState extends State<MyAppointment>
   List<Widget> _pages;
   void initState(){
     _tabs = [
-      new Tab(child: Icon(Icons.description, color: Colors.black54)),
-      new Tab(child: Icon(Icons.work, color: Colors.black54)),
+      new Tab(icon: Icon(Icons.done, color: Colors.black54)),
+      new Tab(child: Text("?",
+        style: TextStyle(fontSize: 30,color: Colors.black54,),)),
 
-      new Tab(icon:  Icon(Icons.calendar_today, color: Colors.black54)),
+      new Tab(icon:  Icon(Icons.directions_run, color: Colors.black54)),
     ];
     _pages = [
       new MyAppointmentBody(widget.user,false,false),

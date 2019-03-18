@@ -28,8 +28,8 @@ class _BusinessListPageState extends State<BusinessListPage> {
   Widget content = new Container();
   List names = new List(); // names we get from API
   List filteredNames = new List(); // names filtered by search text
-  Icon _searchIcon = new Icon(Icons.search);
-  Widget _appBarTitle = new Text('Rechercher une entreprise');
+  Icon _searchIcon = new Icon(Icons.search,color: Colors.grey,);
+  Widget _appBarTitle = new Text('Rechercher une entreprise',style: TextStyle(color: Colors.grey),);
   bool _isLoading = false;
   List<Activity> sectorActivityList;
   List<Business> _business = [];
@@ -91,7 +91,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
   Widget _buildBar(BuildContext context) {
     return new AppBar(
       centerTitle: true,
-      backgroundColor: Colors.white10,
+      backgroundColor: Colors.white,
       title: GestureDetector(child: _appBarTitle, onTap: _searchPressed),
       leading: new IconButton(
         icon: _searchIcon,
@@ -418,7 +418,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
     setState(() {
       _isLoading = true;
       if (this._searchIcon.icon == Icons.search) {
-        this._searchIcon = new Icon(Icons.close);
+        this._searchIcon = new Icon(Icons.close,color: Colors.grey,);
 
         this._appBarTitle = new TextField(
           autofocus: true,
@@ -432,8 +432,8 @@ class _BusinessListPageState extends State<BusinessListPage> {
         _loadFavorite();
         if (widget.type == "all") _loadBusiness();
 
-        this._searchIcon = new Icon(Icons.search);
-        this._appBarTitle = new Text('Rechercher une entreprise');
+        this._searchIcon = new Icon(Icons.search,color: Colors.grey,);
+        this._appBarTitle = new Text('Rechercher une entreprise',style: TextStyle(color: Colors.grey),);
         filteredNames = names;
         _filter.clear();
       }
