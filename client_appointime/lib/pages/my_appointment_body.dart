@@ -50,7 +50,15 @@ class MyAppointmentBodyState extends State<MyAppointmentBody> {
     Appointment appoint = appointment[index];
     Prestation prestation;
     Future.delayed(Duration(milliseconds: 200), () async {
+      if(this.mounted)
+      setState(() {
+        _isLoading = true;
+      });
       prestation = await loadPresta(appoint.prestation.toString());
+      if(this.mounted)
+      setState(() {
+        _isLoading = false;
+      });
     });
 
     int heureDebut = appoint.startTime;
@@ -160,6 +168,9 @@ DateTime getTime(Appointment appoint){
 if(this.mounted)
           setState(() {
             Future.delayed(Duration(milliseconds: 200), () async {
+              setState(() {
+                _isLoading = true;
+              });
               presta = await loadPresta(v['prestation']);
 
                 appoint=Appointment.fromMap(

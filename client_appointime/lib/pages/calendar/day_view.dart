@@ -53,7 +53,13 @@ class _DayViewState extends State<DayView> {
   void initState() {
     loadAppointment();
     Future.delayed(Duration(milliseconds: 800), () {
+      setState(() {
+        isLoading = true;
+      });
       loadEvent();
+      setState(() {
+        isLoading = false;
+      });
     });
     if (widget.presta != null) if (widget.presta.duration < 20)
       calendarSize = 3.5;
@@ -92,9 +98,10 @@ class _DayViewState extends State<DayView> {
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
+        print(v["dayAppointment"]+"  "+widget.day.toString());
         presta = null;
-
-        if (v["dayAppointment"] == widget.day.toString()) {
+        String day= widget.day.toString().substring(0,10);
+        if (v["dayAppointment"].toString().contains(day)) {
           getUser(v["user"]).then((DataSnapshot result) {
             Map<dynamic, dynamic> valuesUser = result.value;
             Map<String, dynamic> mailPass = new Map<String, dynamic>();
@@ -102,11 +109,18 @@ class _DayViewState extends State<DayView> {
             mailPass['password'] = "";
 
             Future.delayed(Duration(milliseconds: 100), () async {
-              presta = await loadPresta(v['prestation']);
               setState(() {
                 isLoading = true;
+              });
+              presta = await loadPresta(v['prestation']);
+              setState(() {
                 takenAppointment_business.add(Appointment.fromMap(k, v,
                     User.fromMap(mailPass, valuesUser, v["user"]), presta));
+
+                print("ajouté: "+takenAppointment_business.toString());
+              });
+              setState(() {
+                isLoading = false;
               });
             });
           });
@@ -125,14 +139,22 @@ class _DayViewState extends State<DayView> {
       if (values == null) return;
       values.forEach((k, v) async {
         presta = null;
-        if (v["dayAppointment"] == widget.day.toString()) {
+        print(v["dayAppointment"]+"  "+widget.day.toString());
+        String day= widget.day.toString().substring(0,10);
+        if (v["dayAppointment"].toString().contains(day)) {
           setState(() {
             Future.delayed(Duration(milliseconds: 100), () async {
-              presta = await loadPresta(v['prestation']);
               setState(() {
                 isLoading = true;
+              });
+              presta = await loadPresta(v['prestation']);
+              setState(() {
+
                 takenAppointment_user
                     .add(Appointment.fromMap(k, v, widget.user, presta));
+              });
+              setState(() {
+                isLoading = false;
               });
             });
           });
@@ -149,6 +171,7 @@ class _DayViewState extends State<DayView> {
       isLoading = true;
 
       for (Appointment appoint in takenAppointment_business) {
+        print(appoint);
         title = "Cette plage horaire n'est pas disponible";
         couleurConf = Colors.red.withOpacity(0.5);
         if (!appoint.confirmed &&
@@ -169,6 +192,7 @@ class _DayViewState extends State<DayView> {
         print("\n\n" + takenAppointment_business.toString());
       }
       for (Appointment appoint in takenAppointment_user) {
+        print(appoint);
         couleurConf = Colors.blue.withOpacity(0.5);
         title = "Vous n'êtes pas disponible (rendez vous pour " +
             appoint.prestation.namePresta +
@@ -426,7 +450,14 @@ class _DayViewState extends State<DayView> {
                   setState(() {
                     loadAppointment();
                     Future.delayed(
-                        Duration(milliseconds: 800), () => loadEvent());
+                        Duration(milliseconds: 800), () {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      loadEvent();
+                      setState(() {
+                    isLoading = false;
+                    });});
                   });
                 }
 
