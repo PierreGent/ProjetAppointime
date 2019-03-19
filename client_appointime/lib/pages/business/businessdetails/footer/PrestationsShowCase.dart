@@ -140,7 +140,8 @@ elevation: 0.0,
   }
 
   Future _selectDate(Prestation presta) async {
-
+if(widget.user.id==widget.business.boss.id)
+  return;
     DateTime picked = await showDatePicker(
         context: context,
         initialDate: new DateTime.now(),

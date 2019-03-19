@@ -121,11 +121,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
         });
       });
     });
-    if (this.mounted) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+
   }
 
 //Chargement des entreprises
@@ -142,9 +138,16 @@ class _BusinessListPageState extends State<BusinessListPage> {
         .child('business')
         .once()
         .then((DataSnapshot snapshot) {
+
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
+        _business = [];
+        if (this.mounted) {
+          setState(() {
+            _isLoading = true;
+          });
+        }
         Map<String, dynamic> mailPass = new Map<String, dynamic>();
         widget.auth.getCurrentUser().then((result) {
           mailPass['email'] = result.email;
@@ -176,6 +179,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
                     v,
                     User.fromMap(mailPass, values, v['boss']),
                     valuesShedule));
+                _isLoading=false;
               });
             }
             if (widget.type == "all") {
@@ -194,6 +198,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
                           v,
                           User.fromMap(mailPass, values, v['boss']),
                           valuesShedule));
+                      _isLoading=false;
                     });
                   }
                 }
@@ -202,12 +207,9 @@ class _BusinessListPageState extends State<BusinessListPage> {
           });
         });
       });
+
     });
-    if (this.mounted) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+
   }
 
 //Chargement d'une entreprise par id
@@ -249,14 +251,16 @@ class _BusinessListPageState extends State<BusinessListPage> {
               valuesBusiness,
               User.fromMap(mailPass, values, valuesBusiness['boss']),
               valuesShedule);
+          if (this.mounted) {
+            setState(() {
+              _isLoading = false;
+            });
+          }
         });
       });
+
     });
-    if (this.mounted) {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+
     return business;
   }
 
@@ -285,16 +289,20 @@ class _BusinessListPageState extends State<BusinessListPage> {
             });
           }
         });
+      if (!(widget.type == "favorite"))
+        if (this.mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
     });
 
-    if (widget.type == "favorite") if (this.mounted) {
+
+    if (widget.type == "favorite")
+      if (this.mounted) {
       setState(() {
+        _isLoading = true;
         _loadBusiness();
-      });
-    }
-    if (this.mounted) {
-      setState(() {
-        _isLoading = false;
       });
     }
   }
@@ -305,7 +313,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
       _isLoading = true;
     });
 
-    Future.delayed(Duration(milliseconds: 100), () async {
+    Future.delayed(Duration(milliseconds: 10), () async {
       bool toDelete = false;
       Favorite favToDelete;
       getInfosUser = await widget.auth.getCurrentUser();
@@ -343,11 +351,11 @@ class _BusinessListPageState extends State<BusinessListPage> {
           widget.user.favorite.remove(favToDelete);
         });
       }
+      setState(() {
+        _isLoading = false;
+      });
+    });
 
-    });
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   Widget _buildBusinessListTile(BuildContext context, int index) {
@@ -443,12 +451,12 @@ class _BusinessListPageState extends State<BusinessListPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (_business == null || _isLoading)
+    if (_isLoading)
       return new Center(
         child: CircularProgressIndicator(),
       );
 
-    if (_business.length !=null ||  this._searchIcon.icon != Icons.search) {
+    if (_business.length >0 ||  this._searchIcon.icon != Icons.search) {
       setState(() {
         content = new ListView.builder(
           itemCount: _business.length,

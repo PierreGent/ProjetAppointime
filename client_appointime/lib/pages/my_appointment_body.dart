@@ -49,16 +49,10 @@ class MyAppointmentBodyState extends State<MyAppointmentBody> {
   Widget buildAppointmentListTile(BuildContext context, int index) {
     Appointment appoint = appointment[index];
     Prestation prestation;
-    Future.delayed(Duration(milliseconds: 200), () async {
-      if(this.mounted)
-      setState(() {
-        _isLoading = true;
-      });
+    Future.delayed(Duration(milliseconds: 20), () async {
+
       prestation = await loadPresta(appoint.prestation.toString());
-      if(this.mounted)
-      setState(() {
-        _isLoading = false;
-      });
+
     });
 
     int heureDebut = appoint.startTime;
@@ -95,52 +89,110 @@ DateTime getTime(Appointment appoint){
   return DateTime(appoint.day.year,appoint.day.month,appoint.day.day,(appoint.startTime~/60),(appoint.startTime%60),0,0,0);
 
 }
-  Widget tempsRestant(Appointment appoint){
-    DateTime day=getTime(appoint);
-    if(day.difference(DateTime.now()).inMinutes<0)
-      return new Column(
-        children: <Widget>[
-          Icon(Icons.directions_run,size: 20,color: Colors.redAccent,),
-          new Text("il y a " + day.difference(DateTime.now()).inMinutes.abs().toString()+" min",style: TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold),),
-        ],
-      );
+  Widget tempsRestant(Appointment appoint) {
+    DateTime day = getTime(appoint);
+    String old="Dans ";
 
-    if(day.difference(DateTime.now()).inMinutes<120)
-      return new Column(
-        children: <Widget>[
-          Icon(Icons.warning,size: 20,color: Colors.redAccent,),
-          new Text("dans " + day.difference(DateTime.now()).inMinutes.toString()+" min",style: TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold),),
-        ],
-      );
 
-    if(day.difference(DateTime.now()).inDays==0&& day.difference(DateTime.now()).inMinutes>0)
+    if (day
+        .difference(DateTime.now())
+        .inMinutes > 0){
+    if (day
+        .difference(DateTime.now())
+        .inMinutes < 120)
+    return new Column(
+    children: <Widget>[
+    Icon(Icons.warning, size: 20, color: Colors.redAccent,),
+    new Text("Dans "+ day
+        .difference(DateTime.now())
+        .inMinutes
+        .toString() + " min", style: TextStyle(
+    color: Colors.redAccent, fontWeight: FontWeight.bold),),
+    ],
+    );
+      if (day
+          .difference(DateTime.now())
+          .inDays == 0 && day
+          .difference(DateTime.now())
+          .inMinutes > 0)
+        return new Column(
+          children: <Widget>[
+            Icon(Icons.warning, size: 20, color: Colors.redAccent,),
+            new Text("Dans " +
+                day
+                    .
+                difference(DateTime.now())
+                    .inHours
+                    .toString() + "h " +
+                '${format.format((day
+                    .
+                difference(DateTime.now())
+                    .inMinutes % 60))}',
+              style: TextStyle(
+                  color: Colors.redAccent, fontWeight: FontWeight.bold),),
+          ],
+        );
+    if (day
+        .difference(DateTime.now())
+        .inDays < 3)
       return new Column(
         children: <Widget>[
-          Icon(Icons.warning,size: 20,color: Colors.redAccent,),
-          new Text("dans " +
-              day.
-              difference(DateTime.now()).inHours.toString()+":"+
-              (day.
-              difference(DateTime.now()).inMinutes%60).toString(),
-            style: TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold),),
-        ],
-      );
-    if(day.difference(DateTime.now()).inDays<3)
-      return new Column(
-        children: <Widget>[
-          Icon(Icons.warning,size: 20,color: Colors.redAccent,),
-          new Text("dans " +
-              day.difference(DateTime.now()).inDays.toString()+
-              " jours",style: TextStyle(color: Colors.redAccent,fontWeight: FontWeight.bold),),
+          Icon(Icons.warning, size: 20, color: Colors.redAccent,),
+          new Text("Dans " +
+              day
+                  .difference(DateTime.now())
+                  .inDays
+                  .toString() +
+              " jours", style: TextStyle(
+              color: Colors.redAccent, fontWeight: FontWeight.bold),),
         ],
       );
 
     return new Column(
       children: <Widget>[
-        new Text("dans " + day.difference(DateTime.now()).inDays.toString()+" jours"),
+        new Text("Dans " + day
+            .difference(DateTime.now())
+            .inDays
+            .toString() + " jours"),
       ],
     );
+  }else{
+    if (day
+        .difference(DateTime.now())
+        .inMinutes.abs() < 120)
+    return new Column(
+    children: <Widget>[
+    Icon(Icons.warning, size: 20, color: Colors.redAccent,),
+    new Text("Il y a "+ day
+        .difference(DateTime.now())
+        .inMinutes
+        .toString() + " min", style: TextStyle(
+    color: Colors.redAccent, fontWeight: FontWeight.bold),),
+    ],
+    );
 
+    if(day.difference(DateTime.now()).inDays==0&& day.difference(DateTime.now()).inMinutes.abs()>0)
+    return new Column(
+    children: <Widget>[
+
+    new Text("Il y a " +
+    day.
+    difference(DateTime.now()).inHours.abs().toString()+"h "+
+    '${format.format((day.
+    difference(DateTime.now()).inMinutes.abs()%60))}',
+    style: TextStyle(fontWeight: FontWeight.bold),),
+    ],
+    );
+    return new Column(
+    children: <Widget>[
+
+    new Text("Il y a " +
+    day.difference(DateTime.now()).inDays.abs().toString()+
+    " jours",style: TextStyle(fontWeight: FontWeight.bold),),
+    ],
+    );
+
+    }
   }
   Future<void> loadAppointment() async {
     setState(() {
@@ -159,6 +211,9 @@ DateTime getTime(Appointment appoint){
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
+        setState(() {
+          _isLoading=true;
+        });
         presta = null;
         getUser(v["user"]).then((DataSnapshot result) {
           Map<dynamic, dynamic> valuesUser = result.value;
@@ -167,9 +222,9 @@ DateTime getTime(Appointment appoint){
           mailPass['password'] = "";
 if(this.mounted)
           setState(() {
-            Future.delayed(Duration(milliseconds: 200), () async {
+            Future.delayed(Duration(milliseconds: 20), () async {
               setState(() {
-                _isLoading = true;
+                _isLoading=true;
               });
               presta = await loadPresta(v['prestation']);
 

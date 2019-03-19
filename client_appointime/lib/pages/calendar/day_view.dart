@@ -51,15 +51,12 @@ class _DayViewState extends State<DayView> {
   List<Appointment> takenAppointment_user = [];
   List<Appointment> takenAppointment_business = [];
   void initState() {
+
     loadAppointment();
     Future.delayed(Duration(milliseconds: 800), () {
-      setState(() {
-        isLoading = true;
-      });
+
       loadEvent();
-      setState(() {
-        isLoading = false;
-      });
+
     });
     if (widget.presta != null) if (widget.presta.duration < 20)
       calendarSize = 3.5;
@@ -98,6 +95,9 @@ class _DayViewState extends State<DayView> {
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
+        setState(() {
+          isLoading = true;
+        });
         print(v["dayAppointment"]+"  "+widget.day.toString());
         presta = null;
         String day= widget.day.toString().substring(0,10);
@@ -107,17 +107,13 @@ class _DayViewState extends State<DayView> {
             Map<String, dynamic> mailPass = new Map<String, dynamic>();
             mailPass['email'] = "";
             mailPass['password'] = "";
+            loadPresta(v['prestation']).then((prestation) {
 
-            Future.delayed(Duration(milliseconds: 100), () async {
-              setState(() {
-                isLoading = true;
-              });
-              presta = await loadPresta(v['prestation']);
               setState(() {
                 takenAppointment_business.add(Appointment.fromMap(k, v,
-                    User.fromMap(mailPass, valuesUser, v["user"]), presta));
+                    User.fromMap(mailPass, valuesUser, v["user"]), prestation));
 
-                print("ajouté: "+takenAppointment_business.toString());
+                print("ajouté: " + takenAppointment_business.toString());
               });
               setState(() {
                 isLoading = false;
@@ -138,25 +134,22 @@ class _DayViewState extends State<DayView> {
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) return;
       values.forEach((k, v) async {
+        setState(() {
+          isLoading = true;
+        });
         presta = null;
         print(v["dayAppointment"]+"  "+widget.day.toString());
         String day= widget.day.toString().substring(0,10);
         if (v["dayAppointment"].toString().contains(day)) {
-          setState(() {
-            Future.delayed(Duration(milliseconds: 100), () async {
-              setState(() {
-                isLoading = true;
-              });
-              presta = await loadPresta(v['prestation']);
+          loadPresta(v['prestation']).then((prestation){
+
               setState(() {
 
                 takenAppointment_user
-                    .add(Appointment.fromMap(k, v, widget.user, presta));
-              });
-              setState(() {
+                    .add(Appointment.fromMap(k, v, widget.user, prestation));
                 isLoading = false;
               });
-            });
+
           });
         }
       });
@@ -173,6 +166,8 @@ class _DayViewState extends State<DayView> {
       for (Appointment appoint in takenAppointment_business) {
         print(appoint);
         title = "Cette plage horaire n'est pas disponible";
+        if(widget.myBusiness)
+          title= appoint.prestation.namePresta+" Pour "+appoint.user.firstName[0]+"."+appoint.user.lastName;
         couleurConf = Colors.red.withOpacity(0.5);
         if (!appoint.confirmed &&
             appoint.prestation.business == widget.business.id) {
@@ -242,6 +237,7 @@ class _DayViewState extends State<DayView> {
             midi = null;
             katorzeur = null;
           }
+          bool isGood=true;
           int closingTime = v["closingTime"];
           int openingTime = v["openingTime"];
           if ((v["halfDayId"] / 2) == widget.day.weekday ||
@@ -255,22 +251,25 @@ class _DayViewState extends State<DayView> {
               for (int i = openingTime;
                   i < closingTime;
                   i += widget.presta.duration) {
+                isGood=true;
                 if (i + widget.presta.duration < closingTime) {
                   for (Appointment appoint in takenAppointment_business)
-                    if ((i <= appoint.startTime &&
+                    if (i==appoint.startTime ||(i <= appoint.startTime &&
                             i + widget.presta.duration > appoint.startTime) ||
                         (i < appoint.startTime + appoint.prestation.duration &&
                             i >= appoint.startTime)) {
-                      i = appoint.prestation.duration + appoint.startTime;
+                      isGood=false;
+                      //i = appoint.prestation.duration + appoint.startTime;
                     }
                   for (Appointment appoint in takenAppointment_user)
-                    if ((i <= appoint.startTime &&
+                    if (i==appoint.startTime ||(i <= appoint.startTime &&
                             i + widget.presta.duration > appoint.startTime) ||
                         (i < appoint.startTime + appoint.prestation.duration &&
                             i >= appoint.startTime)) {
-                      i = appoint.prestation.duration + appoint.startTime;
+                      isGood=false;
+                    //  i = appoint.prestation.duration + appoint.startTime;
                     }
-                  if (i + widget.presta.duration < closingTime)
+                  if (i + widget.presta.duration < closingTime && isGood)
                     eventsOfDay.add(new Event(
                         startMinuteOfDay: i,
                         appointment: Appointment(

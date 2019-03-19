@@ -28,8 +28,8 @@ class MyBusinessState extends State<MyBusiness> {
   List<Activity> sectorActivityList;
 
   void initState() {
-    MyBusiness();
     loadJobs();
+    Future.delayed(Duration(milliseconds: 50),() =>MyBusiness());
     super.initState();
   }
 
@@ -65,7 +65,10 @@ class MyBusinessState extends State<MyBusiness> {
                     k, v, User.fromMap(mailPass, values, widget.userId),valuesShedule);
 
 
-
+              if (this.mounted)
+                  setState(() {
+                    isLoading = false;
+                  });
               });
             }
           });
@@ -73,12 +76,12 @@ class MyBusinessState extends State<MyBusiness> {
       });
 
     });
-    setState(() {
-      isLoading = false;
-    });
+
+
   }
 
   Future loadJobs() async {
+    if (this.mounted)
     setState(() {
       isLoading = true;
     });
@@ -98,9 +101,7 @@ class MyBusinessState extends State<MyBusiness> {
 
           });
       });
-      setState(() {
-        isLoading = false;
-      });
+
     });
 
   }
@@ -117,7 +118,7 @@ class MyBusinessState extends State<MyBusiness> {
           this.business, -1, this.sectorActivityList, true,widget.user);
 
 
-    if (this.business == null)
+    if (this.business == null && !isLoading)
         return new Center(
           child: Container(
             padding: EdgeInsets.all(25),
