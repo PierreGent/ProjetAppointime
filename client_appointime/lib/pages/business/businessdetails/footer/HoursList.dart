@@ -63,6 +63,7 @@ bool isLoading;
             }
 
           });
+        if(this.mounted)
         setState(() {
           houreList.add(listHoures);
         });

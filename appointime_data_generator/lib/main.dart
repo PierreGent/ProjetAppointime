@@ -53,7 +53,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   bool started = false;
-  bool isPro = false;
+  bool isPro = true;
 
   bool _isInAsyncCall = false;
   bool _isLoading=false;
@@ -96,12 +96,11 @@ child: content,
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-  submitPeople() async {
+  void submitPeople() async {
 
     bool _isPhoneUsed = false;
     BaseAuth auth=new Auth();
     var rnd=new Random();
-    isPro=rnd.nextBool();
     int min = 600000000, max = 799999999;
     int r = min + rnd.nextInt(max - min);
     String firstName=faker.person.firstName();
@@ -156,8 +155,33 @@ child: content,
     });
   }
 
-
-  submitBusiness(BaseAuth auth) async {
+void submitHours(String businessId,int day) async {
+  final Hour = FirebaseDatabase.instance.reference().child('shedule');
+  int min = 380, max = 780;
+int halfDayIdMorning=day;
+int halfDayIdAfternoon=day+1;
+  var rnd=new Random();
+  int _lowerValueMorning = min + rnd.nextInt(max - min);
+  int _upperValueMorning = _lowerValueMorning + rnd.nextInt(780-_lowerValueMorning);
+  Hour.push().set({
+    'businessId': businessId,
+    'closingTime': _upperValueMorning,
+    'halfDayId': halfDayIdMorning,
+    'openingTime': _lowerValueMorning,
+  });
+   min = 780;
+   max = 1320;
+  int _lowerValueAfternoon = min + rnd.nextInt(max - min);
+  int _upperValueAfternoon = _lowerValueAfternoon + rnd.nextInt(max-_lowerValueAfternoon);
+   rnd=new Random();
+  Hour.push().set({
+    'businessId': businessId,
+    'closingTime': _upperValueAfternoon,
+    'halfDayId': halfDayIdAfternoon,
+    'openingTime': _lowerValueAfternoon,
+  });
+}
+  void submitBusiness(BaseAuth auth) async {
     int min = 1, max = 5;
 
     bool _isSiretUsed = false;
@@ -204,6 +228,9 @@ child: content,
         });
 
         if (!_isSiretUsed && !_isPhoneUsed) {
+          var rnd=new Random();
+          int min = 2, max = 10;
+          int number = min + rnd.nextInt(max - min);
           try {
             var banner = await FirebaseStorage.instance
                 .ref()
@@ -213,19 +240,31 @@ child: content,
                 .ref()
                 .child(activity.toString() + 'Avatar.jpg')
                 .getDownloadURL() as String;
-            businessDetails.push().set({
-              'name': name,
-              'boss': userId,
-              'address': address,
-              'phoneNumber': phone,
-              'siret': siret,
-              'description': description,
-              'fieldOfActivity': activity,
-              'cancelAppointment': cancelAppointment,
-              'bannerUrl': banner,
-              'avatarUrl': avatar
-            });
-            _showDialogBusiness("nom: "+name+" boss: "+userId+" adresse: "+address+" tel: "+phone+" siret: "+siret+" desscription: "+
+            var business = businessDetails.push();
+            var id=business.key;
+        business.set({
+        'name': name,
+        'boss': userId,
+        'address': address,
+        'phoneNumber': phone,
+        'siret': siret,
+        'description': description,
+        'fieldOfActivity': activity,
+        'cancelAppointment': cancelAppointment,
+        'bannerUrl': banner,
+        'avatarUrl': avatar
+        }).then((fff){
+          var rnd=new Random();
+          int min = 10, max = 14;
+          int week = min + rnd.nextInt(max - min);
+          for(int i=1;i<week;i+=2)
+            submitHours(id,i);
+
+
+          for(int i=0;i<number;i++)
+            submitPrestations(id);
+        });
+            _showDialogBusiness("Prestations: "+number.toString()+"nom: "+name+" boss: "+userId+" adresse: "+address+" tel: "+phone+" siret: "+siret+" desscription: "+
             description);
 
           } catch (e) {
@@ -242,6 +281,30 @@ child: content,
     setState(() {
       _isLoading = false;
     });
+  }
+
+  void submitPrestations(String businessId) async {
+    var rnd=new Random();
+    var autoConf=rnd.nextBool();
+    int min = 10, max = 90;
+    int duration = min + rnd.nextInt(max - min);
+    min = 5;
+    max = 500;
+    int price = min + rnd.nextInt(max - min);
+    final prestation =
+    FirebaseDatabase.instance.reference().child('prestation');
+
+
+      prestation.push().set({
+        'businessId': businessId,
+        'name': faker.job.title(),
+        'description': "Prestation description ",
+        'duration': duration,
+        'price': price.toDouble(),
+        'autoConf':autoConf,
+      });
+
+
   }
 
 
