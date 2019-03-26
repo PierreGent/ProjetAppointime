@@ -117,6 +117,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
       values.forEach((k, v) async {
         if(this.mounted)
         setState(() {
+          if(k!="test")
           sectorActivityList.add(Activity.fromMap(k, v));
         });
       });
@@ -172,13 +173,18 @@ class _BusinessListPageState extends State<BusinessListPage> {
               .then((DataSnapshot resultShedule) async {
             Map<dynamic, dynamic> valuesShedule = resultShedule.value;
             print(valuesShedule);
+            Activity businessActivity;
+            for(Activity act in sectorActivityList)
+              if (act.id==v["fieldOfActivity"])
+                businessActivity=act;
+
             if (this.mounted) {
               setState(() {
                 this._allBusiness.add(Business.fromMap(
                     k,
                     v,
                     User.fromMap(mailPass, values, v['boss']),
-                    valuesShedule));
+                    valuesShedule,businessActivity));
                 _isLoading=false;
               });
             }
@@ -197,7 +203,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
                           k,
                           v,
                           User.fromMap(mailPass, values, v['boss']),
-                          valuesShedule));
+                          valuesShedule,businessActivity));
                       _isLoading=false;
                     });
                   }
@@ -245,12 +251,15 @@ class _BusinessListPageState extends State<BusinessListPage> {
 
         getUser(valuesBusiness['boss']).then((DataSnapshot result) {
           Map<dynamic, dynamic> values = result.value;
-
+          Activity businessActivity;
+          for(Activity act in sectorActivityList)
+            if (act.id==valuesBusiness["fieldOfActivity"])
+              businessActivity=act;
           business = Business.fromMap(
               id,
               valuesBusiness,
               User.fromMap(mailPass, values, valuesBusiness['boss']),
-              valuesShedule);
+              valuesShedule,businessActivity);
           if (this.mounted) {
             setState(() {
               _isLoading = false;
@@ -390,7 +399,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
           leading: new Hero(
             tag: index,
             child: new CircleAvatar(
-              backgroundImage: NetworkImage(business.avatarUrl),
+              backgroundImage: business.avatar,
             ),
           ),
           title: new Text(business.name),

@@ -181,6 +181,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
 
       values.forEach((k, v) async {
         setState(() {
+          if(k!="test")
           sectorActivityList.add(Activity.fromMap(k, v));
         });
       });
@@ -516,14 +517,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
 
         if (!_isSiretUsed && !_isPhoneUsed) {
           try {
-            var banner = await FirebaseStorage.instance
-                .ref()
-                .child(activity.toString() + '.jpg')
-                .getDownloadURL() as String;
-            var avatar = await FirebaseStorage.instance
-                .ref()
-                .child(activity.toString() + 'Avatar.jpg')
-                .getDownloadURL() as String;
+
             businessDetails.push().set({
               'name': name,
               'boss': userId,
@@ -533,8 +527,7 @@ class CreateBusinessPageState extends State<CreateBusinessPage>
               'description': description,
               'fieldOfActivity': activity,
               'cancelAppointment': cancelAppointment,
-              'bannerUrl': banner,
-              'avatarUrl': avatar
+
             });
           } catch (e) {
             print('Error: $e');

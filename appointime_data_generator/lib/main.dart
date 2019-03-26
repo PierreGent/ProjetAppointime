@@ -54,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   bool started = false;
   bool isPro = true;
-
+  int nbBusi=-1;
+  int todo=2;
   bool _isInAsyncCall = false;
   bool _isLoading=false;
   void _incrementCounter() {
@@ -67,11 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget content=Text("Appuyer sur + pour ajouter un utilisateur et son entreprise si il est pro");
-    if(_isLoading)
-      setState(() {
-        content= CircularProgressIndicator();
-      });
+
 
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -79,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    if(nbBusi==-1 || nbBusi>=todo)
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -86,15 +84,46 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-
-child: content,
+child:Text(nbBusi.toString()),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: submitPeople,
+        onPressed: createData,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+
+
+    if(nbBusi>-1 && nbBusi<todo)
+      return Scaffold(
+          appBar: AppBar(
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: Text(widget.title),
+          ),
+          body:  Center(
+
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              CircularProgressIndicator(),
+            Text(nbBusi.toString()+"/"+todo.toString(),style: TextStyle(fontSize: 30),),
+            ],
+          ),
+        ),);
+
+
+
+  }
+  void createData(){
+    nbBusi++;
+    for(int i=0;i<todo;
+   i++){
+
+      submitPeople();
+    }
+
   }
   void submitPeople() async {
 
@@ -133,7 +162,7 @@ child: content,
                 .signUpFull(userId, firstName, lastName, address, phone, isPro);
 
             print('Signed in: ' + userId);
-            _showDialogUser("nom: "+lastName+" prenom: "+firstName+" adresse: "+address+" tel: "+phone+" email: "+email);
+           // _showDialogUser("nom: "+lastName+" prenom: "+firstName+" adresse: "+address+" tel: "+phone+" email: "+email);
             if(isPro){
               submitBusiness(auth);
             }
@@ -182,7 +211,7 @@ int halfDayIdAfternoon=day+1;
   });
 }
   void submitBusiness(BaseAuth auth) async {
-    int min = 1, max = 5;
+    int min = 1, max = 10;
 
     bool _isSiretUsed = false;
     bool _isPhoneUsed = false;
@@ -254,6 +283,9 @@ int halfDayIdAfternoon=day+1;
         'bannerUrl': banner,
         'avatarUrl': avatar
         }).then((fff){
+          setState(() {
+            nbBusi++;
+          });
           var rnd=new Random();
           int min = 10, max = 14;
           int week = min + rnd.nextInt(max - min);
@@ -264,8 +296,8 @@ int halfDayIdAfternoon=day+1;
           for(int i=0;i<number;i++)
             submitPrestations(id);
         });
-            _showDialogBusiness("Prestations: "+number.toString()+"nom: "+name+" boss: "+userId+" adresse: "+address+" tel: "+phone+" siret: "+siret+" desscription: "+
-            description);
+            //_showDialogBusiness("Prestations: "+number.toString()+"nom: "+name+" boss: "+userId+" adresse: "+address+" tel: "+phone+" siret: "+siret+" desscription: "+
+          //  description);
 
           } catch (e) {
             print('Error: $e');

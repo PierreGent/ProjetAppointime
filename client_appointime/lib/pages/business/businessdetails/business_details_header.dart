@@ -1,5 +1,4 @@
 import 'package:client_appointime/pages/business/business.dart';
-import 'package:client_appointime/pages/business/businessdetails/arcbannerImage.dart';
 import 'package:client_appointime/services/activity.dart';
 import 'package:flutter/material.dart';
 
@@ -77,7 +76,7 @@ class BusinessDetailHeader extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 95.0),
-            child:ArcBannerImage(business.bannerUrl),
+            child:business.banner,
 
           ),
     new Align(
@@ -90,7 +89,7 @@ class BusinessDetailHeader extends StatelessWidget {
          tag: avatarTag,
          child: new CircleAvatar(
 
-           backgroundImage: NetworkImage(business.avatarUrl),
+           backgroundImage: business.avatar,
 
            radius: 50.0,
          )),),)

@@ -59,10 +59,14 @@ class MyBusinessState extends State<MyBusiness> {
               .then((DataSnapshot resultShedule) async {
             Map<dynamic, dynamic> valuesShedule = resultShedule.value;
             print(valuesShedule);
+            Activity businessActivity;
+            for(Activity act in sectorActivityList)
+              if (act.id==v["fieldOfActivity"])
+                businessActivity=act;
             if (this.mounted) {
               setState(() {
                 this.business = Business.fromMap(
-                    k, v, User.fromMap(mailPass, values, widget.userId),valuesShedule);
+                    k, v, User.fromMap(mailPass, values, widget.userId),valuesShedule,businessActivity);
 
 
               if (this.mounted)
