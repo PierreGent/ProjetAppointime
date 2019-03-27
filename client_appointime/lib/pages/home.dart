@@ -370,18 +370,19 @@ print(compteurBus.toString()+"    "+values.length.toString());
        widgetList=[
         MyAppointment(user) /*,MyAppointment(),*/,
         BasePage(widget.auth, user,this._business,this._favorite,this.sectorActivityList),
+        MyBusiness(
+            listJobs: sectorActivityList,
+            business:business,
+            auth: widget.auth,
+            userId: widget.userId,
+            onSignedOut: widget.onSignedOut,
+            user: user),
   ];
     } else {
      widgetList=[
     MyAppointment(user) /*,MyAppointment(),*/,
     BasePage(widget.auth, user,this._business,this._favorite,this.sectorActivityList),
-    MyBusiness(
-    listJobs: sectorActivityList,
-    business:business,
-    auth: widget.auth,
-    userId: widget.userId,
-    onSignedOut: widget.onSignedOut,
-    user: user),
+
     ];
       items = [
         BottomNavigationBarItem(

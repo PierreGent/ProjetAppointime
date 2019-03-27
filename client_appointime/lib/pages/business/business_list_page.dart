@@ -12,14 +12,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class BusinessListPage extends StatefulWidget {
-  BusinessListPage(this.auth, this.user, this.type,this.businessList,this.favoriteList,this.jobList);
+  BusinessListPage(this.auth, this.user, this.type, this.businessList,
+      this.favoriteList, this.jobList);
 
   final User user;
   final BaseAuth auth;
   final String type;
   final List<Activity> jobList;
   final List<Business> businessList;
-   List<Business> favoriteList;
+  List<Business> favoriteList;
 
   @override
   _BusinessListPageState createState() => new _BusinessListPageState();
@@ -31,8 +32,14 @@ class _BusinessListPageState extends State<BusinessListPage> {
   Widget content = new Container();
   List names = new List(); // names we get from API
   List filteredNames = new List(); // names filtered by search text
-  Icon _searchIcon = new Icon(Icons.search,color: Colors.grey,);
-  Widget _appBarTitle = new Text('Rechercher une entreprise',style: TextStyle(color: Colors.grey),);
+  Icon _searchIcon = new Icon(
+    Icons.search,
+    color: Colors.grey,
+  );
+  Widget _appBarTitle = new Text(
+    'Rechercher une entreprise',
+    style: TextStyle(color: Colors.grey),
+  );
   bool _isLoading = false;
   List<Activity> sectorActivityList;
   List<Business> _business = [];
@@ -56,29 +63,29 @@ class _BusinessListPageState extends State<BusinessListPage> {
   @override
   void initState() {
     _loadBusiness();
-    for(Business bus in _business)
-      names.add(bus);
-_allBusiness =widget.businessList;
-    sectorActivityList=widget.jobList;
-   if(widget.type=="all")
-     _business=widget.businessList;
-   else
-     _business=widget.favoriteList;
-   print("\n\n\n"+widget.favoriteList.toString());
-_loadFavorite();
+    for (Business bus in _business) names.add(bus);
+    _allBusiness = widget.businessList;
+    sectorActivityList = widget.jobList;
+    if (widget.type == "all")
+      _business = widget.businessList;
+    else
+      _business = widget.favoriteList;
+    print("\n\n\n" + widget.favoriteList.toString());
+    _loadFavorite();
 
     super.initState();
   }
 
-  Widget _buildList()  {
+  Widget _buildList() {
     filteredNames = names;
     if (!(_searchText.isEmpty)) {
       List<Business> searchListBusiness = new List();
       List tempList = new List();
       for (int i = 0; i < filteredNames.length; i++) {
         if (filteredNames[i]['activity']
-            .toLowerCase()
-            .contains(_searchText.toLowerCase())||filteredNames[i]['address']
+                .toLowerCase()
+                .contains(_searchText.toLowerCase()) ||
+            filteredNames[i]['address']
                 .toLowerCase()
                 .contains(_searchText.toLowerCase()) ||
             filteredNames[i]['name']
@@ -89,7 +96,7 @@ _loadFavorite();
                 .contains(_searchText.toLowerCase())) {
           tempList.add(filteredNames[i]);
           for (Business thebusiness in _allBusiness)
-            if (filteredNames[i]['id']==thebusiness.id)
+            if (filteredNames[i]['id'] == thebusiness.id)
               searchListBusiness.add(thebusiness);
         }
       }
@@ -129,40 +136,34 @@ _loadFavorite();
       Map<dynamic, dynamic> values = snapshot.value;
 
       values.forEach((k, v) async {
-        if(this.mounted)
-        setState(() {
-          if(k!="test")
-          sectorActivityList.add(Activity.fromMap(k, v));
-        });
+        if (this.mounted)
+          setState(() {
+            if (k != "test") sectorActivityList.add(Activity.fromMap(k, v));
+          });
       });
     });
-
   }
 
 //Chargement des entreprises
   Future<void> _loadBusiness() async {
     List tempList = new List();
-    List<String> fav=[];
-    for(Favorite _fav in widget.user.favorite)
-      fav.add(_fav.businessId);
+    List<String> fav = [];
+    for (Favorite _fav in widget.user.favorite) fav.add(_fav.businessId);
 
-    List<String> bus=[];
-    for(Business _bus in _business)
-    bus.add(_bus.id);
+    List<String> bus = [];
+    for (Business _bus in _business) bus.add(_bus.id);
 
     await FirebaseDatabase.instance
         .reference()
         .child('business')
         .once()
         .then((DataSnapshot snapshot) {
-
       Map<dynamic, dynamic> values = snapshot.value;
       if (values == null) {
-        if(this.mounted)
+        if (this.mounted)
           setState(() {
-
             print("setstate false load 154");
-            _isLoading=false;
+            _isLoading = false;
           });
         return;
       }
@@ -170,22 +171,15 @@ _loadFavorite();
         if (this.mounted)
           setState(() {
             v['id'] = k;
-            for(Activity act in sectorActivityList)
-              if(act.id==v["fieldOfActivity"])
-                v["activity"]=act.name;
+            for (Activity act in sectorActivityList)
+              if (act.id == v["fieldOfActivity"]) v["activity"] = act.name;
             tempList.add(v);
             names = tempList;
             names.shuffle();
             filteredNames = names;
           });
-
-
-
-
       });
-
     });
-
   }
 
 //Chargement d'une entreprise par id
@@ -222,14 +216,15 @@ _loadFavorite();
         getUser(valuesBusiness['boss']).then((DataSnapshot result) {
           Map<dynamic, dynamic> values = result.value;
           Activity businessActivity;
-          for(Activity act in sectorActivityList)
-            if (act.id==valuesBusiness["fieldOfActivity"])
-              businessActivity=act;
+          for (Activity act in sectorActivityList)
+            if (act.id == valuesBusiness["fieldOfActivity"])
+              businessActivity = act;
           business = Business.fromMap(
               id,
               valuesBusiness,
               User.fromMap(mailPass, values, valuesBusiness['boss']),
-              valuesShedule,businessActivity);
+              valuesShedule,
+              businessActivity);
           if (this.mounted) {
             setState(() {
               print("setstate false load 281");
@@ -238,7 +233,6 @@ _loadFavorite();
           }
         });
       });
-
     });
 
     return business;
@@ -246,27 +240,26 @@ _loadFavorite();
 
   //Chargement des favoris propres a l'utilisateur connecté
   Future<void> _loadFavorite() async {
-    List<String> favList=[];
-    List<String> favListBus=[];
-    List<String> busList=[];
-    List<Business> toRemove=[];
-    for(Favorite _fav in widget.user.favorite) {
+    List<String> favList = [];
+    List<String> favListBus = [];
+    List<String> busList = [];
+    List<Business> toRemove = [];
+    for (Favorite _fav in widget.user.favorite) {
       favList.add(_fav.id);
       favListBus.add(_fav.businessId);
     }
-    for(Business _bus in _business) {
+    for (Business _bus in _business) {
       busList.add(_bus.id);
-      if(!favListBus.contains(_bus.id) && widget.type!="all")
+      if (!favListBus.contains(_bus.id) && widget.type != "all")
         toRemove.add(_bus);
     }
-    for(Business _bus in toRemove)
-    _business.remove(_bus);
+    for (Business _bus in toRemove) _business.remove(_bus);
 
     getInfosUser = await widget.auth.getCurrentUser();
     await FirebaseDatabase.instance
         .reference()
         .child('favorite')
-     .orderByChild("user")
+        .orderByChild("user")
         .equalTo(getInfosUser.uid)
         .once()
         .then((DataSnapshot snapshot) {
@@ -275,20 +268,19 @@ _loadFavorite();
 
       if (values != null)
         values.forEach((k, v) async {
-        /*  if (this.mounted) {
+          /*  if (this.mounted) {
             setState(() {
               _isLoading = true;
             });
           }*/
           //Si il concerne l'utilisateur connecté on l'ajoute a la liste
-          if(!favList.contains(k))
+          if (!favList.contains(k))
             setState(() {
               widget.user.favorite.add(Favorite.fromMap(k, v));
               favList.add(k);
               favListBus.add(v["business"]);
             });
-            if(!busList.contains(v["business"]))
-           if (this.mounted) {
+          if (!busList.contains(v["business"])) if (this.mounted) {
             setState(() {
               FirebaseDatabase.instance
                   .reference()
@@ -316,23 +308,21 @@ _loadFavorite();
                   getUser(valuesBusiness['boss']).then((DataSnapshot result) {
                     Map<dynamic, dynamic> values = result.value;
                     Activity businessActivity;
-                    for(Activity act in sectorActivityList)
-                      if (act.id==valuesBusiness["fieldOfActivity"])
-                        businessActivity=act;
+                    for (Activity act in sectorActivityList)
+                      if (act.id == valuesBusiness["fieldOfActivity"])
+                        businessActivity = act;
 
                     busList.add(k);
 
-                                      _business.add(Business.fromMap(
-                                          v["business"],
-                                          valuesBusiness,
-                                          User.fromMap(mailPass, values, valuesBusiness['boss']),
-                                          valuesShedule,businessActivity));
-
+                    _business.add(Business.fromMap(
+                        v["business"],
+                        valuesBusiness,
+                        User.fromMap(mailPass, values, valuesBusiness['boss']),
+                        valuesShedule,
+                        businessActivity));
                   });
                 });
-
               });
-
             });
           }
           if (this.mounted) {
@@ -341,15 +331,8 @@ _loadFavorite();
             });
           }
         });
-
-
-
     });
-
-
-
   }
-
 
 //Action au clique sur une etoile de favoris
   _toggleFavorite(Business business) async {
@@ -357,58 +340,56 @@ _loadFavorite();
       _isLoading = true;
     });
 
-      bool toDelete = false;
-      Favorite favToDelete;
-      getInfosUser = await widget.auth.getCurrentUser();
-      widget.user.favorite.forEach((favorite) {
-        if (favorite.businessId == business.id) {
-          //On supprime l'entreprise si on la trouve, sinon c'est qu'on veut l'ajouter
-          toDelete = true;
-          FirebaseDatabase.instance
-              .reference()
-              .child('favorite')
-              .child(favorite.id)
-              .remove();
-          //On sauvegarde le favoris a enlever (pour l'enlever de la liste locale)
-          favToDelete = favorite;
-        }
-      });
-//Si on a pas trouvé de favoris a supprimer c'est quon veut l'ajouter
-      if (!toDelete) {
-        var request;
-        //Ajout dans la bdd
-         request=FirebaseDatabase.instance
+    bool toDelete = false;
+    Favorite favToDelete;
+    getInfosUser = await widget.auth.getCurrentUser();
+    widget.user.favorite.forEach((favorite) {
+      if (favorite.businessId == business.id) {
+        //On supprime l'entreprise si on la trouve, sinon c'est qu'on veut l'ajouter
+        toDelete = true;
+        FirebaseDatabase.instance
             .reference()
             .child('favorite')
-            .push();
-        Favorite favori=new Favorite(id: request.key, userId: getInfosUser.uid, businessId: business.id);
-        setState(() {
-          widget.user.favorite.add(favori);
-        });
-        request.set({
-          'user': getInfosUser.uid,
-          'business': business.id,
-        });
-         setState(() {
-          //On réinitialise a liste locale des favoris
-          _loadFavorite();
-        });
-      } else {
-        setState(() {
-          //On supprime de la liste locale
-          widget.user.favorite.remove(favToDelete);
-        });
+            .child(favorite.id)
+            .remove();
+        //On sauvegarde le favoris a enlever (pour l'enlever de la liste locale)
+        favToDelete = favorite;
       }
+    });
+//Si on a pas trouvé de favoris a supprimer c'est quon veut l'ajouter
+    if (!toDelete) {
+      var request;
+      //Ajout dans la bdd
+      request = FirebaseDatabase.instance.reference().child('favorite').push();
+      Favorite favori = new Favorite(
+          id: request.key, userId: getInfosUser.uid, businessId: business.id);
       setState(() {
-        _isLoading = false;
+        widget.user.favorite.add(favori);
       });
-
+      request.set({
+        'user': getInfosUser.uid,
+        'business': business.id,
+      });
+      setState(() {
+        //On réinitialise a liste locale des favoris
+        _loadFavorite();
+      });
+    } else {
+      setState(() {
+        //On supprime de la liste locale
+        widget.user.favorite.remove(favToDelete);
+      });
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Widget _buildBusinessListTile(BuildContext context, int index) {
-    if (index >= _business.length)  return new Center(
-      child: CircularProgressIndicator(),
-    );
+    if (index >= _business.length)
+      return new Center(
+        child: CircularProgressIndicator(),
+      );
     Business business = _business[index];
     bool isFavorite = false;
     Map<String, dynamic> mailPass = new Map<String, dynamic>();
@@ -463,7 +444,7 @@ _loadFavorite();
       new MaterialPageRoute(
         builder: (c) {
           return new BusinessDetailsPage(
-              business, avatarTag, sectorActivityList, edit,widget.user);
+              business, avatarTag, sectorActivityList, edit, widget.user);
         },
       ),
     );
@@ -473,7 +454,10 @@ _loadFavorite();
     setState(() {
       _isLoading = true;
       if (this._searchIcon.icon == Icons.search) {
-        this._searchIcon = new Icon(Icons.close,color: Colors.grey,);
+        this._searchIcon = new Icon(
+          Icons.close,
+          color: Colors.grey,
+        );
 
         this._appBarTitle = new TextField(
           autofocus: true,
@@ -484,17 +468,21 @@ _loadFavorite();
               hintText: 'Tapez ici...'),
         );
       } else {
-
-        if(widget.type=="all")
-        setState(() {
-
-          _business=widget.businessList;
-        });
+        if (widget.type == "all")
+          setState(() {
+            _business = widget.businessList;
+          });
         else
           _loadFavorite();
 
-        this._searchIcon = new Icon(Icons.search,color: Colors.grey,);
-        this._appBarTitle = new Text('Rechercher une entreprise',style: TextStyle(color: Colors.grey),);
+        this._searchIcon = new Icon(
+          Icons.search,
+          color: Colors.grey,
+        );
+        this._appBarTitle = new Text(
+          'Rechercher une entreprise',
+          style: TextStyle(color: Colors.grey),
+        );
         filteredNames = names;
         _filter.clear();
       }
@@ -509,7 +497,7 @@ _loadFavorite();
         child: CircularProgressIndicator(),
       );
 
-    if (_business.length >0 ||  this._searchIcon.icon != Icons.search) {
+    if (_business.length > 0 || this._searchIcon.icon != Icons.search) {
       setState(() {
         content = new ListView.builder(
           itemCount: _business.length,
@@ -529,48 +517,51 @@ _loadFavorite();
         resizeToAvoidBottomPadding: false,
       );
     }
-      return new Center(
-        child: Container(
-          padding: EdgeInsets.all(25),
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Vous ne possedez pas de favoris",
-                style: TextStyle(color: Colors.black54),
-              ),
-              new ClipRRect(
-                borderRadius: new BorderRadius.circular(30.0),
-                child: new MaterialButton(
-                  minWidth: 140.0,
-                  color: Color(0xFF3388FF).withOpacity(0.8),
-                  textColor: Colors.white,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Scaffold(
-                              appBar: AppBar(
-                                title: Text("Liste des entreprises"),
-                                backgroundColor:
-                                    Color(0xFF3388FF).withOpacity(0.8),
-                              ),
-                              body: BusinessListPage(
-                                  widget.auth, widget.user, "all",widget.businessList,widget.favoriteList,widget.jobList))),
-                    ).then((value) {
-                      setState(() {
-                        _loadFavorite();
-                      });
+    return new Center(
+      child: Container(
+        padding: EdgeInsets.all(25),
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Vous ne possedez pas de favoris",
+              style: TextStyle(color: Colors.black54),
+            ),
+            new ClipRRect(
+              borderRadius: new BorderRadius.circular(30.0),
+              child: new MaterialButton(
+                minWidth: 140.0,
+                color: Color(0xFF3388FF).withOpacity(0.8),
+                textColor: Colors.white,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                            appBar: AppBar(
+                              title: Text("Liste des entreprises"),
+                              backgroundColor:
+                                  Color(0xFF3388FF).withOpacity(0.8),
+                            ),
+                            body: BusinessListPage(
+                                widget.auth,
+                                widget.user,
+                                "all",
+                                widget.businessList,
+                                widget.favoriteList,
+                                widget.jobList))),
+                  ).then((value) {
+                    setState(() {
+                      _loadFavorite();
                     });
-                  },
-                  child: new Text('Voir la liste des entreprises'),
-                ),
+                  });
+                },
+                child: new Text('Voir la liste des entreprises'),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
-
-
+      ),
+    );
   }
 }
