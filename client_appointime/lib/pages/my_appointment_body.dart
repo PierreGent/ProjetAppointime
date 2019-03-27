@@ -209,7 +209,13 @@ DateTime getTime(Appointment appoint){
         .then((DataSnapshot snapshot) {
 
       Map<dynamic, dynamic> values = snapshot.value;
-      if (values == null) return;
+      if (values == null) {
+        if(this.mounted)
+          setState(() {
+            _isLoading=false;
+          });
+        return;
+      }
       values.forEach((k, v) async {
         setState(() {
           _isLoading=true;

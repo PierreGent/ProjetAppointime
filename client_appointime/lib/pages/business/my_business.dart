@@ -10,33 +10,31 @@ import 'package:flutter/material.dart';
 
 class MyBusiness extends StatefulWidget {
   @override
-  MyBusiness({this.auth, this.userId, this.onSignedOut,this.user});
+  MyBusiness({this.business,this.auth, this.userId, this.onSignedOut,this.user,this.listJobs});
 
   final BaseAuth auth;
   final VoidCallback onSignedOut;
   final String userId;
   final User user;
-
+  Business business;
+  final  List<Activity> listJobs;
   State<StatefulWidget> createState() => new MyBusinessState();
 }
 
 class MyBusinessState extends State<MyBusiness> {
-  Business business;
   bool isLoading = false;
-
+Business business;
   Map<String, dynamic> mailPass = new Map<String, dynamic>();
   List<Activity> sectorActivityList;
 
   void initState() {
-    loadJobs();
-    Future.delayed(Duration(milliseconds: 50),() =>MyBusiness());
+    business=widget.business;
+    sectorActivityList=widget.listJobs;
+    myBusiness();
     super.initState();
   }
+   myBusiness() async {
 
-  Future MyBusiness() async {
-    setState(() {
-      isLoading = true;
-    });
     FirebaseDatabase.instance
         .reference()
         .child('business')
@@ -45,7 +43,13 @@ class MyBusinessState extends State<MyBusiness> {
         .once()
         .then((DataSnapshot snapshot) {
       Map<dynamic, dynamic> values = snapshot.value;
-      if (values == null) return;
+      if (values == null || business!=null)
+        return;
+      else
+        if(this.mounted)
+          setState(() {
+            isLoading=true;
+          });
       values.forEach((k, v) async {
         widget.auth.getCurrentUser().then((result) {
           mailPass['email'] = result.email;
@@ -65,50 +69,30 @@ class MyBusinessState extends State<MyBusiness> {
                 businessActivity=act;
             if (this.mounted) {
               setState(() {
+                if(this.business==null)
                 this.business = Business.fromMap(
                     k, v, User.fromMap(mailPass, values, widget.userId),valuesShedule,businessActivity);
+              widget.business=Business.fromMap(
+                  k, v, User.fromMap(mailPass, values, widget.userId),valuesShedule,businessActivity);
 
-
-              if (this.mounted)
+                if(this.mounted)
                   setState(() {
-                    isLoading = false;
+                    isLoading=false;
                   });
               });
             }
           });
         });
       });
-
     });
+
+
 
 
   }
 
-  Future loadJobs() async {
-    if (this.mounted)
-    setState(() {
-      isLoading = true;
-    });
 
-    sectorActivityList = [];
-    await FirebaseDatabase.instance
-        .reference()
-        .child('activity')
-        .once()
-        .then((DataSnapshot snapshot) {
-      Map<dynamic, dynamic> values = snapshot.value;
 
-      values.forEach((k, v) async {
-        if (this.mounted)
-          setState(() {
-            sectorActivityList.add(Activity.fromMap(k, v));
-
-          });
-      });
-
-    });
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +131,7 @@ class MyBusinessState extends State<MyBusiness> {
                                       CreateBusinessPage(auth: widget.auth)))
                           .then((value) {
                         setState(() {
-                          MyBusiness();
+                          myBusiness();
                         });
                       });
                     },

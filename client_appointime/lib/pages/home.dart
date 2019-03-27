@@ -1,10 +1,13 @@
 import 'package:client_appointime/globalVar.dart' as globalVar;
 import 'package:client_appointime/pages/base_page.dart';
+import 'package:client_appointime/pages/business/business.dart';
 import 'package:client_appointime/pages/business/business_list_page.dart';
+import 'package:client_appointime/pages/business/favorite.dart';
 import 'package:client_appointime/pages/business/my_business.dart';
 import 'package:client_appointime/pages/my_appointment.dart';
 import 'package:client_appointime/pages/users/user.dart';
 import 'package:client_appointime/pages/users/usersdetails/user_details_page.dart';
+import 'package:client_appointime/services/activity.dart';
 import 'package:client_appointime/services/authentication.dart';
 import 'package:client_appointime/services/my_icone_icons.dart';
 import 'package:client_appointime/validation.dart';
@@ -27,10 +30,19 @@ class HomeState extends State<Home> {
   String title = "Accueil";
   bool _isPro = false;
   var items;
+  bool isLoading=false;
+  bool isLoadingFav=false;
   User user;
+  List<Business> _business=[];
+  List<Business> _favorite=[];
+
+  List<Activity> sectorActivityList;
+  Business business;
   Map<String, dynamic> mailPass = new Map<String, dynamic>();
 
   initState() {
+    loadJobs();
+    myBusiness();
     super.initState();
     widget.auth.getCurrentUser().then((result) {
       mailPass['email'] = result.email;
@@ -40,6 +52,12 @@ class HomeState extends State<Home> {
       Map<dynamic, dynamic> values = result.value;
       setState(() {
         user = User.fromMap(mailPass, values, widget.userId);
+        _loadBusiness().then((x){
+          _loadFavorite().then((x){
+
+
+          });
+        });
       });
     });
     isPro(widget.userId).then((result) {
@@ -60,11 +78,260 @@ class HomeState extends State<Home> {
     pageController.dispose();
   }
 
+   loadJobs() async {
+
+
+    sectorActivityList = [];
+    await FirebaseDatabase.instance
+        .reference()
+        .child('activity')
+        .once()
+        .then((DataSnapshot snapshot) {
+      Map<dynamic, dynamic> values = snapshot.value;
+
+      values.forEach((k, v) async {
+        if (this.mounted)
+          setState(() {
+            if(k!="test")
+              sectorActivityList.add(Activity.fromMap(k, v));
+
+          });
+      });
+
+    });
+
+  }
+   myBusiness() async {
+
+    FirebaseDatabase.instance
+        .reference()
+        .child('business')
+        .orderByChild("boss")
+        .equalTo(widget.userId)
+        .once()
+        .then((DataSnapshot snapshot) {
+      Map<dynamic, dynamic> values = snapshot.value;
+      if (values == null)
+        return;
+      values.forEach((k, v) async {
+        widget.auth.getCurrentUser().then((result) {
+          mailPass['email'] = result.email;
+          mailPass['password'] = result.uid;
+        });
+        getUser(widget.userId).then((DataSnapshot result) {
+          Map<dynamic, dynamic> values = result.value;
+          FirebaseDatabase.instance
+              .reference()
+              .child('shedule').orderByChild("businessId").equalTo(k).once()
+              .then((DataSnapshot resultShedule) async {
+            Map<dynamic, dynamic> valuesShedule = resultShedule.value;
+            print(valuesShedule);
+            Activity businessActivity;
+            for(Activity act in sectorActivityList)
+              if (act.id==v["fieldOfActivity"])
+                businessActivity=act;
+            if (this.mounted) {
+              setState(() {
+                this.business = Business.fromMap(
+                    k, v, User.fromMap(mailPass, values, widget.userId),valuesShedule,businessActivity);
+
+
+
+              });
+            }
+          });
+        });
+      });
+    });
+
+
+
+
+  }
+
+
+
+  Future<void> _loadFavorite() async {
+
+if(this.mounted)
+  setState(() {
+    isLoadingFav=true;
+  });
+    var getInfosUser = await widget.auth.getCurrentUser();
+    await FirebaseDatabase.instance
+        .reference()
+        .child('favorite')
+        .orderByChild("user")
+        .equalTo(getInfosUser.uid)
+        .once()
+        .then((DataSnapshot snapshot) {
+      //Pour chaque favoris disponnible en bdd
+      Map<dynamic, dynamic> values = snapshot.value;
+      if (values != null) {
+        int compteur=0;
+        values.forEach((k, v) async {
+          //Si il concerne l'utilisateur connecté on l'ajoute a la liste
+
+
+          if (this.mounted) {
+            setState(() {
+              user.favorite.add(Favorite.fromMap(k, v));
+              FirebaseDatabase.instance
+                  .reference()
+                  .child('business')
+                  .child(v["business"])
+                  .once()
+                  .then((DataSnapshot result) async {
+                Map<dynamic, dynamic> valuesBusiness = result.value;
+
+                Map<String, dynamic> mailPass = new Map<String, dynamic>();
+                widget.auth.getCurrentUser().then((result) {
+                  mailPass['email'] = result.email;
+                  mailPass['password'] = result.uid;
+                });
+                FirebaseDatabase.instance
+                    .reference()
+                    .child('shedule')
+                    .orderByChild("businessId")
+                    .equalTo(v["business"])
+                    .once()
+                    .then((DataSnapshot resultShedule) {
+                  Map<dynamic, dynamic> valuesShedule = resultShedule.value;
+                  print(valuesShedule);
+
+                  getUser(valuesBusiness['boss']).then((DataSnapshot result) {
+                    Map<dynamic, dynamic> valuesUser = result.value;
+                    Activity businessActivity;
+                    for (Activity act in sectorActivityList)
+                      if (act.id == valuesBusiness["fieldOfActivity"])
+                        businessActivity = act;
+
+
+                    _favorite.add(Business.fromMap(
+                        v["business"],
+                        valuesBusiness,
+                        User.fromMap(mailPass, valuesUser, valuesBusiness['boss']),
+                        valuesShedule, businessActivity));
+                    compteur++;
+                    if(compteur==values.length)
+                      if(this.mounted)
+                        setState(() {
+                          isLoadingFav=false;
+                        });
+                  });
+                });
+              });
+            });
+          }
+        });
+      }
+      else
+      if(this.mounted)
+        setState(() {
+          isLoadingFav=true;
+        });
+
+
+
+
+    });
+
+
+
+  }
+
+
+ Future<void> _loadBusiness() async {
+   if (this.mounted) {
+     setState(() {
+       isLoading = true;
+     });
+   }
+    await FirebaseDatabase.instance
+        .reference()
+        .child('business')
+        .once()
+        .then((DataSnapshot snapshot) {
+
+      Map<dynamic, dynamic> values = snapshot.value;
+      if (values == null) {
+        if(this.mounted)
+          setState(() {
+
+            print("setstate false load 154");
+            isLoading=false;
+          });
+        return;
+      }
+      print("\n\n\n\n\n"+values.length.toString()+"\n\n\n");
+      int compteur=0;
+
+      values.forEach((k, v) async {
+
+        if (this.mounted) {
+          setState(() {
+            isLoading = true;
+          });
+        }
+            Map<String, dynamic> mailPass = new Map<String, dynamic>();
+            widget.auth.getCurrentUser().then((result) {
+              mailPass['email'] = result.email;
+              mailPass['password'] = result.uid;
+            });
+            getUser(v['boss']).then((DataSnapshot result) {
+              Map<dynamic, dynamic> valuesUser = result.value;
+
+              FirebaseDatabase.instance
+                  .reference()
+                  .child('shedule')
+                  .orderByChild("businessId")
+                  .equalTo(k)
+                  .once()
+                  .then((DataSnapshot resultShedule) async {
+                Map<dynamic, dynamic> valuesShedule = resultShedule.value;
+                print(valuesShedule);
+                Activity businessActivity;
+                for (Activity act in sectorActivityList)
+                  if (act.id == v["fieldOfActivity"])
+                    businessActivity = act;
+
+                if (this.mounted) {
+                  setState(() {
+                    Business bus=Business.fromMap(
+                        k,
+                        v,
+                        User.fromMap(mailPass, valuesUser, v['boss']),
+                        valuesShedule, businessActivity);
+                    this._business.add(bus);
+
+                    compteur++;
+                  });
+                }
+                if(compteur==values.length)
+                if(this.mounted)
+                  setState(() {
+
+                    print("setstate false load 254");
+                    isLoading=false;
+                  });
+
+              });
+            });
+
+
+      });
+
+    });
+
+  }
   Widget build(BuildContext context) {
-    if (_isPro == null) {
-      return AppBar(
-        backgroundColor: Colors.blueAccent.withOpacity(0.8),
-        title: Text("loading"),
+    if (_isPro == null || isLoading|| isLoadingFav) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.blueAccent.withOpacity(0.8),
+          title: Text("loading"),
+        ),
+        body: CircularProgressIndicator(),
       );
     }
     if (_isPro) {
@@ -109,8 +376,10 @@ class HomeState extends State<Home> {
         onPageChanged: onPageChanged,
         children: <Widget>[
           MyAppointment(user) /*,MyAppointment(),*/,
-          BasePage(widget.auth, user),
+          BasePage(widget.auth, user,this._business,this._favorite,this.sectorActivityList),
           MyBusiness(
+            listJobs: sectorActivityList,
+            business:business,
               auth: widget.auth,
               userId: widget.userId,
               onSignedOut: widget.onSignedOut,
@@ -216,7 +485,7 @@ class HomeState extends State<Home> {
                           backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                         ),
                         backgroundColor: globalVar.couleurPrimaire,
-                        body: BusinessListPage(widget.auth, user, "all"))),
+                        body: BusinessListPage(widget.auth, user, "all",this._business,this._favorite,this.sectorActivityList))),
               );
             },
           ),

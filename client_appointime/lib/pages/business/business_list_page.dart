@@ -12,11 +12,14 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class BusinessListPage extends StatefulWidget {
-  BusinessListPage(this.auth, this.user, this.type);
+  BusinessListPage(this.auth, this.user, this.type,this.businessList,this.favoriteList,this.jobList);
 
   final User user;
   final BaseAuth auth;
   final String type;
+  final List<Activity> jobList;
+  final List<Business> businessList;
+   List<Business> favoriteList;
 
   @override
   _BusinessListPageState createState() => new _BusinessListPageState();
@@ -52,9 +55,14 @@ class _BusinessListPageState extends State<BusinessListPage> {
   }
   @override
   void initState() {
-    loadJobs();
-    _loadFavorite();
-    if (widget.type == "all") _loadBusiness();
+
+    sectorActivityList=widget.jobList;
+   if(widget.type=="all")
+     _business=widget.businessList;
+   else
+     _business=widget.favoriteList;
+   print("\n\n\n"+widget.favoriteList.toString());
+_loadFavorite();
 
     super.initState();
   }
@@ -128,7 +136,13 @@ class _BusinessListPageState extends State<BusinessListPage> {
 //Chargement des entreprises
   Future<void> _loadBusiness() async {
     List tempList = new List();
-    _business = [];
+    List<String> fav=[];
+    for(Favorite _fav in widget.user.favorite)
+      fav.add(_fav.businessId);
+
+    List<String> bus=[];
+    for(Business _bus in _business)
+    bus.add(_bus.id);
     if (this.mounted) {
       setState(() {
         _isLoading = true;
@@ -141,77 +155,92 @@ class _BusinessListPageState extends State<BusinessListPage> {
         .then((DataSnapshot snapshot) {
 
       Map<dynamic, dynamic> values = snapshot.value;
-      if (values == null) return;
-      values.forEach((k, v) async {
-        _business = [];
-        if (this.mounted) {
+      if (values == null) {
+        if(this.mounted)
           setState(() {
-            _isLoading = true;
-          });
-        }
-        Map<String, dynamic> mailPass = new Map<String, dynamic>();
-        widget.auth.getCurrentUser().then((result) {
-          mailPass['email'] = result.email;
-          mailPass['password'] = result.uid;
-        });
-        getUser(v['boss']).then((DataSnapshot result) {
-          Map<dynamic, dynamic> values = result.value;
-          if(this.mounted)
-          setState(() {
-            v['id'] = k;
-            tempList.add(v);
-            names = tempList;
-            names.shuffle();
-            filteredNames = names;
-          });
-          FirebaseDatabase.instance
-              .reference()
-              .child('shedule')
-              .orderByChild("businessId")
-              .equalTo(k)
-              .once()
-              .then((DataSnapshot resultShedule) async {
-            Map<dynamic, dynamic> valuesShedule = resultShedule.value;
-            print(valuesShedule);
-            Activity businessActivity;
-            for(Activity act in sectorActivityList)
-              if (act.id==v["fieldOfActivity"])
-                businessActivity=act;
 
+            print("setstate false load 154");
+            _isLoading=false;
+          });
+        return;
+      }
+      values.forEach((k, v) async {
+        if(!bus.contains(k)) {
+          if (fav.contains(k) || widget.type == "all") {
             if (this.mounted) {
               setState(() {
-                this._allBusiness.add(Business.fromMap(
-                    k,
-                    v,
-                    User.fromMap(mailPass, values, v['boss']),
-                    valuesShedule,businessActivity));
-                _isLoading=false;
+                _isLoading = true;
               });
             }
-            if (widget.type == "all") {
-              if (this.mounted) {
+            Map<String, dynamic> mailPass = new Map<String, dynamic>();
+            widget.auth.getCurrentUser().then((result) {
+              mailPass['email'] = result.email;
+              mailPass['password'] = result.uid;
+            });
+            getUser(v['boss']).then((DataSnapshot result) {
+              Map<dynamic, dynamic> values = result.value;
+              if (this.mounted)
                 setState(() {
-                  this._business=this._allBusiness;
+                  v['id'] = k;
+                  tempList.add(v);
+                  names = tempList;
+                  names.shuffle();
+                  filteredNames = names;
                 });
-              }
-            } else {
-              widget.user.favorite.forEach((f) {
-                if (f.businessId == k) {
+              FirebaseDatabase.instance
+                  .reference()
+                  .child('shedule')
+                  .orderByChild("businessId")
+                  .equalTo(k)
+                  .once()
+                  .then((DataSnapshot resultShedule) async {
+                Map<dynamic, dynamic> valuesShedule = resultShedule.value;
+                print(valuesShedule);
+                Activity businessActivity;
+                for (Activity act in sectorActivityList)
+                  if (act.id == v["fieldOfActivity"])
+                    businessActivity = act;
+
+                if (this.mounted) {
+                  setState(() {
+                    this._allBusiness.add(Business.fromMap(
+                        k,
+                        v,
+                        User.fromMap(mailPass, values, v['boss']),
+                        valuesShedule, businessActivity));
+                  });
+                }
+                if (widget.type == "all") {
                   if (this.mounted) {
-                    setState(()  {
-                      this._business.add(Business.fromMap(
-                          k,
-                          v,
-                          User.fromMap(mailPass, values, v['boss']),
-                          valuesShedule,businessActivity));
-                      _isLoading=false;
+                    setState(() {
+                      this._business = this._allBusiness;
                     });
                   }
+                } else {
+                  widget.user.favorite.forEach((f) {
+                    if (f.businessId == k) {
+                      if (this.mounted) {
+                        setState(() {
+                          this._business.add(Business.fromMap(
+                              k,
+                              v,
+                              User.fromMap(mailPass, values, v['boss']),
+                              valuesShedule, businessActivity));
+                        });
+                      }
+                    }
+                  });
                 }
+                if(this.mounted)
+                  setState(() {
+
+                    print("setstate false load 229");
+                    _isLoading=false;
+                  });
               });
-            }
-          });
-        });
+            });
+          }
+        }
       });
 
     });
@@ -262,6 +291,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
               valuesShedule,businessActivity);
           if (this.mounted) {
             setState(() {
+              print("setstate false load 281");
               _isLoading = false;
             });
           }
@@ -275,46 +305,108 @@ class _BusinessListPageState extends State<BusinessListPage> {
 
   //Chargement des favoris propres a l'utilisateur connecté
   Future<void> _loadFavorite() async {
-    if (this.mounted) {
-      setState(() {
-        _isLoading = true;
-      });
+    List<String> favList=[];
+    List<String> favListBus=[];
+    List<String> busList=[];
+    List<Business> toRemove=[];
+    for(Favorite _fav in widget.user.favorite) {
+      favList.add(_fav.id);
+      favListBus.add(_fav.businessId);
     }
-    widget.user.favorite = [];
+    for(Business _bus in _business) {
+      busList.add(_bus.id);
+      if(!favListBus.contains(_bus.id) && widget.type!="all")
+        toRemove.add(_bus);
+    }
+    for(Business _bus in toRemove)
+    _business.remove(_bus);
+
     getInfosUser = await widget.auth.getCurrentUser();
     await FirebaseDatabase.instance
         .reference()
         .child('favorite')
+     .orderByChild("user")
+        .equalTo(getInfosUser.uid)
         .once()
         .then((DataSnapshot snapshot) {
       //Pour chaque favoris disponnible en bdd
       Map<dynamic, dynamic> values = snapshot.value;
+
       if (values != null)
         values.forEach((k, v) async {
+          if (this.mounted) {
+            setState(() {
+              _isLoading = true;
+            });
+          }
           //Si il concerne l'utilisateur connecté on l'ajoute a la liste
-          if (v["user"] == getInfosUser.uid) if (this.mounted) {
+          if(!favList.contains(k))
             setState(() {
               widget.user.favorite.add(Favorite.fromMap(k, v));
             });
+            if(!busList.contains(v["business"]))
+           if (this.mounted) {
+            setState(() {
+              FirebaseDatabase.instance
+                  .reference()
+                  .child('business')
+                  .child(v["business"])
+                  .once()
+                  .then((DataSnapshot result) async {
+                Map<dynamic, dynamic> valuesBusiness = result.value;
+
+                Map<String, dynamic> mailPass = new Map<String, dynamic>();
+                widget.auth.getCurrentUser().then((result) {
+                  mailPass['email'] = result.email;
+                  mailPass['password'] = result.uid;
+                });
+                FirebaseDatabase.instance
+                    .reference()
+                    .child('shedule')
+                    .orderByChild("businessId")
+                    .equalTo(v["business"])
+                    .once()
+                    .then((DataSnapshot resultShedule) {
+                  Map<dynamic, dynamic> valuesShedule = resultShedule.value;
+                  print(valuesShedule);
+
+                  getUser(valuesBusiness['boss']).then((DataSnapshot result) {
+                    Map<dynamic, dynamic> values = result.value;
+                    Activity businessActivity;
+                    for(Activity act in sectorActivityList)
+                      if (act.id==valuesBusiness["fieldOfActivity"])
+                        businessActivity=act;
+
+
+                    print("\n\n\n\n\nICIIIIIII\n\n\n");
+                                      _business.add(Business.fromMap(
+                                          v["business"],
+                                          valuesBusiness,
+                                          User.fromMap(mailPass, values, valuesBusiness['boss']),
+                                          valuesShedule,businessActivity));
+
+                  });
+                });
+
+              });
+
+            });
+          }
+          if (this.mounted) {
+            setState(() {
+              _isLoading = false;
+            });
           }
         });
-      if (!(widget.type == "favorite"))
-        if (this.mounted) {
-          setState(() {
-            _isLoading = false;
-          });
-        }
+
+
+
     });
 
 
-    if (widget.type == "favorite")
-      if (this.mounted) {
-      setState(() {
-        _isLoading = true;
-        _loadBusiness();
-      });
-    }
+
   }
+
 
 //Action au clique sur une etoile de favoris
   _toggleFavorite(Business business) async {
@@ -512,7 +604,7 @@ class _BusinessListPageState extends State<BusinessListPage> {
                                     Color(0xFF3388FF).withOpacity(0.8),
                               ),
                               body: BusinessListPage(
-                                  widget.auth, widget.user, "all"))),
+                                  widget.auth, widget.user, "all",widget.businessList,widget.favoriteList,widget.jobList))),
                     ).then((value) {
                       setState(() {
                         _loadFavorite();
