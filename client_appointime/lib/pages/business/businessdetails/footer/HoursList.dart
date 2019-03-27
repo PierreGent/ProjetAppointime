@@ -28,12 +28,15 @@ bool isLoading;
     setState(() {
       isLoading=true;
     });
+    houreList=[];
     print(widget.business);
 
     for(int i=1;i<14;i+=2) {
       await FirebaseDatabase.instance
           .reference()
           .child('shedule')
+      .orderByChild("businessId")
+      .equalTo(widget.business.id)
           .once()
           .then((DataSnapshot snapshot) {
         List<double> listHoures=[];
@@ -42,7 +45,7 @@ bool isLoading;
         if (values != null)
           values.forEach((k, v) {
             //Si il concerne l'utilisateur connecté on l'ajoute a la liste
-            if (v["businessId"] == widget.business.id &&
+            if (
                 v["halfDayId"] == i+1) {
               listHoures.add(Hours
                   .fromMap(k, v)
@@ -110,7 +113,9 @@ String getStringHoures(int i){
                         body: HoursForm(widget.business, 1, 2),
                       ),
                 ),
-              ),
+              ).then((test){
+            loadHours();
+          }),
         ),
         GestureDetector(
           child: Card(
@@ -130,7 +135,9 @@ String getStringHoures(int i){
                         body: HoursForm(widget.business, 3, 4),
                       ),
                 ),
-              ),
+              ).then((test){
+            loadHours();
+          }),
         ),
         GestureDetector(
           child: Card(
@@ -150,7 +157,9 @@ String getStringHoures(int i){
                         body: HoursForm(widget.business, 5, 6),
                       ),
                 ),
-              ),
+              ).then((test){
+            loadHours();
+          }),
         ),
         GestureDetector(
           child: Card(
@@ -170,7 +179,9 @@ String getStringHoures(int i){
                         body: HoursForm(widget.business, 7, 8),
                       ),
                 ),
-              ),
+              ).then((test){
+                loadHours();
+          }),
         ),
         GestureDetector(
           child: Card(
@@ -190,7 +201,9 @@ String getStringHoures(int i){
                         body: HoursForm(widget.business, 9, 10),
                       ),
                 ),
-              ),
+              ).then((test){
+            loadHours();
+          }),
         ),
         GestureDetector(
           child: Card(
@@ -210,7 +223,9 @@ String getStringHoures(int i){
                         body: HoursForm(widget.business, 11, 12),
                       ),
                 ),
-              ),
+              ).then((test){
+            loadHours();
+          }),
         ),
         GestureDetector(
           child: Card(
@@ -230,7 +245,9 @@ String getStringHoures(int i){
                         body: HoursForm(widget.business, 13, 14),
                       ),
                 ),
-              ),
+              ).then((test){
+            loadHours();
+          }),
         ),
       ],
     );
