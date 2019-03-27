@@ -55,7 +55,10 @@ class _BusinessListPageState extends State<BusinessListPage> {
   }
   @override
   void initState() {
-
+    _loadBusiness();
+    for(Business bus in _business)
+      names.add(bus);
+_allBusiness =widget.businessList;
     sectorActivityList=widget.jobList;
    if(widget.type=="all")
      _business=widget.businessList;
@@ -68,11 +71,14 @@ _loadFavorite();
   }
 
   Widget _buildList()  {
+    filteredNames = names;
     if (!(_searchText.isEmpty)) {
       List<Business> searchListBusiness = new List();
       List tempList = new List();
       for (int i = 0; i < filteredNames.length; i++) {
-        if (filteredNames[i]['address']
+        if (filteredNames[i]['activity']
+            .toLowerCase()
+            .contains(_searchText.toLowerCase())||filteredNames[i]['address']
                 .toLowerCase()
                 .contains(_searchText.toLowerCase()) ||
             filteredNames[i]['name']
@@ -143,11 +149,7 @@ _loadFavorite();
     List<String> bus=[];
     for(Business _bus in _business)
     bus.add(_bus.id);
-    if (this.mounted) {
-      setState(() {
-        _isLoading = true;
-      });
-    }
+
     await FirebaseDatabase.instance
         .reference()
         .child('business')
@@ -165,82 +167,21 @@ _loadFavorite();
         return;
       }
       values.forEach((k, v) async {
-        if(!bus.contains(k)) {
-          if (fav.contains(k) || widget.type == "all") {
-            if (this.mounted) {
-              setState(() {
-                _isLoading = true;
-              });
-            }
-            Map<String, dynamic> mailPass = new Map<String, dynamic>();
-            widget.auth.getCurrentUser().then((result) {
-              mailPass['email'] = result.email;
-              mailPass['password'] = result.uid;
-            });
-            getUser(v['boss']).then((DataSnapshot result) {
-              Map<dynamic, dynamic> values = result.value;
-              if (this.mounted)
-                setState(() {
-                  v['id'] = k;
-                  tempList.add(v);
-                  names = tempList;
-                  names.shuffle();
-                  filteredNames = names;
-                });
-              FirebaseDatabase.instance
-                  .reference()
-                  .child('shedule')
-                  .orderByChild("businessId")
-                  .equalTo(k)
-                  .once()
-                  .then((DataSnapshot resultShedule) async {
-                Map<dynamic, dynamic> valuesShedule = resultShedule.value;
-                print(valuesShedule);
-                Activity businessActivity;
-                for (Activity act in sectorActivityList)
-                  if (act.id == v["fieldOfActivity"])
-                    businessActivity = act;
+        if (this.mounted)
+          setState(() {
+            v['id'] = k;
+            for(Activity act in sectorActivityList)
+              if(act.id==v["fieldOfActivity"])
+                v["activity"]=act.name;
+            tempList.add(v);
+            names = tempList;
+            names.shuffle();
+            filteredNames = names;
+          });
 
-                if (this.mounted) {
-                  setState(() {
-                    this._allBusiness.add(Business.fromMap(
-                        k,
-                        v,
-                        User.fromMap(mailPass, values, v['boss']),
-                        valuesShedule, businessActivity));
-                  });
-                }
-                if (widget.type == "all") {
-                  if (this.mounted) {
-                    setState(() {
-                      this._business = this._allBusiness;
-                    });
-                  }
-                } else {
-                  widget.user.favorite.forEach((f) {
-                    if (f.businessId == k) {
-                      if (this.mounted) {
-                        setState(() {
-                          this._business.add(Business.fromMap(
-                              k,
-                              v,
-                              User.fromMap(mailPass, values, v['boss']),
-                              valuesShedule, businessActivity));
-                        });
-                      }
-                    }
-                  });
-                }
-                if(this.mounted)
-                  setState(() {
 
-                    print("setstate false load 229");
-                    _isLoading=false;
-                  });
-              });
-            });
-          }
-        }
+
+
       });
 
     });
@@ -343,6 +284,8 @@ _loadFavorite();
           if(!favList.contains(k))
             setState(() {
               widget.user.favorite.add(Favorite.fromMap(k, v));
+              favList.add(k);
+              favListBus.add(v["business"]);
             });
             if(!busList.contains(v["business"]))
            if (this.mounted) {
@@ -377,8 +320,8 @@ _loadFavorite();
                       if (act.id==valuesBusiness["fieldOfActivity"])
                         businessActivity=act;
 
+                    busList.add(k);
 
-                    print("\n\n\n\n\nICIIIIIII\n\n\n");
                                       _business.add(Business.fromMap(
                                           v["business"],
                                           valuesBusiness,
@@ -491,7 +434,7 @@ _loadFavorite();
           leading: new Hero(
             tag: index,
             child: new CircleAvatar(
-              backgroundImage: business.avatar,
+              backgroundImage: business.fieldOfActivity.avatar,
             ),
           ),
           title: new Text(business.name),
@@ -538,8 +481,14 @@ _loadFavorite();
               hintText: 'Tapez ici...'),
         );
       } else {
-        _loadFavorite();
-        if (widget.type == "all") _loadBusiness();
+
+        if(widget.type=="all")
+        setState(() {
+
+          _business=widget.businessList;
+        });
+        else
+          _loadFavorite();
 
         this._searchIcon = new Icon(Icons.search,color: Colors.grey,);
         this._appBarTitle = new Text('Rechercher une entreprise',style: TextStyle(color: Colors.grey),);

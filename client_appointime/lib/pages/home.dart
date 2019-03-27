@@ -30,9 +30,13 @@ class HomeState extends State<Home> {
   String title = "Accueil";
   bool _isPro = false;
   var items;
-  bool isLoading=false;
-  bool isLoadingFav=false;
+  bool isLoading=true;
+  bool isLoadingFav=true;
   User user;
+  int compteurFav=0;
+  int nbFav=1;
+  int compteurBus=0;
+  int nbBus=1;
   List<Business> _business=[];
   List<Business> _favorite=[];
 
@@ -41,9 +45,10 @@ class HomeState extends State<Home> {
   Map<String, dynamic> mailPass = new Map<String, dynamic>();
 
   initState() {
+    _loadFavorite();
     loadJobs();
     myBusiness();
-    super.initState();
+
     widget.auth.getCurrentUser().then((result) {
       mailPass['email'] = result.email;
       mailPass['password'] = result.uid;
@@ -52,12 +57,8 @@ class HomeState extends State<Home> {
       Map<dynamic, dynamic> values = result.value;
       setState(() {
         user = User.fromMap(mailPass, values, widget.userId);
-        _loadBusiness().then((x){
-          _loadFavorite().then((x){
 
-
-          });
-        });
+        _loadBusiness();
       });
     });
     isPro(widget.userId).then((result) {
@@ -71,6 +72,7 @@ class HomeState extends State<Home> {
       page = 1;
       title = "Accueil";
     });
+    super.initState();
   }
 
   void dispose() {
@@ -168,7 +170,11 @@ if(this.mounted)
       //Pour chaque favoris disponnible en bdd
       Map<dynamic, dynamic> values = snapshot.value;
       if (values != null) {
-        int compteur=0;
+        setState(() {
+          compteurFav=0;
+          nbFav=values.length;
+        });
+
         values.forEach((k, v) async {
           //Si il concerne l'utilisateur connecté on l'ajoute a la liste
 
@@ -207,15 +213,17 @@ if(this.mounted)
                         businessActivity = act;
 
 
+                      if(this.mounted)
+                        setState(() {
                     _favorite.add(Business.fromMap(
                         v["business"],
                         valuesBusiness,
                         User.fromMap(mailPass, valuesUser, valuesBusiness['boss']),
                         valuesShedule, businessActivity));
-                    compteur++;
-                    if(compteur==values.length)
-                      if(this.mounted)
-                        setState(() {
+                    compteurFav++;
+
+                    print(compteurFav.toString()+"    "+values.length.toString());
+                    if(compteurFav==values.length)
                           isLoadingFav=false;
                         });
                   });
@@ -228,7 +236,7 @@ if(this.mounted)
       else
       if(this.mounted)
         setState(() {
-          isLoadingFav=true;
+          isLoadingFav=false;
         });
 
 
@@ -263,8 +271,10 @@ if(this.mounted)
           });
         return;
       }
-      print("\n\n\n\n\n"+values.length.toString()+"\n\n\n");
-      int compteur=0;
+   setState(() {
+     compteurBus=0;
+     nbBus=values.length;
+   });
 
       values.forEach((k, v) async {
 
@@ -297,24 +307,20 @@ if(this.mounted)
 
                 if (this.mounted) {
                   setState(() {
-                    Business bus=Business.fromMap(
+                    Business bus = Business.fromMap(
                         k,
                         v,
                         User.fromMap(mailPass, valuesUser, v['boss']),
                         valuesShedule, businessActivity);
                     this._business.add(bus);
 
-                    compteur++;
+                    compteurBus++;
+print(compteurBus.toString()+"    "+values.length.toString());
+                    if (compteurBus == values.length)
+                      print("setstate false load 254");
+                    isLoading = false;
                   });
                 }
-                if(compteur==values.length)
-                if(this.mounted)
-                  setState(() {
-
-                    print("setstate false load 254");
-                    isLoading=false;
-                  });
-
               });
             });
 
@@ -327,11 +333,18 @@ if(this.mounted)
   Widget build(BuildContext context) {
     if (_isPro == null || isLoading|| isLoadingFav) {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueAccent.withOpacity(0.8),
-          title: Text("loading"),
+       backgroundColor: Colors.blueAccent,
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text("Appointime",style: TextStyle(fontSize: 40,fontWeight: FontWeight.bold,color: Colors.white)),
+              LinearProgressIndicator(backgroundColor: Colors.blueAccent,valueColor:AlwaysStoppedAnimation<Color>(Colors.white),value: ((((compteurFav)/(nbFav))*10)+(((compteurBus)/(nbBus))*90))/100,),
+              Text(((((compteurFav)/(nbFav))*10)+(((compteurBus)/(nbBus))*90)).round().toString()+"%",style: TextStyle(fontSize: 20,color: Colors.white),),
+              ],
+          ),
         ),
-        body: CircularProgressIndicator(),
       );
     }
     if (_isPro) {

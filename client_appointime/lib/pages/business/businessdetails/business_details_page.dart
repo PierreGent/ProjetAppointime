@@ -29,7 +29,7 @@ class BusinessDetailsPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              BusinessDetailHeader(business, avatarTag, getActivity()),
+              BusinessDetailHeader(business, avatarTag),
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: BusinessShowcase(this.business, this.edit,this.user),
@@ -52,7 +52,7 @@ class BusinessDetailsPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              BusinessDetailHeader(business, avatarTag, getActivity()),
+              BusinessDetailHeader(business, avatarTag),
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: BusinessShowcase(this.business, this.edit,this.user),

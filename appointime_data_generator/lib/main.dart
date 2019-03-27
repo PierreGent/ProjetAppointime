@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool started = false;
   bool isPro = true;
   int nbBusi=-1;
-  int todo=2;
+  double todo=10;
   bool _isInAsyncCall = false;
   bool _isLoading=false;
   void _incrementCounter() {
@@ -83,9 +83,60 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-child:Text(nbBusi.toString()),
-      ),
+      body:  Column(
+        children: <Widget>[
+          Form(
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(left: 25, right: 25, top: 25),
+                  child: new Column(
+                    children: <Widget>[
+                      Container(
+                        padding:
+                        EdgeInsets.only(left: 5, right: 5, top: 50),
+                        child: Column(
+                          children: <Widget>[
+
+
+                      Container(
+                        padding:
+                        EdgeInsets.only(left: 5, right: 5, top: 50),
+                        child: Column(
+                          children: <Widget>[
+
+                            Slider(
+                              min: 10,
+                              max: 1000,
+label: todo.toString(),
+                              divisions: 99,
+                              value: todo,
+                              onChanged: (double newValue) {
+                                setState(() {
+                                  todo = newValue;
+
+                                });
+
+                              },
+
+                            ),
+                            Text(todo.toString()+" Entreprises",style: TextStyle(fontSize: 20),),
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Center(
+            child:Text(nbBusi.toString()),
+          ),
+        ],
+      ),),],),
+
       floatingActionButton: FloatingActionButton(
         onPressed: createData,
         tooltip: 'Increment',
@@ -261,14 +312,7 @@ int halfDayIdAfternoon=day+1;
           int min = 2, max = 10;
           int number = min + rnd.nextInt(max - min);
           try {
-            var banner = await FirebaseStorage.instance
-                .ref()
-                .child(activity.toString() + '.jpg')
-                .getDownloadURL() as String;
-            var avatar = await FirebaseStorage.instance
-                .ref()
-                .child(activity.toString() + 'Avatar.jpg')
-                .getDownloadURL() as String;
+
             var business = businessDetails.push();
             var id=business.key;
         business.set({
@@ -280,8 +324,6 @@ int halfDayIdAfternoon=day+1;
         'description': description,
         'fieldOfActivity': activity,
         'cancelAppointment': cancelAppointment,
-        'bannerUrl': banner,
-        'avatarUrl': avatar
         }).then((fff){
           setState(() {
             nbBusi++;

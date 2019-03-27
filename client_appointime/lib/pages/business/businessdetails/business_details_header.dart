@@ -3,17 +3,16 @@ import 'package:client_appointime/services/activity.dart';
 import 'package:flutter/material.dart';
 
 class BusinessDetailHeader extends StatelessWidget {
-  BusinessDetailHeader(this.business, this.avatarTag, this.activity);
+  BusinessDetailHeader(this.business, this.avatarTag);
 
   final Business business;
   final Object avatarTag;
-  final Activity activity;
 
   Widget _buildCategoryChips(TextTheme textTheme) {
     return Padding(
       padding: const EdgeInsets.only(right: 8.0),
       child: Chip(
-        label: Text(activity.name),
+        label: Text(business.fieldOfActivity.name),
         labelStyle: textTheme.caption,
         backgroundColor: Colors.black12,
       ),
@@ -76,7 +75,7 @@ class BusinessDetailHeader extends StatelessWidget {
 
           Padding(
             padding: const EdgeInsets.only(bottom: 95.0),
-            child:business.banner,
+            child:business.fieldOfActivity.banner,
 
           ),
     new Align(
@@ -89,7 +88,7 @@ class BusinessDetailHeader extends StatelessWidget {
          tag: avatarTag,
          child: new CircleAvatar(
 
-           backgroundImage: business.avatar,
+           backgroundImage: business.fieldOfActivity.avatar,
 
            radius: 50.0,
          )),),)

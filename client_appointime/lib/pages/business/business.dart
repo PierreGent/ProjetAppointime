@@ -14,8 +14,6 @@ class Business {
       @required this.cancelAppointment,
       @required this.fieldOfActivity,
       @required this.description,
-      @required this.avatar,
-      @required this.banner,
       @required this.prestation,
       @required this.boss,
       @required this.businessShedule});
@@ -26,10 +24,8 @@ class Business {
   final String address;
   final String phoneNumber;
   final int cancelAppointment;
-  final String fieldOfActivity;
+  final Activity fieldOfActivity;
   final String description;
-  final NetworkImage avatar;
-  final ArcBannerImage banner;
   List<Prestation> prestation;
   final Map<dynamic,dynamic> businessShedule;
 
@@ -44,9 +40,7 @@ class Business {
         phoneNumber: map['phoneNumber'],
         description: map['description'],
         cancelAppointment: map['cancelAppointment'],
-        fieldOfActivity: map['fieldOfActivity'].toString(),
-        avatar: activity.avatar,
-        banner: activity.banner,
+        fieldOfActivity: activity,
         boss: user,
         prestation: [],
         businessShedule: businessSheduleMap);
@@ -57,6 +51,6 @@ class Business {
   }
 
   String toString() {
-    return this.name + "    " + fieldOfActivity;
+    return this.name;
   }
 }
