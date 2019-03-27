@@ -316,9 +316,9 @@ if(this.mounted)
 
                     compteurBus++;
 print(compteurBus.toString()+"    "+values.length.toString());
-                    if (compteurBus == values.length)
-                      print("setstate false load 254");
-                    isLoading = false;
+                    if (compteurBus == values.length) {
+                      isLoading = false;
+                    }
                   });
                 }
               });
@@ -330,7 +330,9 @@ print(compteurBus.toString()+"    "+values.length.toString());
     });
 
   }
+
   Widget build(BuildContext context) {
+    var widgetList;
     if (_isPro == null || isLoading|| isLoadingFav) {
       return Scaffold(
        backgroundColor: Colors.blueAccent,
@@ -365,7 +367,22 @@ print(compteurBus.toString()+"    "+values.length.toString());
           title: Text("Mon entreprise"),
         )
       ];
+       widgetList=[
+        MyAppointment(user) /*,MyAppointment(),*/,
+        BasePage(widget.auth, user,this._business,this._favorite,this.sectorActivityList),
+  ];
     } else {
+     widgetList=[
+    MyAppointment(user) /*,MyAppointment(),*/,
+    BasePage(widget.auth, user,this._business,this._favorite,this.sectorActivityList),
+    MyBusiness(
+    listJobs: sectorActivityList,
+    business:business,
+    auth: widget.auth,
+    userId: widget.userId,
+    onSignedOut: widget.onSignedOut,
+    user: user),
+    ];
       items = [
         BottomNavigationBarItem(
           icon: Icon(Icons.calendar_today),
@@ -387,17 +404,7 @@ print(compteurBus.toString()+"    "+values.length.toString());
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: <Widget>[
-          MyAppointment(user) /*,MyAppointment(),*/,
-          BasePage(widget.auth, user,this._business,this._favorite,this.sectorActivityList),
-          MyBusiness(
-            listJobs: sectorActivityList,
-            business:business,
-              auth: widget.auth,
-              userId: widget.userId,
-              onSignedOut: widget.onSignedOut,
-          user: user),
-        ],
+        children: widgetList,
       ),
       bottomNavigationBar: new Theme(
         data: Theme.of(context).copyWith(

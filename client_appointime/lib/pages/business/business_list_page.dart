@@ -275,11 +275,11 @@ _loadFavorite();
 
       if (values != null)
         values.forEach((k, v) async {
-          if (this.mounted) {
+        /*  if (this.mounted) {
             setState(() {
               _isLoading = true;
             });
-          }
+          }*/
           //Si il concerne l'utilisateur connecté on l'ajoute a la liste
           if(!favList.contains(k))
             setState(() {
@@ -357,7 +357,6 @@ _loadFavorite();
       _isLoading = true;
     });
 
-    Future.delayed(Duration(milliseconds: 10), () async {
       bool toDelete = false;
       Favorite favToDelete;
       getInfosUser = await widget.auth.getCurrentUser();
@@ -376,16 +375,21 @@ _loadFavorite();
       });
 //Si on a pas trouvé de favoris a supprimer c'est quon veut l'ajouter
       if (!toDelete) {
+        var request;
         //Ajout dans la bdd
-        await FirebaseDatabase.instance
+         request=FirebaseDatabase.instance
             .reference()
             .child('favorite')
-            .push()
-            .set({
+            .push();
+        Favorite favori=new Favorite(id: request.key, userId: getInfosUser.uid, businessId: business.id);
+        setState(() {
+          widget.user.favorite.add(favori);
+        });
+        request.set({
           'user': getInfosUser.uid,
           'business': business.id,
         });
-        setState(() {
+         setState(() {
           //On réinitialise a liste locale des favoris
           _loadFavorite();
         });
@@ -398,7 +402,6 @@ _loadFavorite();
       setState(() {
         _isLoading = false;
       });
-    });
 
   }
 
