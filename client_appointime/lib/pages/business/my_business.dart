@@ -34,7 +34,8 @@ Business business;
     super.initState();
   }
    myBusiness() async {
-
+if( business!=null)
+  return;
     FirebaseDatabase.instance
         .reference()
         .child('business')
@@ -43,7 +44,7 @@ Business business;
         .once()
         .then((DataSnapshot snapshot) {
       Map<dynamic, dynamic> values = snapshot.value;
-      if (values == null || business!=null)
+      if (values == null )
         return;
       else
         if(this.mounted)

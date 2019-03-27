@@ -45,7 +45,6 @@ class HomeState extends State<Home> {
   Map<String, dynamic> mailPass = new Map<String, dynamic>();
 
   initState() {
-    _loadFavorite();
     loadJobs();
     myBusiness();
 
@@ -58,7 +57,8 @@ class HomeState extends State<Home> {
       setState(() {
         user = User.fromMap(mailPass, values, widget.userId);
 
-        _loadBusiness();
+
+        _loadBusiness().then((te){_loadFavorite();});
       });
     });
     isPro(widget.userId).then((result) {

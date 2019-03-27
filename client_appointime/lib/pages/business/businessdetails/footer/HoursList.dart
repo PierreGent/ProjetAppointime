@@ -70,6 +70,7 @@ bool isLoading;
       });
 
     }
+    if(this.mounted)
     print(houreList.toString());
     setState(() {
       isLoading=false;
