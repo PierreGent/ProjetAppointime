@@ -6,11 +6,12 @@ import 'package:flutter_range_slider/flutter_range_slider.dart';
 import 'package:intl/intl.dart';
 
 class HoursForm extends StatefulWidget {
-  HoursForm(this.business, this.halfDayIdMorning, this.halfDayIdAfternoon);
+  HoursForm(this.business, this.halfDayIdMorning, this.halfDayIdAfternoon,this.houreList);
 
   Business business;
   int halfDayIdMorning;
   int halfDayIdAfternoon;
+  List<List<double>> houreList;
 
   HoursFormState createState() => HoursFormState();
 }
@@ -20,6 +21,7 @@ class HoursFormState extends State<HoursForm> {
   String namePresta;
   String description;
   double price;
+  List<List<double>> houreList;
 
   final format = new NumberFormat("00");
 
@@ -32,9 +34,10 @@ class HoursFormState extends State<HoursForm> {
   double _upperValueAfternoon = 1320.0;
 
   void initState() {
+    houreList=widget.houreList;
     super.initState();
-
     loadHours();
+
   }
 
   Widget build(BuildContext context) {
@@ -74,7 +77,17 @@ class HoursFormState extends State<HoursForm> {
                                   lowerValue: _lowerValueMorning,
                                   upperValue: _upperValueMorning,
                                   divisions: 84,
-                                  showValueIndicator: false,
+                                  valueIndicatorFormatter: (id,m){
+                                    if(id==0)
+                                    return("${format.format(_lowerValueMorning.toInt() ~/ 60)}"+
+                                        " h " +
+                                        '${format.format(_lowerValueMorning.toInt() % 60)}' );
+                                    else
+                                      return("${format.format(_upperValueMorning.toInt() ~/ 60)}"+
+                                        " h " +
+                                        "${format.format(_upperValueMorning.toInt() % 60)}");
+                                  },
+                                  showValueIndicator: true,
                                   onChanged: (double newLowerValue,
                                       double newUpperValue) {
                                     setState(() {
@@ -109,7 +122,17 @@ class HoursFormState extends State<HoursForm> {
                                   lowerValue: _lowerValueAfternoon,
                                   upperValue: _upperValueAfternoon,
                                   divisions: 108,
-                                  showValueIndicator: false,
+                                  valueIndicatorFormatter: (id,m){
+                                    if(id==0)
+                                      return("${format.format(_lowerValueAfternoon.toInt() ~/ 60)}"+
+                                          " h " +
+                                          '${format.format(_lowerValueAfternoon.toInt() % 60)}' );
+                                    else
+                                      return("${format.format(_upperValueAfternoon.toInt() ~/ 60)}"+
+                                          " h " +
+                                          "${format.format(_upperValueAfternoon.toInt() % 60)}");
+                                  },
+                                  showValueIndicator: true,
                                   onChanged: (double newLowerValue,
                                       double newUpperValue) {
                                     setState(() {
@@ -195,35 +218,19 @@ class HoursFormState extends State<HoursForm> {
     Navigator.of(context).pop();
   }
 
-  Future<void> loadHours() async {
-    print(widget.business);
-    var halfDayIdMorning = await widget.halfDayIdMorning;
-    var halfDayIdAfternoon = await widget.halfDayIdAfternoon;
-    widget.business.prestation = [];
-    await FirebaseDatabase.instance
-        .reference()
-        .child('shedule')
-        .once()
-        .then((DataSnapshot snapshot) {
-      //Pour chaque prestation disponnible en bdd
-      Map<dynamic, dynamic> values = snapshot.value;
-      if (values != null)
-        values.forEach((k, v) async {
-          //Si il concerne l'utilisateur connecté on l'ajoute a la liste
-          if (v["businessId"] == widget.business.id && v["halfDayId"] == halfDayIdAfternoon) if (this.mounted) {
-            setState(() {
-              _lowerValueAfternoon = Hours.fromMap(k, v).openingTime;
-              _upperValueAfternoon = Hours.fromMap(k, v).closingTime;
-            });
-          }
+ loadHours()  {
+  var halfDayIdAfternoon =  widget.halfDayIdAfternoon;
+    setState(() {
+      if(houreList[(halfDayIdAfternoon~/2)-1].length>2)
+      _lowerValueAfternoon = houreList[(halfDayIdAfternoon~/2)-1][2];
+      if(houreList[(halfDayIdAfternoon~/2)-1].length>3)
+      _upperValueAfternoon = houreList[(halfDayIdAfternoon~/2)-1][3];
 
-          if (v["businessId"] == widget.business.id && v["halfDayId"] == halfDayIdMorning) if (this.mounted) {
-            setState(() {
-              _lowerValueMorning = Hours.fromMap(k, v).openingTime;
-              _upperValueMorning = Hours.fromMap(k, v).closingTime;
-            });
-          }
-        });
+      if(houreList[(halfDayIdAfternoon~/2)-1].length>0)
+      _lowerValueMorning = houreList[(halfDayIdAfternoon~/2)-1][0];
+
+      if(houreList[(halfDayIdAfternoon~/2)-1].length>1)
+      _upperValueMorning = houreList[(halfDayIdAfternoon~/2)-1][1];
     });
   }
 }

@@ -27,7 +27,7 @@ class Business {
   final Activity fieldOfActivity;
   final String description;
   List<Prestation> prestation;
-  final Map<dynamic,dynamic> businessShedule;
+  Map<dynamic,dynamic> businessShedule;
 
   static Business fromMap(
       String idBusiness, Map map, User user, Map<dynamic,dynamic> businessSheduleMap,Activity activity) {

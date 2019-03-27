@@ -42,6 +42,7 @@ bool isLoading;
         List<double> listHoures=[];
         //Pour chaque prestation disponnible en bdd
         Map<dynamic, dynamic> values = snapshot.value;
+        widget.business.businessShedule=values;
         if (values != null)
           values.forEach((k, v) {
             //Si il concerne l'utilisateur connecté on l'ajoute a la liste
@@ -68,6 +69,7 @@ bool isLoading;
           });
         if(this.mounted)
         setState(() {
+          listHoures.sort((a,b)=>a.compareTo(b));
           houreList.add(listHoures);
         });
       });
@@ -110,7 +112,7 @@ String getStringHoures(int i){
                           title: Text("Horaires du lundi"),
                           backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                         ),
-                        body: HoursForm(widget.business, 1, 2),
+                        body: HoursForm(widget.business, 1, 2,houreList),
                       ),
                 ),
               ).then((test){
@@ -124,20 +126,25 @@ String getStringHoures(int i){
               trailing: new Text(getStringHoures(1)),
             ),
           ),
-          onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Scaffold(
-                        appBar: AppBar(
-                          title: Text("Horaires du mardi"),
-                          backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
-                        ),
-                        body: HoursForm(widget.business, 3, 4),
+          onTap: () {
+            Navigator.push(
+
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    Scaffold(
+                      appBar: AppBar(
+                        title: Text("Horaires du mardi"),
+                        backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                       ),
-                ),
-              ).then((test){
-            loadHours();
-          }),
+                      body: HoursForm(widget.business, 3, 4, houreList),
+                    ),
+              ),
+            ).then((test) {
+              loadHours();
+            })
+            ;
+          }
         ),
         GestureDetector(
           child: Card(
@@ -154,7 +161,7 @@ String getStringHoures(int i){
                           title: Text("Horaires du mercredi"),
                           backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                         ),
-                        body: HoursForm(widget.business, 5, 6),
+                        body: HoursForm(widget.business, 5, 6,houreList),
                       ),
                 ),
               ).then((test){
@@ -176,7 +183,7 @@ String getStringHoures(int i){
                           title: Text("Horaires du jeudi"),
                           backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                         ),
-                        body: HoursForm(widget.business, 7, 8),
+                        body: HoursForm(widget.business, 7, 8,houreList),
                       ),
                 ),
               ).then((test){
@@ -198,7 +205,7 @@ String getStringHoures(int i){
                           title: Text("Horaires du vendredi"),
                           backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                         ),
-                        body: HoursForm(widget.business, 9, 10),
+                        body: HoursForm(widget.business, 9, 10,houreList),
                       ),
                 ),
               ).then((test){
@@ -220,7 +227,7 @@ String getStringHoures(int i){
                           title: Text("Horaires du samedi"),
                           backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                         ),
-                        body: HoursForm(widget.business, 11, 12),
+                        body: HoursForm(widget.business, 11, 12,houreList),
                       ),
                 ),
               ).then((test){
@@ -242,7 +249,7 @@ String getStringHoures(int i){
                           title: Text("Horaires du dimanche"),
                           backgroundColor: Color(0xFF3388FF).withOpacity(0.8),
                         ),
-                        body: HoursForm(widget.business, 13, 14),
+                        body: HoursForm(widget.business, 13, 14,houreList),
                       ),
                 ),
               ).then((test){

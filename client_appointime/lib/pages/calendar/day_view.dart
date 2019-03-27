@@ -42,10 +42,10 @@ class DayView extends StatefulWidget {
 
 class _DayViewState extends State<DayView> {
   @override
-  int openingDayTime;
   final format = new NumberFormat("00");
   double calendarSize = 2.5;
   bool isLoading;
+  int openingDayTime;
   int closingDayTime;
   List<Event> eventsOfDay = [];
   List<Appointment> takenAppointment_user = [];
@@ -561,10 +561,23 @@ class _DayViewState extends State<DayView> {
             style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
       );
     if (openingDayTime == null || closingDayTime == null)
-      return new Center(
+      return new DayViewEssentials(
+        properties: new DayViewProperties(
+          days: <DateTime>[
+            widget.day,
+          ],
+        ),
+        child: new Column(
+          children: <Widget>[  new Container(
+        color: Colors.grey[200],
+        child: new DayViewDaysHeader(
+          headerItemBuilder: _headerItemBuilder,
+        ),
+      ),
+      Center(
         child: Text("Aucun horaire spécifié pour ce jour",
             style: TextStyle(fontSize: 30), textAlign: TextAlign.center),
-      );
+      )],),);
     return new DayViewEssentials(
       properties: new DayViewProperties(
         maximumMinuteOfDay: closingDayTime + 60,
@@ -640,6 +653,9 @@ class _DayViewState extends State<DayView> {
             IconButton(
                 icon: Icon(Icons.skip_previous),
                 onPressed: () => setState(() {
+
+                   openingDayTime=null;
+                   closingDayTime=null;
                       widget.day = widget.day.add(Duration(days: -1));
                       loadAppointment();
                       Future.delayed(Duration(milliseconds: 800), () {
@@ -661,6 +677,9 @@ class _DayViewState extends State<DayView> {
             IconButton(
                 icon: Icon(Icons.skip_next),
                 onPressed: () => setState(() {
+
+                  openingDayTime=null;
+                  closingDayTime=null;
                       widget.day = widget.day.add(Duration(days: 1));
                       loadAppointment();
                       Future.delayed(Duration(milliseconds: 800), () {
