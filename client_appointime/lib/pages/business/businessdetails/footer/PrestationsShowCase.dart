@@ -174,7 +174,10 @@ if(widget.user.id==widget.business.boss.id)
         loadPresta();
       });}),
     );
+    if(presta.autoConf)
     return  Icon(Icons.check,color: Colors.green);
+
+    return  Icon(Icons.timer,color: Colors.orange);
 
 }
   submit() async {

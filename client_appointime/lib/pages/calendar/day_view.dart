@@ -52,12 +52,18 @@ class _DayViewState extends State<DayView> {
   List<Appointment> takenAppointment_business = [];
   void initState() {
 
-    loadAppointment();
-    Future.delayed(Duration(milliseconds: 800), () {
+    loadAppointment().then((d){
+      Future.delayed(Duration(milliseconds: 800), () {
+
+        loadEvent();
+
+      });
+    });
+   /* Future.delayed(Duration(milliseconds: 800), () {
 
       loadEvent();
 
-    });
+    });*/
     if (widget.presta != null) if (widget.presta.duration < 20)
       calendarSize = 3.5;
     super.initState();
@@ -159,6 +165,7 @@ class _DayViewState extends State<DayView> {
   void loadEvent() async {
     Color couleurConf;
     String title;
+    List verifList=[];
     setState(() {
       eventsOfDay = [];
       isLoading = true;
@@ -166,6 +173,8 @@ class _DayViewState extends State<DayView> {
       for (Appointment appoint in takenAppointment_business) {
         print(appoint);
         title = "Cette plage horaire n'est pas disponible";
+        if(widget.myBusiness)
+          title = appoint.user.lastName+" à pris un rendez vous pour: "+appoint.prestation.namePresta;
         if(widget.myBusiness)
           title= appoint.prestation.namePresta+" Pour "+appoint.user.firstName[0]+"."+appoint.user.lastName;
         couleurConf = Colors.red.withOpacity(0.5);
@@ -269,8 +278,8 @@ class _DayViewState extends State<DayView> {
                       isGood=false;
                     //  i = appoint.prestation.duration + appoint.startTime;
                     }
-                  if (i + widget.presta.duration < closingTime && isGood)
-                    eventsOfDay.add(new Event(
+                  if (i + widget.presta.duration < closingTime && isGood) {
+                    Event ev=new Event(
                         startMinuteOfDay: i,
                         appointment: Appointment(
                             confirmed: null,
@@ -279,8 +288,7 @@ class _DayViewState extends State<DayView> {
                             day: null,
                             prestation: widget.presta,
                             startTime: null),
-                        title: widget.day.weekday.toString() +
-                            "plage horaire disponible pour: " +
+                        title: "plage horaire disponible pour: " +
                             widget.presta.namePresta +
                             " de " +
                             (i ~/ 60).toString() +
@@ -291,7 +299,13 @@ class _DayViewState extends State<DayView> {
                             "h " +
                             '${format.format((i + widget.presta.duration) % 60)}' +
                             "min",
-                        color: Colors.green.withOpacity(0.5)));
+                        color: Colors.green.withOpacity(0.5));
+
+                    if(!verifList.contains(i)) {
+                      eventsOfDay.add(ev);
+                      verifList.add(i);
+                    }
+                  }
                 }
               }
           }

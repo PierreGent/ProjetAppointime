@@ -75,23 +75,32 @@ Future<bool> isSiretUsed(String value) async {
   return false;
 }
 
-Future<bool> isPhoneUsed(String value) async {
+Future<bool> isPhoneUsed(String value, String isBusiness) async {
+  Map<dynamic, dynamic> mapUser;
+  bool test = false;
   DataSnapshot datas = await FirebaseDatabase.instance
-      .reference()
-      .child('users')
-      .orderByChild("phoneNumber")
-      .equalTo(value)
-      .once();
-  print(datas.value);
-  if (datas.value != null) return true;
-  datas = await FirebaseDatabase.instance
       .reference()
       .child('business')
       .orderByChild("phoneNumber")
       .equalTo(value)
       .once();
   if (datas.value != null) return true;
-  return false;
+
+  datas = await FirebaseDatabase.instance
+      .reference()
+      .child('users')
+      .orderByChild("phoneNumber")
+      .equalTo(value)
+      .once();
+  print(datas.value);
+  mapUser = datas.value;
+  if (mapUser != null)
+    mapUser.forEach((k, v) {
+      print(k + "  " + isBusiness);
+      if (k != isBusiness) test = true;
+    });
+
+  return test;
 }
 
 Future<bool> isPro(String value) async {

@@ -120,6 +120,10 @@ class PrestationsFormState extends State<PrestationsForm> {
                                     max: 300,
                                     min: 5,
                                     divisions: 59,
+                                    label:
+                                    '${format.format(duration.toInt() ~/ 60)}' +
+                                        " h " +
+                                        '${format.format(duration.toInt() % 60)}' ,
                                     onChanged: (newRating) {
                                       setState(() => duration = newRating);
                                     },
