@@ -94,12 +94,15 @@ Future<bool> isPhoneUsed(String value, String isBusiness) async {
       .once();
   print(datas.value);
   mapUser = datas.value;
-  if (mapUser != null)
+  if (mapUser != null) {
+  if(isBusiness!=null)
+     test=true;
+  else
     mapUser.forEach((k, v) {
-      print(k + "  " + isBusiness);
-      if (k != isBusiness) test = true;
+      if (k != isBusiness)
+        test = true;
     });
-
+  }
   return test;
 }
 
